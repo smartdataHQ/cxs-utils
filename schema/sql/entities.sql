@@ -1,3 +1,6 @@
+-- ClickHouse SQL script for setting up the Nova CDR database
+-- Entities are also stored in a Neo4j graph database, so the schema is designed to be compatible with both systems.
+-- This schema defines the structure of the entities table, which stores information about various entities in the system.
 CREATE TABLE IF NOT EXISTS entities (
     `gid`                       UUID,                           -- The Graph UUID of the entity
     `gid_url`                   String,                         -- The URL of the entity's GID
