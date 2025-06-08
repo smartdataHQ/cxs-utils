@@ -33,7 +33,7 @@
     "capacity": {
       "description": "The capacity or extent of the entity's involvement in the event. If fractional, this represents the fraction (e.g., 0.5 for half involvement of a person).",
       "type": ["null", "number"],
-      "format": "float"
+      "format": "double"
     }
   },
   "required": [

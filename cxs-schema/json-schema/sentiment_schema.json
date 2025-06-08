@@ -16,7 +16,7 @@
     },
     "entity_type": {
       "description": "The type of the entity that the sentiment is about.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "entity_gid": {
       "description": "The GID of the entity that the sentiment is expressed about.",
@@ -25,7 +25,7 @@
     },
     "id_type": {
       "description": "The ID type of the entity that the sentiment is expressed about.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "id": {
       "description": "The ID of the entity that the sentiment is expressed about.",
@@ -33,11 +33,11 @@
     },
     "target_category": {
       "description": "The category of the target of the sentiment.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "target_type": {
       "description": "The type of the target of the sentiment.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "target_entity": {
       "description": "The specific target entity of the sentiment.",
@@ -50,6 +50,10 @@
   },
   "required": [
     "type",
-    "sentiment"
+    "sentiment",
+    "entity_type",
+    "id_type",
+    "target_category",
+    "target_type"
   ]
 }
