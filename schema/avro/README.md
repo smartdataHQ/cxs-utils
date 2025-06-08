@@ -24,14 +24,14 @@ This section provides guidance for developers working with Avro schemas in the `
 
 ### Defining New Schemas
 
--   **Namespace:** All schemas should belong to the `com.cxs.schema` namespace.
+-   **Namespace:** All schemas should belong to the `com.contextsuite.schema` namespace.
 -   **File Naming:** Schema files should be named descriptively using snake_case (e.g., `my_new_schema.avsc`).
 -   **Record Types:** Define data structures as `record` types.
 -   **Fields:**
     -   Use clear and descriptive names for fields.
     -   Provide a `doc` attribute for each field to explain its purpose.
     -   Specify appropriate Avro data types. For optional fields, use a union with `null` (e.g., `["null", "string"]`) and provide a `default: null` value.
-    -   For fields that reference other schemas, use the fully qualified name of the schema (e.g., `com.cxs.schema.AnotherSchema`).
+    -   For fields that reference other schemas, use the fully qualified name of the schema (e.g., `com.contextsuite.schema.AnotherSchema`).
 
 ### Compiling Schemas
 
@@ -100,8 +100,8 @@ Once schemas are defined (and optionally compiled), you can use them in your app
 
 -   **Java Example (using generated classes):**
     ```java
-    // Assuming you have compiled SemanticEvent.avsc to com.cxs.schema.SemanticEvent
-    // and BaseEventInfo.avsc to com.cxs.schema.BaseEventInfo, etc.
+    // Assuming you have compiled SemanticEvent.avsc to com.contextsuite.schema.SemanticEvent
+    // and BaseEventInfo.avsc to com.contextsuite.schema.BaseEventInfo, etc.
 
     // Creating an event
     BaseEventInfo baseInfo = BaseEventInfo.newBuilder()

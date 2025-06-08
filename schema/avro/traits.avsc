@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Traits",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "id",

@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "UserAgent",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "mobile",
@@ -23,7 +23,7 @@
     },
     {
       "name": "data",
-      "type": ["null", "com.cxs.schema.UserAgentData"],
+      "type": ["null", "com.contextsuite.schema.UserAgentData"],
       "default": null,
       "doc": "User agent data including brand and version"
     }

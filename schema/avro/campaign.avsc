@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Campaign",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "campaign",

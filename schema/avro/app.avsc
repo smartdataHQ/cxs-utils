@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "App",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "build",

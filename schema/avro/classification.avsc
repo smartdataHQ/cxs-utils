@@ -1,7 +1,7 @@
 {
   "type": "record",
-  "name": "SemanticEventClassification",
-  "namespace": "com.cxs.schema",
+  "name": "Classification",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "type",

@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Commerce",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "details",
@@ -155,7 +155,7 @@
     },
     {
       "name": "products",
-      "type": {"type": "array", "items": "com.cxs.schema.Product"},
+      "type": {"type": "array", "items": "com.contextsuite.schema.Product"},
       "default": [],
       "doc": "Products involved in the commerce event"
     }

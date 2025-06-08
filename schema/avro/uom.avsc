@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "UOMModel",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "code",

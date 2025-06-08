@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Screen",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "density",

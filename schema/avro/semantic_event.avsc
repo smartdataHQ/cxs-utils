@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "SemanticEvent",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "event_gid",
@@ -37,151 +37,151 @@
     },
     {
       "name": "base_event_info",
-      "type": "com.cxs.schema.BaseEventInfo"
+      "type": "BaseEventInfo"
     },
     {
       "name": "access_info",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.AccessInfo"}],
+      "type": ["null", {"type": "array", "items": "AccessInfo"}],
       "default": null
     },
     {
       "name": "analysis",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Analysis"}],
+      "type": ["null", {"type": "array", "items": "Analysis"}],
       "default": null
     },
     {
       "name": "app",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.App"}],
+      "type": ["null", {"type": "array", "items": "App"}],
       "default": null
     },
     {
       "name": "campaign",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Campaign"}],
+      "type": ["null", {"type": "array", "items": "Campaign"}],
       "default": null
     },
     {
       "name": "commerce",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Commerce"}],
+      "type": ["null", {"type": "array", "items": "Commerce"}],
       "default": null
     },
     {
       "name": "content",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Content"}],
+      "type": ["null", {"type": "array", "items": "Content"}],
       "default": null
     },
     {
       "name": "context",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Context"}],
+      "type": ["null", {"type": "array", "items": "Context"}],
       "default": null
     },
     {
       "name": "contextual_awareness",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.ContextualAwareness"}],
+      "type": ["null", {"type": "array", "items": "ContextualAwareness"}],
       "default": null
     },
     {
       "name": "device",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Device"}],
+      "type": ["null", {"type": "array", "items": "Device"}],
       "default": null
     },
     {
       "name": "embeddings",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Embeddings"}],
+      "type": ["null", {"type": "array", "items": "Embeddings"}],
       "default": null
     },
     {
       "name": "entity",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Entity"}],
+      "type": ["null", {"type": "array", "items": "Entity"}],
       "default": null
     },
     {
       "name": "id",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Id"}],
+      "type": ["null", {"type": "array", "items": "Id"}],
       "default": null
     },
     {
       "name": "involved",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Involved"}],
+      "type": ["null", {"type": "array", "items": "Involved"}],
       "default": null
     },
     {
       "name": "library",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Library"}],
+      "type": ["null", {"type": "array", "items": "Library"}],
       "default": null
     },
     {
       "name": "media",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Media"}],
+      "type": ["null", {"type": "array", "items": "Media"}],
       "default": null
     },
     {
       "name": "network",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Network"}],
+      "type": ["null", {"type": "array", "items": "Network"}],
       "default": null
     },
     {
       "name": "os",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Os"}],
+      "type": ["null", {"type": "array", "items": "Os"}],
       "default": null
     },
     {
       "name": "page",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Page"}],
+      "type": ["null", {"type": "array", "items": "Page"}],
       "default": null
     },
     {
       "name": "product",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Product"}],
+      "type": ["null", {"type": "array", "items": "Product"}],
       "default": null
     },
     {
       "name": "referrer",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Referrer"}],
+      "type": ["null", {"type": "array", "items": "Referrer"}],
       "default": null
     },
     {
       "name": "screen",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Screen"}],
+      "type": ["null", {"type": "array", "items": "Screen"}],
       "default": null
     },
     {
-      "name": "semantic_event_classification",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.SemanticEventClassification"}],
+      "name": "classification",
+      "type": ["null", {"type": "array", "items": "Classification"}],
       "default": null
     },
     {
-      "name": "semantic_event_location",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.SemanticEventLocation"}],
+      "name": "location",
+      "type": ["null", {"type": "array", "items": "Location"}],
       "default": null
     },
     {
       "name": "sentiment",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Sentiment"}],
+      "type": ["null", {"type": "array", "items": "Sentiment"}],
       "default": null
     },
     {
       "name": "source_info",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.SourceInfo"}],
+      "type": ["null", {"type": "array", "items": "SourceInfo"}],
       "default": null
     },
     {
       "name": "traits",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Traits"}],
+      "type": ["null", {"type": "array", "items": "Traits"}],
       "default": null
     },
     {
       "name": "uom",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.Uom"}],
+      "type": ["null", {"type": "array", "items": "Uom"}],
       "default": null
     },
     {
       "name": "user_agent",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.UserAgent"}],
+      "type": ["null", {"type": "array", "items": "UserAgent"}],
       "default": null
     },
     {
       "name": "user_agent_data",
-      "type": ["null", {"type": "array", "items": "com.cxs.schema.UserAgentData"}],
+      "type": ["null", {"type": "array", "items": "UserAgentData"}],
       "default": null
     }
   ]

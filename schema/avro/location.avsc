@@ -1,7 +1,7 @@
 {
   "type": "record",
-  "name": "SemanticEventLocation",
-  "namespace": "com.cxs.schema",
+  "name": "Location",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "location_of",

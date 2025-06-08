@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Analysis",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "item",

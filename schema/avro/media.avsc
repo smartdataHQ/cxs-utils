@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Media",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "media_type",

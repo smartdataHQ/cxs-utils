@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "BaseEventInfo",
-  "namespace": "com.cxs.schema",
+  "namespace": "com.contextsuite.schema",
   "fields": [
     {
       "name": "event_gid",
