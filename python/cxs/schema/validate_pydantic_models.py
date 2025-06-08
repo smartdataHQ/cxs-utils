@@ -10,7 +10,7 @@ def get_pydantic_library():
     Returns the 'pydantic' module object or None if it cannot be imported/installed.
     """
     try:
-        import pydantic
+        from cxs.schema import pydantic
         return pydantic
     except ImportError:
         print("Pydantic library not found. Attempting to install pydantic...")
