@@ -216,14 +216,9 @@
     }
   },
   "required": [
-    "entity_gid",
     "timestamp",
     "type",
-    "event",
     "message_id",
-    "event_gid",
-    "root_event_gid",
-    "write_key",
-    "partition"
+    "write_key"
   ]
 }

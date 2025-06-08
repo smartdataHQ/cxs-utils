@@ -130,10 +130,7 @@
     }
   },
   "required": [
-    "gid",
     "gid_url",
-    "group_gid",
-    "group_gid_url",
     "label",
     "slug",
     "metrics",

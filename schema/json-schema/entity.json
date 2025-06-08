@@ -138,8 +138,8 @@
     }
   },
   "required": [
-    "gid",
     "gid_url",
-    "label"
+    "label",
+    "type"
   ]
 }

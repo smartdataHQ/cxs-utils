@@ -111,7 +111,8 @@
     "metrics": {
       "description": "Metrics for the datapoint - the measurement.",
       "type": "object",
-      "additionalProperties": { "type": "number", "format": "double" }
+      "additionalProperties": { "type": "number", "format": "double" },
+      "minItems": 1
     },
     "mtype": {
       "description": "The measurement type for a metric.",
@@ -119,9 +120,10 @@
       "additionalProperties": { "type": "string" }
     },
     "uom": {
-      "description": "Unit of measure for the metrics. All UOM are linked to a UOM Entity.",
+      "description": "Unit of measure for the metrics. All UOM are linked to a UOM Entity. Must be defined for every metric in the data point.",
       "type": ["null", "object"],
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": { "type": "string" },
+      "minItems": 1
     },
     "of_what": {
       "description": "What the metric is measuring, often based on a standard (e.g., from Wikidata/DBPedia). The key is the metric name and the value is the standard (e.g., 'population', 'oil', 'humidity', etc.).",
@@ -135,8 +137,8 @@
     },
     "access_type": {
       "description": "Access type for the data point, derived from an Enum in the source database defining levels like Local, Exclusive, Group, Shared, Public etc.",
-      "type": ["null", "string"],
-      "enum": [null, "Local", "Exclusive", "Group", "SharedPercentiles", "SharedObfuscated", "Shared", "Public"],
+      "type": ["string"],
+      "enum": ["Local", "Exclusive", "Group", "SharedPercentiles", "SharedObfuscated", "Shared", "Public"],
       "default": "Exclusive"
     },
     "signature": {
@@ -157,7 +159,7 @@
   "required": [
     "series_gid",
     "timestamp",
-    "metrics",
-    "signature"
+    "period",
+    "metrics"
   ]
 }
