@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/classification_schema.json",
+  "title": "ContextSuite Classification",
+  "description": "Schema for classification information, usable for entities and events.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of classification (e.g., 'Intent', 'Category', 'Tag'). For entities, this might be 'event category->subcategory'.",
+      "type": "string"
+    },
+    "value": {
+      "description": "The value of the classification (e.g., 'Sports->Football', 'Order Inquiry').",
+      "type": "string"
+    },
+    "babelnet_id": {
+      "description": "BabelNet ID for the classification concept (primarily for entities).",
+      "type": ["null", "string"]
+    },
+    "reasoning": {
+      "description": "The reasoning behind the classification (primarily for semantic events).",
+      "type": ["null", "string"]
+    },
+    "score": {
+      "description": "The score of the classification (primarily for semantic events).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "confidence": {
+      "description": "The confidence of the classification from a model (primarily for semantic events).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "weight": {
+      "description": "The relevance of the classification.",
+      "type": "number",
+      "format": "float",
+      "default": 0.0
+    }
+  },
+  "required": [
+    "type",
+    "value"
+  ]
+}
