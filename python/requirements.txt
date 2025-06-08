@@ -1,2 +1,4 @@
-aiohttp
-aioresponses
+requests==2.32.3
+pydantic==2.11.5
+aiohttp==3.12.11
+aioresponses==0.7.8

@@ -1,5 +1,4 @@
-__import__("pkg_resources").declare_namespace(__name__)
-
+from cxs.core.utils.schema_builder import ExtendableBaseModel
 import pydantic
 
 from pydantic import BaseModel
