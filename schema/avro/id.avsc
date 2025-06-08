@@ -11,14 +11,12 @@
     },
     {
       "name": "role",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The role of the entity in the event"
     },
     {
       "name": "entity_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of the entity that is involved in the event"
     },
     {
@@ -35,13 +33,12 @@
     },
     {
       "name": "id_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The ID of the entity that is involved in the event"
     },
     {
       "name": "capacity",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The capacity of the entity in the event"
     }

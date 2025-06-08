@@ -5,8 +5,7 @@
   "fields": [
     {
       "name": "content_key",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of content (e.g. \\\"body\\\", \\\"subject\\\", \\\"title\\\", \\\"description\\\", \\\"summary\\\", \\\"quick response\\\", \\\"other\\\")"
     },
     {
@@ -47,7 +46,7 @@
     },
     {
       "name": "certainty",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The certainty of the entity linking"
     }

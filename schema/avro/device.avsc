@@ -11,80 +11,67 @@
     },
     {
       "name": "id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The manufacturer id for the device (e.g. \\\"e3bcf3f796b9f377284bfbfbcf1f8f92b6\\\")"
     },
     {
       "name": "version",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The device version (e.g. \\\"9.1\\\")"
     },
     {
       "name": "mac_address",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The device mac address (e.g. \\\"00:00:00:00:00:00\\\")"
     },
     {
       "name": "manufacturer",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The manufacturer of the device (e.g. \\\"Apple\\\")"
     },
     {
       "name": "model",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The model of the device (e.g. \\\"iPhone 6\\\")"
     },
     {
       "name": "name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the device (e.g. \\\"Nexus 5\\\")"
     },
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of the device (e.g. \\\"Mobile\\\", \\\"Tablet\\\", \\\"Desktop\\\", \\\"TV\\\", \\\"Wearable\\\", \\\"Other\\\")"
     },
     {
       "name": "token",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The token of the device (e.g. \\\"e3bcf3f796b9f377284bfbfbcf1f8f92b6\\\")"
     },
     {
       "name": "locale",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The locale of the device (e.g. \\\"en-US\\\")"
     },
     {
       "name": "timezone",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The timezone of the device (e.g. \\\"America/Los_Angeles\\\")"
     },
     {
       "name": "brand",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The manufacturer of the device (e.g. \\\"Apple\\\")"
     },
     {
       "name": "variant",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The variant of the device (e.g. \\\"iPhone 6s\\\")"
     },
     {
       "name": "advertising_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The advertising ID of the device (e.g. \\\"350e9d90-d7f5-11e4-b9d6-1681e6b88ec1\\\")"
     }
   ]

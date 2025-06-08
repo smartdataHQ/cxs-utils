@@ -5,14 +5,12 @@
   "fields": [
     {
       "name": "name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the library (e.g. \\\"analytics-ios\\\")"
     },
     {
       "name": "version",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The version of the library (e.g. \\\"3.0.0\\\")"
     }
   ]

@@ -5,68 +5,57 @@
   "fields": [
     {
       "name": "id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The ID of the user"
     },
     {
       "name": "name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the user"
     },
     {
       "name": "first_name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The first name of the user"
     },
     {
       "name": "last_name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The last name of the user"
     },
     {
       "name": "social_security_nr",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The social security number of the user"
     },
     {
       "name": "social_security_nr_family",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The social security number of the user"
     },
     {
       "name": "email",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The email of the user"
     },
     {
       "name": "phone",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The phone number of the user"
     },
     {
       "name": "avatar",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The avatar of the user"
     },
     {
       "name": "username",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The username of the user"
     },
     {
       "name": "website",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The website of the user"
     },
     {
@@ -89,44 +78,37 @@
     },
     {
       "name": "company",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The company of the user"
     },
     {
       "name": "title",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The title of the user"
     },
     {
       "name": "gender",
-      "type": ["null", "string"],
-      "default": null,
-      "doc": "Gender of the user. SQL Enum8(...)"
+      "type": "string",
+      "doc": "Enum8('Male'=1, 'Female'=2, 'Transgender'=3, 'Non-Binary'=4, 'Gender Queer'=5, 'Gender Fluid'=6, 'Gender Neutral'=7, 'Intersex'=8, 'Gender Non-Conforming'=9, 'Gender-Expansive'=10, 'Agender'=11, 'Gendervoid'=12, 'Bigender'=13, 'Omnigender'=14, 'Pangender'=15, 'Two-spirit'=16, 'Trans'=17, 'No Response'=0, ''=99), --"
     },
     {
       "name": "pronouns",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The pronouns of the user"
     },
     {
       "name": "salutation",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The salutation of the user"
     },
     {
       "name": "description",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "A general description of the user"
     },
     {
       "name": "industry",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The industry of the user"
     },
     {
@@ -137,13 +119,12 @@
     },
     {
       "name": "plan",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The plan of the user"
     },
     {
       "name": "total_billed",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The total billed of the user"
     },

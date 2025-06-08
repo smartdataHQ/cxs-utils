@@ -1,0 +1,38 @@
+{
+  "type": "record",
+  "name": "BaseEventInfo",
+  "namespace": "com.contextsuite.schema",
+  "doc": "Information about a base event, often used when an event is derived from one or more root events.",
+  "fields": [
+    {
+      "name": "event_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The event gid of the root event"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "doc": "The type of the event (e.g. \\\"page\\\", \\\"track\\\", \\\"identify\\\", \\\"group\\\", \\\"alias\\\", \\\"screen\\\", \\\"commerce\\\")"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "doc": "The name of the event (e.g. \\\"Page Viewed\\\", \\\"Product Added\\\", \\\"User Signed Up\\\")"
+    },
+    {
+      "name": "timestamp",
+      "type": {"type": "long", "logicalType": "timestamp-micros"},
+      "doc": "The timestamp of the event in UTC (e.g. \\\"2022-01-01 00:00:00\\\")"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "doc": "The message ID of the base event"
+    },
+    {
+      "name": "entity_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The entity GID of the event"
+    }
+  ]
+}

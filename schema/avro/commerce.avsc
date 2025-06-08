@@ -29,8 +29,7 @@
     },
     {
       "name": "employee_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Unique ID for the employee working the terminal/register"
     },
     {
@@ -41,50 +40,42 @@
     },
     {
       "name": "terminal_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Unique External ID for the terminal used for the transaction"
     },
     {
       "name": "affiliation_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Unique ID for the affiliation"
     },
     {
       "name": "affiliation",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Store or affiliation from which this transaction occurred (for example, Google Store)"
     },
     {
       "name": "agent",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The Agent responsible for the sale"
     },
     {
       "name": "agent_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The ID of the Agent responsible for the sale"
     },
     {
       "name": "sold_location",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The location where the sale occurred"
     },
     {
       "name": "sold_location_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The ID of the location where the sale occurred"
     },
     {
       "name": "business_day",
-      "type": ["null", {"type": "int", "logicalType": "date"}],
-      "default": null,
+      "type": {"type": "int", "logicalType": "date"},
       "doc": "The business day of the transaction"
     },
     {
@@ -119,8 +110,7 @@
     },
     {
       "name": "currency",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Currency code associated with the transaction"
     },
     {
@@ -131,20 +121,17 @@
     },
     {
       "name": "coupon",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Transaction coupon redeemed with the transaction"
     },
     {
       "name": "payment_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Type of payment (ex. Card, Paypal, Cash, etc.)"
     },
     {
       "name": "payment_sub_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Subtype of payment (ex. Visa, Mastercard, etc.)"
     },
     {
@@ -157,7 +144,7 @@
       "name": "products",
       "type": {"type": "array", "items": "com.contextsuite.schema.Product"},
       "default": [],
-      "doc": "Products involved in the commerce event"
+      "doc": "Individual products in the order, cart, product list, wishlist, etc."
     }
   ]
 }
