@@ -105,26 +105,28 @@ class TSCategory(str, Enum):
     Transportation = 'Transportation'
     Weather = 'Weather'
 
-class DefinedMetric(BaseModel):
-    gid_url: str # RDF URL for the time series
-    gid: uuid.UUID = Field(description="Event gid that must be set before saving the event. Calculate")
+from typing import Dict, Any, Optional, List, Annotated # Ensure Annotated is imported
 
-    category: str # The category of the metric
-    label: str # The full name of the metric
-    slug: str  # The slug of the metric as used in metrics{'slug': value}
+class DefinedMetric(BaseModel): # Assuming it should inherit from CXSBase if OmitIfNone behavior is desired from base
+    gid_url: str = Field(..., description="RDF URL for the metric definition.") # SQL: String
+    gid: uuid.UUID = Field(..., description="Unique GID for the metric definition.") # SQL: UUID
 
-    # all values are stored using this format, scaled values is not allowed
-    uom: UOM = Field(..., description='The unit of measure for the metric') #Removed: , max_digits=4 - not applicable to string value
+    category: str = Field(..., description="The category of the metric.") # SQL: LowCardinality(String)
+    label: str = Field(..., description="The full human-readable name of the metric.") # SQL: String
+    slug: str  = Field(..., description="The slug of the metric, used as a key in metrics dictionaries.") # SQL: String
 
-    currency: Optional[str] = Field(description='The currency of the metric', default='') # The currency of the metric
-    adj_type: Optional[TMAmountAdj] = Field(description= 'Adjustment type for the metric', default=TMAmountAdj.NotAdjusted) # The adjustment type for the metric
-    adj_date: Optional[str] = Field(description='Date of adjustment', default='')
+    uom: UOM = Field(..., description='The unit of measure for the metric.') # SQL: String (enum name/value stored)
 
-    wid: Optional[str] = Field(..., description='WikiData ID for what is being measured. Q15645384 -> https://www.wikidata.org/wiki/Q15645384')
-    concept_id: Optional[str] = Field(..., description='Concept ID for what is being measured. wheat -> https://conceptnet.io/c/en/wheat')
-    synset_id: Optional[str] = Field(..., description='Concept ID for what is being measured. bn:00080959n -> https://babelnet.org/synset?id=bn:00080959n&orig=wheat')
+    currency: Annotated[Optional[str], OmitIfNone()] = Field(default="", description='The currency of the metric if applicable (e.g., USD).') # SQL: LowCardinality(String)
+    adj_type: Annotated[Optional[TMAmountAdj], OmitIfNone()] = Field(default=TMAmountAdj.NotAdjusted, description= 'Adjustment type for the metric if it is a monetary value.') # SQL: LowCardinality(String)
+    adj_date: Annotated[Optional[str], OmitIfNone()] = Field(default="", description='Date of adjustment if the monetary value is adjusted.') # SQL: LowCardinality(String)
 
-    agg: DefaultAgg = Field(description='Default aggregation type for the metric', default=DefaultAgg.Sum) # The default aggregation type for the metric
+    wid: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description='WikiData ID for what is being measured (e.g., Q15645384).') # SQL: LowCardinality(String)
+    concept_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description='Concept ID from a knowledge graph (e.g., ConceptNet ID like /c/en/wheat).') # SQL: LowCardinality(String)
+    synset_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description='Synset ID from a lexical database (e.g., BabelNet ID like bn:00080959n).') # SQL: LowCardinality(String)
+    properties: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description='Additional properties for the metric definition.') # SQL: Map
+
+    agg: Annotated[Optional[DefaultAgg], OmitIfNone()] = Field(default=DefaultAgg.Sum, description='Default aggregation type for the metric.') # SQL: LowCardinality(String)
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -149,46 +151,50 @@ class DefinedMetric(BaseModel):
 
         return values
 
-class DPEntity(BaseModel):
-    label: str
-    type: str
-    gid: uuid.UUID = Field(
-        description="Event gid that must be set before saving the event. Calculate",
-        default=uuid.UUID("00000000-0000-0000-0000-000000000000"),
-    )
-    gid_url: str
+class DPEntity(BaseModel): # Assuming it should inherit from CXSBase if OmitIfNone behavior is desired from base
+    label: str = Field(..., description="Label of the DataPoint-related entity.")
+    type: str = Field(..., description="Type of the DataPoint-related entity.")
+    gid: uuid.UUID = Field(..., description="GID of the DataPoint-related entity.")
+    gid_url: str = Field(..., description="GID URL of the DataPoint-related entity.")
 
 class DataPoint(BaseModel):
+    series_gid: uuid.UUID = Field(..., description="The GID of the time series this data point belongs to.") # SQL: LowCardinality(UUID)
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="GID for the entity that the datapoint belongs to. Links to an Entity.") # SQL: LowCardinality(UUID)
+    entity_gid_url: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="GID URL for the entity that the datapoint belongs to.") # SQL: LowCardinality(String)
 
-    entity_gid: Optional[str] = Field(description='The entity of the data point', default=None) # the entity of the data point
-    entity_gid_url: Optional[str] = Field(description='The entity of the data point', default=None) # the entity of the data point
+    geohash: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Geolocation as a geohash (for clustering and sorting) - moves for non-stationary entities.") # SQL: LowCardinality(String)
+    period: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The resolution/frequency of the data iso 8691 format (e.g., 'PT1H' for hourly, 'P1D' for daily, 'P1M' for monthly, etc.).") # SQL: LowCardinality(String)
+    timestamp: datetime = Field(..., description="The calendar date and time (Hourly interval) (UTC) at the start of the period for which the data is reported. This is the timestamp of the datapoint, not the time it was ingested.") # SQL: DateTime
 
-    measured_by_gid: Optional[str] = Field(description='The gid of the entity that measured the data point', default=None) # the entity of the data point
-    measured_by_gid_url: Optional[str] = Field(description='The gid_url of the entity that measured the data point', default=None) # the entity of the data point
+    owner_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The GID of the owner that this datapoint belongs to. Links to an Entity.") # SQL: LowCardinality(UUID)
+    source_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The GID of the source that this datapoint belongs to. Links to an Entity.") # SQL: LowCardinality(UUID)
+    publisher_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The GID of the publisher that this datapoint belongs to. Links to an Entity.") # SQL: LowCardinality(UUID)
+    publication_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The GID of the source that this datapoint belongs to. Links to an Entity.") # SQL: LowCardinality(UUID) (comment says source, likely means publication)
 
-    timestamp: datetime # the timestamp of the data point
+    dimensions: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Dimensions for the entity - low cardinality string keys to allow for flexible dimensions and fit on a dashboard breaking down the datapoint.")
+    metrics: Dict[str, float] = Field(..., description="Metrics for the datapoint - the measurement.") # SQL: Map(LowCardinality(String), Float64)
 
-    dimensions: Optional[Dict[str, str]] = Field(description='Dimensions dictionary for this datapoint', default=dict()) # the dimensions of the data point
-    metrics: Dict[str, float] = Field(description='Metrics dictionary for this datapoint')
+    gids: Annotated[Optional[Dict[str, uuid.UUID]], OmitIfNone()] = Field(default_factory=dict, description="Additional links to Named Entities.") # SQL: Map(LowCardinality(String), LowCardinality(UUID))
+    location: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional geography for the datapoint.")
+    demography: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional demography for the datapoint.")
+    classification: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional classification for the datapoint.")
+    topology: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional topology for the datapoint.")
+    usage: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional usage for the datapoint.")
+    device: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional device for the datapoint.")
+    product: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional product for the datapoint.")
 
-    location: Optional[Location] = Field(description='The location of the data point', default=None) # the location of the data point
-    demography: Optional[Dict[str, str]] = Field(description='The demography metadata for this data point', default=dict()) # the location of the data point
-    classification: Optional[Dict[str, str]] = Field(description='Classification metadata for this datapoint', default=dict()) # the classification of the data point
-    topology: Optional[Dict[str, str]] = Field(description='Topology metadata for this datapoint', default=dict()) # the topology of the data point
-    usage: Optional[Dict[str, str]] = Field(description='Usage metadata for this datapoint', default=dict()) # the usage of the data point
-    device: Optional[Dict[str, str]] = Field(description='Device metadata for this datapoint', default=dict()) # the device of the data point
-    product: Optional[Dict[str, str]] = Field(description='Product metadata for this datapoint', default=dict()) # the device of the data point
+    flags: Annotated[Optional[Dict[str, bool]], OmitIfNone()] = Field(default_factory=dict, description="Additional flags for the datapoint.")
+    tags: Annotated[Optional[list[str]], OmitIfNone()] = Field(default_factory=list, description="Additional tags for the datapoint.")
 
-    flags: Optional[Dict[str, bool]] = Field(description='Flags metadata for this datapoint', default=dict()) # the flags of the data point
-    tags: Optional[list[str]] = Field(description='Tags metadata for this datapoint', default=list()) # the tags of the data point
+    mtype: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="The measurement type for a metrics.")
+    uom: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Unit of measure for the metrics - All UOM are linked to a UOM Entity.")
+    of_what: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="What is the metric measuring usually a standard based if from Wikidata/dbPedia etc. the key is the metric name and the value is the standard (e.g., 'population', 'oil', 'humidity', etc.).")
+    agg_method: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="The default aggregation method for the metric the key is the metric name and the value is the aggregation method (e.g., 'sum', 'avg', 'max', 'min', etc.).")
 
-    # Stop using this and favor a timeseries based metadata
-    # mtype: Optional[Dict[str, str]] = Field(description='Measurement type metadata for this datapoint', default=dict()) # the measurement type of the data point
-    # uom: Optional[Dict[str, str]] = Field(description='Unit of measure metadata for this datapoint', default=dict()) # the unit of measure of the data point
-    # of_what: Optional[Dict[str, str]] = Field(description='What is being measured metadata for this datapoint', default=dict()) # the what is being measured of the data point
-
-    access_type: Optional[TSAccess] = Field(description='Access type for the data point', default=TSAccess.Public) # The access type for the data point
-    signature: Optional[uuid.UUID] = Field(description="Used to discriminate between different versions of the same data point", default=None)
+    access_type: Annotated[Optional[TSAccess], OmitIfNone()] = Field(default=TSAccess.Exclusive, description="Access type for the data point. SQL Enum8('Local' = 0, 'Exclusive' = 1, ...)")
+    signature: uuid.UUID = Field(..., description="The signature of the time_series + dimensions + of_what + metrics - used to ensure the right entries can be updated/replaced.")
+    partition: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The version of the event message (used for partitioning).") # SQL comment "The version of the event message" - likely means partition key
+    sign: int = Field(default=1, description="Sign for ReplacingMergeTree engine, indicating version or active status.")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -204,43 +210,40 @@ class DataPoint(BaseModel):
         values.update(new_structure)
         return values
 
-class TimeSeries(BaseModel):
-    # For external datasets we use URL: https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx
-    # For interna datasets we use our URL: https://quicklookup/timeseries/Energy/Prices
-    # Specific Timeseries or generic, both are good (External are usually specific)
-    # For internal datasets we use our URL: https://quicklookup/timeseries/Energy/Prices/<publisher>/<publication>/<series_type>/<slug>
-    # With multiple metrics URL: https://quicklookup/timeseries/Energy/Prices/<publisher>/<publication>/<series_type>/<slug>/<metric_slug_1>
-    # With multiple metrics URL: https://quicklookup/timeseries/Energy/Prices/<publisher>/<publication>/<series_type>/<slug>/<metric_slug_2>
-    # With multiple metrics URL: https://quicklookup/timeseries/Energy/Prices/<publisher>/<publication>/<series_type>/<slug>/<metric_slug_2>
+class TimeSeries(BaseModel): # Assuming it should inherit from CXSBase if OmitIfNone behavior is desired from base
+    gid_url: str = Field(..., description="RDF URL for the time series, defining its global unique identifier.") # SQL: String
+    gid: uuid.UUID = Field(..., description="Unique GID for the time series, derived from gid_url.") # SQL: UUID
 
-    gid_url: str # RDF URL for the time series
-    gid: uuid.UUID = Field(description="Event gid that must be set before saving the event. Calculate")
+    group_gid_url: str = Field(..., description="RDF URL for the conceptual group this time series belongs to.") # SQL: String
+    group_gid: uuid.UUID = Field(..., description="Unique GID for the time series group, derived from group_gid_url.") # SQL: UUID
 
-    group_gid_url: str # RDF URL for the time series
-    group_gid: Optional[uuid.UUID] = Field(description="Event gid that must be set before saving the event. Calculate", default=None)
+    label: str = Field(..., description="Human-readable label for the time series.") # SQL: String
+    slug: str = Field(..., description="URL-friendly slug generated from the label.") # SQL: String
+    value_types: Annotated[Optional[ValueType], OmitIfNone()] = Field(default=ValueType.Actual, description="The nature of the values in the time series (e.g., Actual, Forecast).") # SQL: LowCardinality(String)
+    completeness: Annotated[Optional[TSCompleteness], OmitIfNone()] = Field(default=TSCompleteness.Complete, description="The completeness status of the time series data.") # SQL: LowCardinality(String)
 
-    label: str
-    slug: str
-    value_types: ValueType = Field(description='The value type of the time series', default=ValueType.Actual) # The value type of the time series
-    completeness: TSCompleteness = Field(description='The completeness of the time series', default=TSCompleteness.Complete) # The completeness of the time series
+    category: Annotated[Optional[TSCategory], OmitIfNone()] = Field(default=None, description="Primary category of the time series data (e.g., Economy, Environment).") # SQL: LowCardinality(String)
+    sub_category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Sub-category providing more specific classification.") # SQL: LowCardinality(String)
 
-    category: TSCategory
-    sub_category: Optional[str]
+    resolution: Annotated[Optional[TSResolution], OmitIfNone()] = Field(default=None, description="The resolution or frequency of data points (e.g., P1D for daily, PT1H for hourly).") # SQL: LowCardinality(String)
+    metrics: Dict[str, DefinedMetric] = Field(..., description="Dictionary of defined metrics included in this time series, keyed by metric slug.") # SQL: Nested (metrics definition)
 
-    resolution: TSResolution
-    metrics: Dict[str, DefinedMetric] # str = slug
-    datapoints: list[DataPoint] = Field(description='The data points of the time series', default=list()) # str = timestamp
+    owner: Annotated[Optional[Entity], OmitIfNone()] = Field(default=None, description="The entity that owns this time series data.") # Corresponds to owner_gid
+    source: Entity = Field(..., description="The entity that is the source of this time series data.") # Corresponds to source_gid
+    publisher: Annotated[Optional[Entity], OmitIfNone()] = Field(default=None, description="The entity that published this time series data.") # Corresponds to publisher_gid
+    publication: Annotated[Optional[Entity], OmitIfNone()] = Field(default=None, description="The specific publication this time series belongs to, if any.") # Corresponds to publication_gid
 
-    owner: Optional[Entity]
-    source: Entity
-    publisher: Optional[Entity]
-    publication: Optional[Entity] = Field(description='The publication of the time series', default=None) # The publication of the time series
-    series_type: Optional[TSType] = Field(description='Type of time series', default=TSType.MultiMetrics) # The type of time series
+    dimensions: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional (generic) dimensions for the time series.") # SQL: Map
+    tags: Annotated[Optional[list[str]], OmitIfNone()] = Field(default_factory=list, description="Additional tags for the time series.") # SQL: Array
+    flags: Annotated[Optional[Dict[str, bool]], OmitIfNone()] = Field(default_factory=dict, description="Additional boolean flags for the time series.") # SQL: Map
+    metric_gid: Annotated[Optional[Dict[str, uuid.UUID]], OmitIfNone()] = Field(default_factory=dict, description="Map of metric slugs to their GIDs, if they are also managed as separate entities.") # SQL: Map
+    properties: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional properties for the time series.") # SQL: Map
+    uom: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Primary or default unit of measure for the entire series, if applicable (e.g. for single-metric series).") # SQL: LowCardinality(String)
 
-    entities: Optional[list[Entity]] = Field(description='Type of time series', default=list())
+    datapoints: list[DataPoint] = Field(default_factory=list, description='The data points of the time series.')
 
-    access: TSAccess = Field(description='Access type for the time series', default=TSAccess.Public) # The access type for the time series
-    country: str = Field(description='Country Code is the partition for the time series', default='_open_') # The partition for the time series
+    access: Annotated[Optional[TSAccess], OmitIfNone()] = Field(default=TSAccess.Public, description="Access type for the time series. SQL Enum8(...) default 7 (Public).")
+    country: Annotated[Optional[str], OmitIfNone()] = Field(default='_open_', description='Country Code, often used for partitioning or regional context. Not a direct column in series.sql but important metadata.')
 
     def add_datapoints(self, df: pd.DataFrame):
         self.datapoints += [DataPoint(**item) for item in df.to_dict(orient='records')]
@@ -254,18 +257,38 @@ class TimeSeries(BaseModel):
 
         if not values.get("category"):
             raise ValueError("Category must be set")
-        if not values.get("sub_category"):
-            raise ValueError("Sub category must be set")
+        # sub_category is Optional[str] in Pydantic, LowCardinality(String) in SQL (implies non-null).
+        # If it's truly optional in logic, Pydantic is fine. If required, it should be str.
+        # For now, assume Pydantic Optional[str] is intended if it can be None.
+        # If SQL implies it's required (cannot be NULL), then Pydantic should be `str`.
+        # Given current Pydantic is Optional[str], validator should not raise error if None.
+        # The SQL schema `LowCardinality(String)` without `Nullable()` means it cannot be SQL NULL but can be an empty string.
+        # So, if sub_category is mandatory non-empty, Pydantic `str` is better. If it can be empty, `Optional[str]` with `default=""` or `str = ""`
+        if values.get("sub_category") is None: # Check if None, allow empty string if that's the convention
+             values["sub_category"] = "" # Or handle as error if truly mandatory non-empty
+
         if not values.get("label"):
             raise ValueError("Label must be set")
         if not values.get("resolution"):
             raise ValueError("Resolution must be set")
         if not values.get("owner"):
             raise ValueError("Owner must be set")
+        if not values.get("source"):
+             raise ValueError("Source must be set")
+        # publisher and publication are Optional[Entity], so they might not be set.
+        # No explicit check needed here unless they become mandatory.
         if not values.get("metrics"):
             raise ValueError("Metrics must be set")
         if not values.get("country"):
             raise ValueError("Country must be set")
+
+        # group_gid is non-optional, ensure it's derived if only URL is present initially
+        # This specific check might be less relevant now if group_gid is expected directly during instantiation
+        if not values.get("group_gid") and values.get("group_gid_url"):
+            values["group_gid"] = create_gid(values.get("group_gid_url"), normalize=True)
+        elif not values.get("group_gid_url") and values.get("group_gid"): # If GID provided, ensure URL is too (or derive)
+             # This part of logic might need defining how to derive URL from GID if that's a path
+             pass # Or raise error if both are needed and one is missing without derivable path
 
         values["slug"] = slugify.slugify(values["label"], separator='_')
 
@@ -275,14 +298,14 @@ class TimeSeries(BaseModel):
         if not values.get("completeness"):
             values["completeness"] = TSCompleteness.Complete
 
-        if not values.get("data_points"):
-            values["data_points"] = []
+        if not values.get("datapoints"): # field name is datapoints
+            values["datapoints"] = []
 
-        if not values.get("publisher") and values.get("owner"):
+        # Set default for publisher if owner is present and publisher is not
+        if values.get("owner") and not values.get("publisher"):
             values["publisher"] = values.get("owner")
-
-        if not values.get("source") and values.get("owner"):
-            values["source"] = values.get("owner")
+        # Set default for publication if not present (though it's Optional[Entity], so can be None)
+        # No explicit default needed for publication unless business logic dictates one (e.g. from source or owner)
 
         if not values.get("gid_url"):
             # For internal datasets we use our URL: https://quicklookup.com/timeseries/Energy/Prices/<series_type>/<slug>
@@ -300,6 +323,90 @@ class TimeSeries(BaseModel):
             raise ValueError(f"Country Code '{self.country}' is not a valid 3-character country code.")
 
 class TimeSeriesCH(TimeSeries):
+    # Aliased fields for ClickHouse GID columns
+    # Using a distinct name in Pydantic model (e.g. _owner_gid_ch) then aliasing
+    # can avoid confusion if base model also had a field named 'owner_gid'
+    # For this case, TimeSeries base does not have owner_gid, so direct aliasing is fine.
+    owner_gid_ch: uuid.UUID = Field(alias='owner_gid')
+    source_gid_ch: uuid.UUID = Field(alias='source_gid')
+    publisher_gid_ch: uuid.UUID = Field(alias='publisher_gid')
+    publication_gid_ch: uuid.UUID = Field(alias='publication_gid')
+
+    # This model validator runs before field validation on TimeSeriesCH itself,
+    # operating on the input data intended to create a TimeSeriesCH instance.
+    # If TimeSeriesCH is created from a TimeSeries instance, 'data' will be that instance.
+    @model_validator(mode='before')
+    @classmethod
+    def populate_gids_from_entities(cls, data: Any) -> Any:
+        # If data is already a dict (e.g. from model_dump), it might already have these.
+        # This validator is more useful when creating TimeSeriesCH from a TimeSeries object.
+
+        # Helper to get attribute if 'data' is an object, or get from dict
+        def _get_entity_attr(source_data: Any, attr_name: str) -> Optional[Entity]:
+            if isinstance(source_data, BaseModel):
+                return getattr(source_data, attr_name, None)
+            elif isinstance(source_data, dict):
+                return source_data.get(attr_name)
+            return None
+
+        # Helper to prepare data for TimeSeriesCH fields
+        # This assumes 'data' is a dictionary to be mutated, or converts object to dict
+        if not isinstance(data, dict): # If it's a TimeSeries object
+            # We need to convert the TimeSeries object to a dict to add/modify keys
+            # for the TimeSeriesCH constructor. We only operate on fields relevant here.
+            # The original entity objects (owner, source etc.) will be passed through
+            # from the base TimeSeries model.
+            # The goal here is to ensure the _gid_ch fields are populated for TimeSeriesCH.
+
+            # This validator is tricky with Pydantic v2 when passing a model instance.
+            # It's simpler if TimeSeriesCH is always initialized from a dictionary.
+            # Let's assume data is a dictionary for modification here.
+            # If 'data' is a TimeSeries instance, its fields are already validated.
+            # We are preparing the input *for TimeSeriesCH's own fields*.
+            pass # No direct mutation if 'data' is already a validated TimeSeries model.
+                 # The _gid_ch fields will be populated by their respective serializers if defined,
+                 # or need to be part of the input dict.
+
+        # This validator is better placed to run *after* the TimeSeries fields are processed (mode='after')
+        # or by using field_serializers for owner, source etc. if we wanted to transform them.
+        # Given the task description, the aim is that TimeSeriesCH itself should have fields
+        # owner_gid, source_gid etc. that are populated from the base's Entity objects.
+
+        # Let's adjust: Assume TimeSeriesCH is created from a TimeSeries instance.
+        # We need to ensure the output dict of TimeSeriesCH has these _gid fields.
+        # This implies that the input to TimeSeriesCH constructor will be a TimeSeries instance.
+        # The aliased fields will be part of TimeSeriesCH. We need to provide values for them.
+
+        # A different approach for populating these at construction or via specific serializers might be better.
+        # For now, let's assume this validator gets a dict or a TimeSeries object.
+
+        output_data = data if isinstance(data, dict) else data.model_dump()
+
+        owner_entity = _get_entity_attr(data, 'owner')
+        if owner_entity and owner_entity.gid:
+            output_data['owner_gid_ch'] = owner_entity.gid
+        elif not output_data.get('owner_gid_ch'): # SQL owner_gid is non-nullable
+             raise ValueError("Owner GID is required for TimeSeriesCH as owner_gid is non-nullable in SQL.")
+
+        source_entity = _get_entity_attr(data, 'source')
+        if source_entity and source_entity.gid:
+            output_data['source_gid_ch'] = source_entity.gid
+        elif not output_data.get('source_gid_ch'): # SQL source_gid is non-nullable
+            raise ValueError("Source GID is required for TimeSeriesCH as source_gid is non-nullable in SQL.")
+
+        publisher_entity = _get_entity_attr(data, 'publisher')
+        if publisher_entity and publisher_entity.gid:
+            output_data['publisher_gid_ch'] = publisher_entity.gid
+        elif not output_data.get('publisher_gid_ch'): # SQL publisher_gid is non-nullable
+            raise ValueError("Publisher GID is required for TimeSeriesCH as publisher_gid is non-nullable in SQL.")
+
+        publication_entity = _get_entity_attr(data, 'publication')
+        if publication_entity and publication_entity.gid:
+            output_data['publication_gid_ch'] = publication_entity.gid
+        elif not output_data.get('publication_gid_ch'): # SQL publication_gid is non-nullable
+            raise ValueError("Publication GID is required for TimeSeriesCH as publication_gid is non-nullable in SQL.")
+
+        return output_data
 
     @field_serializer("metrics","value_types", "resolution", "completeness", "access", "category", check_fields=False)
     def my_ch_serializer(self, value: Any, info: FieldSerializationInfo) -> Any:
@@ -308,14 +415,23 @@ class TimeSeriesCH(TimeSeries):
             items = {}
             for field in fields:
                 items['metrics.'+field] = []
-            for key, value in value.items():
-                if isinstance(value, DefinedMetric):
-                    for field in fields:
-                        items['metrics.'+field].append(str(getattr(value, field)))
+            for key, metric_value in value.items(): # Renamed value to metric_value for clarity
+                if isinstance(metric_value, DefinedMetric):
+                    for field_name in fields: # Renamed field to field_name for clarity
+                        attr = getattr(metric_value, field_name)
+                        item_to_append = "" # Default to empty string for None or unhandled
+                        if attr is not None:
+                            if field_name == "uom": # UOM enum has dicts as values
+                                item_to_append = str(attr.name)
+                            elif isinstance(attr, Enum): # For other enums like TMAmountAdj, DefaultAgg
+                                item_to_append = str(attr.value)
+                            else:
+                                item_to_append = str(attr)
+                        items[f'metrics.{field_name}'].append(item_to_append)
             return items
-        else:
+        else: # For top-level TimeSeries fields like resolution, completeness etc.
             if isinstance(value, Enum):
-                return value.name
+                return value.value # Using .value for consistency, assuming string enums
             else:
                 return value
 
