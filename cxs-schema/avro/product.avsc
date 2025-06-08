@@ -27,7 +27,8 @@
     },
     {
       "name": "entity_gid",
-      "type": {"type": "string", "logicalType": "uuid"},
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
       "doc": "Database id of the product being purchases"
     },
     {
@@ -398,14 +399,12 @@
     },
     {
       "name": "url",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "URL of the product page"
     },
     {
       "name": "img_url",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Image url of the product"
     }
   ]

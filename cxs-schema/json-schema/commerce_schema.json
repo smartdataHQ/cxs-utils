@@ -3,7 +3,7 @@
   "$id": "https://contextsuite.com/schemas/commerce_schema.json",
   "title": "ContextSuite Semantic Event Commerce",
   "description": "Schema for commerce-related information in a semantic event.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
     "details": {
       "description": "Other properties of the commerce event that cannot be mapped to the schema or have complex data types.",
@@ -23,7 +23,7 @@
     },
     "employee_id": {
       "description": "Unique ID for the employee working the terminal/register.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "external_order_id": {
       "description": "Unique External ID for the order.",
@@ -31,35 +31,35 @@
     },
     "terminal_id": {
       "description": "Unique External ID for the terminal used for the transaction.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "affiliation_id": {
       "description": "Unique ID for the affiliation.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "affiliation": {
       "description": "Store or affiliation from which this transaction occurred (e.g., Google Store).",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "agent": {
       "description": "The Agent responsible for the sale.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "agent_id": {
       "description": "The ID of the Agent responsible for the sale.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "sold_location": {
       "description": "The location where the sale occurred.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "sold_location_id": {
       "description": "The ID of the location where the sale occurred.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "business_day": {
       "description": "The business day of the transaction.",
-      "type": ["null", "string"],
+      "type": "string",
       "format": "date"
     },
     "revenue": {
@@ -89,25 +89,25 @@
     },
     "currency": {
       "description": "Currency code associated with the transaction (e.g., 'USD').",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "exchange_rate": {
       "description": "Currency exchange rate associated with the transaction.",
-      "type": ["null", "number"],
+      "type": "number",
       "format": "float",
       "default": 1.0
     },
     "coupon": {
       "description": "Transaction coupon redeemed with the transaction (e.g., 'SUMMER20').",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "payment_type": {
       "description": "Type of payment (e.g., 'Card', 'Paypal', 'Cash').",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "payment_sub_type": {
       "description": "Subtype of payment (e.g., 'Visa', 'Mastercard').",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "payment_details": {
       "description": "Details of the payment (e.g., last 4 digits of a credit card).",
@@ -118,5 +118,21 @@
       "items": { "$ref": "product_schema.json" }
     }
   },
+  "required": [
+    "employee_id",
+    "terminal_id",
+    "affiliation_id",
+    "affiliation",
+    "agent",
+    "agent_id",
+    "sold_location",
+    "sold_location_id",
+    "business_day",
+    "currency",
+    "exchange_rate",
+    "coupon",
+    "payment_type",
+    "payment_sub_type"
+  ],
   "additionalProperties": false
 }

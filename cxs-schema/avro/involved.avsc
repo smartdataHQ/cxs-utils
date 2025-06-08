@@ -38,7 +38,7 @@
     },
     {
       "name": "capacity",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The capacity of the entity in the event. If the involvement is fractional, this is the fraction of the entity that is involved in the event. (e.g. 0.5 for half of a person)"
     }

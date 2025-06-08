@@ -3,10 +3,14 @@
   "$id": "https://contextsuite.com/schemas/os_schema.json",
   "title": "ContextSuite Semantic Event Operating System",
   "description": "Schema for operating system information.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
-    "name": { "type": ["null", "string"], "description": "The name of the OS (e.g. \"iOS\")." },
-    "version": { "type": ["null", "string"], "description": "The version of the OS (e.g. \"9.1\")." }
+    "name": { "type": "string", "description": "The name of the OS (e.g. \"iOS\")." },
+    "version": { "type": "string", "description": "The version of the OS (e.g. \"9.1\")." }
   },
+  "required": [
+    "name",
+    "version"
+  ],
   "additionalProperties": false
 }

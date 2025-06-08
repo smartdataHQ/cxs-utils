@@ -21,19 +21,19 @@
     },
     {
       "name": "score",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The score of the classification"
     },
     {
       "name": "confidence",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The confidence of the classification from the classification model"
     },
     {
       "name": "weight",
-      "type": "float",
+      "type": "double",
       "default": 0.0,
       "doc": "The relevance of the classification"
     }

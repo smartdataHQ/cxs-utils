@@ -3,10 +3,14 @@
   "$id": "https://contextsuite.com/schemas/user_agent_data_schema.json",
   "title": "ContextSuite Semantic Event User Agent Data",
   "description": "Schema for user agent client hints data (brand and version), part of UserAgent.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
-    "brand": { "type": ["null", "string"], "description": "The brand reported by User-Agent Client Hints (e.g., 'Chromium')." },
-    "version": { "type": ["null", "string"], "description": "The version of the user agent brand reported by Client Hints." }
+    "brand": { "type": "string", "description": "The brand reported by User-Agent Client Hints (e.g., 'Chromium')." },
+    "version": { "type": "string", "description": "The version of the user agent brand reported by Client Hints." }
   },
+  "required": [
+    "brand",
+    "version"
+  ],
   "additionalProperties": false
 }

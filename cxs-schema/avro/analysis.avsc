@@ -20,7 +20,7 @@
     },
     {
       "name": "processing_time",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The process time of the item that is involved in the event"
     },
@@ -43,7 +43,7 @@
     },
     {
       "name": "amount",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The price of the item that is involved in the event"
     }

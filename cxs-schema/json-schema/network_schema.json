@@ -3,12 +3,15 @@
   "$id": "https://contextsuite.com/schemas/network_schema.json",
   "title": "ContextSuite Semantic Event Network",
   "description": "Schema for network information.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
-    "carrier": { "type": ["null", "string"], "description": "The network carrier (e.g. \"Verizon\")." },
+    "carrier": { "type": "string", "description": "The network carrier (e.g. \"Verizon\")." },
     "cellular": { "type": ["null", "boolean"], "description": "Whether the network is cellular (e.g., true)." },
     "bluetooth": { "type": ["null", "boolean"], "description": "Whether bluetooth is enabled (e.g., true)." },
     "wifi": { "type": ["null", "boolean"], "description": "Whether wifi is enabled (e.g., true)." }
   },
+  "required": [
+    "carrier"
+  ],
   "additionalProperties": false
 }
