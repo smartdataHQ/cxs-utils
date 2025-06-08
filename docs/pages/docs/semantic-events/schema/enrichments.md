@@ -30,7 +30,7 @@ IP addresses or other location cues within an event can be used to derive more d
 ### 4. Entity Linking & Resolution
 Events often mention entities (like users, products, or organizations) using various identifiers. Enrichment processes can resolve these to canonical entity IDs and link them formally.
 *   **Description:** This involves identifying mentions of entities in event payloads and associating them with known entity records, providing a more connected view of data.
-*   **Schema Details:** While specific linking metadata might be part of internal processing, resolved entity identifiers are typically found in core event fields (e.g., `user_gid`, `entity_gid`) or dedicated association structures. More on entity concepts can be found in [Understanding Entities](./entities.md). (A dedicated `linking_metadata.md` might detail specific linking operation fields in the future).
+*   **Schema Details:** While specific linking metadata might be part of internal processing, resolved entity identifiers are typically found in core event fields (e.g., `user_gid`, `entity_gid`) or dedicated association structures. More on entity concepts can be found in [Understanding Entities](../../entities/index.md). (A dedicated `linking_metadata.md` might detail specific linking operation fields in the future).
 
 ### 5. Contextual Data Augmentation
 Broader context about the entities involved or the circumstances of the event can be added from external or internal data sources.

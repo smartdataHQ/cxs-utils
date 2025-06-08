@@ -38,7 +38,7 @@ const items = [
         {href: '/docs/semantic-events/schema', children: 'Event Schema'},
         {href: '/docs/semantic-events/schema/content', children: 'Event Content'},
         {href: '/docs/semantic-events/schema/device', children: 'Device Information'},
-        {href: '/docs/semantic-events/schema/involved', children: 'Involved Entities'},
+        {href: '/docs/semantic-events/schema/involves', children: 'Involved Entities'},
         {href: '/docs/semantic-events/schema/sentiment', children: 'Sentiment'},
         {href: '/docs/semantic-events/schema/classification', children: 'Classification'},
         {href: '/docs/semantic-events/schema/location', children: 'Location'},
@@ -60,8 +60,8 @@ const items = [
   {
     title: 'DataPoint Schema',
     links: [
-        {href: '/docs/data-points', children: 'Introduction'},
-        {href: '/docs/data-points/schema', children: 'DataPoints'}
+        {href: '/docs/datapoints', children: 'Introduction'},
+        {href: '/docs/datapoints/schema', children: 'DataPoints'}
     ],
   }
 ];
