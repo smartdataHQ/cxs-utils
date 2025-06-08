@@ -63,7 +63,7 @@
       "description": "Dictionary of defined metrics included in this time series, keyed by metric slug.",
       "type": "object",
       "additionalProperties": {
-        "$ref": "defined_metric_schema.json"
+        "$ref": "defined_metric.json"
       }
     },
     "owner_gid": {

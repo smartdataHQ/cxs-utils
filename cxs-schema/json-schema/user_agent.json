@@ -10,7 +10,7 @@
     "platform": { "type": "string", "description": "The platform of the user agent (e.g., 'Apple Mac', 'Windows')." },
     "data": {
       "type": ["null", "array"],
-      "items": { "$ref": "user_agent_data_schema.json" },
+      "items": { "$ref": "user_agent_data.json"},
       "description": "List of User-Agent Client Hints data, providing brand and version for different components."
     }
   },

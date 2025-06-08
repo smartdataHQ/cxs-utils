@@ -83,32 +83,32 @@
     "involves": {
       "description": "Entities involved in the event. Involvement can be implicit (via other properties) or explicit using this structure. Defined in 'involved_schema.json'.",
       "type": ["null", "array"],
-      "items": { "$ref": "involved_schema.json" }
+      "items": { "$ref": "involved.json"}
     },
     "sentiment": {
       "description": "Sentiment expressed in the event",
       "type": ["null", "array"],
-      "items": { "$ref": "sentiment_schema.json" }
+      "items": { "$ref": "sentiment.json"}
     },
     "classification": {
       "description": "Classification of the event (Intent, Categories, etc.)",
       "type": ["null", "array"],
-      "items": { "$ref": "classification_schema.json" }
+      "items": { "$ref": "classification.json"}
     },
     "location": {
       "description": "Location of the event",
       "type": ["null", "array"],
-      "items": { "$ref": "location_schema.json" }
+      "items": { "$ref": "location.json"}
     },
     "entity_linking": {
       "description": "Entity links from content to named entities",
       "type": ["null", "array"],
-      "items": { "$ref": "entity_linking_schema.json" }
+      "items": { "$ref": "entity_linking.json"}
     },
     "contextual_awareness": {
       "description": "Additional context for entities involved in the event",
       "type": ["null", "array"],
-      "items": { "$ref": "contextual_awareness_schema.json" }
+      "items": { "$ref": "contextual_awareness.json"}
     },
     "properties": {
       "description": "A dictionary of additional properties for the event. Properties may be moved into dedicated columns if possible; otherwise, they are stored here.",
@@ -134,35 +134,35 @@
       "default": {},
       "additionalProperties": { "type": "boolean" }
     },
-    "campaign": { "$ref": "campaign_schema.json" },
-    "app": { "$ref": "app_schema.json" },
-    "device": { "$ref": "device_schema.json" },
-    "os": { "$ref": "os_schema.json" },
-    "library": { "$ref": "library_schema.json" },
-    "user_agent": { "$ref": "user_agent_schema.json" },
-    "network": { "$ref": "network_schema.json" },
-    "traits": { "$ref": "traits_schema.json" },
-    "page": { "$ref": "page_schema.json" },
-    "referrer": { "$ref": "referrer_schema.json" },
-    "screen": { "$ref": "screen_schema.json" },
-    "context": { "$ref": "context_schema.json" },
-    "commerce": { "$ref": "commerce_schema.json" },
+    "campaign": { "$ref": "campaign.json"},
+    "app": { "$ref": "app.json"},
+    "device": { "$ref": "device.json"},
+    "os": { "$ref": "os.json"},
+    "library": { "$ref": "library.json"},
+    "user_agent": { "$ref": "user_agent.json"},
+    "network": { "$ref": "network.json"},
+    "traits": { "$ref": "traits.json"},
+    "page": { "$ref": "page.json"},
+    "referrer": { "$ref": "referrer.json"},
+    "screen": { "$ref": "screen.json"},
+    "context": { "$ref": "context.json"},
+    "commerce": { "$ref": "commerce.json"},
     "analysis": {
       "description": "Cost analysis of the event. This is strictly for internal use and should not be used for any other purpose. Defined in 'analysis_schema.json'.",
       "type": ["null", "array"],
-      "items": { "$ref": "analysis_schema.json" }
+      "items": { "$ref": "analysis.json"}
     },
     "base_events": {
       "description": "Base event information if this is a derived event",
       "type": ["null", "array"],
-      "items": { "$ref": "base_event_info_schema.json" }
+      "items": { "$ref": "base_event.json"}
     },
     "access": {
       "description": "Access control list for the event",
       "type": ["null", "array"],
-      "items": { "$ref": "access_schema.json" }
+      "items": { "$ref": "access.json"}
     },
-    "source": { "$ref": "source_info_schema.json" },
+    "source": { "$ref": "source_info.json"},
     "local_time": {
       "description": "The original timestamp of the event in the local timezone of the sender.",
       "type": ["null", "string"],

@@ -88,42 +88,42 @@
       "description": "A list of structured content items related to the entity, each defined by the 'content_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "content_schema.json"
+        "$ref": "content.json"
       }
     },
     "media": {
       "description": "A list of media items (images, videos, etc.) associated with the entity, each defined by the 'media_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "media_schema.json"
+        "$ref": "media.json"
       }
     },
     "embeddings": {
       "description": "A list of embedding vectors associated with the entity or its content, each defined by the 'embeddings_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "embeddings_schema.json"
+        "$ref": "embeddings.json"
       }
     },
     "ids": {
       "description": "A list of external or alternative identifiers associated with the entity, each defined by the 'id_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "id_schema.json"
+        "$ref": "id.json"
       }
     },
     "classification": {
       "description": "A list of classifications (categories, tags, etc.) for the entity, each defined by the 'classification_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "classification_schema.json"
+        "$ref": "classification.json"
       }
     },
     "location": {
       "description": "A list of geographic locations associated with the entity, each defined by the 'location_schema.json'.",
       "type": "array",
       "items": {
-        "$ref": "location_schema.json"
+        "$ref": "location.json"
       }
     },
     "partition": {

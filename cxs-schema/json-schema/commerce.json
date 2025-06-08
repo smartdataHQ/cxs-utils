@@ -115,7 +115,7 @@
     },
     "products": {
       "type": ["null", "array"],
-      "items": { "$ref": "product_schema.json" }
+      "items": { "$ref": "product.json"}
     }
   },
   "required": [

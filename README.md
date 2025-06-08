@@ -1,2 +1,2 @@
 # Context Suite Utilities for Data Engineering 
-These are all the tools you need to onboard operational data into the Context Suite.
+Here you will find all tools you need to onboard/stream operational data into the Context Suite.
