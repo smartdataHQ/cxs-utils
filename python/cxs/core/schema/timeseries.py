@@ -12,6 +12,9 @@ from cxs.core.schema.entity import Entity, Location
 from cxs.core.schema.uom import UOM
 from cxs.core.utils.gid import create_gid
 
+from python.cxs.core.schema import OmitIfNone
+
+
 class ValueType(str, Enum):
     Actual = 'Actual'               # This value represents an actual value
     Goal = 'Goal'                   # This value represents a goal
