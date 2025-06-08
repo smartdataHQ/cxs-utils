@@ -3,12 +3,18 @@
   "$id": "https://contextsuite.com/schemas/app_schema.json",
   "title": "ContextSuite Semantic Event Application",
   "description": "Schema for mobile application information.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
-    "build": { "type": ["null", "string"], "description": "The build of the app (e.g. \"1.1.0\")." },
-    "name": { "type": ["null", "string"], "description": "The name of the app (e.g. \"Segment\")." },
-    "namespace": { "type": ["null", "string"], "description": "The namespace of the app (e.g. \"com.segment.analytics\")." },
-    "version": { "type": ["null", "string"], "description": "The version of the app (e.g. \"1.1.0\")." }
+    "build": { "type": "string", "description": "The build of the app (e.g. \"1.1.0\")." },
+    "name": { "type": "string", "description": "The name of the app (e.g. \"Segment\")." },
+    "namespace": { "type": "string", "description": "The namespace of the app (e.g. \"com.segment.analytics\")." },
+    "version": { "type": "string", "description": "The version of the app (e.g. \"1.1.0\")." }
   },
+  "required": [
+    "build",
+    "name",
+    "namespace",
+    "version"
+  ],
   "additionalProperties": false
 }

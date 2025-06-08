@@ -15,14 +15,12 @@
     },
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")"
     },
     {
       "name": "event",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense"
     },
     {
@@ -93,8 +91,8 @@
     },
     {
       "name": "content",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
+      "type": {"type": "map", "values": "string"},
+      "default": {},
       "doc": "The type of content (e.g. \"Body\", \"Subject\", \"Title\", \"Description\", \"Summary\", \"Initial Response\", \"Other\")"
     },
     {
@@ -135,26 +133,26 @@
     },
     {
       "name": "properties",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
+      "type": {"type": "map", "values": "string"},
+      "default": {},
       "doc": "A dictionary of additional properties for the event in any JSON format. -- Properties are all moved into dedicated columns, if possible. If not, they are stored in properties"
     },
     {
       "name": "dimensions",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
+      "type": {"type": "map", "values": "string"},
+      "default": {},
       "doc": "Additional dimensions for the event, There are low-cardinality dimensions that are not defined in the schema and used on dashboards"
     },
     {
       "name": "metrics",
-      "type": ["null", {"type": "map", "values": "float"}],
-      "default": null,
+      "type": {"type": "map", "values": "float"},
+      "default": {},
       "doc": "Additional metrics for the event. These are additional metrics that are not defined in the schema and used on dashboards"
     },
     {
       "name": "flags",
-      "type": ["null", {"type": "map", "values": "boolean"}],
-      "default": null,
+      "type": {"type": "map", "values": "boolean"},
+      "default": {},
       "doc": "Boolean flags for the event. These are additional flags that are not defined in the schema and used on dashboards"
     },
     {
@@ -300,14 +298,14 @@
     },
     {
       "name": "analyse",
-      "type": ["null", {"type": "map", "values": "boolean"}],
-      "default": null,
+      "type": {"type": "map", "values": "boolean"},
+      "default": {},
       "doc": "Custom analysis flags that override the default analysis for this event"
     },
     {
       "name": "integrations",
-      "type": ["null", {"type": "map", "values": "boolean"}],
-      "default": null,
+      "type": {"type": "map", "values": "boolean"},
+      "default": {},
       "doc": "Customer integrations flags that override the default integrations for this event"
     },
     {

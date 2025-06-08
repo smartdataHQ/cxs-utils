@@ -46,7 +46,7 @@
     },
     {
       "name": "certainty",
-      "type": ["null", "float"],
+      "type": ["null", "double"],
       "default": null,
       "doc": "The certainty of the entity linking"
     }

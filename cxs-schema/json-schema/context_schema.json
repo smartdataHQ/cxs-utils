@@ -3,16 +3,16 @@
   "$id": "https://contextsuite.com/schemas/context_schema.json",
   "title": "ContextSuite Semantic Event Context",
   "description": "Schema for general context information of a semantic event.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
     "active": { "type": ["null", "boolean"], "description": "Whether the library/client is active (e.g., true, often represented as 1 in source data)." },
     "ip": { "type": ["null", "string"], "format": "ipv4", "description": "IPv4 address of the client." },
     "ipv6": { "type": ["null", "string"], "format": "ipv6", "description": "IPv6 address of the client." },
-    "locale": { "type": ["null", "string"], "description": "The locale string used where the event happened (e.g., 'en-US')." },
-    "group_id": { "type": ["null", "string"], "description": "The group ID associated with the event, if any (e.g., 'a89d88da-4f4b-11e5-9e98-2f3c942e34c8')." },
-    "timezone": { "type": ["null", "string"], "description": "The timezone in which the event happened (e.g., 'America/Los_Angeles')." },
+    "locale": { "type": "string", "description": "The locale string used where the event happened (e.g., 'en-US')." },
+    "group_id": { "type": "string", "description": "The group ID associated with the event, if any (e.g., 'a89d88da-4f4b-11e5-9e98-2f3c942e34c8')." },
+    "timezone": { "type": "string", "description": "The timezone in which the event happened (e.g., 'America/Los_Angeles')." },
     "location": {
-      "type": ["null", "array"],
+      "type": "array",
       "items": { "type": "number", "format": "double" },
       "minItems": 2,
       "maxItems": 2,
@@ -22,7 +22,14 @@
     "namespace": { "type": ["null", "string"], "description": "Kubernetes namespace where the event originated." },
     "hostname": { "type": ["null", "string"], "description": "Hostname of the server where the event originated." },
     "pod": { "type": ["null", "string"], "description": "Kubernetes pod name where the event originated." },
-    "extras": { "type": ["null", "string"], "description": "Other context properties of the event that cannot be mapped to standard fields or have complex data types. Often a JSON string or stringified object." }
+    "extras": { "type": "string", "description": "Other context properties of the event that cannot be mapped to standard fields or have complex data types. Often a JSON string or stringified object." }
   },
+  "required": [
+    "locale",
+    "group_id",
+    "timezone",
+    "location",
+    "extras"
+  ],
   "additionalProperties": false
 }

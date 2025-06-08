@@ -3,10 +3,14 @@
   "$id": "https://contextsuite.com/schemas/library_schema.json",
   "title": "ContextSuite Semantic Event Library",
   "description": "Schema for event library information.",
-  "type": ["null", "object"],
+  "type": "object",
   "properties": {
-    "name": { "type": ["null", "string"], "description": "The name of the library (e.g. \"analytics-ios\")." },
-    "version": { "type": ["null", "string"], "description": "The version of the library (e.g. \"3.0.0\")." }
+    "name": { "type": "string", "description": "The name of the library (e.g. \"analytics-ios\")." },
+    "version": { "type": "string", "description": "The version of the library (e.g. \"3.0.0\")." }
   },
+  "required": [
+    "name",
+    "version"
+  ],
   "additionalProperties": false
 }
