@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/traits_schema.json",
+  "title": "ContextSuite Semantic Event Traits",
+  "description": "Schema for user traits.",
+  "type": ["null", "object"],
+  "properties": {
+    "id": { "type": ["null", "string"] },
+    "name": { "type": ["null", "string"] },
+    "first_name": { "type": ["null", "string"] },
+    "last_name": { "type": ["null", "string"] },
+    "social_security_nr": { "type": ["null", "string"] },
+    "social_security_nr_family": { "type": ["null", "string"] },
+    "email": { "type": ["null", "string"], "format": "email" },
+    "phone": { "type": ["null", "string"] },
+    "avatar": { "type": ["null", "string"], "format": "uri" },
+    "username": { "type": ["null", "string"] },
+    "website": { "type": ["null", "string"], "format": "uri" },
+    "age": { "type": ["null", "integer"] },
+    "birthday": { "type": ["null", "string"], "format": "date" },
+    "created_at": { "type": ["null", "string"], "format": "date-time" },
+    "company": { "type": ["null", "string"] },
+    "title": { "type": ["null", "string"] },
+    "gender": { "type": ["null", "string"] },
+    "pronouns": { "type": ["null", "string"] },
+    "salutation": { "type": ["null", "string"] },
+    "description": { "type": ["null", "string"] },
+    "industry": { "type": ["null", "string"] },
+    "employees": { "type": ["null", "integer"] },
+    "plan": { "type": ["null", "string"] },
+    "total_billed": { "type": ["null", "number"] },
+    "logins": { "type": ["null", "integer"] },
+    "address": {
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

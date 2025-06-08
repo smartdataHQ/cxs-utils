@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/user_agent_schema.json",
+  "title": "ContextSuite Semantic Event User Agent",
+  "description": "Schema for user agent information.",
+  "type": ["null", "object"],
+  "properties": {
+    "signature": { "type": ["null", "string"], "description": "The user agent string." },
+    "mobile": { "type": ["null", "boolean"], "description": "Whether the user agent is mobile." },
+    "platform": { "type": ["null", "string"], "description": "The platform of the user agent." },
+    "data": {
+      "type": ["null", "array"],
+      "items": { "$ref": "user_agent_data_schema.json" },
+      "description": "List of user agent client hints data."
+    }
+  },
+  "additionalProperties": false
+}

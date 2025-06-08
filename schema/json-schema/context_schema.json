@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/context_schema.json",
+  "title": "ContextSuite Semantic Event Context",
+  "description": "Schema for event context information.",
+  "type": ["null", "object"],
+  "properties": {
+    "active": { "type": ["null", "boolean"] },
+    "ip": { "type": ["null", "string"], "format": "ipv4" },
+    "ipv6": { "type": ["null", "string"], "format": "ipv6" },
+    "locale": { "type": ["null", "string"] },
+    "group_id": { "type": ["null", "string"] },
+    "timezone": { "type": ["null", "string"] },
+    "location": {
+      "type": ["null", "array"],
+      "items": { "type": "number", "format": "double" },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Location as [longitude, latitude]."
+    },
+    "region": { "type": ["null", "string"] },
+    "namespace": { "type": ["null", "string"] },
+    "hostname": { "type": ["null", "string"] },
+    "pod": { "type": ["null", "string"] },
+    "extras": { "type": ["null", "string"], "description": "Other context properties not fitting elsewhere." }
+  },
+  "additionalProperties": false
+}
