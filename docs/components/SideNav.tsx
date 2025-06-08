@@ -32,14 +32,22 @@ const items = [
     ],
   },
   {
-    title: 'Event Schema',
+    title: 'Semantic Events',
     links: [
         {href: '/docs/semantic-events', children: 'Introduction'},
-        {href: '/docs/semantic-events/schema', children: 'Semantic Events'},
+        {href: '/docs/semantic-events/schema', children: 'Event Schema'},
         {href: '/docs/semantic-events/schema/content', children: 'Event Content'},
         {href: '/docs/semantic-events/schema/device', children: 'Device Information'},
-        {href: '/docs/semantic-events/schema/involved', children: 'Involved Parties'},
-        {href: '/docs/semantic-events/schema/products', children: 'Products'}
+        {href: '/docs/semantic-events/schema/involved', children: 'Involved Entities'},
+        {href: '/docs/semantic-events/schema/sentiment', children: 'Sentiment'},
+        {href: '/docs/semantic-events/schema/classification', children: 'Classification'},
+        {href: '/docs/semantic-events/schema/location', children: 'Location'},
+        {href: '/docs/semantic-events/schema/entity-linking', children: 'Named Entity Linking'},
+        {href: '/docs/semantic-events/schema/contextual-awareness', children: 'Contextual Awareness'},
+        {href: '/docs/semantic-events/schema/traits', children: 'Traits'},
+        {href: '/docs/semantic-events/schema/commerce', children: 'Commerce'},
+        {href: '/docs/semantic-events/schema/products', children: 'Products'},
+        {href: '/docs/semantic-events/schema/analysis', children: 'Analysis'}
     ],
   },
   {
