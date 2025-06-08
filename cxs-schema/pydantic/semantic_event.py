@@ -6,9 +6,8 @@ from typing import Any, Annotated, Optional
 from typing import Dict
 
 import logging
-import pydantic
 from pydantic import Field, model_validator, BaseModel
-from cxs.core.schema import CXSBase, OmitIfNone
+from schema.pydantic import CXSBase, OmitIfNone
 from cxs.core.utils.event_utils import calculate_event_id
 
 logger = logging.getLogger(__name__)

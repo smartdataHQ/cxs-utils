@@ -1,6 +1,6 @@
 import asyncio
 import unittest
-from unittest.mock import patch, AsyncMock, MagicMock, call
+from unittest.mock import AsyncMock, MagicMock
 import os
 import tempfile
 import logging
@@ -9,7 +9,8 @@ from datetime import datetime, timezone
 from aioresponses import aioresponses
 
 from cxs.core.client.cxs_client import CXSClient, JsonFormatter
-from cxs.core.schema.semantic_event import SemanticEvent, EventType, Context, Library, OS, App, BaseEventInfo, Traits
+from schema.pydantic.semantic_event import SemanticEvent, EventType
+
 
 # Ensure CXSClient's general logger does not propagate to root during tests to keep test output clean.
 # This might need adjustment based on how CXSClient's logger is named/configured.

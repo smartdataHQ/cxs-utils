@@ -1367,7 +1367,7 @@ class UOM(str, Enum):
 
 from typing import List, Dict, Optional # Added for UOMModel
 from pydantic import Field # Added for UOMModel
-from cxs.core.schema import CXSBase # Added for UOMModel
+from schema.pydantic import CXSBase # Added for UOMModel
 
 
 class UOMModel(CXSBase):

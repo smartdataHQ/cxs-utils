@@ -5,14 +5,12 @@ import math
 
 from datetime import datetime
 from enum import Enum
-from typing import Dict, Any
-from typing import Optional
-from pydantic import BaseModel, Field, model_validator, field_serializer, FieldSerializationInfo
-from cxs.core.schema.entity import Entity, Location
-from cxs.core.schema.uom import UOM
+from pydantic import BaseModel, Field, model_validator
+from schema.pydantic.entity import Entity
+from schema.pydantic.uom import UOM
 from cxs.core.utils.gid import create_gid
 
-from python.cxs.core.schema import OmitIfNone
+from schema.pydantic import OmitIfNone
 
 
 class ValueType(str, Enum):
@@ -108,7 +106,7 @@ class TSCategory(str, Enum):
     Transportation = 'Transportation'
     Weather = 'Weather'
 
-from typing import Dict, Any, Optional, List, Annotated # Ensure Annotated is imported
+from typing import Dict, Optional, Annotated # Ensure Annotated is imported
 
 class DefinedMetric(BaseModel): # Assuming it should inherit from CXSBase if OmitIfNone behavior is desired from base
     gid_url: str = Field(..., description="RDF URL for the metric definition.") # SQL: String

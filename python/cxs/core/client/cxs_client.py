@@ -12,7 +12,7 @@ import uuid
 
 from pydantic import ValidationError
 
-from cxs.core.schema.semantic_event import (
+from schema.pydantic.semantic_event import (
     SemanticEvent,
     EventType,
     Context as CXSContext,

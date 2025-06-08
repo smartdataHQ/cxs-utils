@@ -1,20 +1,15 @@
 import uuid
 from datetime import datetime, timezone
-from typing import List, Dict, Any, Tuple
+from typing import Dict, Any
 
-from python.cxs.core.schema.semantic_event import (
+from schema.pydantic.semantic_event import (
     SemanticEvent,
     SemanticEventCH,
-    Device,
-    Context,
-    EntityLinking,
-    Commerce,
     Product,
-    UserAgentData, # Though not directly tested as top-level, it's part of UserAgent
-    SourceInfo,
+    # Though not directly tested as top-level, it's part of UserAgent
     EventType,
-    Location as SemanticEventLocation, # Renaming to avoid conflict with entity.Location if used elsewhere
-    Campaign, App, OS, UserAgent, Page, Referrer, Screen, Library, Network, Traits # For completeness if needed
+    # Renaming to avoid conflict with entity.Location if used elsewhere
+    # For completeness if needed
 )
 
 def get_sample_semantic_event_data() -> Dict[str, Any]:
