@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/campaign_schema.json",
+  "title": "ContextSuite Semantic Event Campaign",
+  "description": "Schema for marketing campaign information.",
+  "type": ["null", "object"],
+  "properties": {
+    "campaign": { "type": ["null", "string"], "description": "The campaign name (e.g. \"summer\")." },
+    "source": { "type": ["null", "string"], "description": "The source of the campaign (e.g. \"google\")." },
+    "medium": { "type": ["null", "string"], "description": "The medium of the campaign (e.g. \"cpc\")." },
+    "term": { "type": ["null", "string"], "description": "The term associated with the campaign (e.g. \"beach\")." },
+    "content": { "type": ["null", "string"], "description": "The content of the campaign (e.g. \"ad1\")." }
+  },
+  "additionalProperties": false
+}

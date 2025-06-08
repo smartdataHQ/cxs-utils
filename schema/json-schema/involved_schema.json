@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/involved_schema.json",
+  "title": "ContextSuite Semantic Event Involved Entity",
+  "description": "Schema for an entity involved in a semantic event.",
+  "type": "object",
+  "properties": {
+    "label": {
+      "description": "Optional label for this involvement instance or the entity it points to.",
+      "type": ["null", "string"]
+    },
+    "role": {
+      "description": "Role of the entity in the event (e.g., Supplier, Buyer).",
+      "type": "string"
+    },
+    "entity_type": {
+      "description": "Type of the entity involved (e.g., Person, Organization).",
+      "type": "string"
+    },
+    "entity_gid": {
+      "description": "Graph UUID of the involved entity, if known.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
+    "id": {
+      "description": "The actual identifier string for the involved entity.",
+      "type": ["null", "string"]
+    },
+    "id_type": {
+      "description": "The type or source of the identifier (e.g., 'Zendesk ID', 'Stripe ID').",
+      "type": "string"
+    },
+    "capacity": {
+      "description": "Capacity of the entity in the event (e.g., fractional involvement).",
+      "type": ["null", "number"],
+      "format": "float"
+    }
+  },
+  "required": [
+    "role",
+    "entity_type",
+    "id_type"
+  ]
+}

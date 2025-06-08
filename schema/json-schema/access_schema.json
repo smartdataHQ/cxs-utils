@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/access_schema.json",
+  "title": "ContextSuite Semantic Event Access",
+  "description": "Schema for access control information for an event.",
+  "type": ["null", "object"],
+  "properties": {
+    "type": { "type": ["null", "string"], "enum": [null, "Blacklisted", "Whitelisted"] },
+    "label": { "type": ["null", "string"] },
+    "user_gid": { "type": ["null", "string"], "format": "uuid" },
+    "organization_gid": { "type": ["null", "string"], "format": "uuid" },
+    "date_from": { "type": ["null", "string"], "format": "date-time" },
+    "date_to": { "type": ["null", "string"], "format": "date-time" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/entity.json",
+  "title": "ContextSuite Entity",
+  "description": "Schema for a ContextSuite Entity, based on SQL, Avro, and Pydantic models. SQL is the primary source of truth.",
+  "type": "object",
+  "properties": {
+    "gid": {
+      "description": "The Graph UUID of the entity",
+      "type": "string",
+      "format": "uuid"
+    },
+    "gid_url": {
+      "description": "The URL of the entity's GID",
+      "type": "string",
+      "format": "uri"
+    },
+    "label": {
+      "description": "The primary label of the entity (e.g. \"Eiffel Tower\")",
+      "type": "string"
+    },
+    "labels": {
+      "description": "Additional labels for the entity with language prefixes (e.g. [\"en:Eiffel Tower\", \"fr:Tour Eiffel\"])",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "type": {
+      "description": "The type of the entity (e.g. \"Event\", \"Place\", \"Person\"), always in English and in singular form and capitalized",
+      "type": "string"
+    },
+    "variant": {
+      "description": "The variant of the entity (e.g. \"Concert\", \"Exhibition\", \"Match\"), always in English and in singular form and capitalized",
+      "type": "string"
+    },
+    "icon": {
+      "description": "The icon of the entity (e.g. \"concert\", \"exhibition\", \"match\"), always in English and in singular form and capitalized",
+      "type": "string"
+    },
+    "colour": {
+      "description": "The colour of the entity (e.g. \"red\", \"blue\", \"green\"), always in English and in singular form and capitalized",
+      "type": "string"
+    },
+    "dimensions": {
+      "description": "Additional (generic) dimensions for the entity",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "description": "Additional tags for the entity",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "flags": {
+      "description": "Additional flags for the entity",
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "metrics": {
+      "description": "Additional metrics for the entity",
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "properties": {
+      "description": "Additional properties for the entity",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "names": {
+      "description": "Additional names for the entity, e.g. \"Eiffel Tower\" -> \"Tour Eiffel\"",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "content": {
+      "description": "List of content items related to the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "content_schema.json"
+      }
+    },
+    "media": {
+      "description": "List of media items associated with the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "media_schema.json"
+      }
+    },
+    "embeddings": {
+      "description": "List of embeddings for the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "embeddings_schema.json"
+      }
+    },
+    "ids": {
+      "description": "List of identifiers associated with the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "id_schema.json"
+      }
+    },
+    "classification": {
+      "description": "List of classifications for the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "classification_schema.json"
+      }
+    },
+    "location": {
+      "description": "List of locations associated with the entity.",
+      "type": "array",
+      "items": {
+        "$ref": "location_schema.json"
+      }
+    },
+    "partition": {
+      "description": "The storage partition for the entity. Internal use.",
+      "type": "string",
+      "default": "_open_"
+    },
+    "sign": {
+      "description": "Internal field for ReplacingMergeTree engine.",
+      "type": "integer",
+      "default": 1
+    }
+  },
+  "required": [
+    "gid",
+    "gid_url",
+    "label"
+  ]
+}

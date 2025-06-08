@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/uom.json",
+  "title": "ContextSuite Unit of Measure (UOM)",
+  "description": "Schema for a Unit of Measure (UOM) entity.",
+  "type": "object",
+  "properties": {
+    "code": {
+      "description": "CEFACT code for the unit of measure (e.g., 'kg', 'm', 's').",
+      "type": "string"
+    },
+    "label": {
+      "description": "Human-readable label for the UOM (e.g., 'Kilogram', 'Meter').",
+      "type": "string"
+    },
+    "symbol": {
+      "description": "Symbol for the UOM (e.g., 'kg', 'm').",
+      "type": "string"
+    },
+    "slug": {
+      "description": "URL-friendly version of the code (e.g., 'kilogram', 'meter').",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the UOM.",
+      "type": ["null", "string"]
+    },
+    "conversion": {
+      "description": "Conversion factor to a base unit.",
+      "type": ["null", "string"]
+    },
+    "core_unit": {
+      "description": "Core unit this UOM is based on (e.g., 'kg' for mass).",
+      "type": ["null", "string"]
+    },
+    "level": {
+      "description": "Level in a hierarchy (e.g., 'base', 'derived').",
+      "type": ["null", "string"]
+    },
+    "sectors": {
+      "description": "Sectors where this UOM is applicable.",
+      "type": ["null", "array"],
+      "items": { "type": "string" }
+    },
+    "quantities": {
+      "description": "Quantities this UOM can measure.",
+      "type": ["null", "array"],
+      "items": { "type": "string" }
+    },
+    "schema_name": {
+      "description": "Schema or standard this UOM adheres to (e.g., 'SI', 'Imperial'). Renamed from 'schema' to avoid conflict.",
+      "type": ["null", "string"]
+    },
+    "properties": {
+      "description": "Additional properties for the UOM.",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": [
+    "code",
+    "label",
+    "symbol",
+    "slug"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/screen_schema.json",
+  "title": "ContextSuite Semantic Event Screen",
+  "description": "Schema for screen information.",
+  "type": ["null", "object"],
+  "properties": {
+    "density": { "type": ["null", "integer"], "description": "The density of the screen." },
+    "height": { "type": ["null", "integer"], "description": "The height of the screen." },
+    "width": { "type": ["null", "integer"], "description": "The width of the screen." },
+    "inner_height": { "type": ["null", "integer"], "description": "The inner height of the screen viewport." },
+    "inner_width": { "type": ["null", "integer"], "description": "The inner width of the screen viewport." }
+  },
+  "additionalProperties": false
+}

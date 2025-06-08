@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/referrer_schema.json",
+  "title": "ContextSuite Semantic Event Referrer",
+  "description": "Schema for referrer information.",
+  "type": ["null", "object"],
+  "properties": {
+    "id": { "type": ["null", "string"], "description": "The referrer ID." },
+    "type": { "type": ["null", "string"], "description": "The referrer type." }
+  },
+  "additionalProperties": false
+}
