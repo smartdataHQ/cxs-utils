@@ -11,8 +11,8 @@
     "referrer": { "type": ["null", "string"], "description": "The referrer of the page (e.g. \"https://segment.com\")." },
     "referring_domain": { "type": ["null", "string"], "description": "The referring domain of the page (e.g. \"segment.com\")." },
     "search": { "type": ["null", "string"], "description": "The search query of the page (e.g. \"segment\")." },
-    "title": { "type": ["null", "string"], "description": "The title of the page." },
-    "url": { "type": ["null", "string"], "format": "uri", "description": "The URL of the page." }
+    "title": { "type": ["null", "string"], "description": "The title of the page (e.g., 'Analytics.js Quickstart - Segment')." },
+    "url": { "type": ["null", "string"], "format": "uri", "description": "The URL of the page (e.g., 'https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/')." }
   },
   "additionalProperties": false
 }
