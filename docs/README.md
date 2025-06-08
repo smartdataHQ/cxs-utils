@@ -1,2 +1,2 @@
-# ContextSuite Documentation
+# ContextSuite Utilities
 
