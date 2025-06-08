@@ -22,15 +22,15 @@
       "type": "string"
     },
     "description": {
-      "description": "Description of the UOM.",
+      "description": "A description of the unit of measure (e.g., 'A kilogram is a unit of mass in the metric system.').",
       "type": ["null", "string"]
     },
     "conversion": {
-      "description": "Conversion factor to a base unit.",
+      "description": "A conversion factor to a base unit (e.g., '1 kg = 1000 g', '1 m = 100 cm').",
       "type": ["null", "string"]
     },
     "core_unit": {
-      "description": "Core unit this UOM is based on (e.g., 'kg' for mass).",
+      "description": "The core unit of measure that this unit is based on (e.g., 'kg' for mass, 'm' for length).",
       "type": ["null", "string"]
     },
     "level": {
@@ -38,12 +38,12 @@
       "type": ["null", "string"]
     },
     "sectors": {
-      "description": "Sectors where this UOM is applicable.",
+      "description": "The sectors that this unit of measure is applicable to (e.g., 'agriculture', 'energy', 'transportation').",
       "type": ["null", "array"],
       "items": { "type": "string" }
     },
     "quantities": {
-      "description": "Quantities this UOM can measure.",
+      "description": "The quantities that this unit of measure can measure (e.g., 'mass', 'length', 'time').",
       "type": ["null", "array"],
       "items": { "type": "string" }
     },
@@ -52,7 +52,7 @@
       "type": ["null", "string"]
     },
     "properties": {
-      "description": "Additional properties for the UOM.",
+      "description": "Additional properties for the unit of measure (e.g., 'precision', 'accuracy').",
       "type": ["null", "object"],
       "additionalProperties": { "type": "string" }
     }
