@@ -127,12 +127,12 @@
       }
     },
     "partition": {
-      "description": "The storage partition key for the entity. Primarily for internal database use.",
+      "description": "The storage partition for the entity. This is internal and cannot be submitted by the user. It is used to partition the data for performance and scalability.",
       "type": "string",
       "default": "_open_"
     },
     "sign": {
-      "description": "Internal field for ClickHouse ReplacingMergeTree engine to handle updates and deletions. Should typically be 1 for active records.",
+      "description": "Internal field for ReplacingMergeTree, used to mark the latest version of the entity and ensure correct updates/replacements.",
       "type": "integer",
       "default": 1
     }
