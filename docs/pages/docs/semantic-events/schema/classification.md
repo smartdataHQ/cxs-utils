@@ -1,17 +1,25 @@
-# classification
-The classification nested structure provides a robust method to categorize, tag, segment, and prioritize business events. It enables the assignment of metadata to events, making them easily discoverable, actionable, and analyzable. Classifications are especially useful for leveraging AI-driven autonomous analytics, decision-support systems, and contextual insights.
+---
+title: Classification Properties
+---
 
-## Structure Definition
-The classification structure is nested within events, allowing multiple classifications per event.
+# Classification Properties
 
-| Field        | Type                   | Description                                                        |
-| ------------ | ---------------------- | ------------------------------------------------------------------ |
-| `type`       | LowCardinality(String) | Type of classification (e.g., Intent, Category, Subcategory, Tag). |
-| `value`      | LowCardinality(String) | The specific classification value according to the type.           |
-| `reasoning`  | Nullable(String)       | Optional explanation or reasoning behind the classification.       |
-| `score`      | Nullable(Float)        | Numeric score given by a classification model.                     |
-| `confidence` | Nullable(Float)        | Confidence level from the model assigning this classification.     |
-| `weight`     | Float                  | Relevance or significance of this classification within the event. |
+The `classification` nested structure provides a robust method to categorize, tag, segment, and prioritize business events and their associated entities. It enables the assignment of rich, structured metadata, making events easily discoverable, actionable, and analyzable. Classifications are especially useful for leveraging AI-driven autonomous analytics, decision-support systems, and deriving contextual insights.
+
+Typically, an event may contain a `classification` field which is a list (array) of classification objects. Each object in this list describes a single classification applied to the event or an entity within it.
+
+## Classification Object Structure
+
+The following table details the fields found within each classification object.
+
+| Property Name | Type                | Description                                                                                                | Optional |
+|---------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
+| `type`        | `String`            | Type of classification, indicating the category or nature of the classification (e.g., 'Intent', 'Category', 'Tag'). See "Allowed Types" below for common examples. From `LowCardinality(String)`. | No       |
+| `value`       | `String`            | The specific classification value assigned, corresponding to the `type` (e.g., "Support Request", "Electronics", "urgent_tag"). From `LowCardinality(String)`. | No       |
+| `reasoning`   | `String (Optional)` | An optional explanation or basis for why this classification was assigned.                                   | Yes      |
+| `score`       | `Float (Optional)`  | A numerical score assigned to the classification, often by a model or rule (e.g., a relevance or priority score). | Yes      |
+| `confidence`  | `Float (Optional)`  | The confidence level (e.g., 0.0 to 1.0) from a model that assigned this classification.                    | Yes      |
+| `weight`      | `Float`             | The relevance, importance, or weight of this classification, especially if multiple classifications exist.     | No       |
 
 
 ## Allowed Types and Descriptions
