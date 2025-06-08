@@ -91,7 +91,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Proceed with validation using the loaded module
-    schema_directory = "schema/json-schema/"
+    schema_directory = "json-schema/"
     exit_code = validate_json_schemas(schema_directory, jsonschema_lib)
 
     if exit_code == 0:
