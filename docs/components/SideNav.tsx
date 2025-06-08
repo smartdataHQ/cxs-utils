@@ -32,47 +32,38 @@ const items = [
     ],
   },
   {
-    title: 'Event Schema',
+    title: 'Semantic Events',
     links: [
-        {href: '/docs/semantic-events/schema', children: 'Introduction'},
-        {href: '/docs/semantic-events/schema/required', children: 'Required Properties'},
-        {href: '/docs/semantic-events/schema/context', children: 'Context'},
-        {href: '/docs/semantic-events/schema/content', children: 'Content'},
+        {href: '/docs/semantic-events', children: 'Introduction'},
+        {href: '/docs/semantic-events/schema', children: 'Event Schema'},
+        {href: '/docs/semantic-events/schema/content', children: 'Event Content'},
+        {href: '/docs/semantic-events/schema/device', children: 'Device Information'},
+        {href: '/docs/semantic-events/schema/involved', children: 'Involved Entities'},
+        {href: '/docs/semantic-events/schema/sentiment', children: 'Sentiment'},
         {href: '/docs/semantic-events/schema/classification', children: 'Classification'},
-        {href: '/docs/semantic-events/schema/dimensions', children: 'Dimensions & Metrics'},
-        {href: '/docs/semantic-events/schema/commerce', children: 'Commerce'},
-        {href: '/docs/semantic-events/schema/enrichments', children: 'Enrichments'},
         {href: '/docs/semantic-events/schema/location', children: 'Location'},
-        {href: '/docs/semantic-events/schema/linking', children: 'Linking'},
-        {href: '/docs/semantic-events/schema/marketing', children: 'Marketing'},
-        {href: '/docs/semantic-events/schema/processing', children: 'Processing'},
-        {href: '/docs/semantic-events/schema/properties', children: 'Properties'},
-        {href: '/docs/semantic-events/schema/sentiment', children: 'Sentiment Analysis'},
-        {href: '/docs/semantic-events/schema/traits', children: 'User Traits'},
-        {href: '/docs/semantic-events/schema/properties', children: 'Extended Properties'},
+        {href: '/docs/semantic-events/schema/entity-linking', children: 'Named Entity Linking'},
+        {href: '/docs/semantic-events/schema/contextual-awareness', children: 'Contextual Awareness'},
+        {href: '/docs/semantic-events/schema/traits', children: 'Traits'},
+        {href: '/docs/semantic-events/schema/commerce', children: 'Commerce'},
+        {href: '/docs/semantic-events/schema/products', children: 'Products'},
+        {href: '/docs/semantic-events/schema/analysis', children: 'Analysis'}
     ],
   },
   {
-    title: 'Basic Analytics',
+    title: 'Entity Schema',
     links: [
-        {href: '/docs/semantic-events/schema/devices', children: 'Device Information'},
-        {href: '/docs/semantic-events/schema/applications', children: 'Application'},
-        {href: '/docs/semantic-events/schema/websites', children: 'Website'},
+        {href: '/docs/entities', children: 'Introduction'},
+        {href: '/docs/entities/schema', children: 'Entity'},
     ],
   },
   {
-    title: 'Advanced Topics',
+    title: 'DataPoint Schema',
     links: [
-        {href: '/docs/semantic-events/schema/analysis', children: 'Analysis'},
-        {href: '/docs/semantic-events/schema/access', children: 'Access'},
-        {href: '/docs/semantic-events/schema/integrations', children: 'Integrations'},
-        {href: '/docs/semantic-events/schema/retention', children: 'Retention'},
-        {href: '/docs/semantic-events/schema/services', children: 'Services'},
-        {href: '/docs/semantic-events/schema/compatibility', children: 'Compatibility'},
-        {href: '/docs/semantic-events/schema/comparison', children: 'Comparison'},
-        {href: '/docs/semantic-events/schema/all', children: 'All Properties'},
+        {href: '/docs/data-points', children: 'Introduction'},
+        {href: '/docs/data-points/schema', children: 'DataPoints'}
     ],
-  },
+  }
 ];
 
 export function SideNav() {
