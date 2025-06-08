@@ -3,7 +3,6 @@ import unittest
 from unittest.mock import patch, AsyncMock, MagicMock, call
 import os
 import tempfile
-import json
 import logging
 from datetime import datetime, timezone
 
@@ -23,15 +22,10 @@ class TestCXSClient(unittest.IsolatedAsyncioTestCase):
         """Helper to create a minimal, valid SemanticEvent for testing."""
         return SemanticEvent(
             messageId=event_id,
-            type=event_type.value,
+            type=event_type,
             event="Test Event",
             timestamp=timestamp or datetime.now(timezone.utc),
-            write_key="test-write-key", # Should match client's write_key for some tests
-            # Minimal required nested objects
-            context=Context(library=Library(name="test-lib", version="0.1")),
-            library=Library(name="test-lib", version="0.1"), # CXSClient overwrites this
-            os=OS(name="TestOS", version="1.0"),
-            app=App(name="TestApp", version="1.0")
+            write_key="test-write-key"
         )
 
     async def asyncSetUp(self):

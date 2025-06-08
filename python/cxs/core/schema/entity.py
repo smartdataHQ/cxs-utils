@@ -2,12 +2,10 @@ import re
 import uuid
 from datetime import datetime
 from typing import Annotated, Any, Dict, Optional
-
-import pydantic
 from pydantic import BaseModel, Field, model_validator
 
 from cxs.core.schema import CXSBase, OmitIfNone
-from cxs.core.utils.gid import create_gid, normalize_gid_url
+from cxs.core.utils.gid import normalize_gid_url, create_gid
 
 
 class Content(CXSBase):

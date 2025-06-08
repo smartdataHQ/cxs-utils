@@ -428,16 +428,11 @@ class SourceInfo(CXSBase):
 
 
 class SemanticEvent(BaseModel):
-    """
-    Semantic Event representing user actions and system occurrences, aligned with Segment spec and ClickHouse schema.
-    """
-
-    entity_gid: uuid.UUID = Field(...,description="The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)")
 
     type: EventType = Field(..., description="The event type (e.g. \"track, page, identify, group, alias, screen etc.\")")
     event: str = Field(..., description="The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense")
     timestamp: datetime = Field(..., description="The timestamp of the event is always stored in UTC")
-    event_gid: uuid.UUID = Field(..., description="A unique GID for each message - calculated on the server side from the message ID or other factors if missing") # SQL: event_gid UUID (non-nullable)
+    event_gid: uuid.UUID = Field(description="A unique GID for each message - calculated on the server side from the message ID or other factors if missing") # SQL: event_gid UUID (non-nullable)
     messageId: Annotated[Optional[str],OmitIfNone()] = Field(default="", alias="message_id", description="A unique ID for each message as assigned by the client library") # SQL: message_id String
     importance: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The importance of the event (eg. 1..5)") # SQL: Nullable(Int8)
     customer_facing: int = Field(default=0, description="Indicates if the event is customer-facing (1 for true, 0 for false)") # SQL: Int8 default 0
@@ -498,8 +493,9 @@ class SemanticEvent(BaseModel):
     integrations: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Customer integrations flags that override the default integrations for this event.") # SQL: integrations Map(LowCardinality(String), Boolean)
     underscore_process: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(default_factory=dict, description="Internal CXS processing flags and properties, not directly mapped to a fixed SQL schema part.")
 
-    partition: str = Field(..., description="The version of the event message - Internal, can not be set by the user or via API") # SQL: partition LowCardinality(String)
-    write_key: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or via API") # SQL: LowCardinality(String), assuming Nullable for Pydantic if not always present
+    entity_gid: uuid.UUID = Field(description="The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)", default='')  # set on the server side
+    partition: str = Field(description="The version of the event message - Internal, can not be set by the user or via API", default='') # set on the server side
+    write_key: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or via API")  # enforced on the server side
 
     @model_validator(mode="before")
     def pre_init(cls, values):
