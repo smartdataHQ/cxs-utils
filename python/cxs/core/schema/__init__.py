@@ -1,5 +1,3 @@
-from cxs.core.utils.schema_builder import ExtendableBaseModel
-
 __import__("pkg_resources").declare_namespace(__name__)
 
 import pydantic
@@ -10,12 +8,6 @@ from dataclasses import dataclass
 @dataclass
 class OmitIfNone:
     pass
-
-def empty_list():
-    return []
-
-def empty_dict():
-    return {}
 
 class CXSSchema(BaseModel):
 

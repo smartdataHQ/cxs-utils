@@ -42,13 +42,13 @@ See `examples.py` for demonstrations of how validation errors are caught.
 Import and initialize the `SegmentClient` with your Segment write key, your organization's `entity_gid` (a UUID), an event `partition` string, and an optional endpoint.
 
 ```python
-from segment_client import SegmentClient
-import uuid # For generating GIDs
+from python.cxs.core.client.segment_client import SegmentClient
+import uuid  # For generating GIDs
 
 # Replace with your actual Segment write key, CXS entity_gid, and partition
 write_key = 'YOUR_SEGMENT_WRITE_KEY'
-entity_g = uuid.uuid4() # Example: typically a fixed GID for your organization/entity
-event_partition = 'your_event_partition' # Example: 'production' or 'staging'
+entity_g = uuid.uuid4()  # Example: typically a fixed GID for your organization/entity
+event_partition = 'your_event_partition'  # Example: 'production' or 'staging'
 
 client = SegmentClient(
     write_key=write_key,

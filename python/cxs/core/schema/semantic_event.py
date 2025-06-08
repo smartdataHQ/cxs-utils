@@ -10,7 +10,7 @@ import pydantic
 from pydantic import Field
 from pydantic import model_validator
 from pydantic import BaseModel
-from cxs.core.schema import empty_list, empty_dict, CXSBase, OmitIfNone
+from cxs.core.schema import CXSBase, OmitIfNone
 from cxs.core.utils.event_utils import calculate_event_id
 
 logger = logging.getLogger(__name__)
@@ -263,7 +263,7 @@ class UserAgent(BaseModel):
     mobile: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the user agent is mobile (e.g. \"true\")") # SQL: user_agent.mobile Nullable(Boolean)
     platform: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The platform of the user agent (e.g. \"Apple Mac\")") # SQL: user_agent.platform LowCardinality(String)
     signature: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The user agent (e.g. \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36\")") # SQL: user_agent.signature LowCardinality(String)
-    data: Annotated[Optional[UserAgentData], OmitIfNone()] = Field(default=None, description="User agent data including brand and version") # SQL: user_agent.data Nested
+    # data: Annotated[Optional[UserAgentData], OmitIfNone()] = Field(default=None, description="User agent data including brand and version") # SQL: user_agent.data Nested
 
 class Page(BaseModel):
     """
@@ -306,6 +306,10 @@ class Context(BaseModel):
     group_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The group ID associated with the event (e.g. \"a89d88da-4f4b-11e5-9e98-2f3c942e34c8\")") # SQL: context.group_id LowCardinality(String)
     timezone: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The timezone the event happened in (e.g. \"America/Los_Angeles\")") # SQL: context.timezone LowCardinality(String)
     location: Annotated[Optional[tuple[float, float]], OmitIfNone()] = Field(default=None, description="The location associated with the event (e.g. \"37.7576171,-122.5776844\")") # SQL: context.location Point
+    region: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The region associated with the event (e.g. \"AWS-West\")") # SQL: context.region LowCardinality(String)
+    namespace: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The k8s namespace of the server where the event was produced (e.g. \"default\")") # SQL: context.namespace LowCardinality(String)
+    hostname: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The k8s hostname of the server where the event was produced (e.g. \"k8s-12345\")") # SQL: context.hostname LowCardinality(String)
+    pod: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The K8S pod of the server where the event was produces (e.g. \"k8s-12345-pod\")") # SQL: context.pod LowCardinality(String)
     extras: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Other properties of the event that cannot be mapped to the schema or have complex data types") # SQL: context.extras String
 
 class Library(BaseModel):
@@ -405,7 +409,7 @@ class BaseEventInfo(CXSBase):
     type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of the event (e.g. \"page\", \"track\", \"identify\", \"group\", \"alias\", \"screen\", \"commerce\")")
     event: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the event (e.g. \"Page Viewed\", \"Product Added\", \"User Signed Up\")")
     timestamp: datetime = Field(..., description="The timestamp of the event in UTC (e.g. \"2022-01-01 00:00:00\")")
-    message_id: str = Field(default="", description="The message ID of the base event") # SQL String (non-nullable)
+    messageIs: str = Field(default="", alias="message_id", description="The message ID of the base event") # SQL String (non-nullable)
     entity_gid: uuid.UUID = Field(..., description="The entity GID of the event")
 
 
@@ -431,28 +435,14 @@ class SemanticEvent(BaseModel):
     """
 
     entity_gid: uuid.UUID = Field(...,description="The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)")
-    timestamp: datetime = Field(..., description="The timestamp of the event is always stored in UTC")
+
     type: EventType = Field(..., description="The event type (e.g. \"track, page, identify, group, alias, screen etc.\")")
     event: str = Field(..., description="The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense")
+    timestamp: datetime = Field(..., description="The timestamp of the event is always stored in UTC")
     event_gid: uuid.UUID = Field(..., description="A unique GID for each message - calculated on the server side from the message ID or other factors if missing") # SQL: event_gid UUID (non-nullable)
-
-    properties: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional properties for the event in any JSON format.") # SQL: Map(LowCardinality(String),String)
-    involves: Annotated[Optional[list[Involved]],OmitIfNone()] = Field(default_factory=list, description="Entities involved in the event. Involvement can be implicit (via other properties) or explicit using this structure.")
-    dimensions: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="Additional dimensions for the event. Low-cardinality dimensions not defined in the schema and used on dashboards.")
-    metrics: Annotated[Optional[Dict[str, float]],OmitIfNone()] = Field(default_factory=dict, description="Additional metrics for the event. These are additional metrics not defined in the schema and used on dashboards.") # SQL: Map(LowCardinality(String),Float32)
-    content: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional content that is associated with the event. Keys can be e.g. \"Body\", \"Subject\", \"Title\".") # SQL: Map(LowCardinality(String),String)
-    flags: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Boolean flags for the event. These are additional flags not defined in the schema and used on dashboards.")
-
-    sentiment: Annotated[Optional[list[Sentiment]],OmitIfNone()] = Field(default_factory=list, description="Entity sentiment of the event. Context Suite Specific array if sentiment objects used to track entity sentiment expressed in the event.")
-    classification: Annotated[Optional[list[Classification]],OmitIfNone()] = Field(default_factory=list, description="Classification of the event. Context Suite Specific property to track event classification (Intent, Categories, etc.).")
-    analysis: Annotated[Optional[list[Analysis]],OmitIfNone()] = Field(default_factory=list, description="Analysis array is used to track the cost associated with analysis of the event. Strictly for internal use.")
-
-    analyse: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Custom analysis flags that override the default analysis for this event.") # SQL: analyse Map(LowCardinality(String), Boolean)
-    integrations: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Customer integrations flags that override the default integrations for this event.") # SQL: integrations Map(LowCardinality(String), Boolean)
-    underscore_process: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(default_factory=dict, description="Internal CXS processing flags and properties, not directly mapped to a fixed SQL schema part.")
-
     messageId: Annotated[Optional[str],OmitIfNone()] = Field(default="", alias="message_id", description="A unique ID for each message as assigned by the client library") # SQL: message_id String
-    partition: str = Field(..., description="The version of the event message - Internal, can not be set by the user or via API") # SQL: partition LowCardinality(String)
+    importance: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The importance of the event (eg. 1..5)") # SQL: Nullable(Int8)
+    customer_facing: int = Field(default=0, description="Indicates if the event is customer-facing (1 for true, 0 for false)") # SQL: Int8 default 0
 
     anonymous_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The anonymous ID of the user before they are identified") # SQL: Nullable(String)
     anonymous_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The anonymous ID of the user before they are identified") # SQL: Nullable(UUID)
@@ -463,39 +453,55 @@ class SemanticEvent(BaseModel):
     session_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The session ID of the user in the client that generated the event") # SQL: Nullable(String)
     session_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The session GID of the user session that generated the event") # SQL: Nullable(UUID)
 
-    importance: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The importance of the event (eg. 1..5)") # SQL: Nullable(Int8)
-    customer_facing: int = Field(default=0, description="Indicates if the event is customer-facing (1 for true, 0 for false)") # SQL: Int8 default 0
+    source_info: Annotated[Optional[SourceInfo], OmitIfNone()] = Field(alias="source", default=None, description="Information about the source of the event.")
+    app: Annotated[Optional[App], OmitIfNone()] = Field(default=None, description="Application context information.")
+    context: Annotated[Optional[Context], OmitIfNone()] = Field(default=None, description="General event context (IP, locale, etc.).")
+    library: Annotated[Optional[Library], OmitIfNone()] = Field(default=None, description="Information about the client library that generated the event.")
+    os: Annotated[Optional[OS], OmitIfNone()] = Field(alias="operating_system", default=None, description="Operating system context information.")
+
+    network: Annotated[Optional[Network], OmitIfNone()] = Field(default=None, description="Network context information.")
+    user_agent: Annotated[Optional[UserAgent], OmitIfNone()] = Field(default=None, description="User agent information.")
+    device: Annotated[Optional[Device], OmitIfNone()] = Field(default=None, description="Device context information.")
+
+    campaign: Annotated[Optional[Campaign], OmitIfNone()] = Field(default=None, description="Marketing campaign information.")
+    page: Annotated[Optional[Page], OmitIfNone()] = Field(default=None, description="Page context information for web events.")
+    referrer: Annotated[Optional[Referrer], OmitIfNone()] = Field(default=None, description="Referrer information.")
+    screen: Annotated[Optional[Screen], OmitIfNone()] = Field(default=None, description="Screen context information for mobile events.")
+    traits: Annotated[Optional[Traits], OmitIfNone()] = Field(default=None, description="User traits, typically for identify or group events.")
+    commerce: Annotated[Optional[Commerce], OmitIfNone()] = Field(default=None, description="Commerce-related event information.")
+
+    ## extended CXS object properties and control fields
+
+    dimensions: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="Additional dimensions for the event. Low-cardinality dimensions not defined in the schema and used on dashboards.")
+    metrics: Annotated[Optional[Dict[str, float]],OmitIfNone()] = Field(default_factory=dict, description="Additional metrics for the event. These are additional metrics not defined in the schema and used on dashboards.") # SQL: Map(LowCardinality(String),Float32)
+    flags: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Boolean flags for the event. These are additional flags not defined in the schema and used on dashboards.")
+    properties: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional properties for the event in any JSON format.") # SQL: Map(LowCardinality(String),String)
+
+    content: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional content that is associated with the event. Keys can be e.g. \"Body\", \"Subject\", \"Title\".") # SQL: Map(LowCardinality(String),String)
+    involves: Annotated[Optional[list[Involved]],OmitIfNone()] = Field(default_factory=list, description="Entities involved in the event. Involvement can be implicit (via other properties) or explicit using this structure.")
+    sentiment: Annotated[Optional[list[Sentiment]],OmitIfNone()] = Field(default_factory=list, description="Entity sentiment of the event. Context Suite Specific array if sentiment objects used to track entity sentiment expressed in the event.")
+    classification: Annotated[Optional[list[Classification]],OmitIfNone()] = Field(default_factory=list, description="Classification of the event. Context Suite Specific property to track event classification (Intent, Categories, etc.).")
+    analysis: Annotated[Optional[list[Analysis]],OmitIfNone()] = Field(default_factory=list, description="Analysis array is used to track the cost associated with analysis of the event. Strictly for internal use.")
+    location: Annotated[Optional[list[Location]], OmitIfNone()] = Field(default_factory=list, description="Location(s) associated with the event.")
+
+    entity_linking: Annotated[Optional[list[EntityLinking]], OmitIfNone()] = Field(default_factory=list, description="An array of entity links from content to named entities.")
+    contextual_awareness: Annotated[Optional[list[ContextualAwareness]], OmitIfNone()] = Field(default_factory=list, description="Additional context for entities involved in the event.")
+    base_events: Annotated[Optional[list[BaseEventInfo]], OmitIfNone()] = Field(default_factory=list, description="If this is a derived event (higher order), this will be populated with the base event information.")
 
     local_time: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The original timestamp of the event in local time of the sender") # SQL: Nullable(DateTime64)
     original_timestamp: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The original timestamp of the event if different from 'timestamp'") # SQL: Nullable(DateTime64)
     received_at: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The time the event was received by Segment (or similar system)") # SQL: Nullable(DateTime64)
     sent_at: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The timestamp of when the event was sent by the client") # SQL: Nullable(DateTime64)
-    root_event_gid: uuid.UUID = Field(..., description="The root event GID of the event, if this is a derived event (higher order) then this will be populated with the root event GID") # SQL: UUID (non-nullable)
-    write_key: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or via API") # SQL: LowCardinality(String), assuming Nullable for Pydantic if not always present
+
     ttl_days: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The number of days the event will be stored in the database (defaults to forever)") # SQL: Nullable(Float64)
-
-    entity_linking: Annotated[Optional[list[EntityLinking]], OmitIfNone()] = Field(default_factory=list, description="An array of entity links from content to named entities.")
-    contextual_awareness: Annotated[Optional[list[ContextualAwareness]], OmitIfNone()] = Field(default_factory=list, description="Additional context for entities involved in the event.")
-    base_events: Annotated[Optional[list[BaseEventInfo]], OmitIfNone()] = Field(default_factory=list, description="If this is a derived event (higher order), this will be populated with the base event information.")
     access: Annotated[Optional[list[AccessInfo]], OmitIfNone()] = Field(default_factory=list, description="Black or whitelist of users that have access to the event or not.")
-    location: Annotated[Optional[list[Location]], OmitIfNone()] = Field(default_factory=list, description="Location(s) associated with the event.")
 
+    analyse: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Custom analysis flags that override the default analysis for this event.") # SQL: analyse Map(LowCardinality(String), Boolean)
+    integrations: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Customer integrations flags that override the default integrations for this event.") # SQL: integrations Map(LowCardinality(String), Boolean)
+    underscore_process: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(default_factory=dict, description="Internal CXS processing flags and properties, not directly mapped to a fixed SQL schema part.")
 
-    source_info: Annotated[Optional[SourceInfo], OmitIfNone()] = Field(alias="source", default=None, description="Information about the source of the event.")
-
-    campaign: Annotated[Optional[Campaign], OmitIfNone()] = Field(default=None, description="Marketing campaign information.")
-    app: Annotated[Optional[App], OmitIfNone()] = Field(default=None, description="Application context information.")
-    device: Annotated[Optional[Device], OmitIfNone()] = Field(default=None, description="Device context information.")
-    context: Annotated[Optional[Context], OmitIfNone()] = Field(default=None, description="General event context (IP, locale, etc.).")
-    library: Annotated[Optional[Library], OmitIfNone()] = Field(default=None, description="Information about the client library that generated the event.")
-    network: Annotated[Optional[Network], OmitIfNone()] = Field(default=None, description="Network context information.")
-    os: Annotated[Optional[OS], OmitIfNone()] = Field(alias="operating_system", default=None, description="Operating system context information.")
-    page: Annotated[Optional[Page], OmitIfNone()] = Field(default=None, description="Page context information for web events.")
-    referrer: Annotated[Optional[Referrer], OmitIfNone()] = Field(default=None, description="Referrer information.")
-    screen: Annotated[Optional[Screen], OmitIfNone()] = Field(default=None, description="Screen context information for mobile events.")
-    traits: Annotated[Optional[Traits], OmitIfNone()] = Field(default=None, description="User traits, typically for identify or group events.")
-    user_agent: Annotated[Optional[UserAgent], OmitIfNone()] = Field(default=None, description="User agent information.")
-    commerce: Annotated[Optional[Commerce], OmitIfNone()] = Field(default=None, description="Commerce-related event information.")
+    partition: str = Field(..., description="The version of the event message - Internal, can not be set by the user or via API") # SQL: partition LowCardinality(String)
+    write_key: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or via API") # SQL: LowCardinality(String), assuming Nullable for Pydantic if not always present
 
     @model_validator(mode="before")
     def pre_init(cls, values):
