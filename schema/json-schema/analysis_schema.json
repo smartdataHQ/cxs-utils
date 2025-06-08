@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/analysis_schema.json",
+  "title": "ContextSuite Semantic Event Analysis",
+  "description": "Schema for internal cost or processing analysis related to an event. Not for general client use.",
+  "type": ["null", "object"],
+  "properties": {
+    "item": { "type": ["null", "string"], "description": "The item analyzed (e.g., a specific AI model or service)." },
+    "provider": { "type": ["null", "string"], "description": "The provider of the analyzed item." },
+    "variant": { "type": ["null", "string"], "description": "The variant of the item used (e.g., model size)." },
+    "processing_time": { "type": ["null", "number"], "format": "float", "description": "Time taken for processing in seconds." },
+    "token_in": { "type": ["null", "integer"], "description": "Number of input tokens processed." },
+    "token_out": { "type": ["null", "integer"], "description": "Number of output tokens generated." },
+    "currency": { "type": ["null", "string"], "description": "Currency of the amount (e.g., 'USD')." },
+    "amount": { "type": ["null", "number"], "format": "float", "description": "Cost associated with this analysis item." }
+  },
+  "additionalProperties": false
+}

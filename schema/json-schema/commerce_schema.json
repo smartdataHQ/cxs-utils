@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/commerce_schema.json",
+  "title": "ContextSuite Semantic Event Commerce",
+  "description": "Schema for commerce-related information in a semantic event.",
+  "type": ["null", "object"],
+  "properties": {
+    "details": { "type": ["null", "string"] },
+    "checkout_id": { "type": ["null", "string"] },
+    "order_id": { "type": ["null", "string"] },
+    "cart_id": { "type": ["null", "string"] },
+    "employee_id": { "type": ["null", "string"] },
+    "external_order_id": { "type": ["null", "string"] },
+    "terminal_id": { "type": ["null", "string"] },
+    "affiliation_id": { "type": ["null", "string"] },
+    "affiliation": { "type": ["null", "string"] },
+    "agent": { "type": ["null", "string"] },
+    "agent_id": { "type": ["null", "string"] },
+    "sold_location": { "type": ["null", "string"] },
+    "sold_location_id": { "type": ["null", "string"] },
+    "business_day": { "type": ["null", "string"], "format": "date" },
+    "revenue": { "type": ["null", "number"], "format": "double" },
+    "tax": { "type": ["null", "number"], "format": "double" },
+    "discount": { "type": ["null", "number"], "format": "double" },
+    "cogs": { "type": ["null", "number"], "format": "double" },
+    "commission": { "type": ["null", "number"], "format": "double" },
+    "currency": { "type": ["null", "string"] },
+    "exchange_rate": { "type": ["null", "number"], "format": "float", "default": 1.0 },
+    "coupon": { "type": ["null", "string"] },
+    "payment_type": { "type": ["null", "string"] },
+    "payment_sub_type": { "type": ["null", "string"] },
+    "payment_details": { "type": ["null", "string"] },
+    "products": {
+      "type": ["null", "array"],
+      "items": { "$ref": "product_schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

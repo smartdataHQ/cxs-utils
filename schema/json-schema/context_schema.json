@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/context_schema.json",
+  "title": "ContextSuite Semantic Event Context",
+  "description": "Schema for general context information of a semantic event.",
+  "type": ["null", "object"],
+  "properties": {
+    "active": { "type": ["null", "boolean"], "description": "Whether the library/client is active." },
+    "ip": { "type": ["null", "string"], "format": "ipv4", "description": "IPv4 address of the client." },
+    "ipv6": { "type": ["null", "string"], "format": "ipv6", "description": "IPv6 address of the client." },
+    "locale": { "type": ["null", "string"], "description": "Locale string of the client (e.g., 'en-US')." },
+    "group_id": { "type": ["null", "string"], "description": "Identifier for a group the user belongs to." },
+    "timezone": { "type": ["null", "string"], "description": "Timezone of the client (e.g., 'America/Los_Angeles')." },
+    "location": {
+      "type": ["null", "array"],
+      "items": { "type": "number", "format": "double" },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Geographic location as [longitude, latitude]."
+    },
+    "region": { "type": ["null", "string"], "description": "Deployment region or similar (e.g., 'AWS-West')." },
+    "namespace": { "type": ["null", "string"], "description": "Kubernetes namespace where the event originated." },
+    "hostname": { "type": ["null", "string"], "description": "Hostname of the server where the event originated." },
+    "pod": { "type": ["null", "string"], "description": "Kubernetes pod name where the event originated." },
+    "extras": { "type": ["null", "string"], "description": "JSON string or stringified object for any other context properties not fitting standard fields." }
+  },
+  "additionalProperties": false
+}

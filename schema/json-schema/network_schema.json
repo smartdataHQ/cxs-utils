@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/network_schema.json",
+  "title": "ContextSuite Semantic Event Network",
+  "description": "Schema for network information.",
+  "type": ["null", "object"],
+  "properties": {
+    "carrier": { "type": ["null", "string"], "description": "The network carrier (e.g. \"Verizon\")." },
+    "cellular": { "type": ["null", "boolean"], "description": "Whether the network is cellular." },
+    "bluetooth": { "type": ["null", "boolean"], "description": "Whether bluetooth is enabled." },
+    "wifi": { "type": ["null", "boolean"], "description": "Whether wifi is enabled." }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/embeddings_schema.json",
+  "title": "ContextSuite Entity Embeddings",
+  "description": "Schema for an embedding associated with an entity's content.",
+  "type": "object",
+  "properties": {
+    "label": {
+      "description": "Label of the content that was embedded (e.g., 'Synopsis').",
+      "type": "string"
+    },
+    "model": {
+      "description": "The model used to generate the embedding (e.g., 'text-embedding-3-small').",
+      "type": "string"
+    },
+    "vectors": {
+      "description": "The vector representation.",
+      "type": "array",
+      "items": {
+        "type": "number",
+        "format": "double"
+      }
+    },
+    "content_starts": {
+      "description": "Optional prefix to the content before embedding.",
+      "type": ["null", "string"]
+    },
+    "content_ends": {
+      "description": "Optional suffix to the content after embedding.",
+      "type": ["null", "string"]
+    },
+    "opening_phrase": {
+      "description": "Optional opening phrase used during embedding generation.",
+      "type": ["null", "string"]
+    },
+    "closing_phrase": {
+      "description": "Optional closing phrase used during embedding generation.",
+      "type": ["null", "string"]
+    }
+  },
+  "required": [
+    "label",
+    "model",
+    "vectors"
+  ]
+}
