@@ -1364,3 +1364,22 @@ class UOM(str, Enum):
     code_YDK = {'slug': 'squarecode_yard', 'symbol':'yd²', 'conversion':'8,361 274 x 10⁻¹ m²'}
     code_YDQ = {'slug': 'cubiccode_yard', 'symbol':'yd³', 'conversion':'0,764 555 m³'}
     code_YRD = {'slug': 'yard', 'symbol':'yd', 'conversion':'0,914 4 m'}
+
+from typing import List, Dict, Optional # Added for UOMModel
+from pydantic import Field # Added for UOMModel
+from cxs.core.schema import CXSBase # Added for UOMModel
+
+
+class UOMModel(CXSBase):
+    code: str = Field(..., description="a CEFACT code for the unit of measure (e.g., 'kg', 'm', 's', etc.)")
+    label: str = Field(..., description="The human-readable label for the unit of measure (e.g., 'Kilogram', 'Meter', 'Second', etc.)")
+    symbol: str = Field(..., description="The symbol for the unit of measure (e.g., 'kg', 'm', 's', etc.)")
+    slug: str = Field(..., description="A URL-friendly version of the code (e.g., 'kilogram', 'meter', 'second', etc.)")
+    description: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="A description of the unit of measure (e.g., 'A kilogram is a unit of mass in the metric system.', etc.)")
+    conversion: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="A conversion factor to a base unit (e.g., '1 kg = 1000 g', '1 m = 100 cm', etc.)")
+    core_unit: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The core unit of measure that this unit is based on (e.g., 'kg' for mass, 'm' for length, etc.)")
+    level: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The level of the unit of measure in a hierarchy (e.g., 'base', 'derived', etc.)")
+    sectors: Annotated[Optional[List[str]], OmitIfNone()] = Field(default_factory=list, description="The sectors that this unit of measure is applicable to (e.g., 'agriculture', 'energy', 'transportation', etc.)")
+    quantities: Annotated[Optional[List[str]], OmitIfNone()] = Field(default_factory=list, description="The quantities that this unit of measure can measure (e.g., 'mass', 'length', 'time', etc.)")
+    schema_name: Annotated[Optional[str], OmitIfNone()] = Field(default="", alias="schema", description="The schema or standard that this unit of measure adheres to (e.g., 'SI', 'Imperial', etc.)")
+    properties: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="Additional properties for the unit of measure (e.g., 'precision', 'accuracy', etc.)")

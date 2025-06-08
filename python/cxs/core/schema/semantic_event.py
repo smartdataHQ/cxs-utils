@@ -24,13 +24,13 @@ class EventType(enum.Enum):
 
 
 class Involved(CXSBase):
-    label: Annotated[Optional[str],OmitIfNone()] = Field(description="Label of the involved entity", default="")
-    role: Annotated[Optional[str],OmitIfNone()] = Field(description="Role of the involved entity", default="")
-    entity_type: Annotated[Optional[str],OmitIfNone()] = Field(description="Type of the involved entity", default="")
-    entity_gid: Annotated[Optional[uuid.UUID],OmitIfNone()] = Field(description="Entity gid", default=None)
-    id: Annotated[Optional[str],OmitIfNone()] = Field(description="Id of the involved entity", default="")
-    id_type: Annotated[Optional[str],OmitIfNone()] = Field(description="Type of the id", default="")
-    capacity: Annotated[Optional[float],OmitIfNone()] = Field(description="Capacity of the involved entity", default=0.0)
+    label: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The label of the entity that is involved in the event")
+    role: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The role of the entity in the event. (Capitalized like: Supplier, Buyer, Victim, HomeTeam)")
+    entity_type: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The type of the entity that is involved in the event (Capitalized Entity name like: Person, Organization, LegalEntity)")
+    entity_gid: Annotated[Optional[uuid.UUID],OmitIfNone()] = Field(default=None, description="The Graph UUID of the entity that is involved in the event. Entity GIDs are ContextSuite native IDs. Use the id field for other IDs.")
+    id: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The ID of the entity that is involved in the event")
+    id_type: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The ID type indicates what organization issued the ID. (This is potentially your own name)")
+    capacity: Annotated[Optional[float],OmitIfNone()] = Field(default=None, description="The capacity of the entity in the event. If the involvement is fractional, this is the fraction of the entity that is involved in the event. (e.g. 0.5 for half of a person)")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -47,12 +47,12 @@ class Involved(CXSBase):
 
 
 class Classification(CXSBase):
-    type: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Type of the classification")
-    value: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Value of the classification")
-    reasoning: Annotated[Optional[str],OmitIfNone()] = Field(description="Reasoning for the classification", default="")
-    score: Annotated[Optional[float],OmitIfNone()] = Field(description="Score of the classification", default=0)
-    confidence: Annotated[Optional[float],OmitIfNone()] = Field(description="Confidence of the classification", default=0.0)
-    weight: Annotated[Optional[float],OmitIfNone()] = Field(description="Score of the classification", default=0.0)
+    type: Annotated[Optional[str],OmitIfNone()] = Field(..., description="The type of classification. SQL Enum8('Intent'=1, 'Intent Category'=2, 'Category'=3, 'Subcategory'=4, 'Tag'=5, 'Segmentation'=6, 'Age Group'=7, 'Inbox'=8, 'Keyword'=9, 'Priority'=10, 'Other'=0)")
+    value: Annotated[Optional[str],OmitIfNone()] = Field(..., description="The category, tag, intent or whatever is being classified according to the type")
+    reasoning: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The reasoning behind the classification") # SQL: Nullable(String)
+    score: Annotated[Optional[float],OmitIfNone()] = Field(default=None, description="The score of the classification")
+    confidence: Annotated[Optional[float],OmitIfNone()] = Field(default=None, description="The confidence of the classification from the classification model")
+    weight: float = Field(default=0.0, description="The relevance of the classification") # SQL: Float (non-nullable)
 
     """
     @model_serializer
@@ -64,27 +64,27 @@ class Classification(CXSBase):
     """
 
 class Sentiment(CXSBase):
-    type: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Type of the sentiment")
-    sentiment: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Type of the sentiment")
-    entity_type: Annotated[Optional[str],OmitIfNone()] = Field(description="Type of the entity", default="")
-    entity_gid: Annotated[Optional[uuid.UUID],OmitIfNone()] = Field(description="Entity gid", default="")
-    id_type: Annotated[Optional[str],OmitIfNone()] = Field(description="Type of the id", default="")
-    id: Annotated[Optional[str],OmitIfNone()] = Field(description="Id of the entity", default="")
-    target_category: Annotated[Optional[str],OmitIfNone()] = Field(description="Category of the target", default="")
-    target_type: Annotated[Optional[str],OmitIfNone()] = Field(description="Type of the target", default="")
-    target_entity: Annotated[Optional[str],OmitIfNone()] = Field(description="Entity of the target", default="")
-    reason: Annotated[Optional[str],OmitIfNone()] = Field(description="Reason for the sentiment", default="")
+    type: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Type of the sentiment. SQL Enum8('Praise'=1, 'Criticism'=2, 'Complaint'=3, 'Abuse'=4, 'Threat'=5, 'Opinion'=6, 'Other'=0)")
+    sentiment: Annotated[Optional[str],OmitIfNone()] = Field(..., description="The sentiment expressed")
+    entity_type: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The type of the entity that is involved in the event")
+    entity_gid: Annotated[Optional[uuid.UUID],OmitIfNone()] = Field(default=None, description="The entity that the sentiment is expressed about")
+    id_type: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The ID of the entity that is involved in the event") # SQL comment, seems to refer to id_type of the entity_gid
+    id: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The entity that the sentiment is expressed about") # SQL comment, seems to refer to id of the entity_gid
+    target_category: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The type of the entity that is involved in the event") # SQL comment, ambiguous, possibly category of target_entity
+    target_type: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The target type of the sentiment")
+    target_entity: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The target of the sentiment") # SQL: Nullable(String)
+    reason: Annotated[Optional[str],OmitIfNone()] = Field(default="", description="The reasoning behind the sentiment") # SQL: Nullable(String)
 
 
 class Analysis(CXSBase):
-    item: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Item of the analysis")
-    provider: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Provider of the analysis")
-    variant: Annotated[Optional[str],OmitIfNone()] = Field(..., description="Variant of the analysis")
-    token_in: Annotated[Optional[int],OmitIfNone()] = Field(..., description="Token in of the analysis")
-    token_out: Annotated[Optional[int],OmitIfNone()] = Field(..., description="Token out of the analysis")
-    amount: Annotated[Optional[float],OmitIfNone()] = Field(description="The cost of the analysis", default=0.0)
-    processing_time: Annotated[Optional[float],OmitIfNone()] = Field(description="Processing time of the analysis", default=0.0)
-    currency: Annotated[Optional[str],OmitIfNone()] = Field(description="Currency of the analysis", default="USD")
+    item: str = Field(..., description="The item that is involved in the event")
+    provider: str = Field(..., description="The provider of the item that is involved in the event")
+    variant: str = Field(..., description="The variant of the item that is involved in the event")
+    token_in: Annotated[Optional[int],OmitIfNone()] = Field(..., description="The token of the item that is involved in the event") # SQL: Nullable(Int32)
+    token_out: Annotated[Optional[int],OmitIfNone()] = Field(..., description="The token of the item that is involved in the event") # SQL: Nullable(Int32)
+    amount: Annotated[Optional[float],OmitIfNone()] = Field(default=None, description="The price of the item that is involved in the event") # SQL: Nullable(Float)
+    processing_time: Annotated[Optional[float],OmitIfNone()] = Field(default=None, description="The process time of the item that is involved in the event") # SQL: Nullable(Float)
+    currency: Annotated[Optional[str],OmitIfNone()] = Field(default="USD", description="The currency of the item that is involved in the event") # SQL: LowCardinality(String)
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -93,319 +93,409 @@ class Analysis(CXSBase):
         return values
 
 class Location(CXSBase):
-    location_of: Annotated[Optional[str], OmitIfNone()] = Field(description="The type of location (e.g. 'Customer', 'Supplier', 'Postal Address', 'Business Address', 'Home Address', 'Other')", default="")
-    label: Annotated[Optional[str], OmitIfNone()] = Field(description="The label of the location (e.g. 'Street name 1, 1234')", default="")
-    country: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the country (e.g.'Iceland')", default="")
-    country_code: Annotated[Optional[str], OmitIfNone()] = Field(description="The country code (e.g. 'IS')", default="")
-    code: Annotated[Optional[str], OmitIfNone()] = Field(description="The code of the location (e.g. '1234')", default="")
-    region: Annotated[Optional[str], OmitIfNone()] = Field(description="The region of the location (e.g. 'Gullbringu og kjósarsýsla')", default="")
-    division: Annotated[Optional[str], OmitIfNone()] = Field(description="The division of the location (e.g. 'Capital Region')", default="")
-    municipality: Annotated[Optional[str], OmitIfNone()] = Field(description="The municipality of the location (e.g. 'Reykjavik')", default="")
-    locality: Annotated[Optional[str], OmitIfNone()] = Field(description="The locality of the location (e.g. 'Vesturbær')", default="")
-    postal_code: Annotated[Optional[str], OmitIfNone()] = Field(description="The postal code of the location (e.g. '101')", default="")
-    postal_name: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the postal code (e.g. 'Vesturbær')", default="")
-    street: Annotated[Optional[str], OmitIfNone()] = Field(description="The street of the location (e.g. 'Laugavegur')", default="")
-    street_nr: Annotated[Optional[str], OmitIfNone()] = Field(description="The street number of the location (e.g. '1')", default=None)
-    address: Annotated[Optional[str], OmitIfNone()] = Field(description="The address of the location (e.g. 'Laugavegur 1, 101 Reykjavik')", default="")
-    longitude: Annotated[Optional[float], OmitIfNone()] = Field(description="The longitude of the location (e.g. -21.9333)", default=None)
-    latitude: Annotated[Optional[float], OmitIfNone()] = Field(description="The latitude of the location (e.g. 64.1355)", default=None)
-    geohash: Annotated[Optional[str], OmitIfNone()] = Field(description="The geohash of the location (e.g. 'gcpuv')", default="")
-    duration_from: Annotated[Optional[datetime], OmitIfNone()] = Field(description="The start date of the location (e.g. '2022-01-01 00:00:00') Used if the location is temporary", default=None)
-    duration_until: Annotated[Optional[datetime], OmitIfNone()] = Field(description="The end date of the location (e.g. '2022-01-01 00:00:00') Used if the location is temporary", default=None)
+    location_of: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of location (e.g. \"Customer\", \"Supplier\", \"Postal Address\", \"Business Address\", \"Home Address\", \"Other\")") # Matched to SQL, made Optional as default is empty
+    label: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The label of the location (e.g. \"Street name 1, 1234\")") # Matched to SQL, made Optional
+    country: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the country (e.g.\"Iceland\")")
+    country_code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The country code (e.g. \"IS\")")
+    code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The code of the location (e.g. \"1234\")")
+    region: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The region of the location (e.g. \"Gullbringu og kjósarsýsla\")")
+    division: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The division of the location (e.g. \"Capital Region\")")
+    municipality: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The municipality of the location (e.g. \"Reykjavik\")")
+    locality: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The locality of the location (e.g. \"Vesturbær\")")
+    postal_code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The postal code of the location (e.g. \"101\")")
+    postal_name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the postal code (e.g. \"Vesturbær\")")
+    street: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The street of the location (e.g. \"Laugavegur\")")
+    street_nr: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The street number of the location (e.g. \"1\")") # SQL: Nullable(String)
+    address: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The address of the location (e.g. \"Laugavegur 1, 101 Reykjavik\")") # SQL: Nullable(String)
+    longitude: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The longitude of the location (e.g. -21.9333)") # SQL: Nullable(Float64)
+    latitude: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The latitude of the location (e.g. 64.1355)") # SQL: Nullable(Float64)
+    geohash: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The geohash of the location (e.g. \"gcpuv\")") # SQL: Nullable(String)
+    duration_from: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The start date of the location (e.g. \"2022-01-01 00:00:00\") Used if the location is temporary") # SQL: Nullable(DateTime64)
+    duration_until: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The end date of the location (e.g. \"2022-01-01 00:00:00\") Used if the location is temporary") # SQL: Nullable(DateTime64)
 
 class Product(CXSBase):
-    position: Annotated[Optional[int], OmitIfNone()] = Field(description="Position in the product list (ex. 3)", default=None)
-    entry_type: Annotated[Optional[str], OmitIfNone()] = Field(description="'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation'", default="")
-    line_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the line item", default="")
+    position: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="Position in the product list (ex. 3)") # SQL: Nullable(UInt16)
+    entry_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Reservation', 'Stockout'") # SQL: LowCardinality(String)
+    line_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unique ID for the line item") # SQL: Nullable(String)
 
-    product_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Database id of the product being purchases", default="")
-    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(description="Database id of the product being purchases", default=None)
+    product_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Database id of the product being purchases") # SQL: LowCardinality(String)
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="Database id of the product being purchases") # SQL: LowCardinality(UUID) - assuming Nullable if Optional
 
-    sku: Annotated[Optional[str], OmitIfNone()] = Field(description="Sku of the product being purchased", default="")
-    barcode: Annotated[Optional[str], OmitIfNone()] = Field(description="Barcode of the product being purchased", default="")
-    gtin: Annotated[Optional[str], OmitIfNone()] = Field(description="GTIN of the product being purchased", default="")
-    upc: Annotated[Optional[str], OmitIfNone()] = Field(description="UPC of the product being purchased", default="")
-    ean: Annotated[Optional[str], OmitIfNone()] = Field(description="EAN of the product being purchased", default="")
-    isbn: Annotated[Optional[str], OmitIfNone()] = Field(description="ISBN of the product being purchased", default="")
-    serial_number: Annotated[Optional[str], OmitIfNone()] = Field(description="Serial number of the product being purchased", default="")
-    supplier_number: Annotated[Optional[str], OmitIfNone()] = Field(description="Supplier number of the product being purchased", default="")
-    tpx_serial_number: Annotated[Optional[str], OmitIfNone()] = Field(description="Serial number of the product being purchased issued by a third party (not GS1)", default="")
+    sku: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Sku of the product being purchased")
+    barcode: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Barcode of the product being purchased")
+    gtin: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GTIN of the product being purchased")
+    upc: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="UPC of the product being purchased")
+    ean: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="EAN of the product being purchased")
+    isbn: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="ISBN of the product being purchased")
+    serial_number: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Serial number of the product being purchased")
+    supplier_number: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier number of the product being purchased")
+    tpx_serial_number: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Serial number of the product being purchased issued by a third party (not GS1)")
 
-    bundle_id: Annotated[Optional[str], OmitIfNone()] = Field(description="The ID of the bundle the product belongs to when listing all products in a bundle", default="")
-    bundle: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the bundle the product belongs to", default="")
-    product: Annotated[Optional[str], OmitIfNone()] = Field(description="Name of the product being viewed", default="")
-    variant: Annotated[Optional[str], OmitIfNone()] = Field(description="Variant of the product being purchased", default="")
-    novelty: Annotated[Optional[str], OmitIfNone()] = Field(description="Novelty of the product being purchased", default="")
-    size: Annotated[Optional[str], OmitIfNone()] = Field(description="Size of the product being purchased", default="")
-    packaging: Annotated[Optional[str], OmitIfNone()] = Field(description="Packaging of the product being purchased", default="")
-    condition: Annotated[Optional[str], OmitIfNone()] = Field(description="Condition of the product being purchased", default="")
-    ready_for_use: Annotated[Optional[bool], OmitIfNone()] = Field(description="If the product is ready for use", default=None)
-    core_product: Annotated[Optional[str], OmitIfNone()] = Field(description="The core product being purchased", default="")
-    origin: Annotated[Optional[str], OmitIfNone()] = Field(description="Location identifier for the origin of the product being purchased", default="")
-    brand: Annotated[Optional[str], OmitIfNone()] = Field(description="Brand associated with the product", default="")
-    product_line: Annotated[Optional[str], OmitIfNone()] = Field(description="Product line associated with the product", default="")
-    own_product: Annotated[Optional[bool], OmitIfNone()] = Field(description="If the item is a store brand", default=None)
-    product_dist: Annotated[Optional[str], OmitIfNone()] = Field(description="Product Distribution is used to track the distribution class of the product (e.g. 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J')", default="")
+    bundle_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the bundle the product belongs to when listing all products in a bundle")
+    bundle: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the bundle the product belongs to")
+    product: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Name of the product being viewed") # Field name in Pydantic, SQL is also 'product'
+    variant: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Variant of the product being purchased")
+    novelty: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Novelty of the product being purchased")
+    size: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Size of the product being purchased")
+    packaging: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Packaging of the product being purchased")
+    condition: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Condition of the product being purchased //like fresh, frozen, etc.")
+    ready_for_use: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the product is ready for use //Varies between food and non-food items") # SQL: Nullable(BOOLEAN)
+    core_product: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The core product being purchased // Spaghetti, Razor Blades (No Brand, No Variant, No Category)")
+    origin: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Location identifier for the origin of the product being purchased")
+    brand: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Brand associated with the product")
+    product_line: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product line associated with the product")
+    own_product: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the item is a store brand") # SQL: Nullable(BOOLEAN)
+    product_dist: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Distribution is used to track the distribution class of the product (e.g. \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\")")
 
-    main_category: Annotated[Optional[str], OmitIfNone()] = Field(description="Product category being purchased", default="")
-    main_category_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Product category ID being purchased", default="")
-    category: Annotated[Optional[str], OmitIfNone()] = Field(description="Name of the sub-category of the product being purchased", default="")
-    category_id: Annotated[Optional[str], OmitIfNone()] = Field(description="ID of the sub-category of the product being purchased", default="")
-    income_category: Annotated[Optional[str], OmitIfNone()] = Field(description="Income category of the product being purchased", default="")
+    main_category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product category being purchased")
+    main_category_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product category ID being purchased")
+    category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Name of the sub-category of the product being purchased")
+    category_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="ID of the sub-category of the product being purchased")
+    income_category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Income category of the product being purchased")
 
-    gs1_brick_id: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick ID of the product being purchased", default="")
-    gs1_brick: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Name of the product being purchased", default="")
-    gs1_brick_short: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Short Name", default="")
-    gs1_brick_variant: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Variant", default="")
-    gs1_conditions: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Conditions", default="")
-    gs1_processed: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Processed", default="")
-    gs1_consumable: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Brick Processed", default="")
-    gs1_class: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Class", default="")
-    gs1_family: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Family", default="")
-    gs1_segment: Annotated[Optional[str], OmitIfNone()] = Field(description="GS1 Segment", default="")
+    gs1_brick_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick ID of the product being purchased")
+    gs1_brick: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Name of the product being purchased")
+    gs1_brick_short: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Short Name")
+    gs1_brick_variant: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Variant")
+    gs1_conditions: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Conditions")
+    gs1_processed: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Processed")
+    gs1_consumable: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Brick Processed") # SQL comment same as gs1_processed
+    gs1_class: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Class")
+    gs1_family: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Family")
+    gs1_segment: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Segment")
 
-    starts: Annotated[Optional[datetime], OmitIfNone()] = Field(description="Start date for the product being purchased", default=None)
-    ends: Annotated[Optional[datetime], OmitIfNone()] = Field(description="End date for the product being purchased", default=None)
-    duration: Annotated[Optional[float], OmitIfNone()] = Field(description="Duration for the product being purchased in minutes", default=None)
-    seats: Annotated[Optional[str], OmitIfNone()] = Field(description="Seats assignments for the product being purchased", default="")
-    destination: Annotated[Optional[str], OmitIfNone()] = Field(description="Location identifier for the destination of the product being purchased", default="")
-    lead_time: Annotated[Optional[float], OmitIfNone()] = Field(description="Lead time in days from the product being purchased until it's delivered (from purchase data to delivery date)", default=None)
+    starts: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="Start date for the product being purchased") # SQL: Nullable(DateTime64)
+    ends: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="End date for the product being purchased") # SQL: Nullable(DateTime64)
+    duration: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Duration for the product being purchased in minutes") # SQL: Nullable(Float32)
+    seats: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Seats assignments for the product being purchased") # SQL: Nullable(String) -> default="" if it can be empty, or None if truly optional
+    destination: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Location identifier for the destination of the product being purchased") # SQL: Nullable(String)
+    lead_time: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Lead time in days from the product being purchased until it's delivered (from purchase data to delivery date)") # SQL: Nullable(Float32)
 
-    dwell_time_ms: Annotated[Optional[int], OmitIfNone()] = Field(description="The time that this product was in the viewport of the customer (above the fold)", default=None)
+    dwell_time_ms: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The time that this product was in the viewport of the customer (above the fold)") # SQL: Nullable(Int64)
 
-    supplier: Annotated[Optional[str], OmitIfNone()] = Field(description="Supplier of the product being purchased", default="")
-    supplier_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Supplier ID of the product being purchased", default="")
-    manufacturer: Annotated[Optional[str], OmitIfNone()] = Field(description="Manufacturer of the product being purchased", default="")
-    manufacturer_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Manufacturer ID of the product being purchased", default="")
-    promoter: Annotated[Optional[str], OmitIfNone()] = Field(description="Promoter of the product being purchased", default="")
-    promoter_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Promoter ID of the product being purchased", default="")
-    product_mgr_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Product Manager ID of the product being purchased", default="")
-    product_mgr: Annotated[Optional[str], OmitIfNone()] = Field(description="Product Manager of the product being purchased", default="")
+    supplier: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier of the product being purchased")
+    supplier_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier ID of the product being purchased")
+    manufacturer: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Manufacturer of the product being purchased")
+    manufacturer_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Manufacturer ID of the product being purchased")
+    promoter: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Promoter of the product being purchased")
+    promoter_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Promoter ID of the product being purchased")
+    product_mgr_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Manager ID of the product being purchased")
+    product_mgr: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Manager of the product being purchased")
 
-    units: Annotated[Optional[float], OmitIfNone()] = Field(description="Product units (1 if sold by weight)", default=None)
-    unit_size: Annotated[Optional[float], OmitIfNone()] = Field(description="The quantity of each unit", default=None)
-    uom: Annotated[Optional[str], OmitIfNone()] = Field(description="Unit of measure of the product(s) being purchased (Weight, Duration, Items, Volume, etc.)", default="")
-    unit_price: Annotated[Optional[float], OmitIfNone()] = Field(description="Price ($) of the product being purchased", default=None)
-    unit_cost: Annotated[Optional[float], OmitIfNone()] = Field(description="Cost ($) of the product being purchased", default=None)
-    bundled_units: Annotated[Optional[int], OmitIfNone()] = Field(description="Number of units in a volume pack or bundle", default=None)
-    price_bracket: Annotated[Optional[str], OmitIfNone()] = Field(description="Price bracket of the product being purchased", default="")
+    units: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Product units (1 if sold by wight (see quantity))") # SQL: Nullable(Float64)
+    unit_size: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The quantity of each unit") # SQL: Nullable(Float64)
+    uom: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unit of measure of the product(s) being purchased (Weight, Duration, Items, Volume, etc.)")
+    unit_price: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Price ($) of the product being purchased") # SQL: Nullable(Float64)
+    unit_cost: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Cost ($) of the product being purchased") # SQL: Nullable(Float64)
+    bundled_units: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="Number of units in a volume pack or bundle") # SQL: Nullable(Int16)
+    price_bracket: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Price bracket of the product being purchased")
 
-    tax_percentage: Annotated[Optional[float], OmitIfNone()] = Field(description="Total tax-percentage associated with the product purchase (unit_price * units * tax_rate = tax)", default=None)
-    discount_percentage: Annotated[Optional[float], OmitIfNone()] = Field(description="The discount-percentage applied to the product (unit_price * units * discount_rate = discount)", default=None)
-    kickback_percentage: Annotated[Optional[float], OmitIfNone()] = Field(description="The kickback-percentage applied to the product (unit_price * units * kickback_rate = kickback)", default=None)
-    commission: Annotated[Optional[float], OmitIfNone()] = Field(description="The total commission percentage applied to the product on the line basis (unit_price * units * commission_rate = commission)", default=None)
-    coupon: Annotated[Optional[str], OmitIfNone()] = Field(description="Coupon code associated with a product (for example, MAY_DEALS_3)", default="")
+    tax_percentage: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total tax-percentage associated with the product purchase (unit_price * units * tax_rate = tax)") # SQL: Nullable(Float32)
+    discount_percentage: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The discount-percentage applied to the product (unit_price * units * discount_rate = discount)") # SQL: Nullable(Float32)
+    kickback_percentage: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The discount-percentage applied to the product (unit_price * units * discount_rate = discount)") # SQL: Nullable(Float32) - SQL comment same as discount_percentage
+    commission: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The total commission percentage applied to the product on the line basis (unit_price * units * commission_rate = commission)") # SQL: Nullable(Float32)
+    coupon: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Coupon code associated with a product (for example, MAY_DEALS_3)")
 
-    scale_item: Annotated[Optional[bool], OmitIfNone()] = Field(description="If the quantity of the product was measured during checkout / at the register", default=None)
-    price_changed: Annotated[Optional[bool], OmitIfNone()] = Field(description="If the price of the product has changed at the register/terminal", default=None)
-    line_discounted: Annotated[Optional[bool], OmitIfNone()] = Field(description="If the line item has a discount", default=None)
-    url: Annotated[Optional[str], OmitIfNone()] = Field(description="URL of the product page", default="")
-    img_url: Annotated[Optional[str], OmitIfNone()] = Field(description="Image url of the product", default="")
+    scale_item: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the quantity of the product was measured during checkout / at the register") # SQL: Nullable(BOOLEAN)
+    price_changed: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the price of the product has changed at the register/terminal") # SQL: Nullable(BOOLEAN)
+    line_discounted: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the line item has a discount") # SQL: Nullable(BOOLEAN)
+    url: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="URL of the product page")
+    img_url: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Image url of the product")
 
 class Commerce(CXSBase):
-    details: Annotated[Optional[str], OmitIfNone()] = Field(description="Other properties of the commerce event that cannot be mapped to the schema or have complex data types", default="")
-    checkout_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the checkout", default="")
-    order_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the order", default="")
-    cart_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the cart", default="")
-    employee_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the employee working the terminal/register", default="")
-    external_order_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique External ID for the order", default="")
-    terminal_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique External ID for the terminal used for the transaction", default="")
-    affiliation_id: Annotated[Optional[str], OmitIfNone()] = Field(description="Unique ID for the affiliation", default="")
-    affiliation: Annotated[Optional[str], OmitIfNone()] = Field(description="Store or affiliation from which this transaction occurred (for example, Google Store)", default="")
-    agent: Annotated[Optional[str], OmitIfNone()] = Field(description="The Agent responsible for the sale", default="")
-    agent_id: Annotated[Optional[str], OmitIfNone()] = Field(description="The ID of the Agent responsible for the sale", default="")
-    sold_location: Annotated[Optional[str], OmitIfNone()] = Field(description="The location where the sale occurred", default="")
-    sold_location_id: Annotated[Optional[str], OmitIfNone()] = Field(description="The ID of the location where the sale occurred", default="")
-    business_day: Annotated[Optional[datetime], OmitIfNone()] = Field(description="The business day of the transaction", default=None)
-    revenue: Annotated[Optional[float], OmitIfNone()] = Field(description="Total gross revenue", default=0.0)
-    tax: Annotated[Optional[float], OmitIfNone()] = Field(description="Total tax amount", default=0.0)
-    discount: Annotated[Optional[float], OmitIfNone()] = Field(description="Total discount amount", default=0.0)
-    cogs: Annotated[Optional[float], OmitIfNone()] = Field(description="Total cost of goods sold", default=0.0)
-    commission: Annotated[Optional[float], OmitIfNone()] = Field(description="Total commission amount", default=0.0)
-    currency: Annotated[Optional[str], OmitIfNone()] = Field(description="Currency code associated with the transaction", default="")
-    exchange_rate: Annotated[Optional[float], OmitIfNone()] = Field(description="Currency exchange rate associated with the transaction", default=1.0)
-    coupon: Annotated[Optional[str], OmitIfNone()] = Field(description="Transaction coupon redeemed with the transaction", default="")
-    payment_type: Annotated[Optional[str], OmitIfNone()] = Field(description="Type of payment (ex. Card, Paypal, Cash, etc.)", default="")
-    payment_sub_type: Annotated[Optional[str], OmitIfNone()] = Field(description="Subtype of payment (ex. Visa, Mastercard, etc.)", default="")
-    payment_details: Annotated[Optional[str], OmitIfNone()] = Field(description="Details of the payment (ex. Last 4 digits of the card, etc.)", default="")
+    details: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Other properties of the commerce event that cannot be mapped to the schema or have complex data types") # SQL: Nullable(String)
+    checkout_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Unique ID for the checkout") # SQL: Nullable(String)
+    order_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Unique ID for the order") # SQL: Nullable(String)
+    cart_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Unique ID for the cart") # SQL: Nullable(String)
+    employee_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unique ID for the employee working the terminal/register") # SQL: LowCardinality(String)
+    external_order_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Unique External ID for the order") # SQL: Nullable(String)
+    terminal_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unique External ID for the terminal used for the transaction") # SQL: LowCardinality(String)
+    affiliation_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unique ID for the affiliation") # SQL: LowCardinality(String)
+    affiliation: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Store or affiliation from which this transaction occurred (for example, Google Store)") # SQL: LowCardinality(String)
+    agent: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The Agent responsible for the sale") # SQL: LowCardinality(String)
+    agent_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the Agent responsible for the sale") # SQL: LowCardinality(String)
+    sold_location: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The location where the sale occurred") # SQL: LowCardinality(String)
+    sold_location_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the location where the sale occurred") # SQL: LowCardinality(String)
+    business_day: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The business day of the transaction") # SQL: LowCardinality(Date32) - Treat as Nullable for Pydantic
+    revenue: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total gross revenue") # SQL: Nullable(Float64)
+    tax: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total tax amount") # SQL: Nullable(Float64)
+    discount: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total discount amount") # SQL: Nullable(Float64)
+    cogs: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total cost of goods sold") # SQL: Nullable(Float64)
+    commission: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Total commission amount") # SQL: Nullable(Float64)
+    currency: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Currency code associated with the transaction") # SQL: LowCardinality(String)
+    exchange_rate: float = Field(default=1.0, description="Currency exchange rate associated with the transaction") # SQL: LowCardinality(Float32)
+    coupon: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Transaction coupon redeemed with the transaction") # SQL: LowCardinality(String)
+    payment_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Type of payment (ex. Card, Paypal, Cash, etc.)") # SQL: LowCardinality(String)
+    payment_sub_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Subtype of payment (ex. Visa, Mastercard, etc.)") # SQL: LowCardinality(String)
+    payment_details: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="Details of the payment (ex. Last 4 digits of the card, etc.)") # SQL: Nullable(String)
+    products: Annotated[Optional[list[Product]], OmitIfNone()] = Field(default_factory=list, description="Products involved in the commerce event")
 
 class Campaign(BaseModel):
     """
     Standard marketing properties as defined by Segment and Google Analytics
     """
-    campaign: Annotated[Optional[str], OmitIfNone()] = Field(description="The campaign (e.g. 'summer')", default="")
-    source: Annotated[Optional[str], OmitIfNone()] = Field(description="The source (e.g. 'google')", default="")
-    medium: Annotated[Optional[str], OmitIfNone()] = Field(description="The medium (e.g. 'cpc')", default="")
-    term: Annotated[Optional[str], OmitIfNone()] = Field(description="The term (e.g. 'beach')", default="")
-    content: Annotated[Optional[str], OmitIfNone()] = Field(description="The content (e.g. 'ad1')", default="")
+    campaign: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The campaign (e.g. \"summer\")") # SQL: campaign.campaign
+    source: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The source (e.g. \"google\")") # SQL: campaign.source
+    medium: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The medium (e.g. \"cpc\")") # SQL: campaign.medium
+    term: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The term (e.g. \"beach\")") # SQL: campaign.term
+    content: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The content (e.g. \"ad1\")") # SQL: campaign.content
 
 class App(BaseModel):
     """
     Application properties as defined by Segment
     """
-    build: Annotated[Optional[str], OmitIfNone()] = Field(description="The build of the app (e.g. '1.1.0')", default="")
-    name: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the app (e.g. 'Segment')", default="")
-    namespace: Annotated[Optional[str], OmitIfNone()] = Field(description="The namespace of the app (e.g. 'com.segment.analytics')", default="")
-    version: Annotated[Optional[str], OmitIfNone()] = Field(description="The version of the app (e.g. '1.1.0')", default="")
+    build: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The build of the app (e.g. \"1.1.0\")") # SQL: app.build
+    name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the app (e.g. \"Segment\")")   # SQL: app.name
+    namespace: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The namespace of the app (e.g. \"com.segment.analytics\")") # SQL: app.namespace
+    version: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The version of the app (e.g. \"1.1.0\")") # SQL: app.version
 
 class OS(BaseModel):
     """
     Operating System properties as defined by Segment
     """
-    name: Annotated[Optional[str], OmitIfNone()] = Field(description="The OS of the device (e.g. 'iOS')", default="")
-    version: Annotated[Optional[str], OmitIfNone()] = Field(description="The OS version of the device (e.g. '9.1')", default="")
+    name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The OS of the device (e.g. \"iOS\")") # SQL: os.name
+    version: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The OS version of the device (e.g. \"9.1\")") # SQL: os.version
 
 class UserAgent(BaseModel):
     """
     User Agent properties as defined by Segment
     """
-    mobile: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether the user agent is mobile (e.g. 'true')", default=None)
-    platform: Annotated[Optional[str], OmitIfNone()] = Field(description="The platform of the user agent (e.g. 'Apple Mac')", default="")
-    signature: Annotated[Optional[str], OmitIfNone()] = Field(description="The user agent (e.g. 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36')", default="")
-    data: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(description="The user agent data (e.g. {'brand': 'Apple', 'version': 'Mac OS X 10_10_5'})", default_factory=lambda: empty_dict())
+    mobile: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the user agent is mobile (e.g. \"true\")") # SQL: user_agent.mobile Nullable(Boolean)
+    platform: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The platform of the user agent (e.g. \"Apple Mac\")") # SQL: user_agent.platform LowCardinality(String)
+    signature: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The user agent (e.g. \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36\")") # SQL: user_agent.signature LowCardinality(String)
+    data: Annotated[Optional[UserAgentData], OmitIfNone()] = Field(default=None, description="User agent data including brand and version") # SQL: user_agent.data Nested
 
 class Page(BaseModel):
     """
     Page properties as defined by Segment
     """
-    encoding: Annotated[Optional[str], OmitIfNone()] = Field(description="The encoding of the page (e.g. 'UTF-8')", default="")
-    host: Annotated[Optional[str], OmitIfNone()] = Field(description="The host of the page (e.g. 'segment.com')", default="")
-    path: Annotated[Optional[str], OmitIfNone()] = Field(description="The path of the page (e.g. '/docs')", default="")
-    referrer: Annotated[Optional[str], OmitIfNone()] = Field(description="The referrer of the page (e.g. 'https://segment.com')", default="")
-    referring_domain: Annotated[Optional[str], OmitIfNone()] = Field(description="The referring domain of the page (e.g. 'segment.com')", default="")
-    search: Annotated[Optional[str], OmitIfNone()] = Field(description="The search of the page (e.g. 'segment')", default="")
-    title: Annotated[Optional[str], OmitIfNone()] = Field(description="The title of the page (e.g. 'Analytics.js Quickstart - Segment')", default="")
-    url: Annotated[Optional[str], OmitIfNone()] = Field(description="The url of the page (e.g. 'https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/')", default="")
+    encoding: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The encoding of the page (e.g. \"UTF-8\")") # SQL: page.encoding
+    host: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The host of the page (e.g. \"segment.com\")") # SQL: page.host
+    path: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The path of the page (e.g. \"/docs\")") # SQL: page.path
+    referrer: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The referrer of the page (e.g. \"https://segment.com\")") # SQL: page.referrer
+    referring_domain: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The referring domain of the page (e.g. \"segment.com\")") # SQL: page.referring_domain
+    search: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The search of the page (e.g. \"segment\")") # SQL: page.search
+    title: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The title of the page (e.g. \"Analytics.js Quickstart - Segment\")") # SQL: page.title
+    url: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The url of the page (e.g. \"https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/\")") # SQL: page.url
 
 class Referrer(BaseModel):
     """
     Referrer properties as defined by Segment
     """
-    id: Annotated[Optional[str], OmitIfNone()] = Field(description="The referrer ID of the library (e.g. '3c8da4a4-4f4b-11e5-9e98-2f3c942e34c8')", default="")
-    type: Annotated[Optional[str], OmitIfNone()] = Field(description="The referrer type of the library (e.g. 'dataxu')", default="")
+    id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The referrer ID of the library (e.g. \"3c8da4a4-4f4b-11e5-9e98-2f3c942e34c8\")") # SQL: referrer.id
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The referrer type of the library (e.g. \"dataxu\")") # SQL: referrer.type
 
 class Screen(BaseModel):
     """
     Screen properties as defined by Segment
     """
-    density: Annotated[Optional[int], OmitIfNone()] = Field(description="The density of the screen (e.g. 2)", default=None)
-    height: Annotated[Optional[int], OmitIfNone()] = Field(description="The height of the screen (e.g. 568)", default=None)
-    width: Annotated[Optional[int], OmitIfNone()] = Field(description="The width of the screen (e.g. 320)", default=None)
-    inner_height: Annotated[Optional[int], OmitIfNone()] = Field(description="The inner height of the screen (e.g. 568)", default=None)
-    inner_width: Annotated[Optional[int], OmitIfNone()] = Field(description="The inner width of the screen (e.g. 320)", default=None)
+    density: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The density of the screen (e.g. 2)") # SQL: screen.density Nullable(Int16)
+    height: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The height of the screen (e.g. 568)") # SQL: screen.height Nullable(Int16)
+    width: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The width of the screen (e.g. 320)") # SQL: screen.width Nullable(Int16)
+    inner_height: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The inner height of the screen (e.g. 568)") # SQL: screen.inner_height Nullable(Int16)
+    inner_width: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The inner width of the screen (e.g. 320)") # SQL: screen.inner_width Nullable(Int16)
 
 class Context(BaseModel):
     """
     Root level event message context properties
     """
-    active: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether the library is active (e.g. 'true')", default=None)
-    ip: Annotated[Optional[str], OmitIfNone()] = Field(description="The IP of the user in IPv4 format (e.g. '1')", default="")
-    ipv6: Annotated[Optional[str], OmitIfNone()] = Field(description="The IP of the user in IPv6 format (e.g. '1')", default="")
-    locale: Annotated[Optional[str], OmitIfNone()] = Field(description="The locale used where the event happened (e.g. 'en-US')", default="")
-    group_id: Annotated[Optional[str], OmitIfNone()] = Field(description="The group ID associated with the event (e.g. 'a89d88da-4f4b-11e5-9e98-2f3c942e34c8')", default="")
-    timezone: Annotated[Optional[str], OmitIfNone()] = Field(description="The timezone the event happened in (e.g. 'America/Los_Angeles')", default="")
-    location: Annotated[Optional[Dict[str, float]], OmitIfNone()] = Field(description="The location associated with the event (e.g. {'latitude': 37.7576171, 'longitude': -122.5776844})", default_factory=lambda: empty_dict())
+    active: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the library is active (e.g. \"1\")") # SQL: context.active Nullable(Boolean)
+    ip: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The IP of the user in IPv4 format") # SQL: context.ip Nullable(IPv4)
+    ipv6: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The IP of the user in IPv6 format") # SQL: context.ipv6 Nullable(IPv6)
+    locale: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The locale used where the event happened (e.g. \"en-US\")") # SQL: context.locale LowCardinality(String)
+    group_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The group ID associated with the event (e.g. \"a89d88da-4f4b-11e5-9e98-2f3c942e34c8\")") # SQL: context.group_id LowCardinality(String)
+    timezone: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The timezone the event happened in (e.g. \"America/Los_Angeles\")") # SQL: context.timezone LowCardinality(String)
+    location: Annotated[Optional[tuple[float, float]], OmitIfNone()] = Field(default=None, description="The location associated with the event (e.g. \"37.7576171,-122.5776844\")") # SQL: context.location Point
+    extras: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Other properties of the event that cannot be mapped to the schema or have complex data types") # SQL: context.extras String
 
 class Library(BaseModel):
     """
     Library properties as defined by Segment
     """
-    name: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the library (e.g. 'analytics-ios')", default="")
-    version: Annotated[Optional[str], OmitIfNone()] = Field(description="The version of the library (e.g. '3.0.0')", default="")
+    name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the library (e.g. \"analytics-ios\")") # SQL: library.name
+    version: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The version of the library (e.g. \"3.0.0\")") # SQL: library.version
 
 class Device(BaseModel):
     """
     Device properties as defined by Segment
     """
-    ad_tracking_enabled: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether ad tracking is enabled (e.g. 'true')", default=None)
-    id: Annotated[Optional[str], OmitIfNone()] = Field(description="The manufacturer id for the device (e.g. 'e3bcf3f796b9f377284bfbfbcf1f8f92b6')", default="")
-    version: Annotated[Optional[str], OmitIfNone()] = Field(description="The device version (e.g. '9.1')", default="")
-    mac_address: Annotated[Optional[str], OmitIfNone()] = Field(description="The device mac address (e.g. '00:00:00:00:00:00')", default="")
-    manufacturer: Annotated[Optional[str], OmitIfNone()] = Field(description="The manufacturer of the device (e.g. 'Apple')", default="")
-    model: Annotated[Optional[str], OmitIfNone()] = Field(description="The model of the device (e.g. 'iPhone 6')", default="")
-    name: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the device (e.g. 'Nexus 5')", default="")
-    type: Annotated[Optional[str], OmitIfNone()] = Field(description="The type of the device (e.g. 'ios')", default="")
-    token: Annotated[Optional[str], OmitIfNone()] = Field(description="The token of the device (e.g. 'e3bcf3f796b9f377284bfbfbcf1f8f92b6')", default="")
-    locale: Annotated[Optional[str], OmitIfNone()] = Field(description="The locale of the device (e.g. 'en-US')", default="")
-    timezone: Annotated[Optional[str], OmitIfNone()] = Field(description="The timezone of the device (e.g. 'America/Los_Angeles')", default="")
-    # advertising_id: Annotated[Optional[str], OmitIfNone()] = Field(description="The advertising ID of the device (e.g. '350e9d90-d7f5-11e4-b9d6-
+    ad_tracking_enabled: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether ad tracking is enabled (e.g. \"true\")") # SQL: device.ad_tracking_enabled Nullable(Boolean)
+    id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The manufacturer id for the device (e.g. \"e3bcf3f796b9f377284bfbfbcf1f8f92b6\")") # SQL: device.id
+    version: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The device version (e.g. \"9.1\")") # SQL: device.version
+    mac_address: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The device mac address (e.g. \"00:00:00:00:00:00\")") # SQL: device.mac_address
+    manufacturer: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The manufacturer of the device (e.g. \"Apple\")") # SQL: device.manufacturer
+    model: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The model of the device (e.g. \"iPhone 6\")") # SQL: device.model
+    name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the device (e.g. \"Nexus 5\")") # SQL: device.name
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of the device (e.g. \"Mobile\", \"Tablet\", \"Desktop\", \"TV\", \"Wearable\", \"Other\")") # SQL: device.type
+    token: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The token of the device (e.g. \"e3bcf3f796b9f377284bfbfbcf1f8f92b6\")") # SQL: device.token
+    locale: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The locale of the device (e.g. \"en-US\")") # SQL: device.locale
+    timezone: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The timezone of the device (e.g. \"America/Los_Angeles\")") # SQL: device.timezone
+    brand: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The manufacturer of the device (e.g. \"Apple\")") # SQL: device.brand (comment same as manufacturer)
+    variant: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The variant of the device (e.g. \"iPhone 6s\")") # SQL: device.variant
+    advertising_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The advertising ID of the device (e.g. \"350e9d90-d7f5-11e4-b9d6-1681e6b88ec1\")") # SQL: device.advertising_id
 
 class Network(BaseModel):
     """
     Network properties as defined by Segment
     """
-    cellular: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether the network is cellular (e.g. 'true')", default=None)
-    bluetooth: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether the network is bluetooth (e.g. 'true')", default=None)
-    wifi: Annotated[Optional[bool], OmitIfNone()] = Field(description="Whether the network is wifi (e.g. 'true')", default=None)
-    carrier: Annotated[Optional[str], OmitIfNone()] = Field(description="The network carrier of the device (e.g. 'Verizon')", default="")
+    cellular: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the network is cellular (e.g. \"true\")") # SQL: network.cellular Nullable(Boolean)
+    bluetooth: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the network is bluetooth (e.g. \"true\")") # SQL: network.bluetooth Nullable(Boolean)
+    wifi: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="Whether the network is wifi (e.g. \"true\")") # SQL: network.wifi Nullable(Boolean)
+    carrier: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The network carrier of the device (e.g. \"Verizon\")") # SQL: network.carrier LowCardinality(String)
 
 class Traits(BaseModel):
     """
     Trait Properties that should be stores separately for GDPR reasons
     The user id should never be the same as the user id in the traits or any other personal identifiable information
     """
-    id: Annotated[Optional[str], OmitIfNone()] = Field(description="The ID of the user", default="")
-    name: Annotated[Optional[str], OmitIfNone()] = Field(description="The name of the user", default="")
-    first_name: Annotated[Optional[str], OmitIfNone()] = Field(description="The first name of the user", default="")
-    last_name: Annotated[Optional[str], OmitIfNone()] = Field(description="The last name of the user", default="")
-    social_security_nr: Annotated[Optional[str], OmitIfNone()] = Field(description="The social security number of the user", default="")
-    social_security_nr_family: Annotated[Optional[str], OmitIfNone()] = Field(description="The social security number of the user", default="")
-    email: Annotated[Optional[str], OmitIfNone()] = Field(description="The email of the user", default="")
-    phone: Annotated[Optional[str], OmitIfNone()] = Field(description="The phone number of the user", default="")
-    avatar: Annotated[Optional[str], OmitIfNone()] = Field(description="The avatar of the user", default="")
-    username: Annotated[Optional[str], OmitIfNone()] = Field(description="The username of the user", default="")
-    website: Annotated[Optional[str], OmitIfNone()] = Field(description="The website of the user", default="")
-    age: Annotated[Optional[int], OmitIfNone()] = Field(description="The age of the user", default=None)
-    birthday: Annotated[Optional[datetime], OmitIfNone()] = Field(description="The birthday of the user", default=None)
-    created_at: Annotated[Optional[datetime], OmitIfNone()] = Field(description="The date the user was created", default=None)
-    company: Annotated[Optional[str], OmitIfNone()] = Field(description="The company of the user", default="")
-    title: Annotated[Optional[str], OmitIfNone()] = Field(description="The title of the user", default="")
-    pronouns: Annotated[Optional[str], OmitIfNone()] = Field(description="The pronouns of the user", default="")
-    salutation: Annotated[Optional[str], OmitIfNone()] = Field(description="The salutation of the user", default="")
-    description: Annotated[Optional[str], OmitIfNone()] = Field(description="A general description of the user", default="")
-    industry: Annotated[Optional[str], OmitIfNone()] = Field(description="The industry of the user", default="")
-    employees: Annotated[Optional[int], OmitIfNone()] = Field(description="The number of employees of the user", default=None)
-    plan: Annotated[Optional[str], OmitIfNone()] = Field(description="The plan of the user", default="")
-    total_billed: Annotated[Optional[float], OmitIfNone()] = Field(description="The total billed of the user", default=None)
-    logins: Annotated[Optional[int], OmitIfNone()] = Field(description="The number of logins of the user", default=None)
-    address: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(description="The address of the user", default_factory=lambda: empty_dict())
+    id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the user") # SQL: traits.id
+    name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the user") # SQL: traits.name
+    first_name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The first name of the user") # SQL: traits.first_name
+    last_name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The last name of the user") # SQL: traits.last_name
+    social_security_nr: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The social security number of the user") # SQL: traits.social_security_nr
+    social_security_nr_family: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The social security number of the user") # SQL: traits.social_security_nr_family (SQL comment same as above)
+    email: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The email of the user") # SQL: traits.email
+    phone: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The phone number of the user") # SQL: traits.phone
+    avatar: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The avatar of the user") # SQL: traits.avatar
+    username: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The username of the user") # SQL: traits.username
+    website: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The website of the user") # SQL: traits.website
+    age: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The age of the user") # SQL: traits.age Nullable(Int8)
+    birthday: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The birthday of the user") # SQL: traits.birthday Nullable(Date)
+    created_at: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The date the user was created") # SQL: traits.created_at Nullable(Date)
+    company: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The company of the user") # SQL: traits.company
+    title: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The title of the user") # SQL: traits.title
+    gender: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Gender of the user. SQL Enum8(...)") # SQL: traits.gender
+    pronouns: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The pronouns of the user") # SQL: traits.pronouns
+    salutation: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The salutation of the user") # SQL: traits.salutation
+    description: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="A general description of the user") # SQL: traits.description String (non-nullable)
+    industry: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The industry of the user") # SQL: traits.industry
+    employees: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The number of employees of the user") # SQL: traits.employees Nullable(Int32)
+    plan: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The plan of the user") # SQL: traits.plan
+    total_billed: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The total billed of the user") # SQL: traits.total_billed Nullable(Float32)
+    logins: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The number of logins of the user") # SQL: traits.logins Nullable(Int32)
+    address: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="All traits that are not defined explicitly") # SQL: traits.address Map(...)
 
+
+class UserAgentData(CXSBase):
+    brand: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The brand of the user agent (e.g. \"Apple\")")
+    version: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The version of the user agent (e.g. \"Mac OS X 10_10_5\")")
+
+
+class EntityLinking(CXSBase):
+    content_key: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of content (e.g. \"body\", \"subject\", \"title\", \"description\", \"summary\", \"quick response\", \"other\")")
+    label: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The label of the entity that is involved in the event") # SQL Nullable
+    starts_at: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The start index of the entity in the content") # SQL Nullable
+    ends_at: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The end index of the entity in the content") # SQL Nullable
+    entity_type: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The Entity type of the entity that is involved in the event (e.g. \"Person\", \"Organization\", \"LegalEntity\")") # SQL Nullable
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The Graph UUID of the entity that is involved in the event") # SQL Nullable
+    entity_wid: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The Wikidata UUID of the entity that is involved in the event") # SQL Nullable
+    certainty: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The certainty of the entity linking") # SQL Nullable
+
+
+class ContextualAwareness(CXSBase):
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Description, Summary, Conditions, History, Other")
+    entity_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The entity type that the event is associated with (e.g. \"Currency\", \"Product\", \"Service\", \"Other\")")
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)") # SQL Nullable
+    entity_wid: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The wikidata ID of the entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)") # SQL Nullable
+    context: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The context information (e.g. \"Silfra is an extremely cold pond with a constant temperature of 2° celsius\")") # SQL Nullable
+
+
+class BaseEventInfo(CXSBase):
+    event_gid: uuid.UUID = Field(..., description="The event gid of the root event")
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of the event (e.g. \"page\", \"track\", \"identify\", \"group\", \"alias\", \"screen\", \"commerce\")")
+    event: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the event (e.g. \"Page Viewed\", \"Product Added\", \"User Signed Up\")")
+    timestamp: datetime = Field(..., description="The timestamp of the event in UTC (e.g. \"2022-01-01 00:00:00\")")
+    message_id: str = Field(default="", description="The message ID of the base event") # SQL String (non-nullable)
+    entity_gid: uuid.UUID = Field(..., description="The entity GID of the event")
+
+
+class AccessInfo(CXSBase):
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of the user. SQL Enum8('Blacklisted'=1, 'Whitelisted'=2)")
+    label: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The user ID of the user") # SQL comment might be for a more generic label
+    user_gid: uuid.UUID = Field(..., description="The user ID of the user") # SQL UUID (non-nullable)
+    organization_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The department ID (sub organization) of users that have access") # SQL Nullable
+    date_from: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The access start date") # SQL Nullable
+    date_to: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The access end date") # SQL Nullable
+
+
+class SourceInfo(CXSBase):
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The type of source (e.g. \"CRM\", \"ERP\", \"eCommerce\", \"Social\", \"Email\", \"SMS\", \"Web\", \"Mobile\", \"Other\")") # SQL Nullable
+    label: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The label of the source of the event") # SQL Nullable
+    source_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The Graph UUID of the source of the event") # SQL Nullable
+    access_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The Graph UUID of the authentication details of the source of the event") # SQL Nullable
 
 
 class SemanticEvent(BaseModel):
     """
-    Partial schema for a semantic event that is needed for ticket analysis
+    Semantic Event representing user actions and system occurrences, aligned with Segment spec and ClickHouse schema.
     """
 
-    entity_gid: uuid.UUID = Field(...,description="Entity gid is the unique identifier of the entity that the event is related to",)
+    entity_gid: uuid.UUID = Field(...,description="The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)")
+    timestamp: datetime = Field(..., description="The timestamp of the event is always stored in UTC")
+    type: EventType = Field(..., description="The event type (e.g. \"track, page, identify, group, alias, screen etc.\")")
+    event: str = Field(..., description="The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense")
+    event_gid: uuid.UUID = Field(..., description="A unique GID for each message - calculated on the server side from the message ID or other factors if missing") # SQL: event_gid UUID (non-nullable)
 
-    timestamp: datetime = Field(..., description="Timestamp of the event. Iso format 8601")
-    type: EventType = Field(..., description="Type of the event")
-    event: str = Field(..., description="Name of the event where the last word is a verb in past tense")
-    event_gid: uuid.UUID = Field(description="Event gid that must be set before saving the event", default=None)
+    properties: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional properties for the event in any JSON format.") # SQL: Map(LowCardinality(String),String)
+    involves: Annotated[Optional[list[Involved]],OmitIfNone()] = Field(default_factory=list, description="Entities involved in the event. Involvement can be implicit (via other properties) or explicit using this structure.")
+    dimensions: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="Additional dimensions for the event. Low-cardinality dimensions not defined in the schema and used on dashboards.")
+    metrics: Annotated[Optional[Dict[str, float]],OmitIfNone()] = Field(default_factory=dict, description="Additional metrics for the event. These are additional metrics not defined in the schema and used on dashboards.") # SQL: Map(LowCardinality(String),Float32)
+    content: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(default_factory=dict, description="A dictionary of additional content that is associated with the event. Keys can be e.g. \"Body\", \"Subject\", \"Title\".") # SQL: Map(LowCardinality(String),String)
+    flags: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Boolean flags for the event. These are additional flags not defined in the schema and used on dashboards.")
 
-    properties: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(description="Additional properties of the event", default_factory=lambda : empty_dict())
-    involves: Annotated[Optional[list[Involved]],OmitIfNone()] = Field(description="Entities involved in the event", default_factory=lambda : empty_list())
+    sentiment: Annotated[Optional[list[Sentiment]],OmitIfNone()] = Field(default_factory=list, description="Entity sentiment of the event. Context Suite Specific array if sentiment objects used to track entity sentiment expressed in the event.")
+    classification: Annotated[Optional[list[Classification]],OmitIfNone()] = Field(default_factory=list, description="Classification of the event. Context Suite Specific property to track event classification (Intent, Categories, etc.).")
+    analysis: Annotated[Optional[list[Analysis]],OmitIfNone()] = Field(default_factory=list, description="Analysis array is used to track the cost associated with analysis of the event. Strictly for internal use.")
 
-    dimensions: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(description="Dimensions of the event", default_factory=lambda : empty_dict())
-    metrics: Annotated[Optional[Dict[str, float]],OmitIfNone()] = Field(description="Metrics of the event", default_factory=lambda : empty_dict())
-    content: Annotated[Optional[Dict[str, str]],OmitIfNone()] = Field(description="Content of the event", default_factory=lambda : empty_dict())
-    flags: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(description="Flags of the event", default_factory=lambda : empty_dict())
+    analyse: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Custom analysis flags that override the default analysis for this event.") # SQL: analyse Map(LowCardinality(String), Boolean)
+    integrations: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(default_factory=dict, description="Customer integrations flags that override the default integrations for this event.") # SQL: integrations Map(LowCardinality(String), Boolean)
+    underscore_process: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(default_factory=dict, description="Internal CXS processing flags and properties, not directly mapped to a fixed SQL schema part.")
 
-    sentiment: Annotated[Optional[list[Sentiment]],OmitIfNone()] = Field(description="Entity sentiment of the event", default_factory=lambda : empty_list())
-    classification: Annotated[Optional[list[Classification]],OmitIfNone()] = Field(description="Classification of the event", default_factory=lambda : empty_list())
-    analysis: Annotated[Optional[list[Analysis]],OmitIfNone()] = Field(description="Flags of the event", default_factory=lambda : empty_list())
+    messageId: Annotated[Optional[str],OmitIfNone()] = Field(default="", alias="message_id", description="A unique ID for each message as assigned by the client library") # SQL: message_id String
+    partition: str = Field(..., description="The version of the event message - Internal, can not be set by the user or via API") # SQL: partition LowCardinality(String)
 
-    analyse: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(description="Active analysis", default_factory=lambda : empty_dict())
-    integrations: Annotated[Optional[Dict[str, bool]],OmitIfNone()] = Field(description="Active integrations", default_factory=lambda : empty_dict())
-    underscore_process: Annotated[Optional[Dict[str, Any]],OmitIfNone()] = Field(description="Process flags and properties", default_factory=lambda : empty_dict())
+    anonymous_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The anonymous ID of the user before they are identified") # SQL: Nullable(String)
+    anonymous_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The anonymous ID of the user before they are identified") # SQL: Nullable(UUID)
+    user_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The user ID of the user") # SQL: Nullable(String)
+    user_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The user ID of the user") # SQL: Nullable(UUID)
+    account_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The account ID of the user (Often the same as the entity_gid)") # SQL: Nullable(String)
+    previous_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The user ID of the user before the event (e.g. \"anonymousId\" before \"identify\")") # SQL: Nullable(String)
+    session_id: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The session ID of the user in the client that generated the event") # SQL: Nullable(String)
+    session_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="The session GID of the user session that generated the event") # SQL: Nullable(UUID)
 
-    messageId: Annotated[Optional[str],OmitIfNone()] = Field(description="External message ID", default="")
-    source: Annotated[Optional[str],OmitIfNone()] = Field(description="Partition of the event", default="")
-    partition: str = Field(..., description="Partition of the event")
-    sign: int = Field(description="Sign of the event", default=1)
+    importance: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The importance of the event (eg. 1..5)") # SQL: Nullable(Int8)
+    customer_facing: int = Field(default=0, description="Indicates if the event is customer-facing (1 for true, 0 for false)") # SQL: Int8 default 0
 
-    # many missing properties and nested objects
+    local_time: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The original timestamp of the event in local time of the sender") # SQL: Nullable(DateTime64)
+    original_timestamp: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The original timestamp of the event if different from 'timestamp'") # SQL: Nullable(DateTime64)
+    received_at: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The time the event was received by Segment (or similar system)") # SQL: Nullable(DateTime64)
+    sent_at: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The timestamp of when the event was sent by the client") # SQL: Nullable(DateTime64)
+    root_event_gid: uuid.UUID = Field(..., description="The root event GID of the event, if this is a derived event (higher order) then this will be populated with the root event GID") # SQL: UUID (non-nullable)
+    write_key: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or via API") # SQL: LowCardinality(String), assuming Nullable for Pydantic if not always present
+    ttl_days: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The number of days the event will be stored in the database (defaults to forever)") # SQL: Nullable(Float64)
+
+    entity_linking: Annotated[Optional[list[EntityLinking]], OmitIfNone()] = Field(default_factory=list, description="An array of entity links from content to named entities.")
+    contextual_awareness: Annotated[Optional[list[ContextualAwareness]], OmitIfNone()] = Field(default_factory=list, description="Additional context for entities involved in the event.")
+    base_events: Annotated[Optional[list[BaseEventInfo]], OmitIfNone()] = Field(default_factory=list, description="If this is a derived event (higher order), this will be populated with the base event information.")
+    access: Annotated[Optional[list[AccessInfo]], OmitIfNone()] = Field(default_factory=list, description="Black or whitelist of users that have access to the event or not.")
+    location: Annotated[Optional[list[Location]], OmitIfNone()] = Field(default_factory=list, description="Location(s) associated with the event.")
+
+
+    source_info: Annotated[Optional[SourceInfo], OmitIfNone()] = Field(alias="source", default=None, description="Information about the source of the event.")
+
+    campaign: Annotated[Optional[Campaign], OmitIfNone()] = Field(default=None, description="Marketing campaign information.")
+    app: Annotated[Optional[App], OmitIfNone()] = Field(default=None, description="Application context information.")
+    device: Annotated[Optional[Device], OmitIfNone()] = Field(default=None, description="Device context information.")
+    context: Annotated[Optional[Context], OmitIfNone()] = Field(default=None, description="General event context (IP, locale, etc.).")
+    library: Annotated[Optional[Library], OmitIfNone()] = Field(default=None, description="Information about the client library that generated the event.")
+    network: Annotated[Optional[Network], OmitIfNone()] = Field(default=None, description="Network context information.")
+    os: Annotated[Optional[OS], OmitIfNone()] = Field(alias="operating_system", default=None, description="Operating system context information.")
+    page: Annotated[Optional[Page], OmitIfNone()] = Field(default=None, description="Page context information for web events.")
+    referrer: Annotated[Optional[Referrer], OmitIfNone()] = Field(default=None, description="Referrer information.")
+    screen: Annotated[Optional[Screen], OmitIfNone()] = Field(default=None, description="Screen context information for mobile events.")
+    traits: Annotated[Optional[Traits], OmitIfNone()] = Field(default=None, description="User traits, typically for identify or group events.")
+    user_agent: Annotated[Optional[UserAgent], OmitIfNone()] = Field(default=None, description="User agent information.")
+    commerce: Annotated[Optional[Commerce], OmitIfNone()] = Field(default=None, description="Commerce-related event information.")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -436,6 +526,7 @@ class SemanticEvent(BaseModel):
                     "entity_gid": values.get("involves.entity_gid")[idx],
                     "id": values.get("involves.id")[idx],
                     "id_type": values.get("involves.id_type")[idx],
+                    "capacity": values.get("involves.capacity")[idx] if values.get("involves.capacity") else None,
                     "role": values.get("involves.role")[idx],
                 })
                 idx += 1
@@ -491,6 +582,319 @@ class SemanticEvent(BaseModel):
                 })
                 idx += 1
             values["sentiment"] = sentiment
+
+        if values.get("entity_linking.content_key") is not None:
+            entity_linkings = []
+            idx = 0
+            for _ in values.get("entity_linking.content_key"):
+                entity_linkings.append({
+                    "content_key": values.get("entity_linking.content_key")[idx],
+                    "label": values.get("entity_linking.label")[idx],
+                    "starts_at": values.get("entity_linking.starts_at")[idx],
+                    "ends_at": values.get("entity_linking.ends_at")[idx],
+                    "entity_type": values.get("entity_linking.entity_type")[idx],
+                    "entity_gid": values.get("entity_linking.entity_gid")[idx],
+                    "entity_wid": values.get("entity_linking.entity_wid")[idx],
+                    "certainty": values.get("entity_linking.certainty")[idx],
+                })
+                idx += 1
+            values["entity_linking"] = entity_linkings
+
+        if values.get("contextual_awareness.type") is not None:
+            contextual_awareness_items = []
+            idx = 0
+            for _ in values.get("contextual_awareness.type"):
+                contextual_awareness_items.append({
+                    "type": values.get("contextual_awareness.type")[idx],
+                    "entity_type": values.get("contextual_awareness.entity_type")[idx],
+                    "entity_gid": values.get("contextual_awareness.entity_gid")[idx],
+                    "entity_wid": values.get("contextual_awareness.entity_wid")[idx],
+                    "context": values.get("contextual_awareness.context")[idx],
+                })
+                idx += 1
+            values["contextual_awareness"] = contextual_awareness_items
+
+        if values.get("base_events.event_gid") is not None:
+            base_event_items = []
+            idx = 0
+            for _ in values.get("base_events.event_gid"):
+                base_event_items.append({
+                    "event_gid": values.get("base_events.event_gid")[idx],
+                    "type": values.get("base_events.type")[idx],
+                    "event": values.get("base_events.event")[idx],
+                    "timestamp": values.get("base_events.timestamp")[idx],
+                    "message_id": values.get("base_events.message_id")[idx],
+                    "entity_gid": values.get("base_events.entity_gid")[idx],
+                })
+                idx += 1
+            values["base_events"] = base_event_items
+
+        if values.get("access.type") is not None:
+            access_items = []
+            idx = 0
+            for _ in values.get("access.type"):
+                access_items.append({
+                    "type": values.get("access.type")[idx],
+                    "label": values.get("access.label")[idx],
+                    "user_gid": values.get("access.user_gid")[idx],
+                    "organization_gid": values.get("access.organization_gid")[idx],
+                    "date_from": values.get("access.date_from")[idx],
+                    "date_to": values.get("access.date_to")[idx],
+                })
+                idx += 1
+            values["access"] = access_items
+
+        # Note: SemanticEvent.location is a list of Location objects
+        # SQL schema: location Nested (...)
+        # This pre_init part assumes that if location data comes from CH flat, it would be like "location.type", "location.label" etc.
+        if values.get("location.type") is not None and isinstance(values.get("location.type"), list):
+            location_items = []
+            # Need to determine the number of location items based on one of its array fields
+            num_locations = len(values.get("location.type"))
+            for idx in range(num_locations):
+                location_item = {}
+                for key in ["type", "label", "country", "country_code", "code", "region", "division",
+                            "municipality", "locality", "postal_code", "postal_name", "street",
+                            "street_nr", "address", "longitude", "latitude", "geohash",
+                            "duration_from", "duration_until", "location_of"]: # Added location_of
+                    ch_key = f"location.{key}"
+                    if values.get(ch_key) is not None and idx < len(values.get(ch_key)):
+                        location_item[key] = values.get(ch_key)[idx]
+                    else:
+                        # Handle cases where a specific sub-field might be missing for an item
+                        location_item[key] = None
+                location_items.append(location_item)
+            values["location"] = location_items
+
+        # Reconstruct Context Objects from flattened ClickHouse data
+        # SourceInfo (replaces source: str)
+        if any(k.startswith("source.") for k in values.keys()):
+            values["source_info"] = SourceInfo(
+                type=values.pop("source.type", None),
+                label=values.pop("source.label", None),
+                source_gid=values.pop("source.source_gid", None),
+                access_gid=values.pop("source.access_gid", None)
+            )
+            # Remove the old 'source' string field if it's present from older data
+            values.pop("source", None)
+
+        if any(k.startswith("campaign.") for k in values.keys()):
+            values["campaign"] = Campaign(
+                campaign=values.pop("campaign.campaign", None),
+                source=values.pop("campaign.source", None),
+                medium=values.pop("campaign.medium", None),
+                term=values.pop("campaign.term", None),
+                content=values.pop("campaign.content", None)
+            )
+
+        if any(k.startswith("app.") for k in values.keys()):
+            values["app"] = App(
+                build=values.pop("app.build", None),
+                name=values.pop("app.name", None),
+                namespace=values.pop("app.namespace", None),
+                version=values.pop("app.version", None)
+            )
+
+        if any(k.startswith("os.") for k in values.keys()): # SQL os.name, os.version
+            values["os"] = OS( # Pydantic field is os: Optional[OS]
+                name=values.pop("os.name", None),
+                version=values.pop("os.version", None)
+            )
+
+        if any(k.startswith("library.") for k in values.keys()):
+            values["library"] = Library(
+                name=values.pop("library.name", None),
+                version=values.pop("library.version", None)
+            )
+
+        if any(k.startswith("network.") for k in values.keys()):
+            values["network"] = Network(
+                cellular=values.pop("network.cellular", None),
+                bluetooth=values.pop("network.bluetooth", None),
+                wifi=values.pop("network.wifi", None),
+                carrier=values.pop("network.carrier", None)
+            )
+
+        if any(k.startswith("page.") for k in values.keys()):
+            values["page"] = Page(
+                encoding=values.pop("page.encoding", None),
+                host=values.pop("page.host", None),
+                path=values.pop("page.path", None),
+                referrer=values.pop("page.referrer", None),
+                referring_domain=values.pop("page.referring_domain", None),
+                search=values.pop("page.search", None),
+                title=values.pop("page.title", None),
+                url=values.pop("page.url", None)
+            )
+
+        if any(k.startswith("referrer.") for k in values.keys()):
+            values["referrer"] = Referrer(
+                id=values.pop("referrer.id", None),
+                type=values.pop("referrer.type", None)
+            )
+
+        if any(k.startswith("screen.") for k in values.keys()):
+            values["screen"] = Screen(
+                density=values.pop("screen.density", None),
+                height=values.pop("screen.height", None),
+                width=values.pop("screen.width", None),
+                inner_height=values.pop("screen.inner_height", None),
+                inner_width=values.pop("screen.inner_width", None)
+            )
+
+        if any(k.startswith("device.") for k in values.keys()):
+            values["device"] = Device(
+                ad_tracking_enabled=values.pop("device.ad_tracking_enabled", None),
+                id=values.pop("device.id", None),
+                version=values.pop("device.version", None),
+                mac_address=values.pop("device.mac_address", None), # This field is in Pydantic but not explicitly in SQL device.* list
+                manufacturer=values.pop("device.manufacturer", None),
+                model=values.pop("device.model", None),
+                name=values.pop("device.name", None),
+                type=values.pop("device.type", None),
+                token=values.pop("device.token", None),
+                locale=values.pop("device.locale", None),
+                timezone=values.pop("device.timezone", None),
+                brand=values.pop("device.brand", None), # Added in Pydantic
+                variant=values.pop("device.variant", None), # Added in Pydantic
+                advertising_id=values.pop("device.advertising_id", None) # Added in Pydantic
+            )
+
+        if any(k.startswith("user_agent.") for k in values.keys()):
+            ua_data_dict = {}
+            if "user_agent.data.brand" in values: # Check if sub-fields exist
+                ua_data_dict["brand"] = values.pop("user_agent.data.brand", None)
+                ua_data_dict["version"] = values.pop("user_agent.data.version", None)
+
+            values["user_agent"] = UserAgent(
+                mobile=values.pop("user_agent.mobile", None),
+                platform=values.pop("user_agent.platform", None),
+                signature=values.pop("user_agent.signature", None),
+                data=UserAgentData(**ua_data_dict) if ua_data_dict else None
+            )
+
+        if any(k.startswith("context.") for k in values.keys()):
+            loc_tuple = None
+            # Assuming context.location might come as separate lat/lon or a pre-formed tuple/list
+            # Based on SQL 'Point' type, it would be (lon, lat)
+            if "context.location.longitude" in values and "context.location.latitude" in values: # Example if they came flat
+                lon = values.pop("context.location.longitude")
+                lat = values.pop("context.location.latitude")
+                if lon is not None and lat is not None:
+                    loc_tuple = (float(lon), float(lat))
+            elif "context.location" in values and isinstance(values["context.location"], (list, tuple)) and len(values["context.location"]) == 2:
+                 # if it comes as [lon, lat] or (lon, lat)
+                raw_loc = values.pop("context.location")
+                loc_tuple = (float(raw_loc[0]), float(raw_loc[1]))
+
+            values["context"] = Context(
+                active=values.pop("context.active", None),
+                ip=values.pop("context.ip", None), # This is context_ip in SQL top level, and context.ip in context map.
+                ipv6=values.pop("context.ipv6", None),
+                locale=values.pop("context.locale", None),
+                group_id=values.pop("context.group_id", None),
+                timezone=values.pop("context.timezone", None),
+                location=loc_tuple,
+                extras=values.pop("context.extras", None)
+            )
+
+        if any(k.startswith("traits.") for k in values.keys()):
+            address_dict = {}
+            # traits.address is Map(String, String), so it won't be like traits.address.city
+            # It will be traits.address = {'city': 'Reykjavik', 'street': 'Laugavegur'} if CH client supports map directly
+            # Or potentially traits.address.key = [...] traits.address.value = [...] if fully flattened
+            # For now, assume traits.address comes as a dict if present, or handle specific keys if known
+            if "traits.address" in values and isinstance(values["traits.address"], dict) :
+                 address_dict = values.pop("traits.address")
+            # else: # If address is flattened like traits.address.city, traits.address.country
+            #    if values.get("traits.address.city"): address_dict["city"] = values.pop("traits.address.city")
+            #    ... etc. for all known address keys
+
+            values["traits"] = Traits(
+                id=values.pop("traits.id", None),
+                name=values.pop("traits.name", None),
+                first_name=values.pop("traits.first_name", None),
+                last_name=values.pop("traits.last_name", None),
+                social_security_nr=values.pop("traits.social_security_nr", None),
+                social_security_nr_family=values.pop("traits.social_security_nr_family", None),
+                email=values.pop("traits.email", None),
+                phone=values.pop("traits.phone", None),
+                avatar=values.pop("traits.avatar", None),
+                username=values.pop("traits.username", None),
+                website=values.pop("traits.website", None),
+                age=values.pop("traits.age", None),
+                birthday=values.pop("traits.birthday", None),
+                created_at=values.pop("traits.created_at", None),
+                company=values.pop("traits.company", None),
+                title=values.pop("traits.title", None),
+                pronouns=values.pop("traits.pronouns", None),
+                salutation=values.pop("traits.salutation", None),
+                description=values.pop("traits.description", None),
+                industry=values.pop("traits.industry", None),
+                employees=values.pop("traits.employees", None),
+                plan=values.pop("traits.plan", None),
+                total_billed=values.pop("traits.total_billed", None),
+                logins=values.pop("traits.logins", None),
+                address=address_dict if address_dict else None,
+                gender=values.pop("traits.gender", None) # Added in Pydantic
+            )
+
+        if any(k.startswith("commerce.") for k in values.keys()):
+            commerce_products = []
+            if values.get("commerce.products.product_id") is not None: # Check if product fields exist
+                num_products = len(values.get("commerce.products.product_id"))
+                for idx_prod in range(num_products):
+                    prod_data = {}
+                    for field_name in Product.__fields__.keys():
+                        ch_key = f"commerce.products.{field_name}"
+                        # Check if the key exists and the current index is valid for its list
+                        if values.get(ch_key) is not None and idx_prod < len(values.get(ch_key)):
+                            prod_data[field_name] = values.get(ch_key)[idx_prod]
+                        else:
+                            # Field might be optional in Product model or missing in this specific CH row item
+                            # Pydantic model's defaults for optional fields will apply if not provided here
+                            pass
+                    commerce_products.append(Product(**prod_data))
+
+            # Pop all potentially used commerce.products keys after processing
+            # This avoids them being misinterpreted by subsequent logic or Pydantic strict validation
+            if values.get("commerce.products.product_id") is not None: # Ensure we only pop if they existed
+                for field_name_to_pop in Product.__fields__.keys():
+                    values.pop(f"commerce.products.{field_name_to_pop}", None)
+
+            values["commerce"] = Commerce(
+                details=values.pop("commerce.details", None),
+                checkout_id=values.pop("commerce.checkout_id", None),
+                order_id=values.pop("commerce.order_id", None),
+                cart_id=values.pop("commerce.cart_id", None),
+                employee_id=values.pop("commerce.employee_id", None),
+                external_order_id=values.pop("commerce.external_order_id", None),
+                terminal_id=values.pop("commerce.terminal_id", None),
+                affiliation_id=values.pop("commerce.affiliation_id", None),
+                affiliation=values.pop("commerce.affiliation", None),
+                agent=values.pop("commerce.agent", None),
+                agent_id=values.pop("commerce.agent_id", None),
+                sold_location=values.pop("commerce.sold_location", None),
+                sold_location_id=values.pop("commerce.sold_location_id", None),
+                business_day=values.pop("commerce.business_day", None),
+                revenue=values.pop("commerce.revenue", None),
+                tax=values.pop("commerce.tax", None),
+                discount=values.pop("commerce.discount", None),
+                cogs=values.pop("commerce.cogs", None),
+                commission=values.pop("commerce.commission", None),
+                currency=values.pop("commerce.currency", None),
+                exchange_rate=values.pop("commerce.exchange_rate", 1.0), # Default from model
+                coupon=values.pop("commerce.coupon", None),
+                payment_type=values.pop("commerce.payment_type", None),
+                payment_sub_type=values.pop("commerce.payment_sub_type", None),
+                payment_details=values.pop("commerce.payment_details", None),
+                products=commerce_products if commerce_products else None
+            )
+            # Remove commerce.products.* keys manually as they are not popped by simple key access
+            # This is a bit verbose, might need a helper if many such structures
+            product_field_keys = [f"commerce.products.{k}" for k in Product.__fields__.keys()]
+            for pk in product_field_keys:
+                values.pop(pk, None)
 
         return values
 
@@ -648,7 +1052,11 @@ class SemanticEventCH(SemanticEvent):
         return values
 
     @pydantic.field_serializer(
-        "classification", "content", "type", "sentiment", "involves", "properties", "analysis", check_fields=False
+        "classification", "content", "type", "sentiment", "involves", "properties", "analysis",
+        "entity_linking", "contextual_awareness", "base_events", "access", "location",
+        "campaign", "app", "device", "context", "library", "network", "os", "page",
+        "referrer", "screen", "traits", "source_info", "commerce", # Added context objects
+        check_fields=False
     )
     def my_field_serializer(self, value: Any, info: pydantic.FieldSerializationInfo) -> Any:
         if info.field_name == "classification":
@@ -694,15 +1102,314 @@ class SemanticEventCH(SemanticEvent):
                 "sentiment.target_type": [c.target_type for c in value],
                 "sentiment.target_entity": [c.target_entity for c in value],
             }
+        elif info.field_name == "entity_linking":
+            return {
+                "entity_linking.content_key": [c.content_key for c in value],
+                "entity_linking.label": [c.label for c in value],
+                "entity_linking.starts_at": [c.starts_at for c in value],
+                "entity_linking.ends_at": [c.ends_at for c in value],
+                "entity_linking.entity_type": [c.entity_type for c in value],
+                "entity_linking.entity_gid": [c.entity_gid for c in value],
+                "entity_linking.entity_wid": [c.entity_wid for c in value],
+                "entity_linking.certainty": [c.certainty for c in value],
+            }
+        elif info.field_name == "contextual_awareness":
+            return {
+                "contextual_awareness.type": [c.type for c in value],
+                "contextual_awareness.entity_type": [c.entity_type for c in value],
+                "contextual_awareness.entity_gid": [c.entity_gid for c in value],
+                "contextual_awareness.entity_wid": [c.entity_wid for c in value],
+                "contextual_awareness.context": [c.context for c in value],
+            }
+        elif info.field_name == "base_events":
+            return {
+                "base_events.event_gid": [c.event_gid for c in value],
+                "base_events.type": [c.type for c in value],
+                "base_events.event": [c.event for c in value],
+                "base_events.timestamp": [c.timestamp for c in value],
+                "base_events.message_id": [c.message_id for c in value],
+                "base_events.entity_gid": [c.entity_gid for c in value],
+            }
+        elif info.field_name == "access":
+            return {
+                "access.type": [c.type for c in value],
+                "access.label": [c.label for c in value],
+                "access.user_gid": [c.user_gid for c in value],
+                "access.organization_gid": [c.organization_gid for c in value],
+                "access.date_from": [c.date_from for c in value],
+                "access.date_to": [c.date_to for c in value],
+            }
+        elif info.field_name == "location": # Serializer for SemanticEvent.location (list of Location objects)
+            # This assumes 'value' is a list of Location model instances
+            location_data = {
+                "location.location_of": [loc.location_of for loc in value],
+                "location.label": [loc.label for loc in value],
+                "location.country": [loc.country for loc in value],
+                "location.country_code": [loc.country_code for loc in value],
+                "location.code": [loc.code for loc in value],
+                "location.region": [loc.region for loc in value],
+                "location.division": [loc.division for loc in value],
+                "location.municipality": [loc.municipality for loc in value],
+                "location.locality": [loc.locality for loc in value],
+                "location.postal_code": [loc.postal_code for loc in value],
+                "location.postal_name": [loc.postal_name for loc in value],
+                "location.street": [loc.street for loc in value],
+                "location.street_nr": [loc.street_nr for loc in value],
+                "location.address": [loc.address for loc in value],
+                "location.longitude": [loc.longitude for loc in value],
+                "location.latitude": [loc.latitude for loc in value],
+                "location.geohash": [loc.geohash for loc in value],
+                "location.duration_from": [loc.duration_from for loc in value],
+                "location.duration_until": [loc.duration_until for loc in value],
+            }
+            return location_data
+        elif info.field_name == "source_info" and value:
+            return {
+                "source.type": value.type,
+                "source.label": value.label,
+                "source.source_gid": value.source_gid,
+                "source.access_gid": value.access_gid,
+            }
+        elif info.field_name == "campaign" and value:
+            return {
+                "campaign.campaign": value.campaign,
+                "campaign.source": value.source,
+                "campaign.medium": value.medium,
+                "campaign.term": value.term,
+                "campaign.content": value.content,
+            }
+        elif info.field_name == "app" and value:
+            return {
+                "app.build": value.build,
+                "app.name": value.name,
+                "app.namespace": value.namespace,
+                "app.version": value.version,
+            }
+        elif info.field_name == "os" and value: # Pydantic field name is 'os'
+            return {
+                "os.name": value.name, # SQL field is os.name
+                "os.version": value.version, # SQL field is os.version
+            }
+        elif info.field_name == "library" and value:
+            return {
+                "library.name": value.name,
+                "library.version": value.version,
+            }
+        elif info.field_name == "network" and value:
+            return {
+                "network.cellular": value.cellular,
+                "network.bluetooth": value.bluetooth,
+                "network.wifi": value.wifi,
+                "network.carrier": value.carrier,
+            }
+        elif info.field_name == "page" and value:
+            return {
+                "page.encoding": value.encoding,
+                "page.host": value.host,
+                "page.path": value.path,
+                "page.referrer": value.referrer,
+                "page.referring_domain": value.referring_domain,
+                "page.search": value.search,
+                "page.title": value.title,
+                "page.url": value.url,
+            }
+        elif info.field_name == "referrer" and value:
+            return {
+                "referrer.id": value.id,
+                "referrer.type": value.type,
+            }
+        elif info.field_name == "screen" and value:
+            return {
+                "screen.density": value.density,
+                "screen.height": value.height,
+                "screen.width": value.width,
+                "screen.inner_height": value.inner_height,
+                "screen.inner_width": value.inner_width,
+            }
+        elif info.field_name == "device" and value:
+            return {
+                "device.ad_tracking_enabled": value.ad_tracking_enabled,
+                "device.id": value.id,
+                "device.version": value.version,
+                "device.mac_address": value.mac_address,
+                "device.manufacturer": value.manufacturer,
+                "device.model": value.model,
+                "device.name": value.name,
+                "device.type": value.type,
+                "device.token": value.token,
+                "device.locale": value.locale,
+                "device.timezone": value.timezone,
+                "device.brand": value.brand,
+                "device.variant": value.variant,
+                "device.advertising_id": value.advertising_id,
+            }
+        elif info.field_name == "user_agent" and value:
+            ua_flat = {
+                "user_agent.mobile": value.mobile,
+                "user_agent.platform": value.platform,
+                "user_agent.signature": value.signature,
+            }
+            if value.data:
+                ua_flat["user_agent.data.brand"] = value.data.brand # SQL: user_agent.data Nested (brand, version)
+                ua_flat["user_agent.data.version"] = value.data.version
+            return ua_flat
+        elif info.field_name == "context" and value:
+            # location is Tuple[float,float] (lon, lat) for SQL Point
+            # CH driver expects tuple for Point type.
+            return {
+                "context.active": value.active,
+                "context.ip": value.ip,
+                "context.ipv6": value.ipv6,
+                "context.locale": value.locale,
+                "context.group_id": value.group_id,
+                "context.timezone": value.timezone,
+                "context.location": value.location, # Should be (lon, lat) tuple
+                "context.extras": value.extras,
+            }
+        elif info.field_name == "traits" and value:
+            # traits.address is Map(String,String)
+            return {
+                "traits.id": value.id,
+                "traits.name": value.name,
+                "traits.first_name": value.first_name,
+                "traits.last_name": value.last_name,
+                "traits.social_security_nr": value.social_security_nr,
+                "traits.social_security_nr_family": value.social_security_nr_family,
+                "traits.email": value.email,
+                "traits.phone": value.phone,
+                "traits.avatar": value.avatar,
+                "traits.username": value.username,
+                "traits.website": value.website,
+                "traits.age": value.age,
+                "traits.birthday": value.birthday.isoformat() if value.birthday else None, # Date
+                "traits.created_at": value.created_at.isoformat() if value.created_at else None, # Date
+                "traits.company": value.company,
+                "traits.title": value.title,
+                "traits.pronouns": value.pronouns,
+                "traits.salutation": value.salutation,
+                "traits.description": value.description,
+                "traits.industry": value.industry,
+                "traits.employees": value.employees,
+                "traits.plan": value.plan,
+                "traits.total_billed": value.total_billed,
+                "traits.logins": value.logins,
+                "traits.address": value.address, # This is Dict[str,str], CH driver handles Map
+                "traits.gender": value.gender,
+            }
+        elif info.field_name == "commerce" and value:
+            commerce_flat = {
+                "commerce.details": value.details,
+                "commerce.checkout_id": value.checkout_id,
+                "commerce.order_id": value.order_id,
+                "commerce.cart_id": value.cart_id,
+                "commerce.employee_id": value.employee_id,
+                "commerce.external_order_id": value.external_order_id,
+                "commerce.terminal_id": value.terminal_id,
+                "commerce.affiliation_id": value.affiliation_id,
+                "commerce.affiliation": value.affiliation,
+                "commerce.agent": value.agent,
+                "commerce.agent_id": value.agent_id,
+                "commerce.sold_location": value.sold_location,
+                "commerce.sold_location_id": value.sold_location_id,
+                "commerce.business_day": value.business_day.isoformat() if value.business_day else None, # Date32
+                "commerce.revenue": value.revenue,
+                "commerce.tax": value.tax,
+                "commerce.discount": value.discount,
+                "commerce.cogs": value.cogs,
+                "commerce.commission": value.commission,
+                "commerce.currency": value.currency,
+                "commerce.exchange_rate": value.exchange_rate,
+                "commerce.coupon": value.coupon,
+                "commerce.payment_type": value.payment_type,
+                "commerce.payment_sub_type": value.payment_sub_type,
+                "commerce.payment_details": value.payment_details,
+            }
+            if value.products:
+                # Flatten products list similar to other nested lists
+                commerce_flat.update({
+                    "commerce.products.position": [p.position for p in value.products],
+                    "commerce.products.entry_type": [p.entry_type for p in value.products],
+                    "commerce.products.line_id": [p.line_id for p in value.products],
+                    "commerce.products.product_id": [p.product_id for p in value.products],
+                    "commerce.products.entity_gid": [p.entity_gid for p in value.products],
+                    "commerce.products.sku": [p.sku for p in value.products],
+                    "commerce.products.barcode": [p.barcode for p in value.products],
+                    "commerce.products.gtin": [p.gtin for p in value.products],
+                    "commerce.products.upc": [p.upc for p in value.products],
+                    "commerce.products.ean": [p.ean for p in value.products],
+                    "commerce.products.isbn": [p.isbn for p in value.products],
+                    "commerce.products.serial_number": [p.serial_number for p in value.products],
+                    "commerce.products.supplier_number": [p.supplier_number for p in value.products],
+                    "commerce.products.tpx_serial_number": [p.tpx_serial_number for p in value.products],
+                    "commerce.products.bundle_id": [p.bundle_id for p in value.products],
+                    "commerce.products.bundle": [p.bundle for p in value.products],
+                    "commerce.products.product": [p.product for p in value.products],
+                    "commerce.products.variant": [p.variant for p in value.products],
+                    "commerce.products.novelty": [p.novelty for p in value.products],
+                    "commerce.products.size": [p.size for p in value.products],
+                    "commerce.products.packaging": [p.packaging for p in value.products],
+                    "commerce.products.condition": [p.condition for p in value.products],
+                    "commerce.products.ready_for_use": [p.ready_for_use for p in value.products],
+                    "commerce.products.core_product": [p.core_product for p in value.products],
+                    "commerce.products.origin": [p.origin for p in value.products],
+                    "commerce.products.brand": [p.brand for p in value.products],
+                    "commerce.products.product_line": [p.product_line for p in value.products],
+                    "commerce.products.own_product": [p.own_product for p in value.products],
+                    "commerce.products.product_dist": [p.product_dist for p in value.products],
+                    "commerce.products.main_category": [p.main_category for p in value.products],
+                    "commerce.products.main_category_id": [p.main_category_id for p in value.products],
+                    "commerce.products.category": [p.category for p in value.products],
+                    "commerce.products.category_id": [p.category_id for p in value.products],
+                    "commerce.products.income_category": [p.income_category for p in value.products],
+                    "commerce.products.gs1_brick_id": [p.gs1_brick_id for p in value.products],
+                    "commerce.products.gs1_brick": [p.gs1_brick for p in value.products],
+                    "commerce.products.gs1_brick_short": [p.gs1_brick_short for p in value.products],
+                    "commerce.products.gs1_brick_variant": [p.gs1_brick_variant for p in value.products],
+                    "commerce.products.gs1_conditions": [p.gs1_conditions for p in value.products],
+                    "commerce.products.gs1_processed": [p.gs1_processed for p in value.products],
+                    "commerce.products.gs1_consumable": [p.gs1_consumable for p in value.products],
+                    "commerce.products.gs1_class": [p.gs1_class for p in value.products],
+                    "commerce.products.gs1_family": [p.gs1_family for p in value.products],
+                    "commerce.products.gs1_segment": [p.gs1_segment for p in value.products],
+                    "commerce.products.starts": [p.starts for p in value.products],
+                    "commerce.products.ends": [p.ends for p in value.products],
+                    "commerce.products.duration": [p.duration for p in value.products],
+                    "commerce.products.seats": [p.seats for p in value.products],
+                    "commerce.products.destination": [p.destination for p in value.products],
+                    "commerce.products.lead_time": [p.lead_time for p in value.products],
+                    "commerce.products.dwell_time_ms": [p.dwell_time_ms for p in value.products],
+                    "commerce.products.supplier": [p.supplier for p in value.products],
+                    "commerce.products.supplier_id": [p.supplier_id for p in value.products],
+                    "commerce.products.manufacturer": [p.manufacturer for p in value.products],
+                    "commerce.products.manufacturer_id": [p.manufacturer_id for p in value.products],
+                    "commerce.products.promoter": [p.promoter for p in value.products],
+                    "commerce.products.promoter_id": [p.promoter_id for p in value.products],
+                    "commerce.products.product_mgr_id": [p.product_mgr_id for p in value.products],
+                    "commerce.products.product_mgr": [p.product_mgr for p in value.products],
+                    "commerce.products.units": [p.units for p in value.products],
+                    "commerce.products.unit_price": [p.unit_price for p in value.products],
+                    "commerce.products.unit_cost": [p.unit_cost for p in value.products],
+                    "commerce.products.bundled_units": [p.bundled_units for p in value.products],
+                    "commerce.products.unit_size": [p.unit_size for p in value.products],
+                    "commerce.products.uom": [p.uom for p in value.products],
+                    "commerce.products.tax_percentage": [p.tax_percentage for p in value.products],
+                    "commerce.products.discount_percentage": [p.discount_percentage for p in value.products],
+                    "commerce.products.kickback_percentage": [p.kickback_percentage for p in value.products],
+                    "commerce.products.commission": [p.commission for p in value.products],
+                    "commerce.products.scale_item": [p.scale_item for p in value.products],
+                    "commerce.products.price_changed": [p.price_changed for p in value.products],
+                    "commerce.products.line_discounted": [p.line_discounted for p in value.products],
+                    "commerce.products.price_bracket": [p.price_bracket for p in value.products],
+                    "commerce.products.coupon": [p.coupon for p in value.products],
+                    "commerce.products.url": [p.url for p in value.products],
+                    "commerce.products.img_url": [p.img_url for p in value.products],
+                })
+            return commerce_flat
         elif info.field_name == "type":
             return str(value.value)
-        elif info.field_name == "properties":
-            if value:
-                for k, v in value.items():
-                    if isinstance(v, dict):
-                        value[k] = json.dumps(v)
-                    elif isinstance(v, list):
-                        value[k] = json.dumps(v)
+        elif info.field_name == "properties": # Now Dict[str, str]
+            # Pydantic model ensures values are strings.
+            # Clickhouse driver handles Dict[str, str] to Map(String, String)
             return value
         elif info.field_name == "content":
             return {k: v for k, v in value.items() if v is not None}

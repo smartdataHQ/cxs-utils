@@ -11,11 +11,12 @@ from cxs.core.utils.gid import create_gid, normalize_gid_url
 
 
 class Content(CXSBase):
-    label: str
-    type: str
-    sub_type: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    value: Annotated[Optional[str], OmitIfNone()]
-    language: Annotated[Optional[str], OmitIfNone()] = Field(default="")
+    label: str = Field(..., description="The label of the content (e.g. \"Prologue\", \"Synopsis\", \"Description\", \"Summary\", \"Conditions\", \"History\", \"Other\")")
+    type: str = Field(..., description="Enum8('Description'=1, 'Summary'=2, 'Conditions'=3, 'History'=4, 'Other'=0)") # SQL type hint
+    sub_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Enum8('short'=1, 'long'=2, 'other'=0)") # SQL type hint
+    value: str = Field(..., description="The content of the event") # Renamed from "The content of the event" to "The content value" for clarity
+    language: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The primary language of the content (2 letter ISO code)")
+    meta_description: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="A description of the contents' purpose and a few questions it may answer")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -26,36 +27,36 @@ class Content(CXSBase):
 
 
 class Media(CXSBase):
-    media_type: str = Field(default="")
-    type: Annotated[Optional[str], OmitIfNone()]
-    sub_type: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    url: Annotated[Optional[str], OmitIfNone()]
-    language: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    aspect_ratio: Annotated[Optional[str], OmitIfNone()] = Field(default="")
+    media_type: str = Field(default="", description="Image, Video, Audio, etc.")
+    type: Annotated[Optional[str], OmitIfNone()] = Field(None, description="Poster, Thumbnail, etc.") # Explicitly None if it can be omitted
+    sub_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Program, Season, Episode, etc.")
+    url: str = Field(..., description="The URL of the media")
+    language: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The primary language of the media")
+    aspect_ratio: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The aspect ratio of the media")
 
 
 class Embeddings(CXSBase):
-    label: str
-    model: str
-    vectors: Annotated[Optional[list[float]], OmitIfNone()]
-    content_starts: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    content_ends: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    opening_phrase: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    closing_phrase: Annotated[Optional[str], OmitIfNone()] = Field(default="")
+    label: str = Field(..., description="The label of the embedding matches the content label (e.g. \"Prologue\", \"Synopsis\", \"Description\", \"Summary\", \"Conditions\", \"History\", \"Other\")")
+    model: str = Field(..., description="The model used to generate the embedding (e.g. \"text-embedding-3-small\", \"text-embedding-3-large\")")
+    vectors: Annotated[Optional[list[float]], OmitIfNone()] = Field(None, description="The vectors of the embedding, used for similarity search and clustering, usually 1024 dimensions")
+    content_starts: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The content that starts the embedding (e.g. \"Title: \", \"Description: \", \"Content: \")")
+    content_ends: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The content that ends the embedding (e.g. \" \", \".\", \" - \")")
+    opening_phrase: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The opening phrase of the embedding (e.g. \"This is a description of \", \"This is a content of \")")
+    closing_phrase: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The closing phrase of the embedding (e.g. \" for more information.\", \" for more details.\")")
 
 
 class ID(CXSBase):
-    label: Annotated[Optional[str], OmitIfNone()]
-    role: Annotated[Optional[str], OmitIfNone()]
-    entity_type: Annotated[Optional[str], OmitIfNone()]
-    entity_gid: Optional[uuid.UUID] = Field(
-        uuid.UUID("00000000-0000-0000-0000-000000000000"),
-        description="Event gid that must be set before saving the event. Calculate",
+    label: Annotated[Optional[str], OmitIfNone()] = Field(None, description="The label of the entity that is involved in the event")
+    role: Annotated[Optional[str], OmitIfNone()] = Field(None, description="The role of the entity in the event")
+    entity_type: Annotated[Optional[str], OmitIfNone()] = Field(None, description="The type of the entity that is involved in the event")
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field( # Changed from Optional[uuid.UUID] to Annotated for OmitIfNone
+        default=None, # SQL is Nullable(UUID), so None is appropriate default for Pydantic
+        description="The Graph UUID of the entity that is involved in the event",
     )
 
-    id: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    id_type: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    capacity: Annotated[Optional[float], OmitIfNone()] = Field(default=0)
+    id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the entity that is involved in the event")
+    id_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the entity that is involved in the event") # SQL comment is identical to id
+    capacity: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The capacity of the entity in the event")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -87,10 +88,10 @@ class ID(CXSBase):
 
 
 class Classification(CXSBase):
-    type: Annotated[Optional[str], OmitIfNone()]
-    value: Annotated[Optional[str], OmitIfNone()]
-    babelnet_id: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    weight: Annotated[Optional[float], OmitIfNone()] = Field(default=0)
+    type: Annotated[Optional[str], OmitIfNone()] = Field(None, description="The event category-> subcategory")
+    value: Annotated[Optional[str], OmitIfNone()] = Field(None, description="like Sports->Football, Concert->Pop etc.")
+    babelnet_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The concept ID for the classification (Used to translate and associate the classification with other systems)")
+    weight: float = Field(default=0.0, description="The relevance of the classification")
 
     @model_validator(mode="before")
     def pre_init(cls, values):
@@ -108,30 +109,30 @@ class Classification(CXSBase):
 
 
 class Location(CXSBase):
-    type: Annotated[str, OmitIfNone()] = Field(description="Location type")
-    label: Annotated[str, OmitIfNone()] = Field(description="Location label")
-    country: Annotated[Optional[str], OmitIfNone()] = Field(description="Country name", default="")
-    country_code: Annotated[Optional[str], OmitIfNone()] = Field(description="Country code", default="")
-    code: Annotated[Optional[str], OmitIfNone()] = Field(description="Location code", default="")
-    region: Annotated[Optional[str], OmitIfNone()] = Field(description="Region name", default="")
-    division: Annotated[Optional[str], OmitIfNone()] = Field(description="Division name", default="")
-    municipality: Annotated[Optional[str], OmitIfNone()] = Field(description="Municipality name", default="")
-    locality: Annotated[Optional[str], OmitIfNone()] = Field(description="Locality name", default="")
-    postal_code: Annotated[Optional[str], OmitIfNone()] = Field(description="Postal code", default="")
-    postal_name: Annotated[Optional[str], OmitIfNone()] = Field(description="Postal name", default="")
-    street: Annotated[Optional[str], OmitIfNone()] = Field(description="Street name", default="")
-    street_nr: Annotated[Optional[str], OmitIfNone()] = Field(description="Street number", default="")
-    address: Annotated[Optional[str], OmitIfNone()] = Field(description="Address", default="")
+    type: str = Field(..., description="The type of the location (e.g. \"Home\", \"Work\", \"Venue\", \"Address\", \"Geographic\", \"Permanent\", \"Temporary\", \"Other\")") # type is not Optional, it has a default in pre_init
+    label: str = Field(..., description="A readable label for the location (e.g. \"Home\", \"Work\", \"Venue\", \"Address\", \"Geographic\", \"Permanent\", \"Temporary\", \"Other\")") # label is not Optional, it has a default in pre_init
+    country: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The country of the location (e.g. \"France\", \"United States\", \"Germany\"), always in English and in singular form and capitalized")
+    country_code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The 3 letter country code of the location (e.g. \"FRA\", \"USA\", \"DEU\"), always in uppercase")
+    code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The code of the location (e.g. \"75001\", \"10001\", \"10115\"), always in uppercase")
+    region: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The region of the location (e.g. \"Île-de-France\", \"New York\", \"Berlin\"), always in English and in singular form and capitalized")
+    division: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The division of the location (e.g. \"Paris\", \"Manhattan\", \"Mitte\"), always in English and in singular form and capitalized")
+    municipality: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The municipality of the location (e.g. \"Paris\", \"New York\", \"Berlin\"), always in English and in singular form and capitalized")
+    locality: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The locality/neighbourhood of the location (e.g. \"Montmartre\", \"SoHo\", \"Kreuzberg\"), always in English and in singular form and capitalized")
+    postal_code: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The postal code of the location (e.g. \"75001\", \"10001\", \"10115\"), always in uppercase")
+    postal_name: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the postal code area (e.g. \"1er Arrondissement\", \"Chelsea\", \"Mitte\"), always in English and in singular form and capitalized")
+    street: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The street of the location (e.g. \"Rue de Rivoli\", \"Broadway\", \"Friedrichstraße\"), always in English and in singular form and capitalized")
+    street_nr: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The street number of the location (e.g. \"1\", \"100\", \"15\"), always in uppercase") # SQL Nullable
+    address: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The full address of the location (e.g. \"1 Rue de Rivoli, 75001 Paris, France\", \"100 Broadway, New York, NY 10001, USA\", \"15 Friedrichstraße, 10117 Berlin, Germany\"), always in English and in singular form and capitalized") # SQL Nullable
 
-    longitude: Annotated[Optional[float], OmitIfNone()] = Field(description="Longitude", default=None)
-    latitude: Annotated[Optional[float], OmitIfNone()] = Field(description="Latitude", default=None)
-    geohash: Annotated[Optional[str], OmitIfNone()] = Field(description="Geohash", default=None)
+    longitude: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The longitude of the location (e.g. 2.3364, -74.0060, 13.3889)")
+    latitude: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The latitude of the location (e.g. 48.8606, 40.7128, 52.5166)")
+    geohash: Annotated[Optional[str], OmitIfNone()] = Field(default=None, description="The geohash of the location (e.g. \"u09t2\", \"dqcjq\", \"s9z6x\"), always in lowercase") # SQL Nullable
 
     duration_from: Annotated[Optional[datetime], OmitIfNone()] = Field(
-        description="Duration from", default=None
+        default=None, description="The start of the duration for the location (e.g. \"2023-01-01 00:00:00\", \"2023-01-01 00:00:00\", \"2023-01-01 00:00:00\")"
     )
     duration_until: Annotated[Optional[datetime], OmitIfNone()] = Field(
-        description="Duration until", default=None
+        default=None, description="The end of the duration for the location (e.g. \"2023-12-31 23:59:59\", \"2023-12-31 23:59:59\", \"2023-12-31 23:59:59\")"
     )
 
     @model_validator(mode="before")
@@ -146,37 +147,36 @@ class Location(CXSBase):
 
 
 class Entity(BaseModel):
-    gid_url: str
+    gid_url: str = Field(..., description="The URL of the entity's GID")
     gid: uuid.UUID = Field(
-        description="Event gid that must be set before saving the event. Calculate",
-        default=uuid.UUID("00000000-0000-0000-0000-000000000000"),
+        description="The Graph UUID of the entity", # Updated description
+        default_factory=lambda: uuid.UUID("00000000-0000-0000-0000-000000000000") # Use default_factory for UUID
     )
 
-    label: str
-    labels: Annotated[Optional[list[str]], OmitIfNone()] = Field(default=[])
+    label: str = Field(..., description="The primary label of the entity (e.g. \"Eiffel Tower\")")
+    labels: Annotated[Optional[list[str]], OmitIfNone()] = Field(default_factory=list, description="Additional labels for the entity with language prefixes (e.g. [\"en:Eiffel Tower\", \"fr:Tour Eiffel\"])")
 
-    type: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    variant: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    icon: Annotated[Optional[str], OmitIfNone()] = Field(default="")
-    colour: Annotated[Optional[str], OmitIfNone()] = Field(default="")
+    type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The type of the entity (e.g. \"Event\", \"Place\", \"Person\"), always in English and in singular form and capitalized")
+    variant: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The variant of the entity (e.g. \"Concert\", \"Exhibition\", \"Match\"), always in English and in singular form and capitalized")
+    icon: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The icon of the entity (e.g. \"concert\", \"exhibition\", \"match\"), always in English and in singular form and capitalized")
+    colour: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The colour of the entity (e.g. \"red\", \"blue\", \"green\"), always in English and in singular form and capitalized")
 
-    dimensions: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default=dict())
-    tags: Annotated[Optional[list[str]], OmitIfNone()] = Field(default=list())
-    flags: Annotated[Optional[Dict[str, bool]], OmitIfNone()] = Field(default=dict())
-    metrics: Annotated[Optional[Dict[str, float]], OmitIfNone()] = Field(default=dict())
-    properties: Annotated[Optional[Dict[str, Any]], OmitIfNone()] = Field(default=dict())
-    names: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default=dict())
+    dimensions: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="additional (generic) dimensions for the entity")
+    tags: Annotated[Optional[list[str]], OmitIfNone()] = Field(default_factory=list, description="additional tags for the entity")
+    flags: Annotated[Optional[Dict[str, bool]], OmitIfNone()] = Field(default_factory=dict, description="additional flags for the entity")
+    metrics: Annotated[Optional[Dict[str, float]], OmitIfNone()] = Field(default_factory=dict, description="additional metrics for the entity")
+    properties: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="additional properties for the entity")
+    names: Annotated[Optional[Dict[str, str]], OmitIfNone()] = Field(default_factory=dict, description="additional names for the entity, e.g. \"Eiffel Tower\" -> \"Tour Eiffel\"")
 
-    ids: Annotated[Optional[list[ID]], OmitIfNone()] = Field(default=list())
-    content: Optional[list[Content]] = Field(default=list())
-    media: Annotated[Optional[list[Media]], OmitIfNone()] = Field(default=list())
-    embeddings: Annotated[Optional[list[Embeddings]], OmitIfNone()] = Field(default=list())
-    classification: Optional[list[Classification]] = Field(default=list())
-    location: Annotated[Optional[list[Location]], OmitIfNone()] = Field(default=list())
-    agent_ids: Optional[list[uuid.UUID]] = Field(default=list())
+    ids: Annotated[Optional[list[ID]], OmitIfNone()] = Field(default_factory=list, description="List of identifiers associated with the entity.")
+    content: Optional[list[Content]] = Field(default_factory=list, description="List of content items related to the entity.")
+    media: Annotated[Optional[list[Media]], OmitIfNone()] = Field(default_factory=list, description="List of media items associated with the entity.")
+    embeddings: Annotated[Optional[list[Embeddings]], OmitIfNone()] = Field(default_factory=list, description="List of embeddings for the entity.")
+    classification: Optional[list[Classification]] = Field(default_factory=list, description="List of classifications for the entity.")
+    location: Annotated[Optional[list[Location]], OmitIfNone()] = Field(default_factory=list, description="List of locations associated with the entity.")
 
-    partition: str = Field(description="Partition of the event", default="_open_")
-    sign: int = Field(description="Sign of the event", default=1)
+    partition: str = Field(default="_open_", description="The storage partition for the entity. This is internal and can not be submitted by the user. It is used to partition the data for performance and scalability.")
+    sign: int = Field(default=1, description="This is an internal field used to ensure that the right entries can be updated/replaced. It is used to mark the latest version of the entity.")
 
     def get_content(self, labels: list[str]) -> str:
         return_string = ""
@@ -346,6 +346,7 @@ class Entity(BaseModel):
                         "sub_type": values.get("content.sub_type")[idx],
                         "value": values.get("content.value")[idx],
                         "language": values.get("content.language")[idx],
+                        "meta_description": values.get("content.meta_description")[idx],
                     }
                 )
                 idx += 1
@@ -409,7 +410,7 @@ class EntityCH(Entity):
                 "ids.entity_gid": [c.entity_gid or default_gid for c in value],
                 "ids.id": [c.id for c in value],
                 "ids.id_type": [c.id_type for c in value],
-                "ids.capacity": [c.capacity or 0 for c in value],
+                "ids.capacity": [c.capacity for c in value],
             }
             return id
 
@@ -441,6 +442,7 @@ class EntityCH(Entity):
                 "content.sub_type": [c.sub_type or "" for c in value],
                 "content.value": [c.value for c in value],
                 "content.language": [c.language or "" for c in value],
+                "content.meta_description": [c.meta_description or "" for c in value],
             }
 
         elif info.field_name == "location":
