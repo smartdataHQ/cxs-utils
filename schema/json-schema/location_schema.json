@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/location_schema.json",
+  "title": "ContextSuite Location",
+  "description": "Schema for location information, usable for entities and events.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of the location (e.g. \"Home\", \"Work\", \"Venue\"). Used primarily for entity locations.",
+      "type": ["null", "string"]
+    },
+    "location_of": {
+      "description": "Describes what the location pertains to (e.g. \"Customer\", \"Supplier\"). Used primarily for event locations.",
+      "type": ["null", "string"]
+    },
+    "label": {
+      "description": "A readable label for the location",
+      "type": "string"
+    },
+    "country": { "type": ["null", "string"] },
+    "country_code": { "type": ["null", "string"] },
+    "code": { "type": ["null", "string"] },
+    "region": { "type": ["null", "string"] },
+    "division": { "type": ["null", "string"] },
+    "municipality": { "type": ["null", "string"] },
+    "locality": { "type": ["null", "string"] },
+    "postal_code": { "type": ["null", "string"] },
+    "postal_name": { "type": ["null", "string"] },
+    "street": { "type": ["null", "string"] },
+    "street_nr": { "type": ["null", "string"] },
+    "address": { "type": ["null", "string"] },
+    "longitude": { "type": ["null", "number"], "format": "double" },
+    "latitude": { "type": ["null", "number"], "format": "double" },
+    "geohash": { "type": ["null", "string"] },
+    "duration_from": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "duration_until": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "label"
+  ]
+}
