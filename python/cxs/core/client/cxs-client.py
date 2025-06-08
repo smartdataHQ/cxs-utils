@@ -19,7 +19,7 @@ from cxs.core.schema.semantic_event import (
     Traits as CXSTraits,
 )
 
-class SegmentClient:
+class CXSClient:
 
     def __init__(self, write_key: str, endpoint: str = "https://inbox.contextsuite.com/v1", application: str = None, **kwargs: Any):
         self.write_key = write_key
