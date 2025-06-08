@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "AccessInfo",
+  "name": "Access",
   "namespace": "com.contextsuite.schema",
   "fields": [
     {

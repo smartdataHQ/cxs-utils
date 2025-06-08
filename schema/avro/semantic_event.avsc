@@ -12,7 +12,7 @@
       "name": "type",
       "type": ["null", "string"],
       "default": null,
-      "doc": "The type of the semantic event (e.g. \"page\", \"track\"), mirrors base_event_info.type"
+      "doc": "The type of the semantic event (e.g. \"page\", \"track\", \"identify\", \"group\", \"alias\", \"screen\", \"commerce\")"
     },
     {
       "name": "event",
@@ -36,12 +36,8 @@
       "doc": "The entity GID of the semantic event, mirrors base_event_info.entity_gid"
     },
     {
-      "name": "base_event_info",
-      "type": "BaseEventInfo"
-    },
-    {
-      "name": "access_info",
-      "type": ["null", {"type": "array", "items": "AccessInfo"}],
+      "name": "access",
+      "type": ["null", {"type": "array", "items": "Access"}],
       "default": null
     },
     {
