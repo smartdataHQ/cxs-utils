@@ -14,7 +14,7 @@
       "type": ["null", "string"]
     },
     "sub_type": {
-      "description": "Sub-type for further classification (e.g., Program, Season).",
+      "description": "Sub-type for further classification (e.g., 'Program', 'Season', 'Episode').",
       "type": ["null", "string"]
     },
     "url": {

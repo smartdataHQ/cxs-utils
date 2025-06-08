@@ -6,9 +6,9 @@
   "type": ["null", "object"],
   "properties": {
     "carrier": { "type": ["null", "string"], "description": "The network carrier (e.g. \"Verizon\")." },
-    "cellular": { "type": ["null", "boolean"], "description": "Whether the network is cellular." },
-    "bluetooth": { "type": ["null", "boolean"], "description": "Whether bluetooth is enabled." },
-    "wifi": { "type": ["null", "boolean"], "description": "Whether wifi is enabled." }
+    "cellular": { "type": ["null", "boolean"], "description": "Whether the network is cellular (e.g., true)." },
+    "bluetooth": { "type": ["null", "boolean"], "description": "Whether bluetooth is enabled (e.g., true)." },
+    "wifi": { "type": ["null", "boolean"], "description": "Whether wifi is enabled (e.g., true)." }
   },
   "additionalProperties": false
 }

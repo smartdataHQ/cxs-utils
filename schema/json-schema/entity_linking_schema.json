@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "content_key": {
-      "description": "Key of the content where the entity was found (e.g., 'body', 'subject').",
+      "description": "Key of the content text where the entity was found (e.g., 'body', 'subject', 'title', 'description', 'summary', 'quick response', 'other').",
       "type": "string"
     },
     "label": {
@@ -22,7 +22,7 @@
       "type": ["null", "integer"]
     },
     "entity_type": {
-      "description": "The type of the linked entity (e.g., 'Person', 'Organization').",
+      "description": "The type of the linked entity (e.g., 'Person', 'Organization', 'LegalEntity').",
       "type": ["null", "string"]
     },
     "entity_gid": {

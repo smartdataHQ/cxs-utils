@@ -21,11 +21,11 @@
       "format": "uri"
     },
     "geohash": {
-      "description": "Geolocation as a geohash.",
+      "description": "Geolocation as a geohash (for clustering and sorting) - moves for non-stationary entities",
       "type": ["null", "string"]
     },
     "period": {
-      "description": "The resolution/frequency of the data (e.g., 'PT1H', 'P1D').",
+      "description": "The resolution/frequency of the data in ISO 8601 duration format (e.g., 'PT1H' for hourly, 'P1D' for daily, 'P1M' for monthly, etc.).",
       "type": ["null", "string"]
     },
     "timestamp": {
@@ -33,10 +33,26 @@
       "type": "string",
       "format": "date-time"
     },
-    "owner_gid": { "type": ["null", "string"], "format": "uuid" },
-    "source_gid": { "type": ["null", "string"], "format": "uuid" },
-    "publisher_gid": { "type": ["null", "string"], "format": "uuid" },
-    "publication_gid": { "type": ["null", "string"], "format": "uuid" },
+    "owner_gid": {
+      "description": "The GID of the owner that this data point belongs to. Links to an Entity.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
+    "source_gid": {
+      "description": "The GID of the source that this data point belongs to. Links to an Entity.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
+    "publisher_gid": {
+      "description": "The GID of the publisher that this data point belongs to. Links to an Entity.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
+    "publication_gid": {
+      "description": "The GID of the publication that this data point belongs to. Links to an Entity.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
     "gids": {
       "description": "Additional links to Named Entities.",
       "type": ["null", "object"],
@@ -103,22 +119,22 @@
       "additionalProperties": { "type": "string" }
     },
     "uom": {
-      "description": "Unit of measure for the metrics.",
+      "description": "Unit of measure for the metrics. All UOM are linked to a UOM Entity.",
       "type": ["null", "object"],
       "additionalProperties": { "type": "string" }
     },
     "of_what": {
-      "description": "What the metric is measuring (e.g., 'population').",
+      "description": "What the metric is measuring, often based on a standard (e.g., from Wikidata/DBPedia). The key is the metric name and the value is the standard (e.g., 'population', 'oil', 'humidity', etc.).",
       "type": ["null", "object"],
       "additionalProperties": { "type": "string" }
     },
     "agg_method": {
-      "description": "Default aggregation method for the metric.",
+      "description": "The default aggregation method for the metric. The key is the metric name and the value is the aggregation method (e.g., 'sum', 'avg', 'max', 'min', etc.).",
       "type": ["null", "object"],
       "additionalProperties": { "type": "string" }
     },
     "access_type": {
-      "description": "Access type for the data point.",
+      "description": "Access type for the data point, derived from an Enum in the source database defining levels like Local, Exclusive, Group, Shared, Public etc.",
       "type": ["null", "string"],
       "enum": [null, "Local", "Exclusive", "Group", "SharedPercentiles", "SharedObfuscated", "Shared", "Public"],
       "default": "Exclusive"
@@ -129,7 +145,7 @@
       "format": "uuid"
     },
     "partition": {
-      "description": "Partition key for the data point.",
+      "description": "The version of the event message, used for partitioning.",
       "type": ["null", "string"]
     },
     "sign": {

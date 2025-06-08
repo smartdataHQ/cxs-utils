@@ -5,82 +5,325 @@
   "description": "Schema for a product within a commerce event.",
   "type": ["null", "object"],
   "properties": {
-    "position": { "type": ["null", "integer"] },
-    "entry_type": { "type": ["null", "string"] },
-    "line_id": { "type": ["null", "string"] },
-    "product_id": { "type": ["null", "string"] },
-    "entity_gid": { "type": ["null", "string"], "format": "uuid" },
-    "sku": { "type": ["null", "string"] },
-    "barcode": { "type": ["null", "string"] },
-    "gtin": { "type": ["null", "string"] },
-    "upc": { "type": ["null", "string"] },
-    "ean": { "type": ["null", "string"] },
-    "isbn": { "type": ["null", "string"] },
-    "serial_number": { "type": ["null", "string"] },
-    "supplier_number": { "type": ["null", "string"] },
-    "tpx_serial_number": { "type": ["null", "string"] },
-    "bundle_id": { "type": ["null", "string"] },
-    "bundle": { "type": ["null", "string"] },
-    "product": { "type": ["null", "string"] },
-    "variant": { "type": ["null", "string"] },
-    "novelty": { "type": ["null", "string"] },
-    "size": { "type": ["null", "string"] },
-    "packaging": { "type": ["null", "string"] },
-    "condition": { "type": ["null", "string"] },
-    "ready_for_use": { "type": ["null", "boolean"] },
-    "core_product": { "type": ["null", "string"] },
-    "origin": { "type": ["null", "string"] },
-    "brand": { "type": ["null", "string"] },
-    "product_line": { "type": ["null", "string"] },
-    "own_product": { "type": ["null", "boolean"] },
-    "product_dist": { "type": ["null", "string"] },
-    "main_category": { "type": ["null", "string"] },
-    "main_category_id": { "type": ["null", "string"] },
-    "category": { "type": ["null", "string"] },
-    "category_id": { "type": ["null", "string"] },
-    "gs1_brick_id": { "type": ["null", "string"] },
-    "gs1_brick": { "type": ["null", "string"] },
-    "gs1_brick_short": { "type": ["null", "string"] },
-    "gs1_brick_variant": { "type": ["null", "string"] },
-    "gs1_conditions": { "type": ["null", "string"] },
-    "gs1_processed": { "type": ["null", "string"] },
-    "gs1_consumable": { "type": ["null", "string"] },
-    "gs1_class": { "type": ["null", "string"] },
-    "gs1_family": { "type": ["null", "string"] },
-    "gs1_segment": { "type": ["null", "string"] },
-    "starts": { "type": ["null", "string"], "format": "date-time" },
-    "ends": { "type": ["null", "string"], "format": "date-time" },
-    "duration": { "type": ["null", "number"], "format": "float" },
-    "seats": { "type": ["null", "string"] },
-    "destination": { "type": ["null", "string"] },
-    "lead_time": { "type": ["null", "number"], "format": "float" },
-    "dwell_time_ms": { "type": ["null", "integer"] },
-    "supplier": { "type": ["null", "string"] },
-    "supplier_id": { "type": ["null", "string"] },
-    "manufacturer": { "type": ["null", "string"] },
-    "manufacturer_id": { "type": ["null", "string"] },
-    "promoter": { "type": ["null", "string"] },
-    "promoter_id": { "type": ["null", "string"] },
-    "product_mgr_id": { "type": ["null", "string"] },
-    "product_mgr": { "type": ["null", "string"] },
-    "units": { "type": ["null", "number"], "format": "double" },
-    "unit_size": { "type": ["null", "number"], "format": "double" },
-    "uom": { "type": ["null", "string"] },
-    "unit_price": { "type": ["null", "number"], "format": "double" },
-    "unit_cost": { "type": ["null", "number"], "format": "double" },
-    "bundled_units": { "type": ["null", "integer"] },
-    "price_bracket": { "type": ["null", "string"] },
-    "income_category": { "type": ["null", "string"] },
-    "tax_percentage": { "type": ["null", "number"], "format": "float" },
-    "discount_percentage": { "type": ["null", "number"], "format": "float" },
-    "kickback_percentage": { "type": ["null", "number"], "format": "float" },
-    "commission": { "type": ["null", "number"], "format": "float" },
-    "coupon": { "type": ["null", "string"] },
-    "scale_item": { "type": ["null", "boolean"] },
-    "price_changed": { "type": ["null", "boolean"] },
-    "line_discounted": { "type": ["null", "boolean"] },
-    "url": { "type": ["null", "string"], "format": "uri" },
-    "img_url": { "type": ["null", "string"], "format": "uri" }
+    "position": {
+      "description": "Position of the product in a list of products (e.g., in a cart or order).",
+      "type": ["null", "integer"]
+    },
+    "entry_type": {
+      "description": "Type of line item, if applicable (e.g., 'Product', 'Fee', 'Discount', 'Tax', 'Shipping', 'Service', 'Subscription', 'Other').",
+      "type": ["null", "string"]
+    },
+    "line_id": {
+      "description": "Unique ID for the line item.",
+      "type": ["null", "string"]
+    },
+    "product_id": {
+      "description": "Unique ID for the product in the source system (e.g., '507f1f77bcf86cd799439011').",
+      "type": ["null", "string"]
+    },
+    "entity_gid": {
+      "description": "The Graph UUID (GID) of the product entity, if this product is represented as an entity in ContextSuite.",
+      "type": ["null", "string"],
+      "format": "uuid"
+    },
+    "sku": {
+      "description": "SKU (Stock Keeping Unit) of the product (e.g., '45790-32').",
+      "type": ["null", "string"]
+    },
+    "barcode": {
+      "description": "Barcode of the product (e.g., scanned barcode).",
+      "type": ["null", "string"]
+    },
+    "gtin": {
+      "description": "GTIN (Global Trade Item Number) of the product.",
+      "type": ["null", "string"]
+    },
+    "upc": {
+      "description": "UPC (Universal Product Code) of the product.",
+      "type": ["null", "string"]
+    },
+    "ean": {
+      "description": "EAN (European Article Number) of the product.",
+      "type": ["null", "string"]
+    },
+    "isbn": {
+      "description": "ISBN (International Standard Book Number) of the product.",
+      "type": ["null", "string"]
+    },
+    "serial_number": {
+      "description": "Serial number of the product.",
+      "type": ["null", "string"]
+    },
+    "supplier_number": {
+      "description": "Supplier number for the product.",
+      "type": ["null", "string"]
+    },
+    "tpx_serial_number": {
+      "description": "TPX serial number for the product (specific to some industries).",
+      "type": ["null", "string"]
+    },
+    "bundle_id": {
+      "description": "ID of the bundle this product belongs to, if applicable.",
+      "type": ["null", "string"]
+    },
+    "bundle": {
+      "description": "Name of the bundle this product belongs to (e.g., 'Starter Pack').",
+      "type": ["null", "string"]
+    },
+    "product": {
+      "description": "Name of the product (e.g., 'Monopoly: 3rd Edition').",
+      "type": ["null", "string"]
+    },
+    "variant": {
+      "description": "Variant of the product (e.g., 'Red', 'XL').",
+      "type": ["null", "string"]
+    },
+    "novelty": {
+      "description": "Novelty status or type of the product (e.g., 'New', 'Refurbished', 'Limited Edition').",
+      "type": ["null", "string"]
+    },
+    "size": {
+      "description": "Size of the product (e.g., 'XL', '100ml').",
+      "type": ["null", "string"]
+    },
+    "packaging": {
+      "description": "Packaging type of the product (e.g., 'Box', 'Bottle', 'Bag').",
+      "type": ["null", "string"]
+    },
+    "condition": {
+      "description": "Condition of the product (e.g., 'New', 'Used', 'Refurbished', 'Damaged', 'Sample', 'Expired', 'Recalled', 'Returned', 'Other').",
+      "type": ["null", "string"]
+    },
+    "ready_for_use": {
+      "description": "Indicates if the product is ready for use (e.g., true for a pre-assembled item, false for an item requiring setup).",
+      "type": ["null", "boolean"]
+    },
+    "core_product": {
+      "description": "Core product identifier or name, if this product is part of a larger offering (e.g., 'iPhone' for an 'iPhone 13 Pro Max 256GB Sierra Blue').",
+      "type": ["null", "string"]
+    },
+    "origin": {
+      "description": "Origin of the product (e.g., country of manufacture, 'Organic', 'Fair Trade').",
+      "type": ["null", "string"]
+    },
+    "brand": {
+      "description": "Brand name of the product (e.g., 'Apple', 'Google').",
+      "type": ["null", "string"]
+    },
+    "product_line": {
+      "description": "Product line the product belongs to (e.g., 'iPhone', 'Pixel').",
+      "type": ["null", "string"]
+    },
+    "own_product": {
+      "description": "Indicates if this is an own-brand product (e.g., true if the seller is also the brand).",
+      "type": ["null", "boolean"]
+    },
+    "product_dist": {
+      "description": "Distribution channel or type for the product (e.g., 'Retail', 'Online', 'Wholesale', 'Direct Sale', 'Reseller', 'Marketplace', 'Other').",
+      "type": ["null", "string"]
+    },
+    "main_category": {
+      "description": "Main category of the product (e.g., 'Games').",
+      "type": ["null", "string"]
+    },
+    "main_category_id": {
+      "description": "ID of the main category.",
+      "type": ["null", "string"]
+    },
+    "category": {
+      "description": "Sub-category of the product (e.g., 'Board Games').",
+      "type": ["null", "string"]
+    },
+    "category_id": {
+      "description": "ID of the sub-category.",
+      "type": ["null", "string"]
+    },
+    "gs1_brick_id": {
+      "description": "GS1 Global Product Classification (GPC) Brick ID (e.g., '10000000').",
+      "type": ["null", "string"]
+    },
+    "gs1_brick": {
+      "description": "GS1 GPC Brick description (e.g., 'Toys/Games (Non-Powered)').",
+      "type": ["null", "string"]
+    },
+    "gs1_brick_short": {
+      "description": "Short description for the GS1 GPC Brick.",
+      "type": ["null", "string"]
+    },
+    "gs1_brick_variant": {
+      "description": "Variant of the GS1 GPC Brick.",
+      "type": ["null", "string"]
+    },
+    "gs1_conditions": {
+      "description": "GS1 GPC Brick Conditions (e.g., 'New', 'Used').",
+      "type": ["null", "string"]
+    },
+    "gs1_processed": {
+      "description": "GS1 GPC Brick Processed Status (e.g., 'Raw', 'Processed').",
+      "type": ["null", "string"]
+    },
+    "gs1_consumable": {
+      "description": "GS1 Brick Consumable Status (e.g., 'Yes', 'No').",
+      "type": ["null", "string"]
+    },
+    "gs1_class": {
+      "description": "GS1 GPC Class description (e.g., 'Traditional Games').",
+      "type": ["null", "string"]
+    },
+    "gs1_family": {
+      "description": "GS1 GPC Family description (e.g., 'Board Games/Puzzles').",
+      "type": ["null", "string"]
+    },
+    "gs1_segment": {
+      "description": "GS1 GPC Segment description (e.g., 'Toys/Games').",
+      "type": ["null", "string"]
+    },
+    "starts": {
+      "description": "Start date/time for a service or subscription product.",
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "ends": {
+      "description": "End date/time for a service or subscription product.",
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "duration": {
+      "description": "Duration of the service or subscription in a standardized unit (e.g., days, months).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "seats": {
+      "description": "Number of seats or users for a service or subscription product.",
+      "type": ["null", "string"]
+    },
+    "destination": {
+      "description": "Destination for a travel product (e.g., 'Paris', 'London').",
+      "type": ["null", "string"]
+    },
+    "lead_time": {
+      "description": "Lead time for the product in days (e.g., for shipping or manufacturing).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "dwell_time_ms": {
+      "description": "Dwell time in milliseconds, often used for product views or interactions.",
+      "type": ["null", "integer"]
+    },
+    "supplier": {
+      "description": "Name of the supplier.",
+      "type": ["null", "string"]
+    },
+    "supplier_id": {
+      "description": "ID of the supplier.",
+      "type": ["null", "string"]
+    },
+    "manufacturer": {
+      "description": "Name of the manufacturer.",
+      "type": ["null", "string"]
+    },
+    "manufacturer_id": {
+      "description": "ID of the manufacturer.",
+      "type": ["null", "string"]
+    },
+    "promoter": {
+      "description": "Name of the promoter or affiliate.",
+      "type": ["null", "string"]
+    },
+    "promoter_id": {
+      "description": "ID of the promoter or affiliate.",
+      "type": ["null", "string"]
+    },
+    "product_mgr_id": {
+      "description": "ID of the product manager.",
+      "type": ["null", "string"]
+    },
+    "product_mgr": {
+      "description": "Name of the product manager.",
+      "type": ["null", "string"]
+    },
+    "units": {
+      "description": "Number of units of the product (e.g., quantity).",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "unit_size": {
+      "description": "Size of a single unit (e.g., 250 for 250ml).",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "uom": {
+      "description": "Unit of measure for the product (e.g., 'ml', 'kg', 'piece').",
+      "type": ["null", "string"]
+    },
+    "unit_price": {
+      "description": "Price per unit of the product.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "unit_cost": {
+      "description": "Cost per unit of the product.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "bundled_units": {
+      "description": "Number of individual items in a bundle.",
+      "type": ["null", "integer"]
+    },
+    "price_bracket": {
+      "description": "Price bracket or tier for the product (e.g., 'Budget', 'Premium').",
+      "type": ["null", "string"]
+    },
+    "income_category": {
+      "description": "Income category or revenue type for the product (e.g., 'New Sales', 'Renewal', 'Upgrade').",
+      "type": ["null", "string"]
+    },
+    "tax_percentage": {
+      "description": "Tax percentage applied to the product (e.g., 0.2 for 20% tax).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "discount_percentage": {
+      "description": "Discount percentage applied to the product (e.g., 0.1 for 10% discount).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "kickback_percentage": {
+      "description": "Kickback percentage associated with the product sale (e.g., for affiliates or partners).",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "commission": {
+      "description": "Commission amount or percentage for the product sale.",
+      "type": ["null", "number"],
+      "format": "float"
+    },
+    "coupon": {
+      "description": "Coupon code used for the product (e.g., 'PRODUCT10').",
+      "type": ["null", "string"]
+    },
+    "scale_item": {
+      "description": "Indicates if the item is sold by weight or measure (e.g., true for items sold by kg at a deli counter).",
+      "type": ["null", "boolean"]
+    },
+    "price_changed": {
+      "description": "Indicates if the price was manually changed or overridden (e.g., true if a cashier entered a different price).",
+      "type": ["null", "boolean"]
+    },
+    "line_discounted": {
+      "description": "Indicates if the line item was discounted (e.g., true if a discount was applied specifically to this product).",
+      "type": ["null", "boolean"]
+    },
+    "url": {
+      "description": "URL of the product page (e.g., 'https://www.example.com/product/monopoly').",
+      "type": ["null", "string"],
+      "format": "uri"
+    },
+    "img_url": {
+      "description": "URL of an image of the product (e.g., 'https://www.example.com/images/monopoly.jpg').",
+      "type": ["null", "string"],
+      "format": "uri"
+    }
   },
   "additionalProperties": false
 }

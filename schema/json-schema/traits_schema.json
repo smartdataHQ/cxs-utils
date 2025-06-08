@@ -21,7 +21,7 @@
     "created_at": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp of user creation." },
     "company": { "type": ["null", "string"], "description": "Company the user is associated with." },
     "title": { "type": ["null", "string"], "description": "User's job title." },
-    "gender": { "type": ["null", "string"], "description": "Gender of the user." },
+    "gender": { "type": ["null", "string"], "description": "Gender of the user. Expected values can include 'Male', 'Female', 'Transgender', 'Non-Binary', 'Gender Queer', 'Gender Fluid', 'Gender Neutral', 'Intersex', 'Gender Non-Conforming', 'Gender-Expansive', 'Agender', 'Gendervoid', 'Bigender', 'Omnigender', 'Pangender', 'Two-spirit', 'Trans', or 'No Response', often mapped from an internal Enum." },
     "pronouns": { "type": ["null", "string"], "description": "User's preferred pronouns." },
     "salutation": { "type": ["null", "string"], "description": "Salutation for the user (e.g., Mr., Ms.)." },
     "description": { "type": ["null", "string"], "description": "General description of the user." },
