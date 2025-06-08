@@ -37,7 +37,7 @@
     "certainty": {
       "description": "The certainty score of the entity linking.",
       "type": ["null", "number"],
-      "format": "float"
+      "format": "double"
     }
   },
   "required": [

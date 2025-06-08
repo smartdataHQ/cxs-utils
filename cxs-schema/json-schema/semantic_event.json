@@ -17,11 +17,11 @@
     },
     "type": {
       "description": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "event": {
       "description": "The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "anonymous_id": {
       "description": "The anonymous ID of the user before they are identified.",
@@ -76,7 +76,8 @@
     },
     "content": {
       "description": "A dictionary of additional content associated with the event. Keys can be 'Body', 'Subject', 'Title', 'Description', 'Summary', 'Initial Response', 'Other', etc.",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "string" }
     },
     "involves": {
@@ -111,22 +112,26 @@
     },
     "properties": {
       "description": "A dictionary of additional properties for the event. Properties may be moved into dedicated columns if possible; otherwise, they are stored here.",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "string" }
     },
     "dimensions": {
       "description": "Additional low-cardinality dimensions for dashboards",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "string" }
     },
     "metrics": {
       "description": "Additional metrics for dashboards",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "number", "format": "float" }
     },
     "flags": {
       "description": "Additional boolean flags",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "boolean" }
     },
     "campaign": { "$ref": "campaign_schema.json" },
@@ -194,12 +199,14 @@
     },
     "analyse": {
       "description": "Custom analysis flags that override the default analysis behavior for this event.",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "boolean" }
     },
     "integrations": {
       "description": "Custom integration flags that override the default integration behavior for this event.",
-      "type": ["null", "object"],
+      "type": "object",
+      "default": {},
       "additionalProperties": { "type": "boolean" }
     },
     "write_key": {
@@ -219,6 +226,11 @@
     "timestamp",
     "type",
     "message_id",
-    "write_key"
+    "write_key",
+    "entity_gid",
+    "event",
+    "event_gid",
+    "root_event_gid",
+    "partition"
   ]
 }

@@ -24,22 +24,23 @@
     "score": {
       "description": "The score of the classification (primarily for semantic events).",
       "type": ["null", "number"],
-      "format": "float"
+      "format": "double"
     },
     "confidence": {
       "description": "The confidence of the classification from a model (primarily for semantic events).",
       "type": ["null", "number"],
-      "format": "float"
+      "format": "double"
     },
     "weight": {
       "description": "The relevance of the classification.",
       "type": "number",
-      "format": "float",
+      "format": "double",
       "default": 0.0
     }
   },
   "required": [
     "type",
-    "value"
+    "value",
+    "weight"
   ]
 }
