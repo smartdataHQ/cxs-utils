@@ -68,7 +68,7 @@ const items = [
         {href: '/docs/semantic-events/schema/integrations', children: 'Integrations'},
         {href: '/docs/semantic-events/schema/retention', children: 'Retention'},
         {href: '/docs/semantic-events/schema/services', children: 'Services'},
-        {href: '/docs/semantic-events/schema/compatability', children: 'Compatability'},
+        {href: '/docs/semantic-events/schema/compatibility', children: 'Compatibility'},
         {href: '/docs/semantic-events/schema/comparison', children: 'Comparison'},
         {href: '/docs/semantic-events/schema/all', children: 'All Properties'},
     ],
