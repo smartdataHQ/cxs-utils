@@ -11,7 +11,7 @@
     },
     "location_of": {
       "description": "Describes what the location pertains to (e.g., 'Customer', 'Supplier', 'Postal Address', 'Business Address', 'Home Address', 'Other'). Used primarily for event locations.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "label": {
       "description": "A readable label for the location (e.g., 'Street name 1, 1234').",
@@ -19,43 +19,43 @@
     },
     "country": {
       "description": "The country of the location (e.g., 'France', 'United States', 'Germany'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "country_code": {
       "description": "The 3-letter country code of the location (e.g., 'FRA', 'USA', 'DEU'). Should be in uppercase.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "code": {
       "description": "A code for the location, which could be a postal code or other area identifier (e.g., '75001', '10001', '10115'). Should be in uppercase. Note: `postal_code` is a separate field if specifically a postal code.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "region": {
       "description": "The region of the location (e.g., 'Île-de-France', 'New York', 'Berlin'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "division": {
       "description": "The division of the location (e.g., 'Paris', 'Manhattan', 'Mitte'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "municipality": {
       "description": "The municipality of the location (e.g., 'Paris', 'New York', 'Berlin'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "locality": {
       "description": "The locality or neighbourhood of the location (e.g., 'Montmartre', 'SoHo', 'Kreuzberg'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "postal_code": {
       "description": "The postal code of the location (e.g., '75001', '10001', '10115'). Should be in uppercase.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "postal_name": {
       "description": "The name of the postal code area (e.g., '1er Arrondissement', 'Chelsea', 'Mitte'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "street": {
       "description": "The street of the location (e.g., 'Rue de Rivoli', 'Broadway', 'Friedrichstraße'). Should be in English, singular form, and capitalized.",
-      "type": ["null", "string"]
+      "type": "string"
     },
     "street_nr": {
       "description": "The street number of the location (e.g., '1', '100', '15'). Should be in uppercase.",
@@ -91,6 +91,17 @@
     }
   },
   "required": [
-    "label"
+    "label",
+    "location_of",
+    "country",
+    "country_code",
+    "code",
+    "region",
+    "division",
+    "municipality",
+    "locality",
+    "postal_code",
+    "postal_name",
+    "street"
   ]
 }
