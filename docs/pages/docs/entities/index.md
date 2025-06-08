@@ -260,6 +260,7 @@ Here is a conceptual example of what a "MusicFestival" entity might look like, r
       "id_type": "NovaGID"
     }
   ],
+
   "classification": [
     {
       "type": "EventGenre",
