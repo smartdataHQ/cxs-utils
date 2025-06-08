@@ -1,0 +1,188 @@
+{
+  "type": "record",
+  "name": "SemanticEvent",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "event_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The event gid of this semantic event, typically same as base_event_info.event_gid"
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the semantic event (e.g. \"page\", \"track\"), mirrors base_event_info.type"
+    },
+    {
+      "name": "event",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the semantic event (e.g. \"Page Viewed\"), mirrors base_event_info.event"
+    },
+    {
+      "name": "timestamp",
+      "type": {"type": "long", "logicalType": "timestamp-micros"},
+      "doc": "The timestamp of the semantic event in UTC, mirrors base_event_info.timestamp"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "doc": "The message ID of the semantic event, mirrors base_event_info.message_id"
+    },
+    {
+      "name": "entity_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The entity GID of the semantic event, mirrors base_event_info.entity_gid"
+    },
+    {
+      "name": "base_event_info",
+      "type": "com.cxs.schema.BaseEventInfo"
+    },
+    {
+      "name": "access_info",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.AccessInfo"}],
+      "default": null
+    },
+    {
+      "name": "analysis",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Analysis"}],
+      "default": null
+    },
+    {
+      "name": "app",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.App"}],
+      "default": null
+    },
+    {
+      "name": "campaign",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Campaign"}],
+      "default": null
+    },
+    {
+      "name": "commerce",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Commerce"}],
+      "default": null
+    },
+    {
+      "name": "content",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Content"}],
+      "default": null
+    },
+    {
+      "name": "context",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Context"}],
+      "default": null
+    },
+    {
+      "name": "contextual_awareness",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.ContextualAwareness"}],
+      "default": null
+    },
+    {
+      "name": "device",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Device"}],
+      "default": null
+    },
+    {
+      "name": "embeddings",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Embeddings"}],
+      "default": null
+    },
+    {
+      "name": "entity",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Entity"}],
+      "default": null
+    },
+    {
+      "name": "id",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Id"}],
+      "default": null
+    },
+    {
+      "name": "involved",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Involved"}],
+      "default": null
+    },
+    {
+      "name": "library",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Library"}],
+      "default": null
+    },
+    {
+      "name": "media",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Media"}],
+      "default": null
+    },
+    {
+      "name": "network",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Network"}],
+      "default": null
+    },
+    {
+      "name": "os",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Os"}],
+      "default": null
+    },
+    {
+      "name": "page",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Page"}],
+      "default": null
+    },
+    {
+      "name": "product",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Product"}],
+      "default": null
+    },
+    {
+      "name": "referrer",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Referrer"}],
+      "default": null
+    },
+    {
+      "name": "screen",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Screen"}],
+      "default": null
+    },
+    {
+      "name": "semantic_event_classification",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.SemanticEventClassification"}],
+      "default": null
+    },
+    {
+      "name": "semantic_event_location",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.SemanticEventLocation"}],
+      "default": null
+    },
+    {
+      "name": "sentiment",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Sentiment"}],
+      "default": null
+    },
+    {
+      "name": "source_info",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.SourceInfo"}],
+      "default": null
+    },
+    {
+      "name": "traits",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Traits"}],
+      "default": null
+    },
+    {
+      "name": "uom",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Uom"}],
+      "default": null
+    },
+    {
+      "name": "user_agent",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.UserAgent"}],
+      "default": null
+    },
+    {
+      "name": "user_agent_data",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.UserAgentData"}],
+      "default": null
+    }
+  ]
+}
