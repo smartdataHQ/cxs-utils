@@ -10,15 +10,15 @@ These properties closely correspond to the widely used **UTM (Urchin Tracking Mo
 
 ## Campaign Attribution Properties
 
-The following table details the standard `campaign.*` fields. While the underlying SQL type is `LowCardinality(String)` for efficiency, they are conceptually optional as not every event will have associated campaign data.
+The following table details the standard `campaign.*` fields. These are conceptually optional as not every event will have associated campaign data.
 
-| Property Name       | Type                | Description                                                                                                 | Optional |
-|---------------------|---------------------|-------------------------------------------------------------------------------------------------------------|----------|
-| `campaign.campaign` | `String (Optional)` | The specific marketing campaign name (e.g., "Summer_Sale_2023", "Q4_Product_Launch"). Corresponds to `utm_campaign`. | Yes      |
-| `campaign.source`   | `String (Optional)` | The referrer or source of the traffic (e.g., "google", "facebook", "newsletter_september", "internal_promo"). Corresponds to `utm_source`. | Yes      |
-| `campaign.medium`   | `String (Optional)` | The marketing medium or channel (e.g., "cpc", "social_media", "email", "organic_search", "affiliate"). Corresponds to `utm_medium`. | Yes      |
-| `campaign.term`     | `String (Optional)` | The paid keywords or specific search terms used for the campaign. Often used for paid search ads. Corresponds to `utm_term`. | Yes      |
-| `campaign.content`  | `String (Optional)` | Used to differentiate ads or links that point to the same URL (e.g., "logolink", "textlink", "ad_variant_A"). Corresponds to `utm_content`. | Yes      |
+| Name                | Required | Data Type | Description                                                                                                                                                              |
+|---------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `campaign.campaign` |          | `String`  | The specific marketing campaign name (e.g., "Summer_Sale_2023", "Q4_Product_Launch"). Corresponds to `utm_campaign`. Originally `LowCardinality(String)`. This field is optional. |
+| `campaign.source`   |          | `String`  | The referrer or source of the traffic (e.g., "google", "facebook", "newsletter_september", "internal_promo"). Corresponds to `utm_source`. Originally `LowCardinality(String)`. This field is optional. |
+| `campaign.medium`   |          | `String`  | The marketing medium or channel (e.g., "cpc", "social_media", "email", "organic_search", "affiliate"). Corresponds to `utm_medium`. Originally `LowCardinality(String)`. This field is optional. |
+| `campaign.term`     |          | `String`  | The paid keywords or specific search terms used for the campaign. Often used for paid search ads. Corresponds to `utm_term`. Originally `LowCardinality(String)`. This field is optional. |
+| `campaign.content`  |          | `String`  | Used to differentiate ads or links that point to the same URL (e.g., "logolink", "textlink", "ad_variant_A"). Corresponds to `utm_content`. Originally `LowCardinality(String)`. This field is optional. |
 
 ## Understanding and Using Campaign Data
 

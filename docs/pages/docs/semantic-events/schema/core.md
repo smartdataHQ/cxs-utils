@@ -12,20 +12,20 @@ Below are the primary tables detailing these core properties.
 
 These properties define the fundamental nature, timing, and unique identifiers of an event.
 
-| Property Name      | Type                          | Description                                                                                                | Optional |
-|--------------------|-------------------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `entity_gid`       | `UUID (String)`               | The global identifier for the primary entity (e.g., Account or any sub-entity) the event is associated with. Context Suite specific. | No       |
-| `timestamp`        | `DateTime (UTC)`              | The timestamp when the event occurred, always stored in UTC.                                               | No       |
-| `type`             | `String`                      | The event type (e.g., "track", "page", "identify", "group", "alias", "screen"). From `LowCardinality(String)`. | No       |
-| `event`            | `String`                      | The event name, always capitalized and typically ending with a verb in the past tense (e.g., "Product Added"). From `LowCardinality(String)`. | No       |
-| `message_id`       | `String`                      | A unique ID for each message as assigned by the client library (e.g., SDK).                                | No       |
-| `event_gid`        | `UUID (String)`               | A unique Global ID (GID) for each event message, typically calculated on the server side from the `message_id` or other factors if missing. | No       |
-| `root_event_gid`   | `UUID (String, Optional)`     | The GID of the root event if this event is derived from another. Allows tracing event lineage.             | Yes      |
-| `importance`       | `Integer (Optional)`          | The importance of the event, often on a scale (e.g., 1-5). From `Nullable(Int8)`.                         | Yes      |
-| `customer_facing`  | `Integer (Default: 0)`        | Indicates if the event is customer-facing (1 for true, 0 for false). From `Int8 default 0`.                | No       |
-| `local_time`       | `DateTime (UTC, Optional)`    | The original timestamp of the event in the local time of where the event occurred. From `Nullable(DateTime64)`. | Yes      |
-| `integrations`     | `Map<String, Boolean>`        | Customer-specific integration flags that override the default integrations for this event.                 | No       |
-| `analyse`          | `Map<String, Boolean>`        | Custom analysis flags that override the default analysis settings for this event.                          | No       |
+| Name             | Required | Data Type | Description                                                                                                                                                              |
+|--------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `entity_gid`       |          | `UUID`    | The global identifier for the primary entity (e.g., Account or any sub-entity) the event is associated with. Context Suite specific.                                        |
+| `timestamp`        |          | `Timestamp` | The timestamp when the event occurred, always stored in UTC. (Avro: `timestamp-micros`)                                                                                      |
+| `type`             |          | `String`  | The event type (e.g., "track", "page", "identify", "group", "alias", "screen"). Originally `LowCardinality(String)`.                                                          |
+| `event`            |          | `String`  | The event name, always capitalized and typically ending with a verb in the past tense (e.g., "Product Added"). Originally `LowCardinality(String)`.                             |
+| `message_id`       |          | `String`  | A unique ID for each message as assigned by the client library (e.g., SDK).                                                                                                |
+| `event_gid`        |          | `UUID`    | A unique Global ID (GID) for each event message, typically calculated on the server side from the `message_id` or other factors if missing.                                  |
+| `root_event_gid`   |          | `UUID`    | The GID of the root event if this event is derived from another. Allows tracing event lineage. This field is optional.                                                       |
+| `importance`       |          | `Integer` | The importance of the event, often on a scale (e.g., 1-5). Originally `Nullable(Int8)`. This field is optional.                                                              |
+| `customer_facing`  |          | `Integer` | Indicates if the event is customer-facing (1 for true, 0 for false). Default is `0`. Originally `Int8 default 0`.                                                            |
+| `local_time`       |          | `Timestamp` | The original timestamp of the event in the local time of where the event occurred. Originally `Nullable(DateTime64)`. This field is optional. (Avro: `timestamp-micros`)      |
+| `integrations`     |          | `Map(String, Boolean)` | Customer-specific integration flags that override the default integrations for this event.                                                                             |
+| `analyse`          |          | `Map(String, Boolean)` | Custom analysis flags that override the default analysis settings for this event.                                                                                      |
 
 **Note on `type` vs. `event`:**
 - `type` usually refers to the general category of interaction, often aligned with Segment's original event types (e.g., `track` for custom actions, `page` for page views).
@@ -39,120 +39,120 @@ These properties define the fundamental nature, timing, and unique identifiers o
 
 These properties link events to users (both anonymous and identified) and their sessions.
 
-| Property Name     | Type                          | Description                                                                                                   | Optional |
-|-------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------|----------|
-| `anonymous_id`    | `String (Optional)`           | The anonymous ID of the user before they are identified (e.g., via a login or sign-up event).                 | Yes      |
-| `anonymous_gid`   | `UUID (String, Optional)`     | A global unique identifier for the anonymous user.                                                            | Yes      |
-| `user_id`         | `String (Optional)`           | The unique identifier for the user after they have been identified.                                           | Yes      |
-| `user_gid`        | `UUID (String, Optional)`     | A global unique identifier for the identified user.                                                           | Yes      |
-| `account_id`      | `String (Optional)`           | The account ID the user belongs to. Often, this will be the same as or related to `entity_gid`.              | Yes      |
-| `previous_id`     | `String (Optional)`           | The user's previous identifier before the current event (e.g., `anonymous_id` before an `identify` call).     | Yes      |
-| `session_id`      | `String (Optional)`           | The unique identifier for the user's session in the client application that generated the event.              | Yes      |
-| `session_gid`     | `UUID (String, Optional)`     | A global unique identifier for the user's session.                                                            | Yes      |
+| Name            | Required | Data Type | Description                                                                                                                                                              |
+|-------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `anonymous_id`  |          | `String`  | The anonymous ID of the user before they are identified (e.g., via a login or sign-up event). This field is optional.                                                      |
+| `anonymous_gid` |          | `UUID`    | A global unique identifier for the anonymous user. This field is optional.                                                                                                 |
+| `user_id`       |          | `String`  | The unique identifier for the user after they have been identified. This field is optional.                                                                                |
+| `user_gid`      |          | `UUID`    | A global unique identifier for the identified user. This field is optional.                                                                                                |
+| `account_id`    |          | `String`  | The account ID the user belongs to. Often, this will be the same as or related to `entity_gid`. This field is optional.                                                      |
+| `previous_id`   |          | `String`  | The user's previous identifier before the current event (e.g., `anonymous_id` before an `identify` call). This field is optional.                                           |
+| `session_id`    |          | `String`  | The unique identifier for the user's session in the client application that generated the event. This field is optional.                                                   |
+| `session_gid`   |          | `UUID`    | A global unique identifier for the user's session. This field is optional.                                                                                                 |
 
 ### Event Timestamps and Source Metadata
 
 This section details properties related to the timing of event collection and processing, as well as original source information.
 
-| Property Name        | Type                          | Description                                                                                     | Optional |
-|----------------------|-------------------------------|-------------------------------------------------------------------------------------------------|----------|
-| `original_timestamp` | `DateTime (UTC, Optional)`    | The original timestamp of when the event was created, if different from `timestamp`.            | Yes      |
-| `received_at`        | `DateTime (UTC, Optional)`    | The timestamp when the event was received by the data collection endpoint (e.g., Segment API).    | Yes      |
-| `sent_at`            | `DateTime (UTC, Optional)`    | The timestamp when the event was sent from the client or source system.                           | Yes      |
-| `write_key`          | `String`                      | Hashed Segment write key or equivalent source identifier. *(May be for internal use)*             | No       |
-| `ttl_days`           | `Integer (Optional)`          | Time-to-live for the event data in days. *(Primarily for internal data management)*             | Yes      |
-| `partition`          | `Integer (Optional)`          | Partition key for data storage. *(Primarily for internal data management)*                       | Yes      |
+| Name                 | Required | Data Type | Description                                                                                                                                                              |
+|----------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `original_timestamp` |          | `Timestamp` | The original timestamp of when the event was created, if different from `timestamp`. This field is optional. (Avro: `timestamp-micros`)                                     |
+| `received_at`        |          | `Timestamp` | The timestamp when the event was received by the data collection endpoint (e.g., Segment API). This field is optional. (Avro: `timestamp-micros`)                           |
+| `sent_at`            |          | `Timestamp` | The timestamp when the event was sent from the client or source system. This field is optional. (Avro: `timestamp-micros`)                                                |
+| `write_key`          |          | `String`  | Hashed Segment write key or equivalent source identifier. *(May be for internal use)*                                                                                     |
+| `ttl_days`           |          | `Integer` | Time-to-live for the event data in days. *(Primarily for internal data management)* This field is optional.                                                               |
+| `partition`          |          | `Integer` | Partition key for data storage. *(Primarily for internal data management)* This field is optional.                                                                        |
 
 ---
 Below are other properties that can be associated with events. Some of these might be detailed further in specific sub-schema documents (e.g., `context.md`, `campaign.md`). Their inclusion here is for completeness based on common event structures.
 
 ### Context Information
-| Field              | Type           | Description                                       |
-| ------------------ | -------------- | ------------------------------------------------- |
-| `context_ip`       | Nullable(IPv4) | IP address of the user                            |
-| `context.locale`   | String         | Locale where the event occurred (e.g., "en-US")   |
-| `context.group_id` | String         | Group ID associated with the event                |
-| `context.timezone` | String         | Timezone of event occurrence                      |
-| `context.location` | Point          | Latitude/Longitude of event location              |
-| `context.extras`   | String         | Additional event properties not explicitly mapped |
+| Name               | Required | Data Type | Description                                       |
+|--------------------|----------|-----------|---------------------------------------------------|
+| `context_ip`       |          | `IPv4`    | IP address of the user. This field is optional.   |
+| `context.locale`   |          | `String`  | Locale where the event occurred (e.g., "en-US").  |
+| `context.group_id` |          | `String`  | Group ID associated with the event.               |
+| `context.timezone` |          | `String`  | Timezone of event occurrence.                     |
+| `context.location` |          | `Point`   | Latitude/Longitude of event location.             |
+| `context.extras`   |          | `String`  | Additional event properties not explicitly mapped. JSON string. |
 
 ### Campaign Properties
-| Field               | Type   | Description                      |
-| ------------------- | ------ | -------------------------------- |
-| `campaign.campaign` | String | Campaign name (e.g., "summer")   |
-| `campaign.source`   | String | Campaign source (e.g., "google") |
-| `campaign.medium`   | String | Campaign medium (e.g., "cpc")    |
-| `campaign.term`     | String | Campaign term (e.g., keyword)    |
-| `campaign.content`  | String | Campaign content (e.g., "ad1")   |
+| Name                | Required | Data Type | Description                      |
+|---------------------|----------|-----------|----------------------------------|
+| `campaign.campaign` |          | `String`  | Campaign name (e.g., "summer").  |
+| `campaign.source`   |          | `String`  | Campaign source (e.g., "google").|
+| `campaign.medium`   |          | `String`  | Campaign medium (e.g., "cpc").   |
+| `campaign.term`     |          | `String`  | Campaign term (e.g., keyword).   |
+| `campaign.content`  |          | `String`  | Campaign content (e.g., "ad1").  |
 
 ### App and Device Information
-| Field                        | Type              | Description                          |
-| ---------------------------- | ----------------- | ------------------------------------ |
-| `app.name`                   | String            | Name of the app                      |
-| `app.version`                | String            | Version of the app                   |
-| `app.build`                  | String            | Build number of the app              |
-| `app.namespace`              | String            | App namespace                        |
-| `device.id`                  | String            | Device unique identifier             |
-| `device.manufacturer`        | String            | Device manufacturer                  |
-| `device.model`               | String            | Device model                         |
-| `device.type`                | String            | Device type (e.g., "ios", "android") |
-| `device.version`             | String            | Device OS version                    |
-| `device.ad_tracking_enabled` | Nullable(Boolean) | If advertising tracking is enabled   |
-| `device.advertising_id`      | String            | Advertising ID                       |
-| `device.locale`              | String            | Device locale                        |
-| `device.timezone`            | String            | Device timezone                      |
+| Name                         | Required | Data Type | Description                                          |
+|------------------------------|----------|-----------|------------------------------------------------------|
+| `app.name`                   |          | `String`  | Name of the app.                                     |
+| `app.version`                |          | `String`  | Version of the app.                                  |
+| `app.build`                  |          | `String`  | Build number of the app.                             |
+| `app.namespace`              |          | `String`  | App namespace.                                       |
+| `device.id`                  |          | `String`  | Device unique identifier.                            |
+| `device.manufacturer`        |          | `String`  | Device manufacturer.                                 |
+| `device.model`               |          | `String`  | Device model.                                        |
+| `device.type`                |          | `String`  | Device type (e.g., "ios", "android").                |
+| `device.version`             |          | `String`  | Device OS version.                                   |
+| `device.ad_tracking_enabled` |          | `Boolean` | If advertising tracking is enabled. This field is optional. |
+| `device.advertising_id`      |          | `String`  | Advertising ID.                                      |
+| `device.locale`              |          | `String`  | Device locale.                                       |
+| `device.timezone`            |          | `String`  | Device timezone.                                     |
 
 ### OS Information
-| Field        | Type   | Description                                    |
-| ------------ | ------ | ---------------------------------------------- |
-| `os.name`    | String | Operating system name (e.g., "iOS", "Android") |
-| `os.version` | String | Operating system version                       |
+| Name         | Required | Data Type | Description                                    |
+|--------------|----------|-----------|------------------------------------------------|
+| `os.name`    |          | `String`  | Operating system name (e.g., "iOS", "Android"). |
+| `os.version` |          | `String`  | Operating system version.                      |
 
 ### Library Information
-| Field             | Type   | Description                                                 |
-| ----------------- | ------ | ----------------------------------------------------------- |
-| `library.name`    | String | Library name used to send the event (e.g., "analytics-ios") |
-| `library.version` | String | Version of the event library                                |
+| Name              | Required | Data Type | Description                                                 |
+|-------------------|----------|-----------|-------------------------------------------------------------|
+| `library.name`    |          | `String`  | Library name used to send the event (e.g., "analytics-ios"). |
+| `library.version` |          | `String`  | Version of the event library.                               |
 
 ### Browser Information
-| Field                  | Type              | Description                  |
-| ---------------------- | ----------------- | ---------------------------- |
-| `user_agent.signature` | String            | Full user agent string       |
-| `user_agent.mobile`    | Nullable(Boolean) | Whether the device is mobile |
-| `user_agent.platform`  | String            | User agent platform          |
+| Name                   | Required | Data Type | Description                                          |
+|------------------------|----------|-----------|------------------------------------------------------|
+| `user_agent.signature` |          | `String`  | Full user agent string.                              |
+| `user_agent.mobile`    |          | `Boolean` | Whether the device is mobile. This field is optional. |
+| `user_agent.platform`  |          | `String`  | User agent platform.                                 |
 
 ### Network Information
-| Field               | Type              | Description                  |
-| ------------------- | ----------------- | ---------------------------- |
-| `network.carrier`   | String            | Mobile network carrier name  |
-| `network.cellular`  | Nullable(Boolean) | Whether on cellular network  |
-| `network.wifi`      | Nullable(Boolean) | Whether on Wi-Fi             |
-| `network.bluetooth` | Nullable(Boolean) | Whether Bluetooth is enabled |
+| Name                | Required | Data Type | Description                                          |
+|---------------------|----------|-----------|------------------------------------------------------|
+| `network.carrier`   |          | `String`  | Mobile network carrier name.                         |
+| `network.cellular`  |          | `Boolean` | Whether on cellular network. This field is optional. |
+| `network.wifi`      |          | `Boolean` | Whether on Wi-Fi. This field is optional.            |
+| `network.bluetooth` |          | `Boolean` | Whether Bluetooth is enabled. This field is optional.  |
 
 ### Page Information (Web-specific)
-| Field                   | Type   | Description                 |
-| ----------------------- | ------ | --------------------------- |
-| `page.url`              | String | Full URL of the page viewed |
-| `page.path`             | String | Path of the page            |
-| `page.host`             | String | Host domain                 |
-| `page.title`            | String | Page title                  |
-| `page.search`           | String | Search query within URL     |
-| `page.referrer`         | String | Referring page URL          |
-| `page.referring_domain` | String | Referring domain            |
+| Name                    | Required | Data Type | Description                 |
+|-------------------------|----------|-----------|-----------------------------|
+| `page.url`              |          | `String`  | Full URL of the page viewed.|
+| `page.path`             |          | `String`  | Path of the page.           |
+| `page.host`             |          | `String`  | Host domain.                |
+| `page.title`            |          | `String`  | Page title.                 |
+| `page.search`           |          | `String`  | Search query within URL.    |
+| `page.referrer`         |          | `String`  | Referring page URL.         |
+| `page.referring_domain` |          | `String`  | Referring domain.           |
 
 ### Referrer Information
-| Field           | Type   | Description                |
-| --------------- | ------ | -------------------------- |
-| `referrer.id`   | String | Referrer unique identifier |
-| `referrer.type` | String | Type of referrer           |
+| Name            | Required | Data Type | Description                |
+|-----------------|----------|-----------|----------------------------|
+| `referrer.id`   |          | `String`  | Referrer unique identifier.|
+| `referrer.type` |          | `String`  | Type of referrer.          |
 
 ### Screen Information (Mobile-specific)
-| Field                 | Type            | Description             |
-| --------------------- | --------------- | ----------------------- |
-| `screen.width`        | Nullable(Int16) | Screen width in pixels  |
-| `screen.height`       | Nullable(Int16) | Screen height in pixels |
-| `screen.density`      | Nullable(Int16) | Screen density          |
-| `screen.inner_width`  | Nullable(Int16) | Inner viewport width    |
-| `screen.inner_height` | Nullable(Int16) | Inner viewport height   |
+| Name                  | Required | Data Type | Description                                          |
+|-----------------------|----------|-----------|------------------------------------------------------|
+| `screen.width`        |          | `Integer` | Screen width in pixels. Originally `Nullable(Int16)`. This field is optional. |
+| `screen.height`       |          | `Integer` | Screen height in pixels. Originally `Nullable(Int16)`. This field is optional. |
+| `screen.density`      |          | `Integer` | Screen density. Originally `Nullable(Int16)`. This field is optional. |
+| `screen.inner_width`  |          | `Integer` | Inner viewport width. Originally `Nullable(Int16)`. This field is optional. |
+| `screen.inner_height` |          | `Integer` | Inner viewport height. Originally `Nullable(Int16)`. This field is optional. |
 
 *Note: Some fields like `write_key`, `ttl_days`, and `partition` in the "Event Timestamps and Source Metadata" table are primarily for internal data management and may not be directly used in typical event analysis by all users.*

@@ -6,7 +6,13 @@ title: Custom Event Properties (properties field)
 
 The `properties` field in the Semantic Event Schema is a flexible key-value map designed to hold custom or extended data that doesn't fit into the standard, strongly-typed fields of the event schema. It serves as an extensibility point, allowing for the inclusion of arbitrary details specific to certain events, integrations, or experimental tracking needs.
 
-**Structure:** `Map<String, String>`
+## `properties` Field Definition
+
+| Name           | Required | Data Type             | Description                                                                                                                                                                                             |
+|----------------|----------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `properties`   |          | `Map(String, String)` | A flexible key-value map for custom or extended string data that doesn't fit into standard schema fields. Keys are originally `LowCardinality(String)`. Values are strings; non-string data should be stringified. |
+
+**Structure Detail:**
 *   **Keys:** Are strings, typically of low cardinality (from SQL `LowCardinality(String)`).
 *   **Values:** Are strings. Any non-string data (numbers, booleans, objects, arrays) should be stringified (e.g., as JSON) before being stored as a value in this map if it needs to be preserved with structure.
 

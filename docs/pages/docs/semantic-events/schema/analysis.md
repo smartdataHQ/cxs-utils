@@ -18,16 +18,16 @@ When present on an event, the `analysis` field is typically a list (array) of ob
 
 The following table details the fields found within each object in the `analysis` list. These fields are populated by internal systems for operational monitoring.
 
-| Property Name     | Type                | Description                                                                                                   | Optional |
-|-------------------|---------------------|---------------------------------------------------------------------------------------------------------------|----------|
-| `item`            | `String`            | Identifies the specific internal analysis item, service, or model being tracked (e.g., "LLMEnrichment", "NERService", "RiskScoreModel"). From `LowCardinality(String)`. | No       |
-| `provider`        | `String`            | The provider of the analysis item or service (e.g., "OpenAI", "AWSComprehend", "InternalModelService"). From `LowCardinality(String)`. | No       |
-| `variant`         | `String (Optional)` | Specifies a particular version, model, or variant of the item or provider (e.g., "text-davinci-003", "v2.1", "high_sensitivity_config"). From `LowCardinality(String)`. | Yes      |
-| `processing_time` | `Float (Optional)`  | The time taken for this analysis step, typically in seconds or milliseconds.                                  | Yes      |
-| `token_in`        | `Integer (Optional)`| Number of input tokens processed (e.g., for LLM or NLP services).                                             | Yes      |
-| `token_out`       | `Integer (Optional)`| Number of output tokens generated (e.g., for LLM or NLP services).                                            | Yes      |
-| `currency`        | `String (Optional)` | Currency code (e.g., "USD") if a monetary cost is associated with this analysis step. From `LowCardinality(String)`. | Yes      |
-| `amount`          | `Float (Optional)`  | The monetary amount or cost associated with this analysis step, in the specified `currency`.                   | Yes      |
+| Name              | Required | Data Type | Description                                                                                                                                                           |
+|-------------------|----------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `item`            |          | `String`  | Identifies the specific internal analysis item, service, or model being tracked (e.g., "LLMEnrichment", "NERService", "RiskScoreModel"). Originally `LowCardinality(String)`. |
+| `provider`        |          | `String`  | The provider of the analysis item or service (e.g., "OpenAI", "AWSComprehend", "InternalModelService"). Originally `LowCardinality(String)`.                             |
+| `variant`         |          | `String`  | Specifies a particular version, model, or variant of the item or provider (e.g., "text-davinci-003", "v2.1", "high_sensitivity_config"). Originally `LowCardinality(String)`. This field is optional. |
+| `processing_time` |          | `Float`   | The time taken for this analysis step, typically in seconds or milliseconds. This field is optional.                                                                  |
+| `token_in`        |          | `Integer` | Number of input tokens processed (e.g., for LLM or NLP services). This field is optional.                                                                               |
+| `token_out`       |          | `Integer` | Number of output tokens generated (e.g., for LLM or NLP services). This field is optional.                                                                              |
+| `currency`        |          | `String`  | Currency code (e.g., "USD") if a monetary cost is associated with this analysis step. Originally `LowCardinality(String)`. This field is optional.                          |
+| `amount`          |          | `Float`   | The monetary amount or cost associated with this analysis step, in the specified `currency`. This field is optional.                                                      |
 
 ## Internal Use-Case Examples
 

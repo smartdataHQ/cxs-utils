@@ -6,24 +6,24 @@ title: Sentiment Properties
 
 Sentiment properties are designed to capture and describe subjective opinions, feelings, or attitudes expressed within or related to a semantic event. This is often crucial for understanding customer feedback, analyzing social media interactions, or evaluating responses to surveys and communications.
 
-Typically, an event may contain a `sentiment` field which is a list (array) of sentiment objects. Each object in this list describes a single piece of expressed sentiment and has the following properties:
+Typically, an event may contain a `sentiment` field which is a list (array) of sentiment objects. Each object in this list describes a single piece of expressed sentiment.
 
 ## Sentiment Object Properties
 
 The following table details the fields found within each sentiment object.
 
-| Property Name     | Type                             | Description                                                                                                                               | Optional |
-|-------------------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `type`            | `String`                         | The classification of the sentiment expressed. Enum-like values include: 'Praise', 'Criticism', 'Complaint', 'Request', 'Suggestion', 'Question', 'Abuse', 'Threat', 'Opinion', 'Other'. From `LowCardinality(String)`. | No       |
-| `sentiment`       | `String`                         | The actual sentiment expressed, often a keyword or phrase (e.g., "positive", "negative", "loved_it", "too_complex"). From `LowCardinality(String)`. | No       |
-| `entity_type`     | `String`                         | The type of entity the sentiment is *about* (e.g., "product", "service", "company", "employee"). From `LowCardinality(String)`.          | No       |
-| `entity_gid`      | `UUID (String, Optional)`        | The Global ID (GID) of the specific entity instance the sentiment is about.                                                               | Yes      |
-| `id_type`         | `String (Optional)`              | The type of identifier used in the `id` field (e.g., "sku", "ticket_number", "user_id"). From `LowCardinality(String)`.                   | Yes      |
-| `id`              | `String (Optional)`              | The specific identifier (matching `id_type`) of the entity instance the sentiment is about.                                               | Yes      |
-| `target_category` | `String (Optional)`              | Broad category of what the sentiment specifically targets (e.g., "Usability", "Customer Support", "Pricing"). From `LowCardinality(String)`. | Yes      |
-| `target_type`     | `String (Optional)`              | More specific type within the `target_category` (e.g., "Button Design" if category is "Usability"). From `LowCardinality(String)`.       | Yes      |
-| `target_entity`   | `String (Optional)`              | The exact aspect, feature, or sub-component the sentiment is directed towards (e.g., "Checkout Button").                                    | Yes      |
-| `reason`          | `String (Optional)`              | The reasoning or justification provided for the expressed sentiment.                                                                      | Yes      |
+| Name              | Required | Data Type | Description                                                                                                                                                                                             |
+|-------------------|----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`            |          | `String`  | The classification of the sentiment expressed. Enum-like values include: 'Praise', 'Criticism', 'Complaint', 'Request', 'Suggestion', 'Question', 'Abuse', 'Threat', 'Opinion', 'Other'. Originally `LowCardinality(String)`. |
+| `sentiment`       |          | `String`  | The actual sentiment expressed, often a keyword or phrase (e.g., "positive", "negative", "loved_it", "too_complex"). Originally `LowCardinality(String)`.                                                  |
+| `entity_type`     |          | `String`  | The type of entity the sentiment is *about* (e.g., "product", "service", "company", "employee"). Originally `LowCardinality(String)`.                                                                     |
+| `entity_gid`      |          | `UUID`    | The Global ID (GID) of the specific entity instance the sentiment is about. This field is optional.                                                                                                     |
+| `id_type`         |          | `String`  | The type of identifier used in the `id` field (e.g., "sku", "ticket_number", "user_id"). Originally `LowCardinality(String)`. This field is optional.                                                      |
+| `id`              |          | `String`  | The specific identifier (matching `id_type`) of the entity instance the sentiment is about. This field is optional.                                                                                       |
+| `target_category` |          | `String`  | Broad category of what the sentiment specifically targets (e.g., "Usability", "Customer Support", "Pricing"). Originally `LowCardinality(String)`. This field is optional.                               |
+| `target_type`     |          | `String`  | More specific type within the `target_category` (e.g., "Button Design" if category is "Usability"). Originally `LowCardinality(String)`. This field is optional.                                          |
+| `target_entity`   |          | `String`  | The exact aspect, feature, or sub-component the sentiment is directed towards (e.g., "Checkout Button"). This field is optional.                                                                          |
+| `reason`          |          | `String`  | The reasoning or justification provided for the expressed sentiment. This field is optional.                                                                                                              |
 
 ## Understanding and Using Sentiment Data
 

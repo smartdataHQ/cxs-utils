@@ -10,25 +10,25 @@ Events originating from websites are typically enriched with a variety of proper
 
 These properties provide details about the web page on which the event occurred.
 
-| Property Name           | Type                | Description                                                                                                | Optional |
-|-------------------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `page.url`              | `String (Optional)` | The full URL of the page where the event was generated (e.g., "https://www.example.com/path?query=value").    | Yes      |
-| `page.path`             | `String (Optional)` | The path part of the URL (e.g., "/path/to/page.html").                                                     | Yes      |
-| `page.title`            | `String (Optional)` | The title of the web page, typically from the `<title>` HTML tag.                                            | Yes      |
-| `page.host`             | `String (Optional)` | The hostname of the page URL (e.g., "www.example.com"). From `LowCardinality(String)`.                      | Yes      |
-| `page.referrer`         | `String (Optional)` | The full URL of the page that referred the user to the current page.                                         | Yes      |
-| `page.referring_domain` | `String (Optional)` | The domain of the referring URL. Automatically parsed from `page.referrer`. From `LowCardinality(String)`.     | Yes      |
-| `page.search`           | `String (Optional)` | The search query string part of the page URL (e.g., "?query=value").                                       | Yes      |
-| `page.encoding`         | `String (Optional)` | Character encoding of the page, (e.g. "UTF-8"). From `LowCardinality(String)`.                             | Yes      |
+| Name                    | Required | Data Type | Description                                                                                                                               |
+|-------------------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `page.url`              |          | `String`  | The full URL of the page where the event was generated (e.g., "https://www.example.com/path?query=value"). This field is optional.           |
+| `page.path`             |          | `String`  | The path part of the URL (e.g., "/path/to/page.html"). This field is optional.                                                            |
+| `page.title`            |          | `String`  | The title of the web page, typically from the `<title>` HTML tag. This field is optional.                                                   |
+| `page.host`             |          | `String`  | The hostname of the page URL (e.g., "www.example.com"). Originally `LowCardinality(String)`. This field is optional.                         |
+| `page.referrer`         |          | `String`  | The full URL of the page that referred the user to the current page. This field is optional.                                                |
+| `page.referring_domain` |          | `String`  | The domain of the referring URL. Automatically parsed from `page.referrer`. Originally `LowCardinality(String)`. This field is optional.    |
+| `page.search`           |          | `String`  | The search query string part of the page URL (e.g., "?query=value"). This field is optional.                                              |
+| `page.encoding`         |          | `String`  | Character encoding of the page, (e.g. "UTF-8"). Originally `LowCardinality(String)`. This field is optional.                                |
 
 ## Referring Source Properties (`referrer.*`)
 
 These properties can provide more structured or specific information about the source that referred the user to the website, potentially beyond what `page.referrer` captures.
 
-| Property Name   | Type                | Description                                                                                                | Optional |
-|-----------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `referrer.id`   | `String (Optional)` | An identifier for a specific referring source, link, or affiliate. From `LowCardinality(String)`.            | Yes      |
-| `referrer.type` | `String (Optional)` | The type of the referrer (e.g., "affiliate", "partner_integration", "internal_campaign"). From `LowCardinality(String)`. | Yes      |
+| Name            | Required | Data Type | Description                                                                                                                                                              |
+|-----------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `referrer.id`   |          | `String`  | An identifier for a specific referring source, link, or affiliate. Originally `LowCardinality(String)`. This field is optional.                                            |
+| `referrer.type` |          | `String`  | The type of the referrer (e.g., "affiliate", "partner_integration", "internal_campaign"). Originally `LowCardinality(String)`. This field is optional.                      |
 
 **Note:** `referrer.*` fields might be used by specific integrations or for more granular programmatic referrer tracking, complementing the general `page.referrer` URL. They can also help differentiate internal referrers from external ones if specific `referrer.type` values are used.
 
@@ -36,46 +36,49 @@ These properties can provide more structured or specific information about the s
 
 These properties describe the characteristics of the user's screen or browser window where the web page was displayed.
 
-| Property Name         | Type                | Description                                                                                              | Optional |
-|-----------------------|---------------------|----------------------------------------------------------------------------------------------------------|----------|
-| `screen.width`        | `Integer (Optional)`| The total width of the user's screen in pixels (e.g., 1920). From `Nullable(Int16)`.                     | Yes      |
-| `screen.height`       | `Integer (Optional)`| The total height of the user's screen in pixels (e.g., 1080). From `Nullable(Int16)`.                    | Yes      |
-| `screen.density`      | `Integer (Optional)`| The pixel density of the screen (e.g., 1 for standard, 2 for Retina). From `Nullable(Int16)`.             | Yes      |
-| `screen.inner_width`  | `Integer (Optional)`| The inner width of the browser window (viewport) in pixels. From `Nullable(Int16)`.                      | Yes      |
-| `screen.inner_height` | `Integer (Optional)`| The inner height of the browser window (viewport) in pixels. From `Nullable(Int16)`.                     | Yes      |
+| Name                  | Required | Data Type | Description                                                                                                                               |
+|-----------------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `screen.width`        |          | `Integer` | The total width of the user's screen in pixels (e.g., 1920). Originally `Nullable(Int16)`. This field is optional.                           |
+| `screen.height`       |          | `Integer` | The total height of the user's screen in pixels (e.g., 1080). Originally `Nullable(Int16)`. This field is optional.                          |
+| `screen.density`      |          | `Integer` | The pixel density of the screen (e.g., 1 for standard, 2 for Retina). Originally `Nullable(Int16)`. This field is optional.                  |
+| `screen.inner_width`  |          | `Integer` | The inner width of the browser window (viewport) in pixels. Originally `Nullable(Int16)`. This field is optional.                            |
+| `screen.inner_height` |          | `Integer` | The inner height of the browser window (viewport) in pixels. Originally `Nullable(Int16)`. This field is optional.                           |
 
 ## User Agent & Browser Properties (`user_agent.*`)
 
 These properties are derived from parsing the browser's User-Agent string and provide information about the browser, OS, and device platform.
 
-| Property Name          | Type                | Description                                                                                                   | Optional |
-|------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|----------|
-| `user_agent.signature` | `String (Optional)` | The full, raw User-Agent string from the browser.                                                             | Yes      |
-| `user_agent.mobile`    | `Boolean (Optional)`| Indicates if the User-Agent string suggests a mobile device.                                                  | Yes      |
-| `user_agent.platform`  | `String (Optional)` | The platform indicated by the User-Agent (e.g., "Windows", "Macintosh", "Linux", "iPhone"). From `LowCardinality(String)`. | Yes      |
+| Name                   | Required | Data Type        | Description                                                                                                                                                              |
+|------------------------|----------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `user_agent.signature` |          | `String`         | The full, raw User-Agent string from the browser. This field is optional.                                                                                                  |
+| `user_agent.mobile`    |          | `Boolean`        | Indicates if the User-Agent string suggests a mobile device. This field is optional.                                                                                       |
+| `user_agent.platform`  |          | `String`         | The platform indicated by the User-Agent (e.g., "Windows", "Macintosh", "Linux", "iPhone"). Originally `LowCardinality(String)`. This field is optional.                 |
+| `user_agent.data`      |          | `Array(Object)`  | A list of User-Agent Client Hint objects, each detailing browser brand and version. See sub-fields below. This field is optional.                                           |
 
-### User-Agent Client Hints (`user_agent.data`)
-Modern browsers may provide more structured User-Agent Client Hints. The `user_agent.data` field is a nested structure to capture this.
-*   **Structure:** A list/array of objects, where each object has:
-    *   `brand` (`String` from `LowCardinality(String)`): The browser brand (e.g., "Google Chrome", "Microsoft Edge").
-    *   `version` (`String` from `LowCardinality(String)`): The major version of the browser brand.
-*   **Example:**
-    ```json
-    "user_agent.data": [
-      { "brand": "Not_A Brand", "version": "99" },
-      { "brand": "Google Chrome", "version": "109" },
-      { "brand": "Chromium", "version": "109" }
-    ]
-    ```
+**`user_agent.data` Object Properties:**
+
+| Name        | Required | Data Type | Description                                                                                                |
+|-------------|----------|-----------|------------------------------------------------------------------------------------------------------------|
+| `brand`     |          | `String`  | The browser brand (e.g., "Google Chrome", "Microsoft Edge"). Originally `LowCardinality(String)`.            |
+| `version`   |          | `String`  | The major version of the browser brand. Originally `LowCardinality(String)`.                                 |
+
+*Example of `user_agent.data` structure:*
+```json
+"user_agent.data": [
+  { "brand": "Not_A Brand", "version": "99" },
+  { "brand": "Google Chrome", "version": "109" },
+  { "brand": "Chromium", "version": "109" }
+]
+```
 
 ## Tracking Library Properties (`library.*`)
 
 These properties identify the client-side library or SDK that was used to generate and send the event.
 
-| Property Name     | Type                | Description                                                                                               | Optional |
-|-------------------|---------------------|-----------------------------------------------------------------------------------------------------------|----------|
-| `library.name`    | `String (Optional)` | The name of the analytics library (e.g., "analytics.js", "segment-web", "custom_tracker"). From `LowCardinality(String)`. | Yes      |
-| `library.version` | `String (Optional)` | The version of the analytics library (e.g., "4.1.0", "v2.beta"). From `LowCardinality(String)`.             | Yes      |
+| Name              | Required | Data Type | Description                                                                                                                               |
+|-------------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `library.name`    |          | `String`  | The name of the analytics library (e.g., "analytics.js", "segment-web", "custom_tracker"). Originally `LowCardinality(String)`. This field is optional. |
+| `library.version` |          | `String`  | The version of the analytics library (e.g., "4.1.0", "v2.beta"). Originally `LowCardinality(String)`. This field is optional.                |
 
 ## Purpose and Usage
 

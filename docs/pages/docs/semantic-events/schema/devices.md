@@ -10,18 +10,18 @@ Semantic events often include details about the user's device and operating syst
 
 These properties describe the characteristics of the device used by the user when the event occurred.
 
-| Property Name                 | Type                  | Description                                                                                                                               | Optional |
-|-------------------------------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `device.id`                   | `String (Optional)`   | A unique identifier for the device instance (e.g., vendor ID, `idfv`).                                                                    | Yes      |
-| `device.manufacturer`         | `String (Optional)`   | The manufacturer of the device (e.g., "Apple", "Samsung", "Google"). From `LowCardinality(String)`.                                         | Yes      |
-| `device.model`                | `String (Optional)`   | The specific model of the device (e.g., "iPhone 13 Pro", "SM-G998U", "Pixel 6"). From `LowCardinality(String)`.                            | Yes      |
-| `device.name`                 | `String (Optional)`   | A user-assigned name for the device, if available (e.g., "John's iPhone"). From `LowCardinality(String)`.                                   | Yes      |
-| `device.type`                 | `String (Optional)`   | The type of device (e.g., "mobile", "tablet", "desktop", "wearable"). From `LowCardinality(String)`.                                        | Yes      |
-| `device.version`              | `String (Optional)`   | The version of the device hardware or firmware, if distinct from the OS version. May sometimes overlap with `os.version`. See note below. From `LowCardinality(String)`. | Yes      |
-| `device.brand`                | `String (Optional)`   | The brand name of the device (e.g., "iPhone", "Galaxy", "Pixel"). Often similar to `manufacturer` for some brands, but can differ (e.g., Manufacturer: "Google", Brand: "Pixel"). From `LowCardinality(String)`. | Yes      |
-| `device.advertising_id`       | `String (Optional)`   | The advertising identifier (e.g., IDFA for iOS, GAID for Android).                                                                        | Yes      |
-| `device.ad_tracking_enabled`  | `Boolean (Optional)`  | Indicates whether the user has enabled ad tracking on their device.                                                                       | Yes      |
-| `device.token`                | `String (Optional)`   | A device token, often used for push notifications.                                                                                        | Yes      |
+| Name                          | Required | Data Type | Description                                                                                                                                                              |
+|-------------------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `device.id`                   |          | `String`  | A unique identifier for the device instance (e.g., vendor ID, `idfv`). This field is optional.                                                                           |
+| `device.manufacturer`         |          | `String`  | The manufacturer of the device (e.g., "Apple", "Samsung", "Google"). Originally `LowCardinality(String)`. This field is optional.                                           |
+| `device.model`                |          | `String`  | The specific model of the device (e.g., "iPhone 13 Pro", "SM-G998U", "Pixel 6"). Originally `LowCardinality(String)`. This field is optional.                             |
+| `device.name`                 |          | `String`  | A user-assigned name for the device, if available (e.g., "John's iPhone"). Originally `LowCardinality(String)`. This field is optional.                                    |
+| `device.type`                 |          | `String`  | The type of device (e.g., "mobile", "tablet", "desktop", "wearable"). Originally `LowCardinality(String)`. This field is optional.                                         |
+| `device.version`              |          | `String`  | The version of the device hardware or firmware, if distinct from the OS version. May sometimes overlap with `os.version`. See note below. Originally `LowCardinality(String)`. This field is optional. |
+| `device.brand`                |          | `String`  | The brand name of the device (e.g., "iPhone", "Galaxy", "Pixel"). Often similar to `manufacturer` for some brands, but can differ. Originally `LowCardinality(String)`. This field is optional. |
+| `device.advertising_id`       |          | `String`  | The advertising identifier (e.g., IDFA for iOS, GAID for Android). This field is optional.                                                                               |
+| `device.ad_tracking_enabled`  |          | `Boolean` | Indicates whether the user has enabled ad tracking on their device. This field is optional.                                                                              |
+| `device.token`                |          | `String`  | A device token, often used for push notifications. This field is optional.                                                                                               |
 
 **Note on `device.manufacturer` vs. `device.brand`:**
 *   `device.manufacturer` refers to the company that made the device (e.g., "Apple Inc.", "Samsung Electronics").
@@ -31,10 +31,10 @@ These properties describe the characteristics of the device used by the user whe
 
 These properties describe the operating system running on the device.
 
-| Property Name | Type                | Description                                                                                     | Optional |
-|---------------|---------------------|-------------------------------------------------------------------------------------------------|----------|
-| `os.name`     | `String (Optional)` | The name of the operating system (e.g., "iOS", "Android", "Windows", "macOS"). From `LowCardinality(String)`. | Yes      |
-| `os.version`  | `String (Optional)` | The version of the operating system (e.g., "15.1", "12.0", "11"). From `LowCardinality(String)`.   | Yes      |
+| Name         | Required | Data Type | Description                                                                                                                               |
+|--------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `os.name`    |          | `String`  | The name of the operating system (e.g., "iOS", "Android", "Windows", "macOS"). Originally `LowCardinality(String)`. This field is optional.    |
+| `os.version` |          | `String`  | The version of the operating system (e.g., "15.1", "12.0", "11"). Originally `LowCardinality(String)`. This field is optional.      |
 
 **Note on `device.version` vs. `os.version`:**
 The `os.version` field is generally the canonical place for the operating system's version number (e.g., "16.2" for iOS, "13" for Android). The `device.version` field *could* refer to a specific hardware revision or firmware version if that's distinct and relevant, but it's often less consistently populated or might duplicate the OS version. For OS-level targeting or analysis, `os.version` is typically more reliable.

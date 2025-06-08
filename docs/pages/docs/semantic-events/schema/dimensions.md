@@ -15,7 +15,11 @@ These fields are particularly useful for:
 
 The `dimensions` field allows you to attach arbitrary string-based key-value pairs to an event. These are typically used for low-cardinality attributes that help in segmenting, categorizing, or filtering events.
 
-*   **Structure:** `Map<String, String>`
+| Name           | Required | Data Type             | Description                                                                                                                                                                                   |
+|----------------|----------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dimensions`   |          | `Map(String, String)` | Allows attaching arbitrary string-based key-value pairs to an event. Used for low-cardinality attributes for segmenting, categorizing, or filtering events. Keys and values are originally `LowCardinality(String)`. |
+
+*   **Structure (conceptual):** `Map<String, String>`
     *   Keys are `String` (from SQL `LowCardinality(String)`).
     *   Values are `String` (from SQL `LowCardinality(String)`).
 *   **Purpose:** To add descriptive attributes that can be used for grouping or breaking down analyses. Dimensions are typically non-numerical and represent categories or labels.
@@ -52,7 +56,11 @@ The `dimensions` field allows you to attach arbitrary string-based key-value pai
 
 The `metrics` field allows you to attach arbitrary numerical key-value pairs to an event. These are used for quantitative measurements or counts that provide specific numerical insights about the event.
 
-*   **Structure:** `Map<String, Float>`
+| Name        | Required | Data Type             | Description                                                                                                                                                                |
+|-------------|----------|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `metrics`   |          | `Map(String, Float)`  | Allows attaching arbitrary numerical key-value pairs to an event. Used for quantitative measurements or counts. Keys are originally `LowCardinality(String)`, values are `Float32`. |
+
+*   **Structure (conceptual):** `Map<String, Float>`
     *   Keys are `String` (from SQL `LowCardinality(String)`).
     *   Values are `Float` (from SQL `Float32`).
 *   **Purpose:** To add quantitative data points that can be aggregated (e.g., summed, averaged) or used in numerical analyses.

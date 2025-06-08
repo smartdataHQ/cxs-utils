@@ -4,19 +4,17 @@ title: Event Content (content field)
 
 # Event Content (`content` field)
 
-The `content` field in the Semantic Event Schema provides a flexible way to store various textual or string-based content snippets associated with an event. It is structured as a key-value map, allowing for diverse types of information to be captured alongside the primary event data.
+The `content` field in the Semantic Event Schema provides a flexible way to store various textual or string-based content snippets associated with an event.
 
-## Structure Definition
+## `content` Field Definition
 
-The `content` field is defined as a `Map<String, String>`.
-*   **Keys:** Are strings, typically of low cardinality (e.g., "Subject", "Body"). In the underlying SQL definition, this is `LowCardinality(String)`.
-*   **Values:** Are strings, representing the actual textual content for the corresponding key.
-
-This structure allows for attaching multiple pieces of distinct content to a single event. For example, an email-related event might store both the subject line and parts of the email body.
+| Name      | Required | Data Type             | Description                                                                                                                                                                                             |
+|-----------|----------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `content` |          | `Map(String, String)` | A flexible map to store various textual or string-based content snippets associated with an event. Keys are typically `LowCardinality(String)`. See 'Common Content Keys' below for suggested usage. |
 
 ## Common Content Keys
 
-While the `content` map is flexible, several common keys are suggested by the schema definition, covering frequent use cases. Using these standardized keys can help in creating consistency across different event types and sources.
+While the `content` map is flexible, several common keys are suggested by the schema definition, covering frequent use cases. Using these standardized keys can help in creating consistency across different event types and sources. The table below lists these common keys and their typical uses:
 
 | Key                | Example Value                                       | Typical Use / Description                                                                 |
 |--------------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------|

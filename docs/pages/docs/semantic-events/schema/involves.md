@@ -14,15 +14,15 @@ The `involves` field is typically an array (list) of objects, where each object 
 
 The following table details the fields found within each object in the `involves` list:
 
-| Property Name | Type                             | Description                                                                                                                                  | Optional |
-|---------------|----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `label`       | `String (Optional)`              | A human-readable name or label for the involved entity instance (e.g., "Primary User", "Product X123"). From `Nullable(String)`.                 | Yes      |
-| `role`        | `String`                         | The function or role of the entity in the context of this specific event. Conventionally, this value is **always capitalized** (e.g., "Buyer", "Seller", "Author", "Recipient", "Participant"). From `LowCardinality(String)`. | No       |
-| `entity_type` | `String`                         | The type of the involved entity. Conventionally, this value is **always capitalized** (e.g., "User", "Product", "Organization", "Document"). From `LowCardinality(String)`. | No       |
-| `entity_gid`  | `UUID (String, Optional)`        | The Global ID (GID) of the involved entity, if resolved to a canonical entity. From `Nullable(UUID)`.                                         | Yes      |
-| `id`          | `String (Optional)`              | An alternative or external identifier for the involved entity. From `Nullable(String)`.                                                        | Yes      |
-| `id_type`     | `String (Optional)`              | The type of the identifier provided in the `id` field (e.g., "Sku", "Email", "ExternalContractId"). From `LowCardinality(String)`.               | Yes      |
-| `capacity`    | `Float (Optional)`               | A numeric value indicating the extent, share, or capacity of involvement for this entity in this event (e.g., 0.5 for 50% involvement, 1.0 for full involvement). From `Nullable(Float)`. | Yes      |
+| Name          | Required | Data Type | Description                                                                                                                                                                                             |
+|---------------|----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `label`       |          | `String`  | A human-readable name or label for the involved entity instance (e.g., "Primary User", "Product X123"). Originally `Nullable(String)`. This field is optional.                                          |
+| `role`        |          | `String`  | The function or role of the entity in the context of this specific event. Conventionally, this value is **always capitalized** (e.g., "Buyer", "Seller", "Author", "Recipient", "Participant"). Originally `LowCardinality(String)`. |
+| `entity_type` |          | `String`  | The type of the involved entity. Conventionally, this value is **always capitalized** (e.g., "User", "Product", "Organization", "Document"). Originally `LowCardinality(String)`.                       |
+| `entity_gid`  |          | `UUID`    | The Global ID (GID) of the involved entity, if resolved to a canonical entity. Originally `Nullable(UUID)`. This field is optional.                                                                      |
+| `id`          |          | `String`  | An alternative or external identifier for the involved entity. Originally `Nullable(String)`. This field is optional.                                                                                     |
+| `id_type`     |          | `String`  | The type of the identifier provided in the `id` field (e.g., "Sku", "Email", "ExternalContractId"). Originally `LowCardinality(String)`. This field is optional.                                         |
+| `capacity`    |          | `Float`   | A numeric value indicating the extent, share, or capacity of involvement for this entity in this event (e.g., 0.5 for 50% involvement, 1.0 for full involvement). Originally `Nullable(Float)`. This field is optional. |
 
 ## Understanding and Using `involves`
 

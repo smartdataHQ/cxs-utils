@@ -12,14 +12,14 @@ When an event has access control rules defined, its `access` field will typicall
 
 The following table details the fields found within each object in the `access` list:
 
-| Property Name      | Type                             | Description                                                                                                                                  | Optional |
-|--------------------|----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| `type`             | `String`                         | The type of access rule. Allowed values are: <br/> - `"Blacklisted"` (1): Denies access if the conditions match. <br/> - `"Whitelisted"` (2): Grants access if the conditions match. (From SQL Enum8) | No       |
-| `label`            | `String`                         | A human-readable label or description for this access rule (e.g., "Exclude Test Users", "Partner Org Access Q1-2024"). From `LowCardinality(String)`. | No       |
-| `user_gid`         | `UUID (String)`                  | The Global ID (GID) of a specific user to whom this rule applies.                                                                            | No       |
-| `organization_gid` | `UUID (String, Optional)`        | The Global ID (GID) of an organization to which this rule applies. If present, the rule targets users within this organization.                | Yes      |
-| `date_from`        | `DateTime (UTC, Optional)`       | The date and time (UTC) from which this access rule becomes effective. If null, the rule is effective immediately or from the start of time. | Yes      |
-| `date_to`          | `DateTime (UTC, Optional)`       | The date and time (UTC) until which this access rule is effective. If null, the rule remains effective indefinitely.                           | Yes      |
+| Name               | Required | Data Type | Description                                                                                                                                                                                             |
+|--------------------|----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`             |          | `String`  | The type of access rule. Allowed values are: <br/> - `"Blacklisted"` (1): Denies access if the conditions match. <br/> - `"Whitelisted"` (2): Grants access if the conditions match. (From SQL Enum8) |
+| `label`            |          | `String`  | A human-readable label or description for this access rule (e.g., "Exclude Test Users", "Partner Org Access Q1-2024"). Originally `LowCardinality(String)`.                                             |
+| `user_gid`         |          | `UUID`    | The Global ID (GID) of a specific user to whom this rule applies.                                                                                                                                       |
+| `organization_gid` |          | `UUID`    | The Global ID (GID) of an organization to which this rule applies. If present, the rule targets users within this organization. This field is optional.                                                  |
+| `date_from`        |          | `Timestamp` | The date and time (UTC) from which this access rule becomes effective. If null, the rule is effective immediately or from the start of time. This field is optional.                                     |
+| `date_to`          |          | `Timestamp` | The date and time (UTC) until which this access rule is effective. If null, the rule remains effective indefinitely. This field is optional.                                                             |
 
 ## Understanding and Applying Access Rules
 
@@ -58,7 +58,7 @@ The `access` structure provides the necessary metadata for systems to make decis
           "date_to": "2024-06-30T23:59:59Z"
         }
         ```
-    *(Note: In this whitelisting scenario, the `user_gid` field would still be present in the actual data structure, often set to a specific system user or a wildcard representation if the SQL schema doesn't allow NULL for it and the rule is meant for any user in that org. However, for conceptual clarity in a whitelist-by-org, the `organization_gid` is the primary driver.)* The SQL schema says `user_gid UUID` (not nullable) so it must always be present. For an org-wide rule, it might be a GID of a system principal representing "any authenticated user in org X".
+    *(Note: In this whitelisting scenario, the `user_gid` field would still be present in the actual data structure, often set to a specific system user or a wildcard representation if the SQL schema doesn't allow NULL for it and the rule is meant for any user in that org. However, for conceptual clarity in a whitelist-by-org, the `organization_gid` is the primary driver.)* The Avro schema indicates `user_gid` is required. For an org-wide rule, it might be a GID of a system principal representing "any authenticated user in org X".
 
 3.  **Time-Restricted Access for a Contractor:**
     Grant a specific contractor (identified by `user_gid`) access to certain types of events only for the duration of their contract.

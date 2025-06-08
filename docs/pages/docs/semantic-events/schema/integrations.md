@@ -8,9 +8,15 @@ The `integrations` field in the Semantic Event Schema provides a powerful mechan
 
 This field is particularly useful for scenarios such as selectively sending certain events to specific tools, preventing sensitive or noisy events from reaching certain destinations, or A/B testing new integrations with a subset of event data.
 
+## `integrations` Field Definition
+
+| Name             | Required | Data Type               | Description                                                                                                                                                                                                                            |
+|------------------|----------|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `integrations`   |          | `Map(String, Boolean)`  | A map for explicit, per-event control over forwarding to downstream destinations. Keys are integration names (originally `LowCardinality(String)`), values are booleans (`true` to send, `false` to not send). Absence of a key implies default routing for that integration. |
+
 ## Structure of the `integrations` Map
 
-The `integrations` field is defined as a `Map<String, Boolean>`.
+The `integrations` field is defined conceptually as a `Map<String, Boolean>`.
 
 *   **Key (`String`):** The key is a string that represents the unique name or identifier of a specific configured downstream destination or integration. Examples could be "Salesforce", "GoogleAnalytics", "CustomerIO_Webhook", "DataWarehouse_Primary", or "Zendesk". In the underlying SQL, this key is typically a `LowCardinality(String)` for efficiency.
 

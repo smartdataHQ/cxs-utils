@@ -12,12 +12,12 @@ These fields help in segmenting data, tracking versions, and diagnosing issues r
 
 The following table details the standard `app.*` fields. These are generally considered optional, as not all events will originate from a context where all (or any) of these application details are relevant or available.
 
-| Property Name   | Type                | Description                                                                                                | Optional |
-|-----------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `app.name`      | `String (Optional)` | The name of the application (e.g., "My Awesome App", "Client Portal"). From `LowCardinality(String)`.        | Yes      |
-| `app.version`   | `String (Optional)` | The version of the application (e.g., "1.2.3", "2.0-beta"). From `LowCardinality(String)`.                  | Yes      |
-| `app.build`     | `String (Optional)` | The build number of the application (e.g., "101", "20230401.5"). From `LowCardinality(String)`.              | Yes      |
-| `app.namespace` | `String (Optional)` | The namespace of the application, often used as a unique identifier for app stores (e.g., "com.example.myapp", "bundle.id"). From `LowCardinality(String)`. | Yes      |
+| Name            | Required | Data Type | Description                                                                                                                                                              |
+|-----------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `app.name`      |          | `String`  | The name of the application (e.g., "My Awesome App", "Client Portal"). Originally `LowCardinality(String)`. This field is optional.                                          |
+| `app.version`   |          | `String`  | The version of the application (e.g., "1.2.3", "2.0-beta"). Originally `LowCardinality(String)`. This field is optional.                                                    |
+| `app.build`     |          | `String`  | The build number of the application (e.g., "101", "20230401.5"). Originally `LowCardinality(String)`. This field is optional.                                                |
+| `app.namespace` |          | `String`  | The namespace of the application, often used as a unique identifier for app stores (e.g., "com.example.myapp", "bundle.id"). Originally `LowCardinality(String)`. This field is optional. |
 
 ## Purpose and Usage
 
