@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "name": "Involved",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "label",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The label of the entity that is involved in the event"
+    },
+    {
+      "name": "role",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The role of the entity in the event. (Capitalized like: Supplier, Buyer, Victim, HomeTeam)"
+    },
+    {
+      "name": "entity_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the entity that is involved in the event (Capitalized Entity name like: Person, Organization, LegalEntity)"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The Graph UUID of the entity that is involved in the event. Entity GIDs are ContextSuite native IDs. Use the id field for other IDs."
+    },
+    {
+      "name": "id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the entity that is involved in the event"
+    },
+    {
+      "name": "id_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID type indicates what organization issued the ID. (This is potentially your own name)"
+    },
+    {
+      "name": "capacity",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The capacity of the entity in the event. If the involvement is fractional, this is the fraction of the entity that is involved in the event. (e.g. 0.5 for half of a person)"
+    }
+  ]
+}

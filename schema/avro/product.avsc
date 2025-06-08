@@ -1,0 +1,463 @@
+{
+  "type": "record",
+  "name": "Product",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "position",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Position in the product list (ex. 3)"
+    },
+    {
+      "name": "entry_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Stockout'"
+    },
+    {
+      "name": "line_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the line item"
+    },
+    {
+      "name": "product_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Database id of the product being purchases"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Database id of the product being purchases"
+    },
+    {
+      "name": "sku",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Sku of the product being purchased"
+    },
+    {
+      "name": "barcode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Barcode of the product being purchased"
+    },
+    {
+      "name": "gtin",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GTIN of the product being purchased"
+    },
+    {
+      "name": "upc",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "UPC of the product being purchased"
+    },
+    {
+      "name": "ean",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "EAN of the product being purchased"
+    },
+    {
+      "name": "isbn",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISBN of the product being purchased"
+    },
+    {
+      "name": "serial_number",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Serial number of the product being purchased"
+    },
+    {
+      "name": "supplier_number",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Supplier number of the product being purchased"
+    },
+    {
+      "name": "tpx_serial_number",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Serial number of the product being purchased issued by a third party (not GS1)"
+    },
+    {
+      "name": "bundle_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the bundle the product belongs to when listing all products in a bundle"
+    },
+    {
+      "name": "bundle",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the bundle the product belongs to"
+    },
+    {
+      "name": "product",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the product being viewed"
+    },
+    {
+      "name": "variant",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Variant of the product being purchased"
+    },
+    {
+      "name": "novelty",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Novelty of the product being purchased"
+    },
+    {
+      "name": "size",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Size of the product being purchased"
+    },
+    {
+      "name": "packaging",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Packaging of the product being purchased"
+    },
+    {
+      "name": "condition",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Condition of the product being purchased //like fresh, frozen, etc."
+    },
+    {
+      "name": "ready_for_use",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "If the product is ready for use //Varies between food and non-food items"
+    },
+    {
+      "name": "core_product",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The core product being purchased // Spaghetti, Razor Blades (No Brand, No Variant, No Category)"
+    },
+    {
+      "name": "origin",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Location identifier for the origin of the product being purchased"
+    },
+    {
+      "name": "brand",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Brand associated with the product"
+    },
+    {
+      "name": "product_line",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product line associated with the product"
+    },
+    {
+      "name": "own_product",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "If the item is a store brand"
+    },
+    {
+      "name": "product_dist",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product Distribution is used to track the distribution class of the product (e.g. \\\"A\\\", \\\"B\\\", \\\"C\\\", \\\"D\\\", \\\"E\\\", \\\"F\\\", \\\"G\\\", \\\"H\\\", \\\"I\\\", \\\"J\\\")"
+    },
+    {
+      "name": "main_category",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product category being purchased"
+    },
+    {
+      "name": "main_category_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product category ID being purchased"
+    },
+    {
+      "name": "category",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the sub-category of the product being purchased"
+    },
+    {
+      "name": "category_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ID of the sub-category of the product being purchased"
+    },
+    {
+      "name": "income_category",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Income category of the product being purchased"
+    },
+    {
+      "name": "gs1_brick_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick ID of the product being purchased"
+    },
+    {
+      "name": "gs1_brick",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Name of the product being purchased"
+    },
+    {
+      "name": "gs1_brick_short",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Short Name"
+    },
+    {
+      "name": "gs1_brick_variant",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Variant"
+    },
+    {
+      "name": "gs1_conditions",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Conditions"
+    },
+    {
+      "name": "gs1_processed",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Processed"
+    },
+    {
+      "name": "gs1_consumable",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Brick Processed"
+    },
+    {
+      "name": "gs1_class",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Class"
+    },
+    {
+      "name": "gs1_family",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Family"
+    },
+    {
+      "name": "gs1_segment",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "GS1 Segment"
+    },
+    {
+      "name": "starts",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "Start date for the product being purchased"
+    },
+    {
+      "name": "ends",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "End date for the product being purchased"
+    },
+    {
+      "name": "duration",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Duration for the product being purchased in minutes"
+    },
+    {
+      "name": "seats",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Seats assignments for the product being purchased"
+    },
+    {
+      "name": "destination",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Location identifier for the destination of the product being purchased"
+    },
+    {
+      "name": "lead_time",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Lead time in days from the product being purchased until it's delivered (from purchase data to delivery date)"
+    },
+    {
+      "name": "dwell_time_ms",
+      "type": ["null", "long"],
+      "default": null,
+      "doc": "The time that this product was in the viewport of the customer (above the fold)"
+    },
+    {
+      "name": "supplier",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Supplier of the product being purchased"
+    },
+    {
+      "name": "supplier_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Supplier ID of the product being purchased"
+    },
+    {
+      "name": "manufacturer",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Manufacturer of the product being purchased"
+    },
+    {
+      "name": "manufacturer_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Manufacturer ID of the product being purchased"
+    },
+    {
+      "name": "promoter",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Promoter of the product being purchased"
+    },
+    {
+      "name": "promoter_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Promoter ID of the product being purchased"
+    },
+    {
+      "name": "product_mgr_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product Manager ID of the product being purchased"
+    },
+    {
+      "name": "product_mgr",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product Manager of the product being purchased"
+    },
+    {
+      "name": "units",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Product units (1 if sold by wight (see quantity))"
+    },
+    {
+      "name": "unit_size",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The quantity of each unit"
+    },
+    {
+      "name": "uom",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unit of measure of the product(s) being purchased (Weight, Duration, Items, Volume, etc.)"
+    },
+    {
+      "name": "unit_price",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Price ($) of the product being purchased"
+    },
+    {
+      "name": "unit_cost",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Cost ($) of the product being purchased"
+    },
+    {
+      "name": "bundled_units",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Number of units in a volume pack or bundle"
+    },
+    {
+      "name": "price_bracket",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Price bracket of the product being purchased"
+    },
+    {
+      "name": "tax_percentage",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total tax-percentage associated with the product purchase (unit_price * units * tax_rate = tax)"
+    },
+    {
+      "name": "discount_percentage",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The discount-percentage applied to the product (unit_price * units * discount_rate = discount)"
+    },
+    {
+      "name": "kickback_percentage",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The discount-percentage applied to the product (unit_price * units * discount_rate = discount)"
+    },
+    {
+      "name": "commission",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The total commission percentage applied to the product on the line basis (unit_price * units * commission_rate = commission)"
+    },
+    {
+      "name": "coupon",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Coupon code associated with a product (for example, MAY_DEALS_3)"
+    },
+    {
+      "name": "scale_item",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "If the quantity of the product was measured during checkout / at the register"
+    },
+    {
+      "name": "price_changed",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "If the price of the product has changed at the register/terminal"
+    },
+    {
+      "name": "line_discounted",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "If the line item has a discount"
+    },
+    {
+      "name": "url",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URL of the product page"
+    },
+    {
+      "name": "img_url",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Image url of the product"
+    }
+  ]
+}

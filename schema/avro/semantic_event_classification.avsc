@@ -1,0 +1,43 @@
+{
+  "type": "record",
+  "name": "SemanticEventClassification",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of classification. SQL Enum8('Intent'=1, 'Intent Category'=2, 'Category'=3, 'Subcategory'=4, 'Tag'=5, 'Segmentation'=6, 'Age Group'=7, 'Inbox'=8, 'Keyword'=9, 'Priority'=10, 'Other'=0)"
+    },
+    {
+      "name": "value",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The category, tag, intent or whatever is being classified according to the type"
+    },
+    {
+      "name": "reasoning",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The reasoning behind the classification"
+    },
+    {
+      "name": "score",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The score of the classification"
+    },
+    {
+      "name": "confidence",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The confidence of the classification from the classification model"
+    },
+    {
+      "name": "weight",
+      "type": "double",
+      "default": 0.0,
+      "doc": "The relevance of the classification"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "type": "record",
+  "name": "Screen",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "density",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The density of the screen (e.g. 2)"
+    },
+    {
+      "name": "height",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The height of the screen (e.g. 568)"
+    },
+    {
+      "name": "width",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The width of the screen (e.g. 320)"
+    },
+    {
+      "name": "inner_height",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The inner height of the screen (e.g. 568)"
+    },
+    {
+      "name": "inner_width",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The inner width of the screen (e.g. 320)"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "type": "record",
+  "name": "Sentiment",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Type of the sentiment. SQL Enum8('Praise'=1, 'Criticism'=2, 'Complaint'=3, 'Abuse'=4, 'Threat'=5, 'Opinion'=6, 'Other'=0)"
+    },
+    {
+      "name": "sentiment",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The sentiment expressed"
+    },
+    {
+      "name": "entity_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the entity that is involved in the event"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The entity that the sentiment is expressed about"
+    },
+    {
+      "name": "id_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the entity that is involved in the event"
+    },
+    {
+      "name": "id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The entity that the sentiment is expressed about"
+    },
+    {
+      "name": "target_category",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the entity that is involved in the event"
+    },
+    {
+      "name": "target_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The target type of the sentiment"
+    },
+    {
+      "name": "target_entity",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The target of the sentiment"
+    },
+    {
+      "name": "reason",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The reasoning behind the sentiment"
+    }
+  ]
+}

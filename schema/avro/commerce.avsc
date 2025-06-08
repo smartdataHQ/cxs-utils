@@ -1,0 +1,163 @@
+{
+  "type": "record",
+  "name": "Commerce",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "details",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Other properties of the commerce event that cannot be mapped to the schema or have complex data types"
+    },
+    {
+      "name": "checkout_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the checkout"
+    },
+    {
+      "name": "order_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the order"
+    },
+    {
+      "name": "cart_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the cart"
+    },
+    {
+      "name": "employee_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the employee working the terminal/register"
+    },
+    {
+      "name": "external_order_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique External ID for the order"
+    },
+    {
+      "name": "terminal_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique External ID for the terminal used for the transaction"
+    },
+    {
+      "name": "affiliation_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique ID for the affiliation"
+    },
+    {
+      "name": "affiliation",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Store or affiliation from which this transaction occurred (for example, Google Store)"
+    },
+    {
+      "name": "agent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The Agent responsible for the sale"
+    },
+    {
+      "name": "agent_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the Agent responsible for the sale"
+    },
+    {
+      "name": "sold_location",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The location where the sale occurred"
+    },
+    {
+      "name": "sold_location_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the location where the sale occurred"
+    },
+    {
+      "name": "business_day",
+      "type": ["null", {"type": "int", "logicalType": "date"}],
+      "default": null,
+      "doc": "The business day of the transaction"
+    },
+    {
+      "name": "revenue",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total gross revenue"
+    },
+    {
+      "name": "tax",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total tax amount"
+    },
+    {
+      "name": "discount",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total discount amount"
+    },
+    {
+      "name": "cogs",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total cost of goods sold"
+    },
+    {
+      "name": "commission",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "Total commission amount"
+    },
+    {
+      "name": "currency",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Currency code associated with the transaction"
+    },
+    {
+      "name": "exchange_rate",
+      "type": "float",
+      "default": 1.0,
+      "doc": "Currency exchange rate associated with the transaction"
+    },
+    {
+      "name": "coupon",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Transaction coupon redeemed with the transaction"
+    },
+    {
+      "name": "payment_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Type of payment (ex. Card, Paypal, Cash, etc.)"
+    },
+    {
+      "name": "payment_sub_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Subtype of payment (ex. Visa, Mastercard, etc.)"
+    },
+    {
+      "name": "payment_details",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Details of the payment (ex. Last 4 digits of the card, etc.)"
+    },
+    {
+      "name": "products",
+      "type": {"type": "array", "items": "com.cxs.schema.Product"},
+      "default": [],
+      "doc": "Products involved in the commerce event"
+    }
+  ]
+}

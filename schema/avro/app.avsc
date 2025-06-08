@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "App",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "build",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The build of the app (e.g. \\\"1.1.0\\\")"
+    },
+    {
+      "name": "name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the app (e.g. \\\"Segment\\\")"
+    },
+    {
+      "name": "namespace",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The namespace of the app (e.g. \\\"com.segment.analytics\\\")"
+    },
+    {
+      "name": "version",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The version of the app (e.g. \\\"1.1.0\\\")"
+    }
+  ]
+}

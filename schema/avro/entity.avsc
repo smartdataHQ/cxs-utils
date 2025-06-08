@@ -1,0 +1,136 @@
+{
+  "type": "record",
+  "name": "Entity",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The Graph UUID of the entity"
+    },
+    {
+      "name": "gid_url",
+      "type": "string",
+      "doc": "The URL of the entity's GID"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "doc": "The primary label of the entity (e.g. \\\"Eiffel Tower\\\")"
+    },
+    {
+      "name": "labels",
+      "type": ["null", {"type": "array", "items": "string"}],
+      "default": null,
+      "doc": "Additional labels for the entity with language prefixes (e.g. [\\\"en:Eiffel Tower\\\", \\\"fr:Tour Eiffel\\\"])"
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the entity (e.g. \\\"Event\\\", \\\"Place\\\", \\\"Person\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "variant",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The variant of the entity (e.g. \\\"Concert\\\", \\\"Exhibition\\\", \\\"Match\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "icon",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The icon of the entity (e.g. \\\"concert\\\", \\\"exhibition\\\", \\\"match\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "colour",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The colour of the entity (e.g. \\\"red\\\", \\\"blue\\\", \\\"green\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "dimensions",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "additional (generic) dimensions for the entity"
+    },
+    {
+      "name": "tags",
+      "type": ["null", {"type": "array", "items": "string"}],
+      "default": null,
+      "doc": "additional tags for the entity"
+    },
+    {
+      "name": "flags",
+      "type": ["null", {"type": "map", "values": "boolean"}],
+      "default": null,
+      "doc": "additional flags for the entity"
+    },
+    {
+      "name": "metrics",
+      "type": ["null", {"type": "map", "values": "double"}],
+      "default": null,
+      "doc": "additional metrics for the entity"
+    },
+    {
+      "name": "properties",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "additional properties for the entity"
+    },
+    {
+      "name": "names",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "additional names for the entity, e.g. \\\"Eiffel Tower\\\" -> \\\"Tour Eiffel\\\""
+    },
+    {
+      "name": "ids",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.ID"}],
+      "default": null,
+      "doc": "List of identifiers associated with the entity."
+    },
+    {
+      "name": "content",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Content"}],
+      "default": null,
+      "doc": "List of content items related to the entity."
+    },
+    {
+      "name": "media",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Media"}],
+      "default": null,
+      "doc": "List of media items associated with the entity."
+    },
+    {
+      "name": "embeddings",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.Embeddings"}],
+      "default": null,
+      "doc": "List of embeddings for the entity."
+    },
+    {
+      "name": "classification",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.EntityClassification"}],
+      "default": null,
+      "doc": "List of classifications for the entity."
+    },
+    {
+      "name": "location",
+      "type": ["null", {"type": "array", "items": "com.cxs.schema.EntityLocation"}],
+      "default": null,
+      "doc": "List of locations associated with the entity."
+    },
+    {
+      "name": "partition",
+      "type": "string",
+      "doc": "The storage partition for the entity. This is internal and can not be submitted by the user. It is used to partition the data for performance and scalability.",
+      "default": "_open_"
+    },
+    {
+      "name": "sign",
+      "type": "int",
+      "default": 1,
+      "doc": "This is an internal field used to ensure that the right entries can be updated/replaced. It is used to mark the latest version of the entity."
+    }
+  ]
+}

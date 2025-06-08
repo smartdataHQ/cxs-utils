@@ -1,0 +1,47 @@
+{
+  "type": "record",
+  "name": "Embeddings",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "label",
+      "type": "string",
+      "doc": "The label of the embedding matches the content label (e.g. \\\"Prologue\\\", \\\"Synopsis\\\", \\\"Description\\\", \\\"Summary\\\", \\\"Conditions\\\", \\\"History\\\", \\\"Other\\\")"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "doc": "The model used to generate the embedding (e.g. \\\"text-embedding-3-small\\\", \\\"text-embedding-3-large\\\")"
+    },
+    {
+      "name": "vectors",
+      "type": ["null", {"type": "array", "items": "double"}],
+      "default": null,
+      "doc": "The vectors of the embedding, used for similarity search and clustering, usually 1024 dimensions"
+    },
+    {
+      "name": "content_starts",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The content that starts the embedding (e.g. \\\"Title: \\\", \\\"Description: \\\", \\\"Content: \\\")"
+    },
+    {
+      "name": "content_ends",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The content that ends the embedding (e.g. \\\" \\\", \\\".\\\", \\\" - \\\")"
+    },
+    {
+      "name": "opening_phrase",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The opening phrase of the embedding (e.g. \\\"This is a description of \\\", \\\"This is a content of \\\")"
+    },
+    {
+      "name": "closing_phrase",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The closing phrase of the embedding (e.g. \\\" for more information.\\\", \\\" for more details.\\\")"
+    }
+  ]
+}

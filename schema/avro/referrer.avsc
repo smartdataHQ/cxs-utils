@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Referrer",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The referrer ID of the library (e.g. \\\"3c8da4a4-4f4b-11e5-9e98-2f3c942e34c8\\\")"
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The referrer type of the library (e.g. \\\"dataxu\\\")"
+    }
+  ]
+}

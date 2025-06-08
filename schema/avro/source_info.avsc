@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "SourceInfo",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of source (e.g. \\\"CRM\\\", \\\"ERP\\\", \\\"eCommerce\\\", \\\"Social\\\", \\\"Email\\\", \\\"SMS\\\", \\\"Web\\\", \\\"Mobile\\\", \\\"Other\\\")"
+    },
+    {
+      "name": "label",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The label of the source of the event"
+    },
+    {
+      "name": "source_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The Graph UUID of the source of the event"
+    },
+    {
+      "name": "access_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The Graph UUID of the authentication details of the source of the event"
+    }
+  ]
+}

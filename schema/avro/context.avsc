@@ -1,0 +1,79 @@
+{
+  "type": "record",
+  "name": "Context",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "active",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "Whether the library is active (e.g. \\\"1\\\")"
+    },
+    {
+      "name": "ip",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The IP of the user in IPv4 format"
+    },
+    {
+      "name": "ipv6",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The IP of the user in IPv6 format"
+    },
+    {
+      "name": "locale",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The locale used where the event happened (e.g. \\\"en-US\\\")"
+    },
+    {
+      "name": "group_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The group ID associated with the event (e.g. \\\"a89d88da-4f4b-11e5-9e98-2f3c942e34c8\\\")"
+    },
+    {
+      "name": "timezone",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The timezone the event happened in (e.g. \\\"America/Los_Angeles\\\")"
+    },
+    {
+      "name": "location",
+      "type": ["null", {"type": "array", "items": "double"}],
+      "default": null,
+      "doc": "The location associated with the event (e.g. [37.7576171,-122.5776844])"
+    },
+    {
+      "name": "region",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The region associated with the event (e.g. \\\"AWS-West\\\")"
+    },
+    {
+      "name": "namespace",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The k8s namespace of the server where the event was produced (e.g. \\\"default\\\")"
+    },
+    {
+      "name": "hostname",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The k8s hostname of the server where the event was produced (e.g. \\\"k8s-12345\\\")"
+    },
+    {
+      "name": "pod",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The K8S pod of the server where the event was produces (e.g. \\\"k8s-12345-pod\\\")"
+    },
+    {
+      "name": "extras",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Other properties of the event that cannot be mapped to the schema or have complex data types"
+    }
+  ]
+}

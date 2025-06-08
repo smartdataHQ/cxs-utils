@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Library",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the library (e.g. \\\"analytics-ios\\\")"
+    },
+    {
+      "name": "version",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The version of the library (e.g. \\\"3.0.0\\\")"
+    }
+  ]
+}

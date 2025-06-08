@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "name": "ID",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "label",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The label of the entity that is involved in the event"
+    },
+    {
+      "name": "role",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The role of the entity in the event"
+    },
+    {
+      "name": "entity_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the entity that is involved in the event"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The Graph UUID of the entity that is involved in the event"
+    },
+    {
+      "name": "id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the entity that is involved in the event"
+    },
+    {
+      "name": "id_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the entity that is involved in the event"
+    },
+    {
+      "name": "capacity",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The capacity of the entity in the event"
+    }
+  ]
+}

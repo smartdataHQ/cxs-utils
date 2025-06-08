@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "OperatingSystem",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The OS of the device (e.g. \\\"iOS\\\")"
+    },
+    {
+      "name": "version",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The OS version of the device (e.g. \\\"9.1\\\")"
+    }
+  ]
+}
