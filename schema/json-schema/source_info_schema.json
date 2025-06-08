@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/source_info_schema.json",
+  "title": "ContextSuite Semantic Event Source Info",
+  "description": "Schema for information about the source of an event.",
+  "type": ["null", "object"],
+  "properties": {
+    "type": { "type": ["null", "string"] },
+    "label": { "type": ["null", "string"] },
+    "source_gid": { "type": ["null", "string"], "format": "uuid" },
+    "access_gid": { "type": ["null", "string"], "format": "uuid" }
+  },
+  "additionalProperties": false
+}
