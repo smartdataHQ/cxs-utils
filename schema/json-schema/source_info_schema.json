@@ -2,13 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/source_info_schema.json",
   "title": "ContextSuite Semantic Event Source Info",
-  "description": "Schema for information about the source of an event.",
+  "description": "Schema for information about the source system or input of an event.",
   "type": ["null", "object"],
   "properties": {
-    "type": { "type": ["null", "string"] },
-    "label": { "type": ["null", "string"] },
-    "source_gid": { "type": ["null", "string"], "format": "uuid" },
-    "access_gid": { "type": ["null", "string"], "format": "uuid" }
+    "type": { "type": ["null", "string"], "description": "Type of the source (e.g., 'CRM', 'ERP', 'API')." },
+    "label": { "type": ["null", "string"], "description": "Label for the source (e.g., 'Salesforce Production')." },
+    "source_gid": { "type": ["null", "string"], "format": "uuid", "description": "GID of the source system entity, if applicable." },
+    "access_gid": { "type": ["null", "string"], "format": "uuid", "description": "GID related to the access credentials or method used for this source." }
   },
   "additionalProperties": false
 }

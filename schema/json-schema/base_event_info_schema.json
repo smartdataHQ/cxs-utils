@@ -2,15 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/base_event_info_schema.json",
   "title": "ContextSuite Semantic Event Base Event Info",
-  "description": "Schema for information about a base event if the current event is derived.",
+  "description": "Schema for information about a base event, used when an event is derived from one or more root events.",
   "type": ["null", "object"],
   "properties": {
-    "event_gid": { "type": ["null", "string"], "format": "uuid" },
-    "type": { "type": ["null", "string"] },
-    "event": { "type": ["null", "string"] },
-    "timestamp": { "type": ["null", "string"], "format": "date-time" },
-    "message_id": { "type": ["null", "string"] },
-    "entity_gid": { "type": ["null", "string"], "format": "uuid" }
+    "event_gid": { "type": ["null", "string"], "format": "uuid", "description": "The GID of the original root event." },
+    "type": { "type": ["null", "string"], "description": "The type of the original root event." },
+    "event": { "type": ["null", "string"], "description": "The name of the original root event." },
+    "timestamp": { "type": ["null", "string"], "format": "date-time", "description": "The timestamp of the original root event." },
+    "message_id": { "type": ["null", "string"], "description": "The message ID of the original root event." },
+    "entity_gid": { "type": ["null", "string"], "format": "uuid", "description": "The entity GID associated with the original root event." }
   },
   "additionalProperties": false
 }

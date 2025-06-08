@@ -6,19 +6,24 @@
   "type": "object",
   "properties": {
     "entity": {
-      "$ref": "entity.json"
+      "$ref": "entity.json",
+      "description": "Schema definition for a ContextSuite Entity."
     },
     "semantic_event": {
-      "$ref": "semantic_event.json"
+      "$ref": "semantic_event.json",
+      "description": "Schema definition for a ContextSuite Semantic Event."
     },
     "time_series": {
-      "$ref": "timeseries.json"
+      "$ref": "timeseries.json",
+      "description": "Schema definition for a ContextSuite Time Series."
     },
     "data_point": {
-      "$ref": "data_point.json"
+      "$ref": "data_point.json",
+      "description": "Schema definition for an individual Data Point within a Time Series."
     },
     "uom": {
-      "$ref": "uom.json"
+      "$ref": "uom.json",
+      "description": "Schema definition for a Unit of Measure (UOM)."
     }
   }
 }

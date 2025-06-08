@@ -2,15 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/access_schema.json",
   "title": "ContextSuite Semantic Event Access",
-  "description": "Schema for access control information for an event.",
+  "description": "Schema for access control (blacklist/whitelist) information for an event.",
   "type": ["null", "object"],
   "properties": {
-    "type": { "type": ["null", "string"], "enum": [null, "Blacklisted", "Whitelisted"] },
-    "label": { "type": ["null", "string"] },
-    "user_gid": { "type": ["null", "string"], "format": "uuid" },
-    "organization_gid": { "type": ["null", "string"], "format": "uuid" },
-    "date_from": { "type": ["null", "string"], "format": "date-time" },
-    "date_to": { "type": ["null", "string"], "format": "date-time" }
+    "type": { "type": ["null", "string"], "enum": [null, "Blacklisted", "Whitelisted"], "description": "Type of access rule." },
+    "label": { "type": ["null", "string"], "description": "Label for the access rule or the user/group it applies to." },
+    "user_gid": { "type": ["null", "string"], "format": "uuid", "description": "User GID this rule applies to." },
+    "organization_gid": { "type": ["null", "string"], "format": "uuid", "description": "Organization GID this rule applies to." },
+    "date_from": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp from which this access rule is effective." },
+    "date_to": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp until which this access rule is effective." }
   },
   "additionalProperties": false
 }

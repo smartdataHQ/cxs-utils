@@ -5,13 +5,13 @@
   "description": "Schema for user agent information.",
   "type": ["null", "object"],
   "properties": {
-    "signature": { "type": ["null", "string"], "description": "The user agent string." },
-    "mobile": { "type": ["null", "boolean"], "description": "Whether the user agent is mobile." },
-    "platform": { "type": ["null", "string"], "description": "The platform of the user agent." },
+    "signature": { "type": ["null", "string"], "description": "The full User-Agent string." },
+    "mobile": { "type": ["null", "boolean"], "description": "Whether the user agent is identified as mobile." },
+    "platform": { "type": ["null", "string"], "description": "The platform of the user agent (e.g., 'Apple Mac', 'Windows')." },
     "data": {
       "type": ["null", "array"],
       "items": { "$ref": "user_agent_data_schema.json" },
-      "description": "List of user agent client hints data."
+      "description": "List of User-Agent Client Hints data, providing brand and version for different components."
     }
   },
   "additionalProperties": false
