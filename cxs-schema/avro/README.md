@@ -55,6 +55,16 @@ However, for some use cases, particularly for static type checking or performanc
     ```
     Refer to the documentation of the specific Avro library you are using for detailed instructions on schema compilation.
 
+### Validating Schemas
+To ensure that Avro schemas (`.avsc` files) in this directory are syntactically correct and valid according to the Avro specification, a validation script is provided.
+
+Run the following command from the `cxs-schema` directory to validate all `.avsc` files in the `avro/` subdirectory:
+
+```bash
+python validate_avro_schemas.py
+```
+This script will parse each schema file and report any errors found.
+
 ### Using Generated Code
 
 Once schemas are defined (and optionally compiled), you can use them in your application code to serialize and deserialize data.

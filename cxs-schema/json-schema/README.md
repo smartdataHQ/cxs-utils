@@ -40,6 +40,15 @@ These schemas can be used with any JSON Schema validator to:
 -   Generate documentation.
 -   Potentially generate code or data entry forms.
 
+A dedicated script is provided to validate all JSON schema files in this directory against the JSON Schema specification (specifically Draft 2020-12, with fallbacks for other drafts).
+
+To validate the schemas, run the following command from the `cxs-schema` directory:
+
+```bash
+python validate_json_schemas.py
+```
+This script will check each `.json` file and report any validation errors or JSON formatting issues.
+
 ## List of Schemas
 
 (This section could be auto-generated or manually curated in more detail if needed)
