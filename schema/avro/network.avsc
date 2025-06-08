@@ -4,6 +4,11 @@
   "namespace": "com.contextsuite.schema",
   "fields": [
     {
+      "name": "carrier",
+      "type": "string",
+      "doc": "The network carrier of the library (e.g. \\\"Verizon\\\")"
+    },
+    {
       "name": "cellular",
       "type": ["null", "boolean"],
       "default": null,
@@ -20,12 +25,6 @@
       "type": ["null", "boolean"],
       "default": null,
       "doc": "Whether the network is wifi (e.g. \\\"true\\\")"
-    },
-    {
-      "name": "carrier",
-      "type": ["null", "string"],
-      "default": null,
-      "doc": "The network carrier of the device (e.g. \\\"Verizon\\\")"
     }
   ]
 }

@@ -20,69 +20,58 @@
     },
     {
       "name": "labels",
-      "type": ["null", {"type": "array", "items": "string"}],
-      "default": null,
+      "type": {"type": "array", "items": "string"},
       "doc": "Additional labels for the entity with language prefixes (e.g. [\\\"en:Eiffel Tower\\\", \\\"fr:Tour Eiffel\\\"])"
     },
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of the entity (e.g. \\\"Event\\\", \\\"Place\\\", \\\"Person\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "variant",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The variant of the entity (e.g. \\\"Concert\\\", \\\"Exhibition\\\", \\\"Match\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "icon",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The icon of the entity (e.g. \\\"concert\\\", \\\"exhibition\\\", \\\"match\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "colour",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The colour of the entity (e.g. \\\"red\\\", \\\"blue\\\", \\\"green\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "dimensions",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
+      "type": {"type": "map", "values": "string"},
       "doc": "additional (generic) dimensions for the entity"
     },
     {
       "name": "tags",
-      "type": ["null", {"type": "array", "items": "string"}],
-      "default": null,
+      "type": {"type": "array", "items": "string"},
       "doc": "additional tags for the entity"
     },
     {
       "name": "flags",
-      "type": ["null", {"type": "map", "values": "boolean"}],
-      "default": null,
+      "type": {"type": "map", "values": "boolean"},
       "doc": "additional flags for the entity"
     },
     {
       "name": "metrics",
-      "type": ["null", {"type": "map", "values": "double"}],
-      "default": null,
+      "type": {"type": "map", "values": "double"},
       "doc": "additional metrics for the entity"
     },
     {
       "name": "properties",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
+      "type": {"type": "map", "values": "string"},
       "doc": "additional properties for the entity"
     },
     {
       "name": "names",
-      "type": ["null", {"type": "map", "values": "string"}],
-      "default": null,
-      "doc": "additional names for the entity, e.g. \\\"en:Eiffel Tower\\\" -> \\\"fr:Tour Eiffel\\\""
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional names for the entity, e.g. \\\"Eiffel Tower\\\" -> \\\"Tour Eiffel\\\""
     },
     {
       "name": "ids",
@@ -123,8 +112,7 @@
     {
       "name": "partition",
       "type": "string",
-      "doc": "The storage partition for the entity. This is internal and can not be submitted by the user. It is used to partition the data for performance and scalability.",
-      "default": "_open_"
+      "doc": "The storage partition for the entity. This is internal and can not be submitted by the user. It is used to partition the data for performance and scalability."
     },
     {
       "name": "sign",

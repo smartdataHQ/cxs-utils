@@ -5,25 +5,22 @@
   "fields": [
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The event category-> subcategory"
     },
     {
       "name": "value",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "like Sports->Football, Concert->Pop etc."
     },
     {
       "name": "babelnet_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The concept ID for the classification (Used to translate and associate the classification with other systems)"
     },
     {
       "name": "weight",
-      "type": "double",
+      "type": "float",
       "default": 0.0,
       "doc": "The relevance of the classification"
     }

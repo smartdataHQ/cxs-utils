@@ -23,27 +23,23 @@
     },
     {
       "name": "locale",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The locale used where the event happened (e.g. \\\"en-US\\\")"
     },
     {
       "name": "group_id",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The group ID associated with the event (e.g. \\\"a89d88da-4f4b-11e5-9e98-2f3c942e34c8\\\")"
     },
     {
       "name": "timezone",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The timezone the event happened in (e.g. \\\"America/Los_Angeles\\\")"
     },
     {
       "name": "location",
-      "type": ["null", {"type": "array", "items": "double"}],
-      "default": null,
-      "doc": "The location associated with the event (e.g. [37.7576171,-122.5776844])"
+      "type": {"type": "array", "items": "double"},
+      "doc": "The location associated with the event (e.g. [longitude, latitude])"
     },
     {
       "name": "region",
@@ -71,8 +67,7 @@
     },
     {
       "name": "extras",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Other properties of the event that cannot be mapped to the schema or have complex data types"
     }
   ]

@@ -15,62 +15,52 @@
     },
     {
       "name": "country",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The country of the location (e.g. \\\"France\\\", \\\"United States\\\", \\\"Germany\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "country_code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The 3 letter country code of the location (e.g. \\\"FRA\\\", \\\"USA\\\", \\\"DEU\\\"), always in uppercase"
     },
     {
       "name": "code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The code of the location (e.g. \\\"75001\\\", \\\"10001\\\", \\\"10115\\\"), always in uppercase"
     },
     {
       "name": "region",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The region of the location (e.g. \\\"Île-de-France\\\", \\\"New York\\\", \\\"Berlin\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "division",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The division of the location (e.g. \\\"Paris\\\", \\\"Manhattan\\\", \\\"Mitte\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "municipality",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The municipality of the location (e.g. \\\"Paris\\\", \\\"New York\\\", \\\"Berlin\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "locality",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The locality/neighbourhood of the location (e.g. \\\"Montmartre\\\", \\\"SoHo\\\", \\\"Kreuzberg\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "postal_code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The postal code of the location (e.g. \\\"75001\\\", \\\"10001\\\", \\\"10115\\\"), always in uppercase"
     },
     {
       "name": "postal_name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the postal code area (e.g. \\\"1er Arrondissement\\\", \\\"Chelsea\\\", \\\"Mitte\\\"), always in English and in singular form and capitalized"
     },
     {
       "name": "street",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The street of the location (e.g. \\\"Rue de Rivoli\\\", \\\"Broadway\\\", \\\"Friedrichstraße\\\"), always in English and in singular form and capitalized"
     },
     {

@@ -5,14 +5,12 @@
   "fields": [
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
-      "doc": "The type of classification. SQL Enum8('Intent'=1, 'Intent Category'=2, 'Category'=3, 'Subcategory'=4, 'Tag'=5, 'Segmentation'=6, 'Age Group'=7, 'Inbox'=8, 'Keyword'=9, 'Priority'=10, 'Other'=0)"
+      "type": "string",
+      "doc": "The type of classification"
     },
     {
       "name": "value",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The category, tag, intent or whatever is being classified according to the type"
     },
     {
@@ -23,19 +21,19 @@
     },
     {
       "name": "score",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The score of the classification"
     },
     {
       "name": "confidence",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The confidence of the classification from the classification model"
     },
     {
       "name": "weight",
-      "type": "double",
+      "type": "float",
       "default": 0.0,
       "doc": "The relevance of the classification"
     }

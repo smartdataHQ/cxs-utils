@@ -5,14 +5,12 @@
   "fields": [
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Description, Summary, Conditions, History, Other"
     },
     {
       "name": "entity_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The entity type that the event is associated with (e.g. \\\"Currency\\\", \\\"Product\\\", \\\"Service\\\", \\\"Other\\\")"
     },
     {

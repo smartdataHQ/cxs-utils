@@ -4,181 +4,327 @@
   "namespace": "com.contextsuite.schema",
   "fields": [
     {
-      "name": "event_gid",
+      "name": "entity_gid",
       "type": {"type": "string", "logicalType": "uuid"},
-      "doc": "The event gid of this semantic event, typically same as base_event_info.event_gid"
+      "doc": "The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)"
+    },
+    {
+      "name": "timestamp",
+      "type": {"type": "long", "logicalType": "timestamp-micros"},
+      "doc": "The timestamp of the event is always stored in UTC"
     },
     {
       "name": "type",
       "type": ["null", "string"],
       "default": null,
-      "doc": "The type of the semantic event (e.g. \"page\", \"track\", \"identify\", \"group\", \"alias\", \"screen\", \"commerce\")"
+      "doc": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")"
     },
     {
       "name": "event",
       "type": ["null", "string"],
       "default": null,
-      "doc": "The name of the semantic event (e.g. \"Page Viewed\"), mirrors base_event_info.event"
+      "doc": "The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense"
     },
     {
-      "name": "timestamp",
-      "type": {"type": "long", "logicalType": "timestamp-micros"},
-      "doc": "The timestamp of the semantic event in UTC, mirrors base_event_info.timestamp"
+      "name": "anonymous_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The anonymous ID of the user before they are identified"
+    },
+    {
+      "name": "anonymous_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The anonymous ID of the user before they are identified"
+    },
+    {
+      "name": "user_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The user ID of the user"
+    },
+    {
+      "name": "user_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The user ID of the user"
+    },
+    {
+      "name": "account_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The account ID of the user (Often the same as the entity_gid)"
+    },
+    {
+      "name": "previous_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The user ID of the user before the event (e.g. \"anonymousId\" before \"identify\")"
+    },
+    {
+      "name": "session_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The session ID of the user in the client that generated the event"
+    },
+    {
+      "name": "session_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The session GID of the user session that generated the event"
+    },
+    {
+      "name": "context_ip",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The IP of the user in IPv4 format"
+    },
+    {
+      "name": "importance",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The importance of the event (eg. 1..5)"
+    },
+    {
+      "name": "customer_facing",
+      "type": "int",
+      "default": 0,
+      "doc": "The session ID of the user in the client that generated the event"
+    },
+    {
+      "name": "content",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "The type of content (e.g. \"Body\", \"Subject\", \"Title\", \"Description\", \"Summary\", \"Initial Response\", \"Other\")"
+    },
+    {
+      "name": "involves",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Involved"}],
+      "default": null,
+      "doc": "Involvement can be implicit (via other properties) or explicit using this structure"
+    },
+    {
+      "name": "sentiment",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Sentiment"}],
+      "default": null,
+      "doc": "Sentiment is a Context Suite Specific array if sentiment objects used to track entity sentiment expressed in the event"
+    },
+    {
+      "name": "classification",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Classification"}],
+      "default": null,
+      "doc": "Classification is a Context Suite Specific property used to track the classification of the event //Intent, Categories, Subcategories, Tags, Confidence, Score, Segmentation, etc."
+    },
+    {
+      "name": "location",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Location"}],
+      "default": null,
+      "doc": "Location is a Context Suite Specific property used to track the location of the event"
+    },
+    {
+      "name": "entity_linking",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.EntityLinking"}],
+      "default": null,
+      "doc": "An array of entity links. ntity Linking is used to link an entity mention to a specific named entity in the graph"
+    },
+    {
+      "name": "contextual_awareness",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.ContextualAwareness"}],
+      "default": null,
+      "doc": "Contextual Awareness is a Context Suite Specific property used to track additional context for entities involved in the event"
+    },
+    {
+      "name": "properties",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "A dictionary of additional properties for the event in any JSON format. -- Properties are all moved into dedicated columns, if possible. If not, they are stored in properties"
+    },
+    {
+      "name": "dimensions",
+      "type": ["null", {"type": "map", "values": "string"}],
+      "default": null,
+      "doc": "Additional dimensions for the event, There are low-cardinality dimensions that are not defined in the schema and used on dashboards"
+    },
+    {
+      "name": "metrics",
+      "type": ["null", {"type": "map", "values": "float"}],
+      "default": null,
+      "doc": "Additional metrics for the event. These are additional metrics that are not defined in the schema and used on dashboards"
+    },
+    {
+      "name": "flags",
+      "type": ["null", {"type": "map", "values": "boolean"}],
+      "default": null,
+      "doc": "Boolean flags for the event. These are additional flags that are not defined in the schema and used on dashboards"
+    },
+    {
+      "name": "campaign",
+      "type": ["null", "com.contextsuite.schema.Campaign"],
+      "default": null,
+      "doc": "Standard marketing campaign properties"
+    },
+    {
+      "name": "app",
+      "type": ["null", "com.contextsuite.schema.App"],
+      "default": null,
+      "doc": "Mobile application properties"
+    },
+    {
+      "name": "device",
+      "type": ["null", "com.contextsuite.schema.Device"],
+      "default": null,
+      "doc": "Device properties"
+    },
+    {
+      "name": "os",
+      "type": ["null", "com.contextsuite.schema.OperatingSystem"],
+      "default": null,
+      "doc": "Operating system properties"
+    },
+    {
+      "name": "library",
+      "type": ["null", "com.contextsuite.schema.Library"],
+      "default": null,
+      "doc": "Event library properties"
+    },
+    {
+      "name": "user_agent",
+      "type": ["null", "com.contextsuite.schema.UserAgent"],
+      "default": null,
+      "doc": "User agent properties"
+    },
+    {
+      "name": "network",
+      "type": ["null", "com.contextsuite.schema.Network"],
+      "default": null,
+      "doc": "Network properties"
+    },
+    {
+      "name": "traits",
+      "type": ["null", "com.contextsuite.schema.Traits"],
+      "default": null,
+      "doc": "User traits (should be used with caution and awareness of PII)"
+    },
+    {
+      "name": "page",
+      "type": ["null", "com.contextsuite.schema.Page"],
+      "default": null,
+      "doc": "Page properties"
+    },
+    {
+      "name": "referrer",
+      "type": ["null", "com.contextsuite.schema.Referrer"],
+      "default": null,
+      "doc": "Referrer properties"
+    },
+    {
+      "name": "screen",
+      "type": ["null", "com.contextsuite.schema.Screen"],
+      "default": null,
+      "doc": "Screen properties"
+    },
+    {
+      "name": "context",
+      "type": ["null", "com.contextsuite.schema.Context"],
+      "default": null,
+      "doc": "Event context properties"
+    },
+    {
+      "name": "commerce",
+      "type": ["null", "com.contextsuite.schema.Commerce"],
+      "default": null,
+      "doc": "Commerce and product related properties"
+    },
+    {
+      "name": "analysis",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Analysis"}],
+      "default": null,
+      "doc": "Analysis array is used to track the cost associated with analysis of the event. This is strictly for internal use and should not be used for any other purpose"
+    },
+    {
+      "name": "base_events",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.BaseEventInfo"}],
+      "default": null,
+      "doc": "If this is a derived event (higher order) then this will be populated with the base event information"
+    },
+    {
+      "name": "access",
+      "type": ["null", {"type": "array", "items": "com.contextsuite.schema.Access"}],
+      "default": null,
+      "doc": "Black or whitelist of users that have access to the event or not"
+    },
+    {
+      "name": "source",
+      "type": ["null", "com.contextsuite.schema.SourceInfo"],
+      "default": null,
+      "doc": "Source and access information for the event origin"
+    },
+    {
+      "name": "local_time",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The original timestamp of the event"
+    },
+    {
+      "name": "original_timestamp",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The original timestamp of the event"
+    },
+    {
+      "name": "received_at",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The time the event was received by Segment"
+    },
+    {
+      "name": "sent_at",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The timestamp of when the event was sent"
     },
     {
       "name": "message_id",
       "type": "string",
-      "doc": "The message ID of the semantic event, mirrors base_event_info.message_id"
+      "doc": "A unique ID for each message as assigned by the client library"
     },
     {
-      "name": "entity_gid",
+      "name": "event_gid",
       "type": {"type": "string", "logicalType": "uuid"},
-      "doc": "The entity GID of the semantic event, mirrors base_event_info.entity_gid"
+      "doc": "A unique GID for each message - calculated on the server side from the message ID or other factors if missing"
     },
     {
-      "name": "access",
-      "type": ["null", {"type": "array", "items": "Access"}],
-      "default": null
+      "name": "root_event_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "Teh root event GID of the event, if this is a derived event (higher order) then this will be populated with the root event GID"
     },
     {
-      "name": "analysis",
-      "type": ["null", {"type": "array", "items": "Analysis"}],
-      "default": null
+      "name": "analyse",
+      "type": ["null", {"type": "map", "values": "boolean"}],
+      "default": null,
+      "doc": "Custom analysis flags that override the default analysis for this event"
     },
     {
-      "name": "app",
-      "type": ["null", {"type": "array", "items": "App"}],
-      "default": null
+      "name": "integrations",
+      "type": ["null", {"type": "map", "values": "boolean"}],
+      "default": null,
+      "doc": "Customer integrations flags that override the default integrations for this event"
     },
     {
-      "name": "campaign",
-      "type": ["null", {"type": "array", "items": "Campaign"}],
-      "default": null
+      "name": "write_key",
+      "type": "string",
+      "doc": "The write key used to send the event (salted hash of the write key) - Internal, can not be set by the user or vie API"
     },
     {
-      "name": "commerce",
-      "type": ["null", {"type": "array", "items": "Commerce"}],
-      "default": null
+      "name": "ttl_days",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The number of days the event will be stored in the database (defaults to forever)"
     },
     {
-      "name": "content",
-      "type": ["null", {"type": "array", "items": "Content"}],
-      "default": null
-    },
-    {
-      "name": "context",
-      "type": ["null", {"type": "array", "items": "Context"}],
-      "default": null
-    },
-    {
-      "name": "contextual_awareness",
-      "type": ["null", {"type": "array", "items": "ContextualAwareness"}],
-      "default": null
-    },
-    {
-      "name": "device",
-      "type": ["null", {"type": "array", "items": "Device"}],
-      "default": null
-    },
-    {
-      "name": "embeddings",
-      "type": ["null", {"type": "array", "items": "Embeddings"}],
-      "default": null
-    },
-    {
-      "name": "entity",
-      "type": ["null", {"type": "array", "items": "Entity"}],
-      "default": null
-    },
-    {
-      "name": "id",
-      "type": ["null", {"type": "array", "items": "Id"}],
-      "default": null
-    },
-    {
-      "name": "involved",
-      "type": ["null", {"type": "array", "items": "Involved"}],
-      "default": null
-    },
-    {
-      "name": "library",
-      "type": ["null", {"type": "array", "items": "Library"}],
-      "default": null
-    },
-    {
-      "name": "media",
-      "type": ["null", {"type": "array", "items": "Media"}],
-      "default": null
-    },
-    {
-      "name": "network",
-      "type": ["null", {"type": "array", "items": "Network"}],
-      "default": null
-    },
-    {
-      "name": "os",
-      "type": ["null", {"type": "array", "items": "Os"}],
-      "default": null
-    },
-    {
-      "name": "page",
-      "type": ["null", {"type": "array", "items": "Page"}],
-      "default": null
-    },
-    {
-      "name": "product",
-      "type": ["null", {"type": "array", "items": "Product"}],
-      "default": null
-    },
-    {
-      "name": "referrer",
-      "type": ["null", {"type": "array", "items": "Referrer"}],
-      "default": null
-    },
-    {
-      "name": "screen",
-      "type": ["null", {"type": "array", "items": "Screen"}],
-      "default": null
-    },
-    {
-      "name": "classification",
-      "type": ["null", {"type": "array", "items": "Classification"}],
-      "default": null
-    },
-    {
-      "name": "location",
-      "type": ["null", {"type": "array", "items": "Location"}],
-      "default": null
-    },
-    {
-      "name": "sentiment",
-      "type": ["null", {"type": "array", "items": "Sentiment"}],
-      "default": null
-    },
-    {
-      "name": "source_info",
-      "type": ["null", {"type": "array", "items": "SourceInfo"}],
-      "default": null
-    },
-    {
-      "name": "traits",
-      "type": ["null", {"type": "array", "items": "Traits"}],
-      "default": null
-    },
-    {
-      "name": "uom",
-      "type": ["null", {"type": "array", "items": "Uom"}],
-      "default": null
-    },
-    {
-      "name": "user_agent",
-      "type": ["null", {"type": "array", "items": "UserAgent"}],
-      "default": null
-    },
-    {
-      "name": "user_agent_data",
-      "type": ["null", {"type": "array", "items": "UserAgentData"}],
-      "default": null
+      "name": "partition",
+      "type": "string",
+      "doc": "The version of the event message - Internal, can not be set by the user or vie API"
     }
   ]
 }

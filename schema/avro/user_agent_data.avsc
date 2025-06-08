@@ -5,14 +5,12 @@
   "fields": [
     {
       "name": "brand",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The brand of the user agent (e.g. \\\"Apple\\\")"
     },
     {
       "name": "version",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The version of the user agent (e.g. \\\"Mac OS X 10_10_5\\\")"
     }
   ]

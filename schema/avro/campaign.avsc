@@ -5,32 +5,27 @@
   "fields": [
     {
       "name": "campaign",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The campaign (e.g. \\\"summer\\\")"
     },
     {
       "name": "source",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The source (e.g. \\\"google\\\")"
     },
     {
       "name": "medium",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The medium (e.g. \\\"cpc\\\")"
     },
     {
       "name": "term",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The term (e.g. \\\"beach\\\")"
     },
     {
       "name": "content",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The content (e.g. \\\"ad1\\\")"
     }
   ]

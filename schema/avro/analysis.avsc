@@ -19,6 +19,12 @@
       "doc": "The variant of the item that is involved in the event"
     },
     {
+      "name": "processing_time",
+      "type": ["null", "float"],
+      "default": null,
+      "doc": "The process time of the item that is involved in the event"
+    },
+    {
       "name": "token_in",
       "type": ["null", "int"],
       "default": null,
@@ -31,22 +37,15 @@
       "doc": "The token of the item that is involved in the event"
     },
     {
+      "name": "currency",
+      "type": "string",
+      "doc": "The currency of the item that is involved in the event"
+    },
+    {
       "name": "amount",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The price of the item that is involved in the event"
-    },
-    {
-      "name": "processing_time",
-      "type": ["null", "double"],
-      "default": null,
-      "doc": "The process time of the item that is involved in the event"
-    },
-    {
-      "name": "currency",
-      "type": ["null", "string"],
-      "default": "USD",
-      "doc": "The currency of the item that is involved in the event"
     }
   ]
 }

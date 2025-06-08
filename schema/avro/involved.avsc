@@ -11,14 +11,12 @@
     },
     {
       "name": "role",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The role of the entity in the event. (Capitalized like: Supplier, Buyer, Victim, HomeTeam)"
     },
     {
       "name": "entity_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of the entity that is involved in the event (Capitalized Entity name like: Person, Organization, LegalEntity)"
     },
     {
@@ -35,13 +33,12 @@
     },
     {
       "name": "id_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The ID type indicates what organization issued the ID. (This is potentially your own name)"
     },
     {
       "name": "capacity",
-      "type": ["null", "double"],
+      "type": ["null", "float"],
       "default": null,
       "doc": "The capacity of the entity in the event. If the involvement is fractional, this is the fraction of the entity that is involved in the event. (e.g. 0.5 for half of a person)"
     }

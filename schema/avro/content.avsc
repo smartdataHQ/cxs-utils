@@ -11,29 +11,26 @@
     {
       "name": "type",
       "type": "string",
-      "doc": "The type of content. SQL type hint: Enum8('Description'=1, 'Summary'=2, 'Conditions'=3, 'History'=4, 'Other'=0)"
+      "doc": "Enum8('Description'=1, 'Summary'=2, 'Conditions'=3, 'History'=4, 'Other'=0)"
     },
     {
       "name": "sub_type",
-      "type": ["null", "string"],
-      "default": null,
-      "doc": "The sub-type of content. SQL type hint: Enum8('short'=1, 'long'=2, 'other'=0)"
+      "type": "string",
+      "doc": "Enum8('short'=1, 'long'=2, 'other'=0)"
     },
     {
       "name": "value",
       "type": "string",
-      "doc": "The content value"
+      "doc": "The content of the event"
     },
     {
       "name": "language",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The primary language of the content (2 letter ISO code)"
     },
     {
       "name": "meta_description",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "A description of the contents' purpose and a few questions it may answer"
     }
   ]

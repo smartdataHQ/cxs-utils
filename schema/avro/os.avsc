@@ -5,14 +5,12 @@
   "fields": [
     {
       "name": "name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The OS of the device (e.g. \\\"iOS\\\")"
     },
     {
       "name": "version",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The OS version of the device (e.g. \\\"9.1\\\")"
     }
   ]

@@ -10,14 +10,12 @@
     },
     {
       "name": "type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Poster, Thumbnail, etc."
     },
     {
       "name": "sub_type",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "Program, Season, Episode, etc."
     },
     {
@@ -27,14 +25,12 @@
     },
     {
       "name": "language",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The primary language of the media"
     },
     {
       "name": "aspect_ratio",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The aspect ratio of the media"
     }
   ]

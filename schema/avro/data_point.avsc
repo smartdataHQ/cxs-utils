@@ -1,0 +1,159 @@
+{
+  "type": "record",
+  "name": "DataPoint",
+  "namespace": "com.contextsuite.schema",
+  "fields": [
+    {
+      "name": "series_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "the gid of the metric that this datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "entity_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "GID for the entity that the datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "entity_gid_url",
+      "type": "string",
+      "doc": "GID URL for the entity that the datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "geohash",
+      "type": "string",
+      "doc": "Geolocation as a geohash (for clustering and sorting) - moves for non-stationary entities"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "doc": "The resolution/frequency of the data iso 8691 format (e.g., 'PT1H' for hourly, 'P1D' for daily, 'P1M' for monthly, etc.)"
+    },
+    {
+      "name": "timestamp",
+      "type": {"type": "long", "logicalType": "timestamp-micros"},
+      "doc": "The calendar date and time (Hourly interval) (UTC) at the start of the period for which the data is reported. This is the timestamp of the datapoint, not the time it was ingested."
+    },
+    {
+      "name": "owner_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "the gid of the owner that this datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "source_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "the gid of the source that this datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "publisher_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "the gid of the publisher that this datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "publication_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "the gid of the source that this datapoint belongs to. Links to an Entity"
+    },
+    {
+      "name": "gids",
+      "type": {"type": "map", "values": {"type": "string", "logicalType": "uuid"}},
+      "doc": "additional links to Named Entities"
+    },
+    {
+      "name": "location",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional geography for the datapoint"
+    },
+    {
+      "name": "demography",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional demography for the datapoint"
+    },
+    {
+      "name": "classification",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional classification for the datapoint"
+    },
+    {
+      "name": "topology",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional topology for the datapoint"
+    },
+    {
+      "name": "usage",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional usage for the datapoint"
+    },
+    {
+      "name": "device",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional device for the datapoint"
+    },
+    {
+      "name": "product",
+      "type": {"type": "map", "values": "string"},
+      "doc": "additional product for the datapoint"
+    },
+    {
+      "name": "flags",
+      "type": {"type": "map", "values": "boolean"},
+      "doc": "additional flags for the datapoint"
+    },
+    {
+      "name": "tags",
+      "type": {"type": "array", "items": "string"},
+      "doc": "additional tags for the datapoint"
+    },
+    {
+      "name": "dimensions",
+      "type": {"type": "map", "values": "string"},
+      "doc": "dimensions for the entity - low cardinality string keys to allow for flexible dimensions and fit on a dashboard breaking down the datapoint"
+    },
+    {
+      "name": "metrics",
+      "type": {"type": "map", "values": "double"},
+      "doc": "metrics for the datapoint - the measurement"
+    },
+    {
+      "name": "mtype",
+      "type": {"type": "map", "values": "string"},
+      "doc": "the measurement type for a metrics"
+    },
+    {
+      "name": "uom",
+      "type": {"type": "map", "values": "string"},
+      "doc": "unit of measure for the metrics - All UOM are linked to a UOM Entity"
+    },
+    {
+      "name": "of_what",
+      "type": {"type": "map", "values": "string"},
+      "doc": "what is the metric measuring usually a standard based if from Wikidata/dbPedia etc. the key is the metric name and the value is the standard (e.g., 'population', 'oil', 'humidity', etc.)"
+    },
+    {
+      "name": "agg_method",
+      "type": {"type": "map", "values": "string"},
+      "doc": "the default aggregation method for the metric the key is the metric name and the value is the aggregation method (e.g., 'sum', 'avg', 'max', 'min', etc.)"
+    },
+    {
+      "name": "signature",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The signature of the time_series + dimensions + of_what + metrics - used to ensure the right entries can be updated/replaced"
+    },
+    {
+      "name": "access_type",
+      "type": "string",
+      "doc": "Enum8('Local' = 0, 'Exclusive' = 1, 'Group' = 2, 'SharedPercentiles' = 3, 'SharedObfuscated' = 4, 'Shared' = 5, 'Public' = 6) DEFAULT(1)",
+      "default": "Exclusive"
+    },
+    {
+      "name": "partition",
+      "type": "string",
+      "doc": "The version of the event message"
+    },
+    {
+      "name": "sign",
+      "type": "int",
+      "doc": "Used by ReplacingMergeTree to determine if a row is active or deleted. Default 1 means active.",
+      "default": 1
+    }
+  ]
+}

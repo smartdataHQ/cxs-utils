@@ -4,6 +4,11 @@
   "namespace": "com.contextsuite.schema",
   "fields": [
     {
+      "name": "signature",
+      "type": "string",
+      "doc": "The user agent (e.g. \\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36\\\")"
+    },
+    {
       "name": "mobile",
       "type": ["null", "boolean"],
       "default": null,
@@ -11,21 +16,13 @@
     },
     {
       "name": "platform",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The platform of the user agent (e.g. \\\"Apple Mac\\\")"
     },
     {
-      "name": "signature",
-      "type": ["null", "string"],
-      "default": null,
-      "doc": "The user agent (e.g. \\\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36\\\")"
-    },
-    {
       "name": "data",
-      "type": ["null", "com.contextsuite.schema.UserAgentData"],
-      "default": null,
-      "doc": "User agent data including brand and version"
+      "type": {"type": "array", "items": "com.contextsuite.schema.UserAgentData"},
+      "doc": "User agent data including brand and version details for each client hint."
     }
   ]
 }

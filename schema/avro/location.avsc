@@ -5,74 +5,62 @@
   "fields": [
     {
       "name": "location_of",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The type of location (e.g. \\\"Customer\\\", \\\"Supplier\\\", \\\"Postal Address\\\", \\\"Business Address\\\", \\\"Home Address\\\", \\\"Other\\\")"
     },
     {
       "name": "label",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The label of the location (e.g. \\\"Street name 1, 1234\\\")"
     },
     {
       "name": "country",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the country (e.g.\\\"Iceland\\\")"
     },
     {
       "name": "country_code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The country code (e.g. \\\"IS\\\")"
     },
     {
       "name": "code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The code of the location (e.g. \\\"1234\\\")"
     },
     {
       "name": "region",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The region of the location (e.g. \\\"Gullbringu og kjósarsýsla\\\")"
     },
     {
       "name": "division",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The division of the location (e.g. \\\"Capital Region\\\")"
     },
     {
       "name": "municipality",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The municipality of the location (e.g. \\\"Reykjavik\\\")"
     },
     {
       "name": "locality",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The locality of the location (e.g. \\\"Vesturbær\\\")"
     },
     {
       "name": "postal_code",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The postal code of the location (e.g. \\\"101\\\")"
     },
     {
       "name": "postal_name",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The name of the postal code (e.g. \\\"Vesturbær\\\")"
     },
     {
       "name": "street",
-      "type": ["null", "string"],
-      "default": null,
+      "type": "string",
       "doc": "The street of the location (e.g. \\\"Laugavegur\\\")"
     },
     {
