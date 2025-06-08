@@ -12,10 +12,11 @@ The Semantic Event Schema includes a specific field, `ttl_days`, which can be se
 
 This field provides a hint to data lifecycle management systems about the intended lifespan of an event in primary storage.
 
-*   **Property Name:** `ttl_days`
-*   **Type:** `Number (Optional)` (from SQL `Nullable(Float64)`)
-*   **Description:** A numeric value specifying the suggested Time-To-Live (TTL) for the event, in days. If set, it indicates for how long this specific event should ideally be retained in primary, readily queryable storage systems. The value can include fractions of days (e.g., `0.5` for 12 hours).
-*   **Default Behavior:** If `ttl_days` is `null` or not provided on an event, the event is generally assumed to be retained indefinitely ("defaults to forever") within its primary storage tier. However, this is always subject to any overriding global or system-level retention policies that may be in place.
+| Name         | Required | Data Type | Description                                                                                                                                                                                                                                                                                          |
+|--------------|----------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ttl_days`   |          | `Float`   | A numeric value specifying the suggested Time-To-Live (TTL) for the event, in days. If set, it indicates for how long this specific event should ideally be retained in primary, readily queryable storage systems. The value can include fractions of days (e.g., `0.5` for 12 hours). If `null` or not provided, defaults to indefinite retention subject to global policies. Originally `Nullable(Float64)`. This field is optional. |
+
+**Default Behavior:** If `ttl_days` is `null` or not provided on an event, the event is generally assumed to be retained indefinitely ("defaults to forever") within its primary storage tier. However, this is always subject to any overriding global or system-level retention policies that may be in place.
 
 ## Purpose and Implications of `ttl_days`
 

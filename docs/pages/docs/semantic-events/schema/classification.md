@@ -12,14 +12,14 @@ Typically, an event may contain a `classification` field which is a list (array)
 
 The following table details the fields found within each classification object.
 
-| Property Name | Type                | Description                                                                                                | Optional |
-|---------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `type`        | `String`            | Type of classification, indicating the category or nature of the classification (e.g., 'Intent', 'Category', 'Tag'). See "Allowed Types" below for common examples. From `LowCardinality(String)`. | No       |
-| `value`       | `String`            | The specific classification value assigned, corresponding to the `type` (e.g., "Support Request", "Electronics", "urgent_tag"). From `LowCardinality(String)`. | No       |
-| `reasoning`   | `String (Optional)` | An optional explanation or basis for why this classification was assigned.                                   | Yes      |
-| `score`       | `Float (Optional)`  | A numerical score assigned to the classification, often by a model or rule (e.g., a relevance or priority score). | Yes      |
-| `confidence`  | `Float (Optional)`  | The confidence level (e.g., 0.0 to 1.0) from a model that assigned this classification.                    | Yes      |
-| `weight`      | `Float`             | The relevance, importance, or weight of this classification, especially if multiple classifications exist.     | No       |
+| Name         | Required | Data Type | Description                                                                                                                                                              |
+|--------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `type`       |          | `String`  | Type of classification, indicating the category or nature of the classification (e.g., 'Intent', 'Category', 'Tag'). See "Allowed Types" below for common examples. Originally `LowCardinality(String)`. |
+| `value`      |          | `String`  | The specific classification value assigned, corresponding to the `type` (e.g., "Support Request", "Electronics", "urgent_tag"). Originally `LowCardinality(String)`.      |
+| `reasoning`  |          | `String`  | An optional explanation or basis for why this classification was assigned. This field is optional.                                                                       |
+| `score`      |          | `Float`   | A numerical score assigned to the classification, often by a model or rule (e.g., a relevance or priority score). This field is optional.                                  |
+| `confidence` |          | `Float`   | The confidence level (e.g., 0.0 to 1.0) from a model that assigned this classification. This field is optional.                                                            |
+| `weight`     |          | `Float`   | The relevance, importance, or weight of this classification, especially if multiple classifications exist.                                                                 |
 
 
 ## Allowed Types and Descriptions

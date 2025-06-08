@@ -32,118 +32,94 @@ The following sections detail the schema of the `data_points` table as typically
 
 These fields link the datapoint to a specific timeseries and the primary entity it describes.
 
-- **`series_gid`** (`LowCardinality(UUID)`): The Global Unique Identifier (GID) of the metric or timeseries this datapoint belongs to. This typically links to an Entity that defines the metric itself (e.g., an entity representing "Average Temperature" or "Website Page Views").
-- **`entity_gid`** (`LowCardinality(UUID)`): The GID of the specific entity that this datapoint is reporting on or is an attribute of (e.g., GID of a specific weather station, a particular product, or a user). This links to an Entity.
-- **`entity_gid_url`** (`LowCardinality(String)`): The GID URL representation for the `entity_gid`, providing a resolvable link to the entity.
+| Name             | Required | Data Type | Description                                                                                                                                                              |
+|------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `series_gid`     |          | `UUID`    | The Global Unique Identifier (GID) of the metric or timeseries this datapoint belongs to. This typically links to an Entity that defines the metric itself.              |
+| `entity_gid`     |          | `UUID`    | The GID of the specific entity that this datapoint is reporting on or is an attribute of (e.g., GID of a specific weather station). This links to an Entity.             |
+| `entity_gid_url` |          | `String`  | The GID URL representation for the `entity_gid`, providing a resolvable link to the entity.                                                                                |
 
 ### Location Information
 
-Provides geographical context for the datapoint, especially relevant for entities that have a physical location or for events occurring at a specific place.
+Provides geographical context for the datapoint.
 
-- **`geohash`** (`LowCardinality(String)`): The geolocation of the entity reported on at the time of the datapoint, represented as a geohash. This is useful for clustering, sorting, and spatial queries.
-    {% .callout type="note" %}
-    For non-stationary entities (e.g., vehicles, mobile users), the `geohash` will change over time with each datapoint, reflecting the entity's movement.
-    {% / .callout %}
+| Name      | Required | Data Type | Description                                                                                                                                                                                                                            |
+|-----------|----------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `geohash` |          | `String`  | The geolocation of the entity reported on at the time of the datapoint, represented as a geohash. This is useful for clustering, sorting, and spatial queries.<br/>{% .callout type="note" %}For non-stationary entities, the `geohash` will change over time.{% / .callout %} |
 
 ### Reporting Period/Intervals
 
-Defines the temporal context of the datapoint, specifying its frequency and the exact time it pertains to.
+Defines the temporal context of the datapoint.
 
-- **`period`** (`LowCardinality(String)`): The resolution or frequency of the data, expressed in ISO 8601 duration format. This indicates the length of the interval for which the datapoint is valid or aggregated.
-    - Examples: `PT1S` (1 second), `PT1M` (1 minute), `PT1H` (1 hour), `P1D` (1 day), `P1M` (1 month), `P1Y` (1 year).
-- **`timestamp`** (`DateTime`): The calendar date and time (UTC) marking the beginning of the `period` for which the data is reported.
-    {% .callout type="important" %}
-    This is the actual timestamp of the measurement or observation (the start of the interval), not the time the data was ingested into the system.
-    {% / .callout %}
+| Name        | Required | Data Type | Description                                                                                                                                                                                                                                                           |
+|-------------|----------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `period`    |          | `String`  | The resolution or frequency of the data, expressed in ISO 8601 duration format (e.g., `PT1H` for hourly, `P1D` for daily). This indicates the length of the interval for which the datapoint is valid or aggregated.                                                    |
+| `timestamp` |          | `DateTime`| The calendar date and time (UTC) marking the beginning of the `period` for which the data is reported.<br/>{% .callout type="important" %}This is the actual timestamp of the measurement or observation (the start of the interval), not the ingestion time.{% / .callout %} |
 
 ### Ownership and Source
 
-These fields track the provenance of the datapoint, indicating who owns it, where it originated, and who published it. This is crucial for data governance, quality assessment, and attribution. All GIDs link to corresponding Entities.
+Tracks the provenance of the datapoint. All GIDs link to corresponding Entities.
 
-- **`owner_gid`** (`LowCardinality(UUID)`): The GID of the entity that owns this datapoint (e.g., the organization or department responsible for the data).
-- **`source_gid`** (`LowCardinality(UUID)`): The GID of the entity representing the original source of the data (e.g., a specific sensor, an external data provider, a user input system).
-- **`publisher_gid`** (`LowCardinality(UUID)`): The GID of the entity that published this datapoint (e.g., the platform or system that made the data available).
-- **`publication_gid`** (`LowCardinality(UUID)`): The GID of the specific publication or dataset this datapoint belongs to. This can be useful for versioning or grouping data releases.
+| Name              | Required | Data Type | Description                                                                                                                               |
+|-------------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `owner_gid`       |          | `UUID`    | The GID of the entity that owns this datapoint (e.g., the organization responsible for the data).                                         |
+| `source_gid`      |          | `UUID`    | The GID of the entity representing the original source of the data (e.g., a specific sensor, an external data provider).                   |
+| `publisher_gid`   |          | `UUID`    | The GID of the entity that published this datapoint (e.g., the platform that made the data available).                                    |
+| `publication_gid` |          | `UUID`    | The GID of the specific publication or dataset this datapoint belongs to. This can be useful for versioning or grouping data releases.     |
 
 ### Structured Metadata
 
-These fields allow for enriching datapoints with additional structured, key-value pair information across various domains, providing deeper context. Each field is a `Map(LowCardinality(String), LowCardinality(String))` unless specified otherwise.
+These map fields allow for enriching datapoints with additional structured key-value details.
 
-- **`gids`** (`Map(LowCardinality(String), LowCardinality(UUID))`): Provides additional links to Named Entities. This can be used to associate the datapoint with other relevant entities beyond the primary `entity_gid`.
-    - Example: `{"related_campaign": "camp_123abc_gid", "influenced_by_event": "evt_xyz789_gid"}` (where values are GIDs).
-- **`location`** (`Map(LowCardinality(String), LowCardinality(String))`): Stores additional geographical details specific to this datapoint, supplementing the primary `geohash`.
-    - Example: `{"venue_section": "A1", "specific_sensor_loc": "Rack 3, Shelf 2"}`.
-- **`demography`** (`Map(LowCardinality(String), LowCardinality(String))`): Adds demographic information relevant to the datapoint.
-    - Example: `{"age_group": "25-34", "user_segment_custom": "tech_enthusiast"}`.
-- **`classification`** (`Map(LowCardinality(String), LowCardinality(String))`): Provides further classification details for the datapoint, beyond general entity classification.
-    - Example: `{"data_sensitivity": "confidential", "quality_tier": "premium"}`.
-- **`topology`** (`Map(LowCardinality(String), LowCardinality(String))`): Describes network or system topology relevant to the datapoint.
-    - Example: `{"server_node": "node_101", "data_center_region": "us-east-1"}`.
-- **`usage`** (`Map(LowCardinality(String), LowCardinality(String))`): Captures details about the usage context of the entity or system related to this datapoint.
-    - Example: `{"user_activity_level": "high", "feature_interaction_intensity": "moderate"}`.
-- **`device`** (`Map(LowCardinality(String), LowCardinality(String))`): Specifies details about the device from which the datapoint was generated or to which it pertains.
-    - Example: `{"device_model": "iPhone 15 Pro", "os_version": "iOS 17.1"}`.
-- **`product`** (`Map(LowCardinality(String), LowCardinality(String))`): Contains additional product-related information relevant to the datapoint.
-    - Example: `{"product_sku": "SKU12345", "product_category_path": "Electronics/Audio/Headphones"}`.
+| Name             | Required | Data Type        | Description                                                                                                                                                           |
+|------------------|----------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `gids`           |          | `Map(String, UUID)`   | Provides additional links to Named Entities, associating the datapoint with other relevant entities beyond `entity_gid`. Example: `{"related_campaign": "01234567-89ab-cdef-0123-456789abcdef"}`. |
+| `location`       |          | `Map(String, String)` | Stores additional geographical details specific to this datapoint, supplementing `geohash`. Example: `{"venue_section": "A1"}`.                                    |
+| `demography`     |          | `Map(String, String)` | Adds demographic information relevant to the datapoint. Example: `{"age_group": "25-34"}`.                                                                         |
+| `classification` |          | `Map(String, String)` | Provides further classification details for the datapoint. Example: `{"data_sensitivity": "confidential"}`.                                                     |
+| `topology`       |          | `Map(String, String)` | Describes network or system topology relevant to the datapoint. Example: `{"server_node": "node_101"}`.                                                             |
+| `usage`          |          | `Map(String, String)` | Captures details about the usage context of the entity or system related to this datapoint. Example: `{"user_activity_level": "high"}`.                           |
+| `device`         |          | `Map(String, String)` | Specifies details about the device from which the datapoint was generated or to which it pertains. Example: `{"device_model": "iPhone 15 Pro"}`.                     |
+| `product`        |          | `Map(String, String)` | Contains additional product-related information relevant to the datapoint. Example: `{"product_sku": "SKU12345"}`.                                                |
 
 ### Flags and Tags
 
-These fields offer flexible ways to add boolean markers (flags) or categorical labels (tags) to datapoints for filtering, grouping, or signaling specific attributes.
+Offer flexible ways to add boolean markers or categorical labels.
 
-- **`flags`** (`Map(LowCardinality(String), BOOLEAN)`): A map of named boolean flags. This allows for setting various binary characteristics for the datapoint.
-    - Example: `{"is_anomaly": true, "needs_review": false, "is_synthetic_data": false}`.
-- **`tags`** (`Array(LowCardinality(String))`): An array of string tags. Tags are useful for applying multiple labels or keywords to a datapoint.
-    - Example: `["critical", "realtime_processed", "customer_facing_metric"]`.
+| Name    | Required | Data Type        | Description                                                                                                                                                           |
+|---------|----------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `flags` |          | `Map(String, Boolean)`| A map of named boolean flags for setting various binary characteristics. Example: `{"is_anomaly": true, "needs_review": false}`.                                      |
+| `tags`  |          | `Array(String)`  | An array of string tags for applying multiple labels or keywords. Example: `["critical", "realtime_processed"]`.                                                        |
 
 ### Core Datapoint Information
 
-These fields store the primary data values of the datapoint, typically as dimensions (descriptive attributes) and metrics (numerical measurements).
+These fields store the primary data values of the datapoint.
 
-- **`dimensions`** (`Map(LowCardinality(String), LowCardinality(String))`): A map of key-value pairs representing the dimensional attributes of the entity or event this datapoint describes. These are typically low-cardinality strings used for grouping, filtering, and segmenting data (e.g., on a dashboard).
-    - Example: `{"country": "US", "device_category": "mobile", "user_status": "active"}`.
-- **`metrics`** (`Map(LowCardinality(String), Float64)`): A map where keys are metric names (e.g., `sales_total`, `active_users`) and values are their corresponding `Float64` measurements. This is where the actual numerical data of the datapoint is stored.
-    - Example: `{"page_views": 1200.0, "cpu_utilization_percent": 75.5, "temperature_celsius": 22.3}`.
+| Name         | Required | Data Type        | Description                                                                                                                                                                 |
+|--------------|----------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dimensions` |          | `Map(String, String)` | A map of key-value pairs representing dimensional attributes used for grouping/filtering. Example: `{"country": "US", "device_category": "mobile"}`.                     |
+| `metrics`    |          | `Map(String, Float64)`| A map where keys are metric names (e.g., `sales_total`) and values are their `Float64` measurements. Example: `{"page_views": 1200.0, "cpu_utilization": 75.5}`.         |
 
 ### Measurement Details
 
-These fields provide further context about the `metrics`, explaining what they are, their units, and how they should be aggregated. The keys in these maps typically correspond to the metric names defined in the `metrics` field.
+Provide context about the `metrics`. Keys in these maps typically correspond to metric names in the `metrics` field.
 
-- **`mtype`** (`Map(LowCardinality(String), LowCardinality(String))`): Specifies the measurement type for each metric. This can indicate if a metric is a counter (monotonically increasing value), gauge (value can go up or down), rate, etc.
-    - Example: `{"page_views": "counter", "cpu_utilization_percent": "gauge"}`.
-- **`uom`** (`Map(LowCardinality(String), LowCardinality(String))`): Defines the Unit of Measure for each metric.
-    {% .callout type="info" %}
-    It's crucial for consistent interpretation that all Unit of Measure (UOM) values link to a standardized UOM Entity in your entity system (e.g., an entity for "USD", "Count", "Percentage").
-    {% / .callout %}
-    - Example: `{"page_views": "Count", "cpu_utilization_percent": "Percentage", "temperature_celsius": "Degrees Celsius"}`.
-- **`of_what`** (`Map(LowCardinality(String), LowCardinality(String))`): Describes *what* the metric is measuring, often linking to a standard definition or concept (e.g., from Wikidata, DBpedia, or an internal ontology). The key is the metric name, and the value is the standard or concept being measured.
-    - Example: `{"population": "wd:Q11517" (Wikidata item for population), "oil_production": "dbpedia:Oil_production", "humidity": "custom_ontology:RelativeHumidity"}`.
-- **`agg_method`** (`Map(LowCardinality(String), LowCardinality(String))`): Specifies the default aggregation method recommended for each metric when summarizing or rolling up data over time or across dimensions. The key is the metric name.
-    - Example: `{"page_views": "sum", "cpu_utilization_percent": "avg", "temperature_celsius": "max"}`. Common values include `sum`, `avg`, `max`, `min`, `count`.
+| Name         | Required | Data Type        | Description                                                                                                                                                                                                                            |
+|--------------|----------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `mtype`      |          | `Map(String, String)` | Specifies the measurement type for each metric (e.g., counter, gauge). Example: `{"page_views": "counter"}`.                                                                                                                      |
+| `uom`        |          | `Map(String, String)` | Defines the Unit of Measure for each metric.<br/>{% .callout type="info" %}All UOM values should link to a standardized UOM Entity.{% / .callout %} Example: `{"page_views": "Count", "cpu_utilization": "Percentage"}`.                 |
+| `of_what`    |          | `Map(String, String)` | Describes *what* the metric is measuring, often linking to a standard definition. Key is metric name, value is the standard. Example: `{"population": "wd:Q11517"}`.                                                                  |
+| `agg_method` |          | `Map(String, String)` | Specifies the default aggregation method for each metric (e.g., `sum`, `avg`). Key is metric name. Example: `{"page_views": "sum", "cpu_utilization": "avg"}`.                                                                     |
 
 ### Access, Partitioning, and System Fields
 
-These fields are generally system-managed and relate to data access control, storage partitioning, and internal database operations for efficiency and integrity.
+System-managed fields for data access, storage, and integrity.
 
-- **`signature`** (`UUID`): A UUID signature generated from a combination of the `series_gid`, `dimensions`, `of_what` map, and specific `metrics` keys.
-    {% .callout type="important" %}
-    This signature is used internally by the database (specifically `ReplacingMergeTree` in ClickHouse) to correctly identify and manage updates or replacements of datapoint records, ensuring data integrity for a unique combination of identifying fields.
-    {% / .callout %}
-- **`access_type`** (`Enum8('Local' = 0, 'Exclusive' = 1, 'Group' = 2, 'SharedPercentiles' = 3, 'SharedObfuscated' = 4, 'Shared' = 5, 'Public' = 6) DEFAULT(1)`): An enumerated type that defines the access control level for the datapoint. Default is `Exclusive` (1).
-    - `Local` (0): Data is only accessible locally, not queryable by the broader system.
-    - `Exclusive` (1): Data is exclusive to the owner/source system.
-    - `Group` (2): Data is shared within a defined group or organization.
-    - `SharedPercentiles` (3): Only percentile-based aggregations of the data are shared, not raw values.
-    - `SharedObfuscated` (4): Data is shared in an obfuscated or anonymized form.
-    - `Shared` (5): Data is shared more broadly under specific agreements or entitlements.
-    - `Public` (6): Data is publicly accessible to anyone.
-- **`partition`** (`LowCardinality(String)`): Represents the storage partition key, often derived from the timestamp (e.g., `YYYY-MM` like "2024-01") or another logical grouping. The SQL schema comment "The version of the event message" might imply its use in data versioning or batch identification for partitioning strategies.
-    {% .callout type="info" %}
-    This field is primarily for database performance optimization (reducing data scanned) and data lifecycle management (e.g., dropping old partitions).
-    {% / .callout %}
-- **`sign`** (`Int8 default 1`): An internal field used by ClickHouse's `ReplacingMergeTree` table engine.
-    {% .callout type="info" %}
-    The `sign` field (typically `1` for active records, `-1` for records intended to mark previous versions as deleted during merges) is essential for the engine to correctly process data replacements and maintain the latest version of records. It is not typically set or modified by users directly.
-    {% / .callout %}
+| Name          | Required | Data Type | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|---------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature`   |          | `UUID`    | A UUID signature generated from `series_gid`, `dimensions`, `of_what`, and `metrics` keys.<br/>{% .callout type="important" %}Used internally by `ReplacingMergeTree` to manage updates/replacements of records.{% / .callout %}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `access_type` |          | `Enum`    | Defines the access control level. Default: `Exclusive` (1). Values: `Local` (0), `Exclusive` (1), `Group` (2), `SharedPercentiles` (3), `SharedObfuscated` (4), `Shared` (5), `Public` (6). The specific enum values like `'Local' = 0` are defined in the SQL schema.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `partition`   |          | `String`  | Storage partition key, often derived from `timestamp` (e.g., `YYYY-MM`). The SQL schema comment "The version of the event message" might imply use in data versioning or batch ID for partitioning.<br/>{% .callout type="info" %}Primarily for database performance and data lifecycle management.{% / .callout %}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `sign`        |          | `Int8`    | Internal field for ClickHouse's `ReplacingMergeTree` engine. Default is `1`.<br/>{% .callout type="info" %}The `sign` field (1 for active, -1 for deleted/updated versions) is essential for processing replacements and maintaining the latest record version during merges. Not typically user-set.{% / .callout %}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ## Common Datapoint Examples
 

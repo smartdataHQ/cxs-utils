@@ -14,33 +14,37 @@ It's also important to understand that these traits within an event are often a 
 
 The following table details commonly predefined `traits.*` fields. Most of these are conceptually optional, as they may not be available or relevant for every event or user.
 
-| Property Name        | Type                | Description                                                                                                | Optional |
-|----------------------|---------------------|------------------------------------------------------------------------------------------------------------|----------|
-| `traits.id`          | `String (Optional)` | Unique identifier for the user from an external system (e.g., CRM ID, database ID). Often distinct from `user_id` or `user_gid`. | Yes      |
-| `traits.name`        | `String (Optional)` | Full name of the user.                                                                                     | Yes      |
-| `traits.first_name`  | `String (Optional)` | First name of the user.                                                                                    | Yes      |
-| `traits.last_name`   | `String (Optional)` | Last name of the user.                                                                                     | Yes      |
-| `traits.middle_name` | `String (Optional)` | Middle name of the user.                                                                                   | Yes      |
-| `traits.email`       | `String (Optional)` | Email address of the user.                                                                                 | Yes      |
-| `traits.phone`       | `String (Optional)` | Phone number of the user.                                                                                  | Yes      |
-| `traits.username`    | `String (Optional)` | Username or screen name of the user.                                                                       | Yes      |
-| `traits.website`     | `String (Optional)` | URL of the user's personal or professional website.                                                        | Yes      |
-| `traits.title`       | `String (Optional)` | Job title of the user (e.g., "Software Engineer", "Product Manager").                                      | Yes      |
-| `traits.gender`      | `String (Optional)` | Gender of the user. Common values include 'male', 'female', 'other', 'unknown'. From `LowCardinality(String)`. | Yes      |
-| `traits.birthday`    | `Date (Optional)`   | User's date of birth (e.g., "YYYY-MM-DD"). From `Nullable(Date)`.                                          | Yes      |
-| `traits.age`         | `Integer (Optional)`| Age of the user. From `Nullable(Int8)`.                                                                    | Yes      |
-| `traits.description` | `String (Optional)` | A brief description or bio of the user.                                                                    | Yes      |
-| `traits.company_name`| `String (Optional)` | Name of the company the user is associated with.                                                           | Yes      |
-| `traits.company_gid` | `UUID (String, Optional)`| Global ID (GID) of the company the user is associated with.                                              | Yes      |
-| `traits.company_id`  | `String (Optional)` | External ID of the company the user is associated with.                                                    | Yes      |
+| Name                 | Required | Data Type | Description                                                                                                                               |
+|----------------------|----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `traits.id`          |          | `String`  | Unique identifier for the user from an external system (e.g., CRM ID, database ID). Often distinct from `user_id` or `user_gid`. This field is optional. |
+| `traits.name`        |          | `String`  | Full name of the user. This field is optional.                                                                                            |
+| `traits.first_name`  |          | `String`  | First name of the user. This field is optional.                                                                                           |
+| `traits.last_name`   |          | `String`  | Last name of the user. This field is optional.                                                                                            |
+| `traits.middle_name` |          | `String`  | Middle name of the user. This field is optional.                                                                                          |
+| `traits.email`       |          | `String`  | Email address of the user. This field is optional.                                                                                        |
+| `traits.phone`       |          | `String`  | Phone number of the user. This field is optional.                                                                                         |
+| `traits.username`    |          | `String`  | Username or screen name of the user. This field is optional.                                                                              |
+| `traits.website`     |          | `String`  | URL of the user's personal or professional website. This field is optional.                                                               |
+| `traits.title`       |          | `String`  | Job title of the user (e.g., "Software Engineer", "Product Manager"). This field is optional.                                             |
+| `traits.gender`      |          | `String`  | Gender of the user. Common values include 'male', 'female', 'other', 'unknown'. Originally `LowCardinality(String)`. This field is optional.    |
+| `traits.birthday`    |          | `Date`    | User's date of birth (e.g., "YYYY-MM-DD"). Originally `Nullable(Date)`. This field is optional.                                           |
+| `traits.age`         |          | `Integer` | Age of the user. Originally `Nullable(Int8)`. This field is optional.                                                                     |
+| `traits.description` |          | `String`  | A brief description or bio of the user. This field is optional.                                                                           |
+| `traits.company_name`|          | `String`  | Name of the company the user is associated with. (Avro: `company`). This field is optional.                                               |
+| `traits.company_gid` |          | `UUID`    | Global ID (GID) of the company the user is associated with. This field is optional.                                                       |
+| `traits.company_id`  |          | `String`  | External ID of the company the user is associated with. This field is optional.                                                           |
 
 ## User Address Traits (`traits.address` map)
 
-The `traits.address` field provides a flexible way to store various address-related details for the user. It is structured as a `Map<String, String>`.
+The `traits.address` field provides a flexible way to store various address-related details for the user.
 
-*   **Structure:** `Map<String, String>`
-    *   Keys are strings identifying address components (e.g., "street", "city").
-    *   Values are strings representing the value for that component.
+| Name              | Required | Data Type             | Description                                                                                                                                                              |
+|-------------------|----------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `traits.address`  |          | `Map(String, String)` | A map containing address-related details for the user. See 'Common Keys within `traits.address`' below for typical keys. This field is optional.                         |
+
+**Structure Detail:**
+*   Keys are strings identifying address components (e.g., "street", "city").
+*   Values are strings representing the value for that component.
 
 **Common Keys within `traits.address`:**
 

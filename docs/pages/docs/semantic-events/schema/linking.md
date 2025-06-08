@@ -14,16 +14,16 @@ The `entity_linking` field is typically a list (array) of objects, where each ob
 
 The following table details the fields found within each object in the `entity_linking` list:
 
-| Property Name | Type                             | Description                                                                                                   | Optional |
-|---------------|----------------------------------|---------------------------------------------------------------------------------------------------------------|----------|
-| `content_key` | `String`                         | The key from the event's `content` map where the linked entity was found (e.g., "Body", "Subject", "Description"). From `LowCardinality(String)`. | No       |
-| `label`       | `String (Optional)`              | The actual text span (mention) that was identified in the content and linked to an entity (e.g., "Acme Corp", "ProductX"). | Yes      |
-| `starts_at`   | `Integer (Optional)`             | The starting character offset of the `label` within the specified `content` field's value.                    | Yes      |
-| `ends_at`     | `Integer (Optional)`             | The ending character offset (exclusive) of the `label` within the specified `content` field's value.          | Yes      |
-| `entity_type` | `String (Optional)`              | The resolved type of the linked entity (e.g., "organization", "product", "person", "location").               | Yes      |
-| `entity_gid`  | `UUID (String, Optional)`        | The Global ID (GID) of the canonical entity to which the `label` was linked.                                  | Yes      |
-| `entity_wid`  | `String (Optional)`              | Workspace ID or a similar namespaced identifier for the resolved entity, if applicable.                         | Yes      |
-| `certainty`   | `Float (Optional)`               | A confidence score (e.g., 0.0 to 1.0) from the linking model, indicating the certainty of the match.          | Yes      |
+| Name          | Required | Data Type | Description                                                                                                                                                              |
+|---------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `content_key` |          | `String`  | The key from the event's `content` map where the linked entity was found (e.g., "Body", "Subject", "Description"). Originally `LowCardinality(String)`.                       |
+| `label`       |          | `String`  | The actual text span (mention) that was identified in the content and linked to an entity (e.g., "Acme Corp", "ProductX"). This field is optional.                           |
+| `starts_at`   |          | `Integer` | The starting character offset of the `label` within the specified `content` field's value. This field is optional.                                                          |
+| `ends_at`     |          | `Integer` | The ending character offset (exclusive) of the `label` within the specified `content` field's value. This field is optional.                                                |
+| `entity_type` |          | `String`  | The resolved type of the linked entity (e.g., "organization", "product", "person", "location"). This field is optional.                                                     |
+| `entity_gid`  |          | `UUID`    | The Global ID (GID) of the canonical entity to which the `label` was linked. This field is optional.                                                                         |
+| `entity_wid`  |          | `String`  | Workspace ID or a similar namespaced identifier for the resolved entity, if applicable. This field is optional.                                                              |
+| `certainty`   |          | `Float`   | A confidence score (e.g., 0.0 to 1.0) from the linking model, indicating the certainty of the match. This field is optional.                                                 |
 
 ## Understanding and Using Entity Linking Data
 
