@@ -5,31 +5,114 @@
   "description": "Schema for commerce-related information in a semantic event.",
   "type": ["null", "object"],
   "properties": {
-    "details": { "type": ["null", "string"] },
-    "checkout_id": { "type": ["null", "string"] },
-    "order_id": { "type": ["null", "string"] },
-    "cart_id": { "type": ["null", "string"] },
-    "employee_id": { "type": ["null", "string"] },
-    "external_order_id": { "type": ["null", "string"] },
-    "terminal_id": { "type": ["null", "string"] },
-    "affiliation_id": { "type": ["null", "string"] },
-    "affiliation": { "type": ["null", "string"] },
-    "agent": { "type": ["null", "string"] },
-    "agent_id": { "type": ["null", "string"] },
-    "sold_location": { "type": ["null", "string"] },
-    "sold_location_id": { "type": ["null", "string"] },
-    "business_day": { "type": ["null", "string"], "format": "date" },
-    "revenue": { "type": ["null", "number"], "format": "double" },
-    "tax": { "type": ["null", "number"], "format": "double" },
-    "discount": { "type": ["null", "number"], "format": "double" },
-    "cogs": { "type": ["null", "number"], "format": "double" },
-    "commission": { "type": ["null", "number"], "format": "double" },
-    "currency": { "type": ["null", "string"] },
-    "exchange_rate": { "type": ["null", "number"], "format": "float", "default": 1.0 },
-    "coupon": { "type": ["null", "string"] },
-    "payment_type": { "type": ["null", "string"] },
-    "payment_sub_type": { "type": ["null", "string"] },
-    "payment_details": { "type": ["null", "string"] },
+    "details": {
+      "description": "Other properties of the commerce event that cannot be mapped to the schema or have complex data types.",
+      "type": ["null", "string"]
+    },
+    "checkout_id": {
+      "description": "Unique ID for the checkout.",
+      "type": ["null", "string"]
+    },
+    "order_id": {
+      "description": "Unique ID for the order.",
+      "type": ["null", "string"]
+    },
+    "cart_id": {
+      "description": "Unique ID for the cart.",
+      "type": ["null", "string"]
+    },
+    "employee_id": {
+      "description": "Unique ID for the employee working the terminal/register.",
+      "type": ["null", "string"]
+    },
+    "external_order_id": {
+      "description": "Unique External ID for the order.",
+      "type": ["null", "string"]
+    },
+    "terminal_id": {
+      "description": "Unique External ID for the terminal used for the transaction.",
+      "type": ["null", "string"]
+    },
+    "affiliation_id": {
+      "description": "Unique ID for the affiliation.",
+      "type": ["null", "string"]
+    },
+    "affiliation": {
+      "description": "Store or affiliation from which this transaction occurred (e.g., Google Store).",
+      "type": ["null", "string"]
+    },
+    "agent": {
+      "description": "The Agent responsible for the sale.",
+      "type": ["null", "string"]
+    },
+    "agent_id": {
+      "description": "The ID of the Agent responsible for the sale.",
+      "type": ["null", "string"]
+    },
+    "sold_location": {
+      "description": "The location where the sale occurred.",
+      "type": ["null", "string"]
+    },
+    "sold_location_id": {
+      "description": "The ID of the location where the sale occurred.",
+      "type": ["null", "string"]
+    },
+    "business_day": {
+      "description": "The business day of the transaction.",
+      "type": ["null", "string"],
+      "format": "date"
+    },
+    "revenue": {
+      "description": "Total gross revenue for the transaction. Note: Segment's spec often uses 'total' for this concept if 'revenue' might only include product revenue; check specific event for usage.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "tax": {
+      "description": "Total tax amount for the transaction.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "discount": {
+      "description": "Total discount amount for the transaction.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "cogs": {
+      "description": "Total cost of goods sold for the transaction.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "commission": {
+      "description": "Total commission amount for the transaction.",
+      "type": ["null", "number"],
+      "format": "double"
+    },
+    "currency": {
+      "description": "Currency code associated with the transaction (e.g., 'USD').",
+      "type": ["null", "string"]
+    },
+    "exchange_rate": {
+      "description": "Currency exchange rate associated with the transaction.",
+      "type": ["null", "number"],
+      "format": "float",
+      "default": 1.0
+    },
+    "coupon": {
+      "description": "Transaction coupon redeemed with the transaction (e.g., 'SUMMER20').",
+      "type": ["null", "string"]
+    },
+    "payment_type": {
+      "description": "Type of payment (e.g., 'Card', 'Paypal', 'Cash').",
+      "type": ["null", "string"]
+    },
+    "payment_sub_type": {
+      "description": "Subtype of payment (e.g., 'Visa', 'Mastercard').",
+      "type": ["null", "string"]
+    },
+    "payment_details": {
+      "description": "Details of the payment (e.g., last 4 digits of a credit card).",
+      "type": ["null", "string"]
+    },
     "products": {
       "type": ["null", "array"],
       "items": { "$ref": "product_schema.json" }

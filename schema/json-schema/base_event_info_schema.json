@@ -6,9 +6,9 @@
   "type": ["null", "object"],
   "properties": {
     "event_gid": { "type": ["null", "string"], "format": "uuid", "description": "The GID of the original root event." },
-    "type": { "type": ["null", "string"], "description": "The type of the original root event." },
-    "event": { "type": ["null", "string"], "description": "The name of the original root event." },
-    "timestamp": { "type": ["null", "string"], "format": "date-time", "description": "The timestamp of the original root event." },
+    "type": { "type": ["null", "string"], "description": "The type of the original root event (e.g., 'page', 'track', 'identify', 'group', 'alias', 'screen', 'commerce')." },
+    "event": { "type": ["null", "string"], "description": "The name of the original root event (e.g., 'Page Viewed', 'Product Added', 'User Signed Up')." },
+    "timestamp": { "type": ["null", "string"], "format": "date-time", "description": "The timestamp of the original root event in UTC (e.g., '2022-01-01T00:00:00Z')." },
     "message_id": { "type": ["null", "string"], "description": "The message ID of the original root event." },
     "entity_gid": { "type": ["null", "string"], "format": "uuid", "description": "The entity GID associated with the original root event." }
   },

@@ -5,10 +5,10 @@
   "description": "Schema for information about the source system or input of an event.",
   "type": ["null", "object"],
   "properties": {
-    "type": { "type": ["null", "string"], "description": "Type of the source (e.g., 'CRM', 'ERP', 'API')." },
+    "type": { "type": ["null", "string"], "description": "Type of the source (e.g., 'CRM', 'ERP', 'eCommerce', 'Social', 'Email', 'SMS', 'Web', 'Mobile', 'API', 'Other')." },
     "label": { "type": ["null", "string"], "description": "Label for the source (e.g., 'Salesforce Production')." },
-    "source_gid": { "type": ["null", "string"], "format": "uuid", "description": "GID of the source system entity, if applicable." },
-    "access_gid": { "type": ["null", "string"], "format": "uuid", "description": "GID related to the access credentials or method used for this source." }
+    "source_gid": { "type": ["null", "string"], "format": "uuid", "description": "The Graph UUID of the source system entity for the event, if applicable." },
+    "access_gid": { "type": ["null", "string"], "format": "uuid", "description": "The Graph UUID related to the authentication details or access method used for this source." }
   },
   "additionalProperties": false
 }

@@ -8,9 +8,9 @@
     "type": { "type": ["null", "string"], "enum": [null, "Blacklisted", "Whitelisted"], "description": "Type of access rule." },
     "label": { "type": ["null", "string"], "description": "Label for the access rule or the user/group it applies to." },
     "user_gid": { "type": ["null", "string"], "format": "uuid", "description": "User GID this rule applies to." },
-    "organization_gid": { "type": ["null", "string"], "format": "uuid", "description": "Organization GID this rule applies to." },
-    "date_from": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp from which this access rule is effective." },
-    "date_to": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp until which this access rule is effective." }
+    "organization_gid": { "type": ["null", "string"], "format": "uuid", "description": "Organization GID this rule applies to, potentially representing a department or sub-organization." },
+    "date_from": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp from which this access rule is effective (access start date)." },
+    "date_to": { "type": ["null", "string"], "format": "date-time", "description": "Timestamp until which this access rule is effective (access end date)." }
   },
   "additionalProperties": false
 }

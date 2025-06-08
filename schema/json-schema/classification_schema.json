@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "type": {
-      "description": "The type of classification (e.g., 'Intent', 'Category', 'Tag'). For entities, this might be 'event category->subcategory'.",
+      "description": "The type of classification. For semantic events, this can be 'Intent', 'Intent Category', 'Category', 'Subcategory', 'Tag', 'Segmentation', 'Age Group', 'Inbox', 'Keyword', 'Priority', 'Other', often mapped from an internal Enum. For entities, an example is 'event category->subcategory'.",
       "type": "string"
     },
     "value": {
@@ -14,7 +14,7 @@
       "type": "string"
     },
     "babelnet_id": {
-      "description": "BabelNet ID for the classification concept (primarily for entities).",
+      "description": "BabelNet ID for the classification concept, used to translate and associate the classification with other systems (primarily for entities).",
       "type": ["null", "string"]
     },
     "reasoning": {

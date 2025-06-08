@@ -6,24 +6,24 @@
   "type": "object",
   "properties": {
     "type": {
-      "description": "Type of contextual information (e.g., Description, Summary, Conditions).",
+      "description": "Type of contextual information (e.g., 'Description', 'Summary', 'Conditions', 'History', 'Other').",
       "type": "string"
     },
     "entity_type": {
-      "description": "The type of the entity this context refers to (e.g., 'Currency', 'Product').",
+      "description": "The type of the entity this context refers to (e.g., 'Currency', 'Product', 'Service', 'Other').",
       "type": "string"
     },
     "entity_gid": {
-      "description": "The Graph UUID of the entity this context refers to.",
+      "description": "The Graph UUID of the entity this context refers to. This is a Context Suite specific GID, potentially an Account or any sub-entity.",
       "type": ["null", "string"],
       "format": "uuid"
     },
     "entity_wid": {
-      "description": "The Wikidata ID of the entity this context refers to.",
+      "description": "The Wikidata ID (WID) of the entity this context refers to. This is a Context Suite specific WID, potentially an Account or any sub-entity.",
       "type": ["null", "string"]
     },
     "context": {
-      "description": "The actual contextual information string.",
+      "description": "The actual contextual information string (e.g., 'Silfra is an extremely cold pond with a constant temperature of 2° celsius').",
       "type": ["null", "string"]
     }
   },
