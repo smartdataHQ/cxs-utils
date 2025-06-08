@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/cxs_schema.json",
+  "title": "ContextSuite Root Schema",
+  "description": "Root schema for all ContextSuite data types. It references individual schemas for entities, semantic events, etc.",
+  "type": "object",
+  "properties": {
+    "entity": {
+      "$ref": "entity.json"
+    },
+    "semantic_event": {
+      "$ref": "semantic_event.json"
+    },
+    "time_series": {
+      "$ref": "timeseries.json"
+    },
+    "data_point": {
+      "$ref": "data_point.json"
+    },
+    "uom": {
+      "$ref": "uom.json"
+    }
+  }
+}

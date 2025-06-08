@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contextsuite.com/schemas/semantic_event.json",
+  "title": "ContextSuite Semantic Event",
+  "description": "Schema for a ContextSuite Semantic Event. SQL is the primary source of truth.",
+  "type": "object",
+  "properties": {
+    "entity_gid": {
+      "description": "The entity that the event is associated with (Context Suite Specific)",
+      "type": "string",
+      "format": "uuid"
+    },
+    "timestamp": {
+      "description": "The timestamp of the event, always stored in UTC",
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "description": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")",
+      "type": ["null", "string"]
+    },
+    "event": {
+      "description": "The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense",
+      "type": ["null", "string"]
+    },
+    "anonymous_id": { "type": ["null", "string"] },
+    "anonymous_gid": { "type": ["null", "string"], "format": "uuid" },
+    "user_id": { "type": ["null", "string"] },
+    "user_gid": { "type": ["null", "string"], "format": "uuid" },
+    "account_id": { "type": ["null", "string"] },
+    "previous_id": { "type": ["null", "string"] },
+    "session_id": { "type": ["null", "string"] },
+    "session_gid": { "type": ["null", "string"], "format": "uuid" },
+    "context_ip": { "type": ["null", "string"], "format": "ipv4" },
+    "importance": { "type": ["null", "integer"], "minimum": 1, "maximum": 5 },
+    "customer_facing": { "type": "integer", "default": 0 },
+    "content": {
+      "description": "A dictionary of additional content associated with the event",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "string" }
+    },
+    "involves": {
+      "description": "Entities involved in the event",
+      "type": ["null", "array"],
+      "items": { "$ref": "involved_schema.json" }
+    },
+    "sentiment": {
+      "description": "Sentiment expressed in the event",
+      "type": ["null", "array"],
+      "items": { "$ref": "sentiment_schema.json" }
+    },
+    "classification": {
+      "description": "Classification of the event (Intent, Categories, etc.)",
+      "type": ["null", "array"],
+      "items": { "$ref": "classification_schema.json" }
+    },
+    "location": {
+      "description": "Location of the event",
+      "type": ["null", "array"],
+      "items": { "$ref": "location_schema.json" }
+    },
+    "entity_linking": {
+      "description": "Entity links from content to named entities",
+      "type": ["null", "array"],
+      "items": { "$ref": "entity_linking_schema.json" }
+    },
+    "contextual_awareness": {
+      "description": "Additional context for entities involved in the event",
+      "type": ["null", "array"],
+      "items": { "$ref": "contextual_awareness_schema.json" }
+    },
+    "properties": {
+      "description": "Additional properties for the event",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "string" }
+    },
+    "dimensions": {
+      "description": "Additional low-cardinality dimensions for dashboards",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "string" }
+    },
+    "metrics": {
+      "description": "Additional metrics for dashboards",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "number", "format": "float" }
+    },
+    "flags": {
+      "description": "Additional boolean flags",
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "boolean" }
+    },
+    "campaign": { "$ref": "campaign_schema.json" },
+    "app": { "$ref": "app_schema.json" },
+    "device": { "$ref": "device_schema.json" },
+    "os": { "$ref": "os_schema.json" },
+    "library": { "$ref": "library_schema.json" },
+    "user_agent": { "$ref": "user_agent_schema.json" },
+    "network": { "$ref": "network_schema.json" },
+    "traits": { "$ref": "traits_schema.json" },
+    "page": { "$ref": "page_schema.json" },
+    "referrer": { "$ref": "referrer_schema.json" },
+    "screen": { "$ref": "screen_schema.json" },
+    "context": { "$ref": "context_schema.json" },
+    "commerce": { "$ref": "commerce_schema.json" },
+    "analysis": {
+      "description": "Cost analysis of the event (internal use)",
+      "type": ["null", "array"],
+      "items": { "$ref": "analysis_schema.json" }
+    },
+    "base_events": {
+      "description": "Base event information if this is a derived event",
+      "type": ["null", "array"],
+      "items": { "$ref": "base_event_info_schema.json" }
+    },
+    "access": {
+      "description": "Access control list for the event",
+      "type": ["null", "array"],
+      "items": { "$ref": "access_schema.json" }
+    },
+    "source": { "$ref": "source_info_schema.json" },
+    "local_time": { "type": ["null", "string"], "format": "date-time" },
+    "original_timestamp": { "type": ["null", "string"], "format": "date-time" },
+    "received_at": { "type": ["null", "string"], "format": "date-time" },
+    "sent_at": { "type": ["null", "string"], "format": "date-time" },
+    "message_id": { "type": "string" },
+    "event_gid": { "type": "string", "format": "uuid" },
+    "root_event_gid": { "type": "string", "format": "uuid" },
+    "analyse": {
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "boolean" }
+    },
+    "integrations": {
+      "type": ["null", "object"],
+      "additionalProperties": { "type": "boolean" }
+    },
+    "write_key": { "type": "string" },
+    "ttl_days": { "type": ["null", "number"] },
+    "partition": { "type": "string" }
+  },
+  "required": [
+    "entity_gid",
+    "timestamp",
+    "type",
+    "event",
+    "message_id",
+    "event_gid",
+    "root_event_gid",
+    "write_key",
+    "partition"
+  ]
+}
