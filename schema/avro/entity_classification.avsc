@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "EntityClassification",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The event category-> subcategory"
+    },
+    {
+      "name": "value",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "like Sports->Football, Concert->Pop etc."
+    },
+    {
+      "name": "babelnet_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The concept ID for the classification (Used to translate and associate the classification with other systems)"
+    },
+    {
+      "name": "weight",
+      "type": "double",
+      "default": 0.0,
+      "doc": "The relevance of the classification"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "type": "record",
+  "name": "Analysis",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "item",
+      "type": "string",
+      "doc": "The item that is involved in the event"
+    },
+    {
+      "name": "provider",
+      "type": "string",
+      "doc": "The provider of the item that is involved in the event"
+    },
+    {
+      "name": "variant",
+      "type": "string",
+      "doc": "The variant of the item that is involved in the event"
+    },
+    {
+      "name": "token_in",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The token of the item that is involved in the event"
+    },
+    {
+      "name": "token_out",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The token of the item that is involved in the event"
+    },
+    {
+      "name": "amount",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The price of the item that is involved in the event"
+    },
+    {
+      "name": "processing_time",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The process time of the item that is involved in the event"
+    },
+    {
+      "name": "currency",
+      "type": ["null", "string"],
+      "default": "USD",
+      "doc": "The currency of the item that is involved in the event"
+    }
+  ]
+}

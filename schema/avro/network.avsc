@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "Network",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "cellular",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "Whether the network is cellular (e.g. \\\"true\\\")"
+    },
+    {
+      "name": "bluetooth",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "Whether the network is bluetooth (e.g. \\\"true\\\")"
+    },
+    {
+      "name": "wifi",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "Whether the network is wifi (e.g. \\\"true\\\")"
+    },
+    {
+      "name": "carrier",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The network carrier of the device (e.g. \\\"Verizon\\\")"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "type": "record",
+  "name": "EntityLocation",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": "string",
+      "doc": "The type of the location (e.g. \\\"Home\\\", \\\"Work\\\", \\\"Venue\\\", \\\"Address\\\", \\\"Geographic\\\", \\\"Permanent\\\", \\\"Temporary\\\", \\\"Other\\\")"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "doc": "A readable label for the location (e.g. \\\"Home\\\", \\\"Work\\\", \\\"Venue\\\", \\\"Address\\\", \\\"Geographic\\\", \\\"Permanent\\\", \\\"Temporary\\\", \\\"Other\\\")"
+    },
+    {
+      "name": "country",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The country of the location (e.g. \\\"France\\\", \\\"United States\\\", \\\"Germany\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "country_code",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The 3 letter country code of the location (e.g. \\\"FRA\\\", \\\"USA\\\", \\\"DEU\\\"), always in uppercase"
+    },
+    {
+      "name": "code",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The code of the location (e.g. \\\"75001\\\", \\\"10001\\\", \\\"10115\\\"), always in uppercase"
+    },
+    {
+      "name": "region",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The region of the location (e.g. \\\"Île-de-France\\\", \\\"New York\\\", \\\"Berlin\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "division",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The division of the location (e.g. \\\"Paris\\\", \\\"Manhattan\\\", \\\"Mitte\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "municipality",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The municipality of the location (e.g. \\\"Paris\\\", \\\"New York\\\", \\\"Berlin\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "locality",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The locality/neighbourhood of the location (e.g. \\\"Montmartre\\\", \\\"SoHo\\\", \\\"Kreuzberg\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "postal_code",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The postal code of the location (e.g. \\\"75001\\\", \\\"10001\\\", \\\"10115\\\"), always in uppercase"
+    },
+    {
+      "name": "postal_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the postal code area (e.g. \\\"1er Arrondissement\\\", \\\"Chelsea\\\", \\\"Mitte\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "street",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The street of the location (e.g. \\\"Rue de Rivoli\\\", \\\"Broadway\\\", \\\"Friedrichstraße\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "street_nr",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The street number of the location (e.g. \\\"1\\\", \\\"100\\\", \\\"15\\\"), always in uppercase"
+    },
+    {
+      "name": "address",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The full address of the location (e.g. \\\"1 Rue de Rivoli, 75001 Paris, France\\\", \\\"100 Broadway, New York, NY 10001, USA\\\", \\\"15 Friedrichstraße, 10117 Berlin, Germany\\\"), always in English and in singular form and capitalized"
+    },
+    {
+      "name": "longitude",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The longitude of the location (e.g. 2.3364, -74.0060, 13.3889)"
+    },
+    {
+      "name": "latitude",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The latitude of the location (e.g. 48.8606, 40.7128, 52.5166)"
+    },
+    {
+      "name": "geohash",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The geohash of the location (e.g. \\\"u09t2\\\", \\\"dqcjq\\\", \\\"s9z6x\\\"), always in lowercase"
+    },
+    {
+      "name": "duration_from",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The start of the duration for the location (e.g. \\\"2023-01-01 00:00:00\\\", \\\"2023-01-01 00:00:00\\\", \\\"2023-01-01 00:00:00\\\")"
+    },
+    {
+      "name": "duration_until",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The end of the duration for the location (e.g. \\\"2023-12-31 23:59:59\\\", \\\"2023-12-31 23:59:59\\\", \\\"2023-12-31 23:59:59\\\")"
+    }
+  ]
+}

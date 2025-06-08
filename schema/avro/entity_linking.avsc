@@ -1,0 +1,55 @@
+{
+  "type": "record",
+  "name": "EntityLinking",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "content_key",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of content (e.g. \\\"body\\\", \\\"subject\\\", \\\"title\\\", \\\"description\\\", \\\"summary\\\", \\\"quick response\\\", \\\"other\\\")"
+    },
+    {
+      "name": "label",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The label of the entity that is involved in the event"
+    },
+    {
+      "name": "starts_at",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The start index of the entity in the content"
+    },
+    {
+      "name": "ends_at",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The end index of the entity in the content"
+    },
+    {
+      "name": "entity_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The Entity type of the entity that is involved in the event (e.g. \\\"Person\\\", \\\"Organization\\\", \\\"LegalEntity\\\")"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The Graph UUID of the entity that is involved in the event"
+    },
+    {
+      "name": "entity_wid",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The Wikidata UUID of the entity that is involved in the event"
+    },
+    {
+      "name": "certainty",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The certainty of the entity linking"
+    }
+  ]
+}

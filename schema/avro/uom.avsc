@@ -1,0 +1,84 @@
+{
+  "type": "record",
+  "name": "UOMModel",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "code",
+      "type": "string",
+      "doc": "a CEFACT code for the unit of measure (e.g., 'kg', 'm', 's', etc.)"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "doc": "The human-readable label for the unit of measure (e.g., 'Kilogram', 'Meter', 'Second', etc.)"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "doc": "The symbol for the unit of measure (e.g., 'kg', 'm', 's', etc.)"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "doc": "A URL-friendly version of the code (e.g., 'kilogram', 'meter', 'second', etc.)"
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "A description of the unit of measure (e.g., 'A kilogram is a unit of mass in the metric system.', etc.)"
+    },
+    {
+      "name": "conversion",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "A conversion factor to a base unit (e.g., '1 kg = 1000 g', '1 m = 100 cm', etc.)"
+    },
+    {
+      "name": "core_unit",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The core unit of measure that this unit is based on (e.g., 'kg' for mass, 'm' for length, etc.)"
+    },
+    {
+      "name": "level",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The level of the unit of measure in a hierarchy (e.g., 'base', 'derived', etc.)"
+    },
+    {
+      "name": "sectors",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "The sectors that this unit of measure is applicable to (e.g., 'agriculture', 'energy', 'transportation', etc.)"
+    },
+    {
+      "name": "quantities",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "The quantities that this unit of measure can measure (e.g., 'mass', 'length', 'time', etc.)"
+    },
+    {
+      "name": "schema_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The schema or standard that this unit of measure adheres to (e.g., 'SI', 'Imperial', etc.)"
+    },
+    {
+      "name": "properties",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Additional properties for the unit of measure (e.g., 'precision', 'accuracy', etc.)"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "record",
+  "name": "Page",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "encoding",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The encoding of the page (e.g. \\\"UTF-8\\\")"
+    },
+    {
+      "name": "host",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The host of the page (e.g. \\\"segment.com\\\")"
+    },
+    {
+      "name": "path",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The path of the page (e.g. \\\"/docs\\\")"
+    },
+    {
+      "name": "referrer",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The referrer of the page (e.g. \\\"https://segment.com\\\")"
+    },
+    {
+      "name": "referring_domain",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The referring domain of the page (e.g. \\\"segment.com\\\")"
+    },
+    {
+      "name": "search",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The search of the page (e.g. \\\"segment\\\")"
+    },
+    {
+      "name": "title",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The title of the page (e.g. \\\"Analytics.js Quickstart - Segment\\\")"
+    },
+    {
+      "name": "url",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The url of the page (e.g. \\\"https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/\\\")"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "type": "record",
+  "name": "Traits",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The ID of the user"
+    },
+    {
+      "name": "name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the user"
+    },
+    {
+      "name": "first_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The first name of the user"
+    },
+    {
+      "name": "last_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The last name of the user"
+    },
+    {
+      "name": "social_security_nr",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The social security number of the user"
+    },
+    {
+      "name": "social_security_nr_family",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The social security number of the user"
+    },
+    {
+      "name": "email",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The email of the user"
+    },
+    {
+      "name": "phone",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The phone number of the user"
+    },
+    {
+      "name": "avatar",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The avatar of the user"
+    },
+    {
+      "name": "username",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The username of the user"
+    },
+    {
+      "name": "website",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The website of the user"
+    },
+    {
+      "name": "age",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The age of the user"
+    },
+    {
+      "name": "birthday",
+      "type": ["null", {"type": "int", "logicalType": "date"}],
+      "default": null,
+      "doc": "The birthday of the user"
+    },
+    {
+      "name": "created_at",
+      "type": ["null", {"type": "int", "logicalType": "date"}],
+      "default": null,
+      "doc": "The date the user was created"
+    },
+    {
+      "name": "company",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The company of the user"
+    },
+    {
+      "name": "title",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The title of the user"
+    },
+    {
+      "name": "gender",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Gender of the user. SQL Enum8(...)"
+    },
+    {
+      "name": "pronouns",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The pronouns of the user"
+    },
+    {
+      "name": "salutation",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The salutation of the user"
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "A general description of the user"
+    },
+    {
+      "name": "industry",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The industry of the user"
+    },
+    {
+      "name": "employees",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The number of employees of the user"
+    },
+    {
+      "name": "plan",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The plan of the user"
+    },
+    {
+      "name": "total_billed",
+      "type": ["null", "double"],
+      "default": null,
+      "doc": "The total billed of the user"
+    },
+    {
+      "name": "logins",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "The number of logins of the user"
+    },
+    {
+      "name": "address",
+      "type": {"type": "map", "values": "string"},
+      "default": {},
+      "doc": "All traits that are not defined explicitly"
+    }
+  ]
+}

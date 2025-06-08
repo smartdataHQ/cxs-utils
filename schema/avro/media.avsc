@@ -1,0 +1,41 @@
+{
+  "type": "record",
+  "name": "Media",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "media_type",
+      "type": "string",
+      "doc": "Image, Video, Audio, etc."
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Poster, Thumbnail, etc."
+    },
+    {
+      "name": "sub_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Program, Season, Episode, etc."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "doc": "The URL of the media"
+    },
+    {
+      "name": "language",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The primary language of the media"
+    },
+    {
+      "name": "aspect_ratio",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The aspect ratio of the media"
+    }
+  ]
+}

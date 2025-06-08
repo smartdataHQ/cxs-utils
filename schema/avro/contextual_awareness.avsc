@@ -1,0 +1,37 @@
+{
+  "type": "record",
+  "name": "ContextualAwareness",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Description, Summary, Conditions, History, Other"
+    },
+    {
+      "name": "entity_type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The entity type that the event is associated with (e.g. \\\"Currency\\\", \\\"Product\\\", \\\"Service\\\", \\\"Other\\\")"
+    },
+    {
+      "name": "entity_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)"
+    },
+    {
+      "name": "entity_wid",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The wikidata ID of the entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)"
+    },
+    {
+      "name": "context",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The context information (e.g. \\\"Silfra is an extremely cold pond with a constant temperature of 2° celsius\\\")"
+    }
+  ]
+}

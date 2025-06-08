@@ -1,0 +1,42 @@
+{
+  "type": "record",
+  "name": "AccessInfo",
+  "namespace": "com.cxs.schema",
+  "fields": [
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The type of the user. SQL Enum8('Blacklisted'=1, 'Whitelisted'=2)"
+    },
+    {
+      "name": "label",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The user ID of the user"
+    },
+    {
+      "name": "user_gid",
+      "type": {"type": "string", "logicalType": "uuid"},
+      "doc": "The user ID of the user"
+    },
+    {
+      "name": "organization_gid",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "The department ID (sub organization) of users that have access"
+    },
+    {
+      "name": "date_from",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The access start date"
+    },
+    {
+      "name": "date_to",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-micros"}],
+      "default": null,
+      "doc": "The access end date"
+    }
+  ]
+}
