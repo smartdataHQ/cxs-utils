@@ -259,8 +259,8 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `entry_type`            LowCardinality(String),             -- 'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Delivery', 'Reservation', 'Stockout', 'Product Definition', 'Other'
         `line_id`               Nullable(String),                   -- Unique ID for the line item
 
-        `product_id`            LowCardinality(String),             -- Database id of the product being purchases
-        `entity_gid`            LowCardinality(UUID),               -- Database id of the product being purchases
+        `product_id`            LowCardinality(String),             -- Database id of the product being purchases in the external system (e.g. "1234")
+        `entity_gid`            LowCardinality(UUID),               -- Database id of the product being purchases in Context Suite (Entity that is identified with a GID)
         `sku`                   LowCardinality(String),             -- Sku of the product
         `barcode`               LowCardinality(String),             -- Barcode of the product
         `gtin`                  LowCardinality(String),             -- GTIN of the product
@@ -275,19 +275,19 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `bundle`                LowCardinality(String),             -- The name of the bundle the product belongs to
 
         `product`               LowCardinality(String),             -- Name of the product being viewed
-        `variant`               LowCardinality(String),             -- Variant of the product
-        `novelty`               LowCardinality(String),             -- Novelty of the product
-        `size`                  LowCardinality(String),             -- Size of the product
-        `packaging`             LowCardinality(String),             -- Packaging of the product
-        `condition`             LowCardinality(String),             -- Condition of the product //like fresh, frozen, etc.
-        `ready_for_use`         Nullable(BOOLEAN),                  -- If the product is ready for use //Varies between food and non-food items
-        `core_product`          LowCardinality(String),             -- The core product // Spaghetti, Razor Blades (No Brand, No Variant, No Category)
-        `origin`                LowCardinality(String),             -- Location identifier for the origin of the product
+        `variant`               LowCardinality(String),             -- Variant name of this product
+        `novelty`               LowCardinality(String),             -- Novelty of the product (Vegan, GlutenFree, Organic, etc.)
+        `size`                  LowCardinality(String),             -- Size of the product (e.g. "Large", "Medium", "Small", "Extra Large", "Extra Small", "34")
+        `packaging`             LowCardinality(String),             -- Packaging of the product (e.g. "Box", "Bottle", "Can", "Bag", "Jar", "Tube", "Packet", "Other")
+        `condition`             LowCardinality(String),             -- Condition of the product (e.g. "New", "Used", "Refurbished", "Damaged", "Open Box", "Fresh", "Frozen", "Other")
+        `ready_for_use`         Nullable(BOOLEAN),                  -- If the product is ready for use // Varies between food and non-food items
+        `core_product`          LowCardinality(String),             -- The core product is the main product that is being sold (e.g. "Spaghetti", "Razor Blades", "Wheat", "Skis", "Paddle Board") (No Brand, No Variant, No Category)
+        `origin`                LowCardinality(String),             -- Location identifier for the origin of the product (e.g. "Iceland", "USA", "Europe", "Asia", "Africa", "South America", "North America")
 
         `brand`                 LowCardinality(String),             -- Brand associated with the product
-        `product_line`          LowCardinality(String),             -- Product line associated with the product
-        `own_product`           Nullable(BOOLEAN),                  -- If the item is a store brand
-        `product_dist`          LowCardinality(String),             -- Product Distribution is used to track the distribution class of the product (e.g. "A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+        `product_line`          LowCardinality(String),             -- Product line associated with the product (a collection of products that are related by a common brand, product line, or other attribute)
+        `own_product`           Nullable(BOOLEAN),                  -- If the item is a store brand or a favorite product of the store
+        `product_dist`          LowCardinality(String),             -- Product Distribution/Scope is used to track the distribution class of the product (e.g. "A", "B", "C", "Web", "Retail", "Wholesale", "Web+Retail", "Web+Wholesale", "Retail+Wholesale", "Web+Retail+Wholesale")
 
         `main_category`         LowCardinality(String),             -- Product category
         `main_category_id`      LowCardinality(String),             -- Product category ID
@@ -306,22 +306,22 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `gs1_family`            LowCardinality(String),             -- GS1 Family
         `gs1_segment`           LowCardinality(String),             -- GS1 Segment
 
-        `starts`                Nullable(DateTime64),               -- Start date for the product
-        `ends`                  Nullable(DateTime64),               -- End date for the product
-        `duration`              Nullable(Float32),                  -- Duration for the product in minutes
-        `seats`                 Nullable(String),                   -- Seats assignments for the product
-        `destination`           Nullable(String),                   -- Location identifier for the destination of the product
+        `starts`                Nullable(DateTime64),               -- Start date for the product if it is an event (e.g. "2022-01-01 00:00:00") or a valid period.
+        `ends`                  Nullable(DateTime64),               -- End date for the product if it is an event (e.g. "2022-01-01 00:00:00") or a valid period.
+        `duration`              Nullable(Float32),                  -- Duration for the product/event in minutes (e.g. "60") or a valid period.
+        `seats`                 Nullable(String),                   -- Seats assignments for the product (e.g. "A1, A2, A3, B1, B2, B3").
+        `destination`           Nullable(String),                   -- Location identifier for the destination of the product if it is an event with a fixed location (e.g. "Reykjavik", "New York", "London", "Paris", "Berlin", "Tokyo", "Other")
         `lead_time`             Nullable(Float32),                  -- Lead time in days from the product until it's delivered (from purchase data to delivery date)
-        `dwell_time_ms`         Nullable(Int64),                    -- The time that this product was in the viewport of the customer (above the fold)
+        `dwell_time_ms`         Nullable(Int64),                    -- The time that this product was in the viewport of the customer (above the fold) is used when tracking web exposure and dwell time of the product in the viewport (in milliseconds)
 
-        `supplier`              LowCardinality(String),             -- Supplier of the product
+        `supplier`              LowCardinality(String),             -- Supplier of the product (e.g. "Iceland Foods", "Food Distribution", "Food Service", "Food Wholesale", "Food Retail", "Food Online", "Food Other")
         `supplier_id`           LowCardinality(String),             -- Supplier ID of the product
-        `manufacturer`          LowCardinality(String),             -- Manufacturer of the product
+        `manufacturer`          LowCardinality(String),             -- Manufacturer of the product (e.g. "Iceland Foods", "Kellogg's", "Nestlé", "Coca-Cola", "PepsiCo", "Unilever", "Procter & Gamble")
         `manufacturer_id`       LowCardinality(String),             -- Manufacturer ID of the product
-        `promoter`              LowCardinality(String),             -- Promoter of the product
+        `promoter`              LowCardinality(String),             -- Promoter of the product that should get affiliated with the sale (e.g. "John Doe", "Jane Smith", "Bob Johnson", "Alice Williams", "Charlie Brown", "David Wilson")
         `promoter_id`           LowCardinality(String),             -- Promoter ID of the product
+        `product_mgr`           LowCardinality(String),             -- Product Manager of the product in the store (e.g. "John Doe", "Jane Smith", "Bob Johnson", "Alice Williams", "Charlie Brown", "David Wilson")
         `product_mgr_id`        LowCardinality(String),             -- Product Manager ID of the product
-        `product_mgr`           LowCardinality(String),             -- Product Manager of the product
 
         `units`                 Nullable(Float64),                  -- Product units (1 if sold by wight (see quantity))
         `unit_price`            Nullable(Float64),                  -- Price ($) of the product
@@ -336,7 +336,7 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `kickback_percentage`   Nullable(Float32),                  -- The discount-percentage applied to the product (unit_price * units * discount_rate = discount)
         `commission`            Nullable(Float32),                  -- The total commission percentage applied to the product on the line basis (unit_price * units * commission_rate = commission)
 
-        `scale_item`            Nullable(BOOLEAN),                  -- If the quantity of the product was measured during checkout / at the register
+        `scale_item`            Nullable(BOOLEAN),                  -- If the quantity of the product needed to be measured during checkout / at the register
         `price_changed`         Nullable(BOOLEAN),                  -- If the price of the product has changed at the register/terminal
         `line_discounted`       Nullable(BOOLEAN),                  -- If the line item has a discount
 
