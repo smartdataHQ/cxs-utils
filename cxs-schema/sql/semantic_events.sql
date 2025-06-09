@@ -256,46 +256,47 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
 
     `commerce.products` Nested (                                    -- Individual products in the order, cart, product list, wishlist, etc.
         `position`              Nullable(UInt16),                   -- Position in the product list (ex. 3)
-        `entry_type`            LowCardinality(String),             -- 'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Reservation', 'Stockout'
+        `entry_type`            LowCardinality(String),             -- 'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Delivery', 'Reservation', 'Stockout', 'Product Definition', 'Other'
         `line_id`               Nullable(String),                   -- Unique ID for the line item
 
         `product_id`            LowCardinality(String),             -- Database id of the product being purchases
         `entity_gid`            LowCardinality(UUID),               -- Database id of the product being purchases
-        `sku`                   LowCardinality(String),             -- Sku of the product being purchased
-        `barcode`               LowCardinality(String),             -- Barcode of the product being purchased
-        `gtin`                  LowCardinality(String),             -- GTIN of the product being purchased
-        `upc`                   LowCardinality(String),             -- UPC of the product being purchased
-        `ean`                   LowCardinality(String),             -- EAN of the product being purchased
-        `isbn`                  LowCardinality(String),             -- ISBN of the product being purchased
-        `serial_number`         LowCardinality(String),             -- Serial number of the product being purchased
-        `supplier_number`       LowCardinality(String),             -- Supplier number of the product being purchased
-        `tpx_serial_number`     LowCardinality(String),             -- Serial number of the product being purchased issued by a third party (not GS1)
+        `sku`                   LowCardinality(String),             -- Sku of the product
+        `barcode`               LowCardinality(String),             -- Barcode of the product
+        `gtin`                  LowCardinality(String),             -- GTIN of the product
+        `upc`                   LowCardinality(String),             -- UPC of the product
+        `ean`                   LowCardinality(String),             -- EAN of the product
+        `isbn`                  LowCardinality(String),             -- ISBN of the product
+        `serial_number`         LowCardinality(String),             -- Serial number of the product
+        `supplier_number`       LowCardinality(String),             -- Supplier number of the product
+        `tpx_serial_number`     LowCardinality(String),             -- Serial number of the product issued by a third party (not GS1)
 
         `bundle_id`             LowCardinality(String),             -- The ID of the bundle the product belongs to when listing all products in a bundle
         `bundle`                LowCardinality(String),             -- The name of the bundle the product belongs to
 
         `product`               LowCardinality(String),             -- Name of the product being viewed
-        `variant`               LowCardinality(String),             -- Variant of the product being purchased
-        `novelty`               LowCardinality(String),             -- Novelty of the product being purchased
-        `size`                  LowCardinality(String),             -- Size of the product being purchased
-        `packaging`             LowCardinality(String),             -- Packaging of the product being purchased
-        `condition`             LowCardinality(String),             -- Condition of the product being purchased //like fresh, frozen, etc.
+        `variant`               LowCardinality(String),             -- Variant of the product
+        `novelty`               LowCardinality(String),             -- Novelty of the product
+        `size`                  LowCardinality(String),             -- Size of the product
+        `packaging`             LowCardinality(String),             -- Packaging of the product
+        `condition`             LowCardinality(String),             -- Condition of the product //like fresh, frozen, etc.
         `ready_for_use`         Nullable(BOOLEAN),                  -- If the product is ready for use //Varies between food and non-food items
-        `core_product`          LowCardinality(String),             -- The core product being purchased // Spaghetti, Razor Blades (No Brand, No Variant, No Category)
-        `origin`                LowCardinality(String),             -- Location identifier for the origin of the product being purchased
+        `core_product`          LowCardinality(String),             -- The core product // Spaghetti, Razor Blades (No Brand, No Variant, No Category)
+        `origin`                LowCardinality(String),             -- Location identifier for the origin of the product
 
         `brand`                 LowCardinality(String),             -- Brand associated with the product
         `product_line`          LowCardinality(String),             -- Product line associated with the product
         `own_product`           Nullable(BOOLEAN),                  -- If the item is a store brand
         `product_dist`          LowCardinality(String),             -- Product Distribution is used to track the distribution class of the product (e.g. "A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
 
-        `main_category`         LowCardinality(String),             -- Product category being purchased
-        `main_category_id`      LowCardinality(String),             -- Product category ID being purchased
-        `category`              LowCardinality(String),             -- Name of the sub-category of the product being purchased
-        `category_id`           LowCardinality(String),             -- ID of the sub-category of the product being purchased
+        `main_category`         LowCardinality(String),             -- Product category
+        `main_category_id`      LowCardinality(String),             -- Product category ID
+        `category`              LowCardinality(String),             -- Name of the sub-category of the product
+        `category_id`           LowCardinality(String),             -- ID of the sub-category of the product
+        `categories`            Array(LowCardinality(String)),      -- The categories of the product
 
-        `gs1_brick_id`          LowCardinality(String),             -- GS1 Brick ID of the product being purchased
-        `gs1_brick`             LowCardinality(String),             -- GS1 Brick Name of the product being purchased
+        `gs1_brick_id`          LowCardinality(String),             -- GS1 Brick ID of the product
+        `gs1_brick`             LowCardinality(String),             -- GS1 Brick Name of the product
         `gs1_brick_short`       LowCardinality(String),             -- GS1 Brick Short Name
         `gs1_brick_variant`     LowCardinality(String),             -- GS1 Brick Variant
         `gs1_conditions`        LowCardinality(String),             -- GS1 Brick Conditions
@@ -305,30 +306,30 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `gs1_family`            LowCardinality(String),             -- GS1 Family
         `gs1_segment`           LowCardinality(String),             -- GS1 Segment
 
-        `starts`                Nullable(DateTime64),               -- Start date for the product being purchased
-        `ends`                  Nullable(DateTime64),               -- End date for the product being purchased
-        `duration`              Nullable(Float32),                  -- Duration for the product being purchased in minutes
-        `seats`                 Nullable(String),                   -- Seats assignments for the product being purchased
-        `destination`           Nullable(String),                   -- Location identifier for the destination of the product being purchased
-        `lead_time`             Nullable(Float32),                  -- Lead time in days from the product being purchased until it's delivered (from purchase data to delivery date)
+        `starts`                Nullable(DateTime64),               -- Start date for the product
+        `ends`                  Nullable(DateTime64),               -- End date for the product
+        `duration`              Nullable(Float32),                  -- Duration for the product in minutes
+        `seats`                 Nullable(String),                   -- Seats assignments for the product
+        `destination`           Nullable(String),                   -- Location identifier for the destination of the product
+        `lead_time`             Nullable(Float32),                  -- Lead time in days from the product until it's delivered (from purchase data to delivery date)
         `dwell_time_ms`         Nullable(Int64),                    -- The time that this product was in the viewport of the customer (above the fold)
 
-        `supplier`              LowCardinality(String),             -- Supplier of the product being purchased
-        `supplier_id`           LowCardinality(String),             -- Supplier ID of the product being purchased
-        `manufacturer`          LowCardinality(String),             -- Manufacturer of the product being purchased
-        `manufacturer_id`       LowCardinality(String),             -- Manufacturer ID of the product being purchased
-        `promoter`              LowCardinality(String),             -- Promoter of the product being purchased
-        `promoter_id`           LowCardinality(String),             -- Promoter ID of the product being purchased
-        `product_mgr_id`        LowCardinality(String),             -- Product Manager ID of the product being purchased
-        `product_mgr`           LowCardinality(String),             -- Product Manager of the product being purchased
+        `supplier`              LowCardinality(String),             -- Supplier of the product
+        `supplier_id`           LowCardinality(String),             -- Supplier ID of the product
+        `manufacturer`          LowCardinality(String),             -- Manufacturer of the product
+        `manufacturer_id`       LowCardinality(String),             -- Manufacturer ID of the product
+        `promoter`              LowCardinality(String),             -- Promoter of the product
+        `promoter_id`           LowCardinality(String),             -- Promoter ID of the product
+        `product_mgr_id`        LowCardinality(String),             -- Product Manager ID of the product
+        `product_mgr`           LowCardinality(String),             -- Product Manager of the product
 
         `units`                 Nullable(Float64),                  -- Product units (1 if sold by wight (see quantity))
-        `unit_price`            Nullable(Float64),                  -- Price ($) of the product being purchased
-        `unit_cost`             Nullable(Float64),                  -- Cost ($) of the product being purchased
+        `unit_price`            Nullable(Float64),                  -- Price ($) of the product
+        `unit_cost`             Nullable(Float64),                  -- Cost ($) of the product
 
         `bundled_units`         Nullable(Int16),                    -- Number of units in a volume pack or bundle
         `unit_size`             Nullable(Float64),                  -- The quantity of each unit
-        `uom`                   LowCardinality(String),             -- Unit of measure of the product(s) being purchased (Weight, Duration, Items, Volume, etc.)
+        `uom`                   LowCardinality(String),             -- Unit of measure of the product(s) (Weight, Duration, Items, Volume, etc.)
 
         `tax_percentage`        Nullable(Float32),                  -- Total tax-percentage associated with the product purchase (unit_price * units * tax_rate = tax)
         `discount_percentage`   Nullable(Float32),                  -- The discount-percentage applied to the product (unit_price * units * discount_rate = discount)
@@ -339,8 +340,8 @@ CREATE TABLE IF NOT EXISTS default.semantic_events (
         `price_changed`         Nullable(BOOLEAN),                  -- If the price of the product has changed at the register/terminal
         `line_discounted`       Nullable(BOOLEAN),                  -- If the line item has a discount
 
-        `price_bracket`         LowCardinality(String),         -- Price bracket of the product being purchased
-        `income_category`       LowCardinality(String),             -- Income category of the product being purchased
+        `price_bracket`         LowCardinality(String),         -- Price bracket of the product
+        `income_category`       LowCardinality(String),             -- Income category of the product
 
         `coupon`                LowCardinality(String),             -- Coupon code associated with a product (for example, MAY_DEALS_3)
         `url`                   LowCardinality(String),             -- URL of the product page

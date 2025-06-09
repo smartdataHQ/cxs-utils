@@ -10,7 +10,7 @@
       "type": ["null", "integer"]
     },
     "entry_type": {
-      "description": "Type of line item, if applicable (e.g., 'Product', 'Fee', 'Discount', 'Tax', 'Shipping', 'Service', 'Subscription', 'Other').",
+      "description": "Type of line item, if applicable (e.g., 'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Delivery', 'Reservation', 'Stockout', 'Product Definition', 'Other').",
       "type": "string"
     },
     "line_id": {
@@ -137,6 +137,13 @@
     "category_id": {
       "description": "ID of the sub-category.",
       "type": "string"
+    },
+    "categories": {
+        "description": "List of additional categories the product belongs to, if applicable.",
+        "type": ["null", "array"],
+        "items": {
+            "type": "string"
+        }
     },
     "gs1_brick_id": {
       "description": "GS1 Global Product Classification (GPC) Brick ID (e.g., '10000000').",

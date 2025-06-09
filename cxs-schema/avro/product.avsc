@@ -12,7 +12,7 @@
     {
       "name": "entry_type",
       "type": "string",
-      "doc": "'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Reservation', 'Stockout'"
+      "doc": "'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Product Definition', 'Reservation', 'Stockout'"
     },
     {
       "name": "line_id",
@@ -172,6 +172,14 @@
       "name": "category_id",
       "type": "string",
       "doc": "ID of the sub-category of the product being purchased"
+    },
+    {
+        "name": "categories",
+        "type": {
+            "type": "array",
+            "items": "string"
+        },
+        "doc": "List of additional categories the product belongs to, if applicable."
     },
     {
       "name": "gs1_brick_id",
