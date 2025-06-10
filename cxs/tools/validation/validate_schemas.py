@@ -10,7 +10,7 @@ def get_pydantic_library():
     Returns the 'pydantic' module object or None if it cannot be imported/installed.
     """
     try:
-        from cxs.schema import pydantic
+        import pydantic
         return pydantic
     except ImportError:
         print("Pydantic library not found. Attempting to install pydantic...")
@@ -130,13 +130,17 @@ if __name__ == "__main__":
         print("Fatal: Pydantic library could not be loaded. Exiting.")
         sys.exit(1)
 
+    # Find the path to the schema/pydantic directory
     script_location_dir = os.path.dirname(os.path.abspath(__file__))
-    # models_directory is "pydantic/" relative to the script's location (cxs-schema)
-    models_directory = os.path.join(script_location_dir, "pydantic")
-
-    # Before calling validation, ensure the target 'pydantic' directory (models_directory)
-    # and its parent (script_location_dir) are correctly set up for Python's import mechanism.
-    # The script adds script_location_dir to sys.path to find the 'pydantic' package.
+    # From cxs/tools/validation to cxs/schema/pydantic
+    base_dir = os.path.dirname(os.path.dirname(os.path.dirname(script_location_dir)))
+    models_directory = os.path.join(base_dir, "cxs", "schema", "pydantic")
+    
+    print(f"Looking for Pydantic models in: {models_directory}")
+    
+    # Ensure the project root is in sys.path for imports
+    if base_dir not in sys.path:
+        sys.path.insert(0, base_dir)
 
     exit_code = validate_pydantic_models(models_directory, pydantic_lib)
 
