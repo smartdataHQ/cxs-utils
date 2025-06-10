@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Annotated, Dict, Optional
 from pydantic import BaseModel, Field, model_validator
 
-from schema.pydantic import CXSBase, OmitIfNone
+from cxs.schema.pydantic import CXSBase, OmitIfNone
 from cxs.core.utils.gid import normalize_gid_url, create_gid
 
 
