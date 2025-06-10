@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Annotated, Optional, List, Dict
 
 class UOM(str, Enum):
     code_2A = {'slug': 'radiancode_percode_second', 'symbol': 'rad/s', 'conversion': 'rad/s'}
@@ -1367,7 +1368,7 @@ class UOM(str, Enum):
 
 from typing import List, Dict, Optional # Added for UOMModel
 from pydantic import Field # Added for UOMModel
-from schema.pydantic import CXSBase # Added for UOMModel
+from cxs.schema.pydantic import CXSBase, OmitIfNone # Added for UOMModel
 
 
 class UOMModel(CXSBase):

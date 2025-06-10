@@ -91,7 +91,7 @@ def validate_pydantic_models(models_dir, pydantic_module):
             module_name_part = filename[:-3]  # Remove .py extension
             # Assuming models_dir is "pydantic/" relative to script location (cxs-schema)
             # Then the package is 'pydantic' and module is 'module_name_part'
-            module_to_import = f"pydantic.{module_name_part}"
+            module_to_import = f"cxs.schema.pydantic.{module_name_part}"
 
             filepath = os.path.join(models_dir, filename)
             print(f"Validating '{filepath}' (attempting import as '{module_to_import}')...")

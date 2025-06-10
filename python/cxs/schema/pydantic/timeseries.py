@@ -6,11 +6,11 @@ import math
 from datetime import datetime
 from enum import Enum
 from pydantic import BaseModel, Field, model_validator
-from schema.pydantic.entity import Entity
-from schema.pydantic.uom import UOM
+from cxs.schema.pydantic.entity import Entity
+from cxs.schema.pydantic.uom import UOM
 from cxs.core.utils.gid import create_gid
 
-from schema.pydantic import OmitIfNone
+from cxs.schema.pydantic import OmitIfNone
 
 
 class ValueType(str, Enum):
