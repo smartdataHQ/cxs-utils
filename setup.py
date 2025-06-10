@@ -1,0 +1,16 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="cxs-utils",
+    version="0.1.0",
+    description="Context Suite Utilities for Data Engineering",
+    author="BinaryNavigator07",
+    packages=find_packages(),
+    install_requires=[
+        "requests>=2.28.1",
+        "pydantic>=2.11.5",
+        "aiohttp>=3.9.1",
+        "aioresponses>=0.7.5",
+    ],
+    python_requires=">=3.8",
+)
