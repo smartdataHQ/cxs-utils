@@ -15,9 +15,13 @@ cxs-utils/
 │   │   └── pydantic/          # Pydantic models
 │   └── tools/                 # Helper tools
 │       └── validation/        # Schema validation tools
+│           ├── data_quality.py       # Data quality validation framework
+│           ├── timeseries_validators.py  # Timeseries-specific validators
+│           └── timeseries_validation.py  # Validation pipelines and utilities
 ├── tests/                     # Test suite
 │   ├── core/                  # Tests for core functionality  
 │   └── schema/                # Tests for schema models
+│       └── test_timeseries_validation.py  # Tests for timeseries validation
 ├── setup.py                   # Python package setup
 ├── requirements.txt           # Dependencies
 └── .gitignore                 # Git ignore rules
@@ -57,6 +61,41 @@ event = SemanticEvent(
 
 # Send the event
 client.track(event)
+```
+
+### Timeseries Data Validation
+
+```python
+from cxs.schema.pydantic.timeseries import TimeSeries, DataPoint
+from cxs.tools.validation.timeseries_validation import validate_timeseries, generate_validation_summary
+
+# Create a timeseries with datapoints
+timeseries = TimeSeries(
+    name="Equipment Temperature",
+    owner="system",
+    # other required fields...
+)
+
+# Add datapoints
+timeseries.datapoints = [
+    DataPoint(timestamp="2025-06-01T12:00:00Z", value=25.5, signature="system"),
+    DataPoint(timestamp="2025-06-01T12:05:00Z", value=26.0, signature="system"),
+    # more datapoints...
+]
+
+# Validate the timeseries and its datapoints
+validation_results = validate_timeseries(timeseries)
+
+# Generate a summary of validation results
+summary = generate_validation_summary(validation_results)
+
+# Check if the data is valid
+if summary["overall_valid"]:
+    print("Timeseries data is valid")
+else:
+    print(f"Found {summary['error_count']} errors and {summary['warning_count']} warnings")
+    for issue in summary["issues"]:
+        print(f"{issue['severity']}: {issue['message']}")
 ```
 
 ## Documentation
