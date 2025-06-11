@@ -31,6 +31,53 @@ The repository currently includes:
 - **Jitsu Integration Example**: Basic JavaScript code under `javascript/jitsu/` demonstrating a Jitsu-related test or utility.
 - **Python Library**: A Python library in `python/cxs/` for interacting with Context Suite, including schema handling.
 
+## Entity Identification in Context Suite
+
+Context Suite uses a semantic web inspired approach for entity identification across our data model.
+
+### Concepts
+
+- **GID_URL**: Represents the authoritative location where an entity "resides" - inspired by RDF and semantic web principles. These are preferably real URLs that serve as the canonical identifier for an entity.
+
+- **Entity_GID**: A UUID derived from the GID_URL using a named UUID algorithm. This provides a compact, database-friendly identifier that's consistently generated from the same URL.
+
+### Benefits
+
+1. **Semantic Meaning**: GID_URLs carry semantic meaning about what the entity is and where it's defined
+2. **Size Efficiency**: Entity_GIDs are more compact than full URLs (just 16 bytes)
+3. **Performance**: UUIDs are optimized for database operations like indexing and joining
+4. **Consistency**: The same GID_URL will always generate the same Entity_GID
+
+### How It Works
+
+- Every `_gid` suffixed field is always a calculated value from "something meaningful"
+- When you see a `_gid` field, you can know it represents a constant ID for some URL
+- We sometimes have the `gid_url` explicitly, other times we create it from known unique data
+- A `gid_url` always contains more semantic meaning than just timestamps or random values
+
+### Examples
+
+#### Shopify Product Example
+
+For a Shopify product with ID 15100602155333:
+
+```json
+{
+  "entity_gid": "550e8400-e29b-41d4-a716-446655440000", 
+  "properties": {
+    "gid_url": "https://shop.example.com/products/15100602155333",
+    "admin_graphql_api_id": "gid://shopify/Product/15100602155333"
+  }
+}
+```
+
+### Implementation Notes
+
+1. Always generate Entity_GIDs consistently from the same input GID_URL
+2. When creating a new entity, establish a meaningful GID_URL that uniquely identifies it
+3. For external entities, incorporate the source system and ID into the GID_URL
+4. GID_URLs should follow URI format but don't necessarily need to be resolvable web URLs
+
 ## Future Direction
 This section outlines the planned enhancements and future scope of this repository.
 *(Note: This section requires input from the project maintainers for specific upcoming features, tools, or areas of development. Examples could include:)*
