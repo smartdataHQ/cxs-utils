@@ -19,6 +19,7 @@ const items = [
         {href: '/docs/semantic-events/getting-started', children: 'Getting Started'},
         {href: '/docs/semantic-events/best-practices', children: 'Best Practices'},
         {href: '/docs/semantic-events/core-functions', children: 'Core Functions'},
+        {href: '/docs/semantic-events/validation', children: 'Event Validation'},
     ],
   },
   {
