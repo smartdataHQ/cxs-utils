@@ -59,6 +59,31 @@ event = SemanticEvent(
 client.track(event)
 ```
 
-## Documentation
+## ClickHouse Docker Setup
 
-For detailed developer information, see [DEVELOPER.md](./DEVELOPER.md)
+This repository includes Docker configuration for running ClickHouse locally:
+
+```bash
+# Start the ClickHouse Docker container
+cd clickhouse
+docker-compose up -d
+```
+
+### Import SQL Schemas
+
+Use the import script to load all schemas into ClickHouse:
+
+```bash
+./clickhouse/scripts/import-sql.sh
+```
+
+### Important Notes
+
+- The setup uses a single node cluster configuration (`clickhouse/config/single_node_cluster.xml`)
+- When importing SQL schemas with LowCardinality data types (especially with Float32), use the `--allow_suspicious_low_cardinality_types=1` flag as a workaround to avoid ClickHouse exceptions
+
+## Documentation & Core Concepts
+
+Context Suite uses a semantic web inspired approach for entity identification and other advanced concepts.
+
+For comprehensive developer documentation, including details on our GID_URL and Entity_GID system, see [DEVELOPER.md](./DEVELOPER.md#entity-identification-in-context-suite).
