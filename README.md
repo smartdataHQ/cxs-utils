@@ -15,6 +15,11 @@ cxs-utils/
 │   │   └── pydantic/          # Pydantic models
 │   └── tools/                 # Helper tools
 │       └── validation/        # Schema validation tools
+├── docs/                      # Documentation site
+│   ├── components/            # React components for docs
+│   ├── pages/                 # Documentation content
+│   │   └── docs/              # Main documentation pages
+│   └── public/                # Static assets
 ├── tests/                     # Test suite
 │   ├── core/                  # Tests for core functionality  
 │   └── schema/                # Tests for schema models
@@ -42,21 +47,33 @@ python -m cxs.tools.validation.validate_schemas
 ### Creating and Sending Events
 
 ```python
+from datetime import datetime
+import uuid
 from cxs.schema.pydantic.semantic_event import SemanticEvent
 from cxs.core.client.cxs_client import CXSClient
 
-# Create a client
-client = CXSClient(endpoint='https://api.example.com')
+# Create a client with required write_key
+client = CXSClient(write_key='your_write_key', endpoint='https://inbox.contextsuite.com/v1')
 
-# Create an event
+# Create a semantic event with required fields
 event = SemanticEvent(
-    name='example_event',
+    event='Product Viewed',  # Descriptive past-tense name
     type='track',
-    source_name='example_source'
+    timestamp=datetime.now(),
+    entity_gid=uuid.uuid4()
 )
 
-# Send the event
-client.track(event)
+# Add entity involvement with proper role
+event.involves.append({
+    'role': 'Source',
+    'entity_type': 'Product',
+    'id': '12345',
+    'label': 'Premium Headphones'
+})
+
+# Send the event (async method)
+import asyncio
+asyncio.run(client.track(event))
 ```
 
 ## ClickHouse Docker Setup
