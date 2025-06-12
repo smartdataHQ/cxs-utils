@@ -16,10 +16,10 @@ The following table details the fields found within each classification object.
 |--------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `type`       |          | `String`  | Type of classification, indicating the category or nature of the classification (e.g., 'Intent', 'Category', 'Tag'). See "Allowed Types" below for common examples. Originally `LowCardinality(String)`. |
 | `value`      |          | `String`  | The specific classification value assigned, corresponding to the `type` (e.g., "Support Request", "Electronics", "urgent_tag"). Originally `LowCardinality(String)`.      |
-| `reasoning`  |          | `String`  | An optional explanation or basis for why this classification was assigned. This field is optional.                                                                       |
+| `reasoning`  |          | `String`  | An optional explanation or basis for why this classification was assigned. This field is primarily used for ML/LLM-generated classifications to provide transparency into the decision-making process and is not typically present in standard data integrations.                                                                       |
 | `score`      |          | `Float`   | A numerical score assigned to the classification, often by a model or rule (e.g., a relevance or priority score). This field is optional.                                  |
 | `confidence` |          | `Float`   | The confidence level (e.g., 0.0 to 1.0) from a model that assigned this classification. This field is optional.                                                            |
-| `weight`     |          | `Float`   | The relevance, importance, or weight of this classification, especially if multiple classifications exist.                                                                 |
+| `weight`     |          | `Float`   | The relevance, importance, or weight of this classification (0.0 to 1.0). This field is primarily used for ML/LLM-generated classifications to indicate confidence or importance, or to represent hierarchical relationships in taxonomies (higher weights for more specific categories). Not typically present in standard data integrations.                                                                 |
 
 
 ## Allowed Types and Descriptions
