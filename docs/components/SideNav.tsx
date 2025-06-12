@@ -4,13 +4,29 @@ import Link from 'next/link';
 
 const items = [
   {
-    title: 'Semantic Events',
-    href: '/docs/semantic-events',
+    title: 'Core Concepts',
     links: [
-        {href: '/docs/semantic-events', children: 'Introduction'},
-        {href: '/docs/semantic-events/best-practices', children: 'Best Practices'},
+        {href: '/docs/semantic-events', children: 'Introduction to Semantic Events'},
+        {href: '/docs/semantic-events/events-vs-timestamps', children: 'Events as First-Class Citizens'},
+        {href: '/docs/entities', children: 'Understanding Entities'},
+        {href: '/docs/entities/roles', children: 'Entity Roles'},
+        {href: '/docs/entities/identification', children: 'Entity Identification'},
+    ],
+  },
+  {
+    title: 'Implementation Guide',
+    links: [
         {href: '/docs/semantic-events/getting-started', children: 'Getting Started'},
+        {href: '/docs/semantic-events/best-practices', children: 'Best Practices'},
         {href: '/docs/semantic-events/core-functions', children: 'Core Functions'},
+    ],
+  },
+  {
+    title: 'Schema Reference',
+    links: [
+        {href: '/docs/semantic-events/schema', children: 'Semantic Events Schema'},
+        {href: '/docs/semantic-events/schema/classification', children: 'Classification'},
+        {href: '/docs/datapoints', children: 'DataPoints'},
     ],
   },
   {
@@ -29,14 +45,6 @@ const items = [
         // {href: '/docs/semantic-events/bible/b2b-wholesale-and-procurement', children: 'B2B Wholesale & Procurement'},
         // {href: '/docs/semantic-events/bible/digital-goods-and-content', children: 'Digital Goods & Content'},
         // {href: '/docs/semantic-events/bible/by-category', children: 'By Category'},
-    ],
-  },
-  {
-    title: 'Schema',
-    links: [
-        {href: '/docs/semantic-events/schema', children: 'Semantic Events'},
-        {href: '/docs/entities', children: 'Entities'},
-        {href: '/docs/datapoints', children: 'DataPoints'},
     ],
   }
 ];
