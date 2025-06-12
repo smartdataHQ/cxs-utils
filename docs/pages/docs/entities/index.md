@@ -29,6 +29,8 @@ This section details the standard fields available in the entity schema, as defi
 
 ### Core Identification Fields
 
+Context Suite uses a semantic web inspired approach for entity identification. For detailed information about our entity identification system, see [Entity Identification System](./identification).
+
 | Name      | Required | Data Type | Description                                                                              |
 |-----------|----------|-----------|------------------------------------------------------------------------------------------|
 | `gid`     |          | `UUID`    | The Graph UUID of the entity. This serves as the primary, unique identifier for the entity. |
