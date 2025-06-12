@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS ql.metrics on cluster default
+CREATE TABLE IF NOT EXISTS metrics
 (
     `gid`               UUID,
     `gid_url`           String,

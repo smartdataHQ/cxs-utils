@@ -3,7 +3,7 @@
 -- The schema is based on the Segment semantic events schema and extended with additional properties that are specific to the Context Suite
 -- The schema is designed to be flexible and extensible, allowing for additional properties to be added as needed
 
-CREATE TABLE IF NOT EXISTS default.semantic_events (
+CREATE TABLE IF NOT EXISTS semantic_events (
     `entity_gid`                UUID,                               -- The entity that the event is associated with (Context Suite Specific) (Account or any sub-entity)
     `timestamp`                 DateTime64,                         -- The timestamp of the event is always stored in UTC
     `type`                      LowCardinality(String),             -- The event type (e.g. "track, page, identify, group, alias, screen etc.")
