@@ -1,11 +1,11 @@
 ---
 title: Event Validation
-description: Validate semantic events against the SQL schema and event modeling rules
+description: Validate semantic events against the Avro schema and event modeling rules
 ---
 
 # Event Validation
 
-The Context Suite includes a robust event validation system that ensures events conform to both the SQL schema definition and event modeling best practices. This validator is dynamically driven by the SQL schema, ensuring that validation rules evolve automatically as the schema is updated.
+The Context Suite includes a robust event validation system that ensures events conform to both the Avro schema definition and event modeling best practices. This validator is dynamically driven by the Avro schema, ensuring that validation rules evolve automatically as the schema is updated.
 
 ## Features
 
@@ -17,23 +17,23 @@ The validator provides comprehensive validation of event JSON objects:
    - Property order recommendations
    - Entity references in `involves` array
    - Nested structure validation
-4. **Unknown Field Detection**: Identifies fields not defined in the SQL schema, including in nested structures
+4. **Unknown Field Detection**: Identifies fields not defined in the Avro schema, including in nested structures
 
 ## How It Works
 
 The validator processes event validation in three steps:
 
-1. **SQL Schema Parsing**: Extracts field definitions, types, and requirements directly from the `semantic_events.sql` file
+1. **Avro Schema Parsing**: Extracts field definitions, types, and requirements directly from the Avro schema files (`.avsc`)
 2. **Event Analysis**: Processes the event structure against schema requirements
 3. **Validation Results**: Provides clear error/warning messages with specific details
 
-Unlike previous validation approaches, this validator is dynamically driven by the SQL schema file, ensuring that validation rules automatically evolve as the schema is updated without requiring code changes.
+Unlike previous validation approaches, this validator is dynamically driven by the Avro schema files, ensuring that validation rules automatically evolve as the schema is updated without requiring code changes.
 
 ## File Structure
 
 The validator consists of three primary components:
 
-- **sql_schema_parser.py**: Parses the SQL schema to extract field definitions and requirements
+- **avro_schema_parser.py**: Parses the Avro schemas to extract field definitions and requirements
 - **event_validator.py**: Core validation logic that checks events against schema rules
 - **run_validator.py**: CLI tool to validate JSON event files
 
@@ -159,7 +159,7 @@ The validator handles several edge cases:
 
 ### Valid Event Example
 
-Below is a complete, validated example of a product_updated event that passes all validation checks against the SQL schema:
+Below is a complete, validated example of a product_updated event that passes all validation checks against the Avro schema:
 
 ```json
 {
