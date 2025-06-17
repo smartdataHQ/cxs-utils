@@ -11,6 +11,9 @@ setup(
         "pydantic>=2.11.5",
         "aiohttp>=3.9.1",
         "aioresponses>=0.7.5",
+        "fastavro>=1.9.1",
+        "deepdiff>=6.3.1",
+        "jsonschema>=4.19.1",
     ],
     python_requires=">=3.8",
 )

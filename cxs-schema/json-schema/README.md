@@ -5,8 +5,8 @@ This directory contains JSON Schemas that define the structure and constraints f
 ## Overview
 
 The schemas are designed based on a combination of:
--   **ClickHouse SQL table definitions**: Considered the primary source of truth for data structure and nullability.
--   **Avro schemas (`.avsc` files)**: Used for event serialization and data interchange.
+-   **Avro schemas (`.avsc` files)**: Considered the primary source of truth for data structure and field definitions.
+-   **ClickHouse SQL table definitions**: Used for database storage and querying.
 -   **Pydantic models**: Used within the Python applications for data validation and manipulation.
 
 All schemas adhere to the **JSON Schema Draft 2020-12** specification.
