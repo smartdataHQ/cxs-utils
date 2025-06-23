@@ -338,7 +338,6 @@
     "sku",
     "product",
     "unit_price",
-    "units",
     "uom"
   ],
   "additionalProperties": false
