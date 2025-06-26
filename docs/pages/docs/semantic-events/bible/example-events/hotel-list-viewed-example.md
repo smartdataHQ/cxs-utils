@@ -1,0 +1,79 @@
+### Hotel List Viewed Event
+
+This event is sent when a user views a **list of hotels** returned by a search query—typically after entering a destination, dates, and number of guests.
+It helps measure **destination-level interest**, understand **pricing exposure**, and optimize **search results ranking** based on guest behavior and hotel visibility.
+
+
+```js
+jitsu.track("Hotel List Viewed", {
+  commerce: {
+    currency: "ISK",
+    products: [
+      {
+        entry_type: "Search Results",
+        product_id: "44",
+        sku: "44",
+        product: "Farmhouse Lodge",
+        category: "Hotels",
+        unit_price: 15000,
+        units: 1,
+        uom: "night"
+      },
+      {
+        entry_type: "Search Results",
+        product_id: "803",
+        sku: "803",
+        product: "Karuna Guesthouse",
+        category: "Hotels",
+        unit_price: 13410.6,
+        units: 1,
+        uom: "night"
+      },
+      {
+        entry_type: "Search Results",
+        product_id: "1421",
+        sku: "1421",
+        product: "Linda Guesthouse",
+        category: "Hotels",
+        unit_price: 19600,
+        units: 1,
+        uom: "night"
+      },
+      {
+        entry_type: "Search Results",
+        product_id: "1503",
+        sku: "1503",
+        product: "The Farmhouse",
+        category: "Hotels",
+        unit_price: 0,
+        units: 1,
+        uom: "night"
+      }
+    ]
+  },
+
+  metrics: {
+    page_number: 1,
+    pax: 1
+  },
+
+  dimensions: {
+    adults: "1",
+    rooms: "1",
+    destination: "farmhouse",
+    property_types: "not set",
+    room_type: "not set",
+    room_amenity_codes: "not set",
+    property_amenity_codes: "not set"
+  },
+
+  classification: [
+    {
+      type: "Category",
+      value: "Hotels"
+    }
+  ],
+
+  timestamp: "2025-06-25T08:06:22.821Z"
+});
+```
