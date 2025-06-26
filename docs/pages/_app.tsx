@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { SideNav, TableOfContents, TopNav } from '../components';
 import CodePaneDisplay from '../components/CodePaneDisplay';
 import { AsideContentProvider, useAsideContent } from '../components/context/AsideContentContext';
+import { SearchProvider } from '../components/context/SearchContext'; // Import SearchProvider
 
 import 'prismjs';
 import 'prismjs/components/prism-bash.min';
@@ -133,8 +134,10 @@ function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
 
 export default function MyApp(props: AppProps<MyAppProps>) {
   return (
-    <AsideContentProvider>
-      <AppContent {...props} />
-    </AsideContentProvider>
+    <SearchProvider> {/* Wrap with SearchProvider */}
+      <AsideContentProvider>
+        <AppContent {...props} />
+      </AsideContentProvider>
+    </SearchProvider>
   );
 }
