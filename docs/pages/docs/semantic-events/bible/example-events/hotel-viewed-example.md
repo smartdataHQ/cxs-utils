@@ -5,24 +5,25 @@ Tracking these details helps businesses deeply analyze customer interests, deman
 ``` JavaScript
 jitsu.track("Hotel Viewed", {
   commerce: {
-    currency: "ISK",               // ISO-4217 code shown to the user
+    currency: "ISK",
     products: [{
-      entry_type: "Search Results",// where the listing appeared
-      product_id: "1593",          
-      sku: "1593",               
+      entry_type: "Search Results",
+      product_id: "1593",
+      sku: "1593",
       product: "Saga Luxury Villa",
       category: "Hotels",
       unit_price: 0,
-      units: 1                     // default quantity (1 night)
+      units: 1,
+      uom: "night"
     }]
   },
 
   metrics: {
-    review_count: 0               
+    review_count: 0
   },
 
   properties: {
-    tags: [                       
+    tags: [
       "Hot tub",
       "Self service kitchen",
       "Patio",
@@ -37,7 +38,7 @@ jitsu.track("Hotel Viewed", {
     { type: "Category", value: "Travel" }
   ],
 
-  timestamp: "2025-06-10T09:41:34.010Z" // always UTC
+  timestamp: "2025-06-10T09:41:34.010Z"
 });
 
 ```

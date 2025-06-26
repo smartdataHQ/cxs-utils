@@ -16,7 +16,8 @@ jitsu.track("Hotel List Viewed", {
         product: "Farmhouse Lodge",
         category: "Hotels",
         unit_price: 15000,
-        units: 1
+        units: 1,
+        uom: "night"
       },
       {
         entry_type: "Search Results",
@@ -25,7 +26,8 @@ jitsu.track("Hotel List Viewed", {
         product: "Karuna Guesthouse",
         category: "Hotels",
         unit_price: 13410.6,
-        units: 1
+        units: 1,
+        uom: "night"
       },
       {
         entry_type: "Search Results",
@@ -34,7 +36,8 @@ jitsu.track("Hotel List Viewed", {
         product: "Linda Guesthouse",
         category: "Hotels",
         unit_price: 19600,
-        units: 1
+        units: 1,
+        uom: "night"
       },
       {
         entry_type: "Search Results",
@@ -43,7 +46,8 @@ jitsu.track("Hotel List Viewed", {
         product: "The Farmhouse",
         category: "Hotels",
         unit_price: 0,
-        units: 1
+        units: 1,
+        uom: "night"
       }
     ]
   },

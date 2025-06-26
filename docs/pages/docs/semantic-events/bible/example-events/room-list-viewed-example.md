@@ -6,27 +6,28 @@ It helps track **room-level demand**, **search behavior**, and optimize **invent
 ```js
 jitsu.track("Room List Viewed", {
   commerce: {
-    currency: "ISK",                // ISO 4217 currency code
+    currency: "ISK",
     products: [{
-      entry_type: "Search Results", // where the listing was shown
+      entry_type: "Search Results",
       product_id: "5884",
       sku: "5884",
       product: "Saga Luxury Villa",
-      category: "Rooms",        
-      unit_price: 0,               
-      units: 1                  
+      category: "Rooms",
+      unit_price: 0,
+      units: 1,
+      uom: "night"
     }]
   },
 
   metrics: {
-    pax: 1 // total guests (adults + children), used for aggregation
+    pax: 1
   },
 
   dimensions: {
-    adults: "1",        // filterable guest count
+    adults: "1",
     children: "0",
-    rooms: "1",         // number of rooms selected
-    room_types: "all"   // available room type filter
+    rooms: "1",
+    room_types: "all"
   },
 
   classification: [
@@ -36,6 +37,6 @@ jitsu.track("Room List Viewed", {
     }
   ],
 
-  timestamp: "2025-06-25T14:37:26.027Z" // event time in UTC
+  timestamp: "2025-06-25T14:37:26.027Z"
 });
 ```
