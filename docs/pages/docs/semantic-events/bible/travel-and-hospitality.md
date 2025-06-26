@@ -58,7 +58,7 @@ Each event is categorized by its core event type, which helps in understanding t
 - [Product List Viewed]()
 - when a user applies filter criteria to narrow hotel results
 ---
-- [Hotel List Viewed]()
+- [Hotel List Viewed](/docs/semantic-events/bible/example-events/hotel-list-viewed-example)
 - [Product List Viewed]()
 - when a user views a list or category of hotels
 ---
@@ -72,7 +72,6 @@ Each event is categorized by its core event type, which helps in understanding t
 ---
 - [Room List Viewed](/docs/semantic-events/bible/example-events/room-list-viewed-example)
 - [Room Type Viewed]()
-- [Product Viewed]()
 - when a user views specific room type details within a hotel
 ---
 - \
