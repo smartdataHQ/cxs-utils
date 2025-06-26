@@ -181,6 +181,7 @@ These fields are primarily used internally by the data storage system (e.g., Cli
 
 Here is a conceptual example of what a "MusicFestival" entity might look like, represented in JSON, showcasing various fields:
 
+{% code_pane %}
 ```json
 {
   "gid": "evt_2a7d9f8b-c1e3-4b5f-8a6d-0e2f1c9a7b4d",
@@ -298,6 +299,7 @@ Here is a conceptual example of what a "MusicFestival" entity might look like, r
   "sign": 1
 }
 ```
+{% /code_pane %}
 
 {% .callout type="info" %}
 **Note:** This is a conceptual illustration. The `partition` and `sign` fields are typically system-managed. Specific field names (e.g., `entity_id` vs `gid`) and the overall structure may differ based on the chosen schema implementation or platform. The key is the ability to uniquely identify, type, and describe the entity with rich contextual information.
