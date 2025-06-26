@@ -50,12 +50,12 @@ jitsu.track("Hotel List Viewed", {
 
   metrics: {
     page_number: 1,
-    adults: 1,
-    rooms: 1,
     pax: 1
   },
 
   dimensions: {
+    adults: "1",
+    rooms: "1",
     destination: "farmhouse",
     property_types: "not set",
     room_type: "not set",

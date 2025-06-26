@@ -19,19 +19,20 @@ jitsu.track("Room List Viewed", {
   },
 
   metrics: {
-    adults: 1,                      
-    children: 0,
-    rooms: 1
+    pax: 1 // total guests (adults + children), used for aggregation
   },
 
   dimensions: {
-    "room types": "all"             // e.g., all room types shown
+    adults: "1",        // filterable guest count
+    children: "0",
+    rooms: "1",         // number of rooms selected
+    room_types: "all"   // available room type filter
   },
 
   classification: [
     {
       type: "Category",
-      value: "Rooms" 
+      value: "Rooms"
     }
   ],
 
