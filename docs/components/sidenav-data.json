@@ -1,0 +1,299 @@
+[
+  {
+    "title": "Introduction to Semantic Events",
+    "path": "/docs",
+    "order": -1
+  },
+  {
+    "title": "Integrations",
+    "path": "/docs/integrations",
+    "order": null,
+    "children": []
+  },
+  {
+    "title": "Introduction to Semantic Events",
+    "path": "/docs/semantic-events",
+    "order": null,
+    "children": [
+      {
+        "title": "Best Practices",
+        "path": "/docs/semantic-events/best-practices",
+        "order": null
+      },
+      {
+        "title": "Core Functions",
+        "path": "/docs/semantic-events/core-functions",
+        "order": null
+      },
+      {
+        "title": "Event Validation",
+        "path": "/docs/semantic-events/validation",
+        "order": null
+      },
+      {
+        "title": "Events vs Timestamps",
+        "path": "/docs/semantic-events/events-vs-timestamps",
+        "order": null
+      },
+      {
+        "title": "Getting Started",
+        "path": "/docs/semantic-events/getting-started",
+        "order": null
+      },
+      {
+        "title": "The Event Bible",
+        "path": "/docs/semantic-events/bible",
+        "order": null,
+        "children": [
+          {
+            "title": "Auctions And C2c Marketplaces",
+            "path": "/docs/semantic-events/bible/auctions-and-c2c-marketplaces",
+            "order": null
+          },
+          {
+            "title": "Automotive And Mobility",
+            "path": "/docs/semantic-events/bible/automotive-and-mobility",
+            "order": null
+          },
+          {
+            "title": "B2b Wholesale And Procurement",
+            "path": "/docs/semantic-events/bible/b2b-wholesale-and-procurement",
+            "order": null
+          },
+          {
+            "title": "Core Events",
+            "path": "/docs/semantic-events/bible/core-events",
+            "order": null
+          },
+          {
+            "title": "Digital Goods And Content",
+            "path": "/docs/semantic-events/bible/digital-goods-and-content",
+            "order": null
+          },
+          {
+            "title": "Events And Ticketing",
+            "path": "/docs/semantic-events/bible/events-and-ticketing",
+            "order": null
+          },
+          {
+            "title": "Events by Category",
+            "path": "/docs/semantic-events/bible/by-category",
+            "order": null
+          },
+          {
+            "title": "Example Events",
+            "path": "/docs/semantic-events/bible/example-events",
+            "order": null,
+            "children": [
+              {
+                "title": "Hotel List Viewed Example",
+                "path": "/docs/semantic-events/bible/example-events/hotel-list-viewed-example",
+                "order": null
+              },
+              {
+                "title": "Hotel Viewed Example",
+                "path": "/docs/semantic-events/bible/example-events/hotel-viewed-example",
+                "order": null
+              },
+              {
+                "title": "Room List Viewed Example",
+                "path": "/docs/semantic-events/bible/example-events/room-list-viewed-example",
+                "order": null
+              }
+            ]
+          },
+          {
+            "title": "Food And Dining",
+            "path": "/docs/semantic-events/bible/food-and-dining",
+            "order": null
+          },
+          {
+            "title": "Online Services",
+            "path": "/docs/semantic-events/bible/online-services",
+            "order": null
+          },
+          {
+            "title": "Real Estate",
+            "path": "/docs/semantic-events/bible/real-estate",
+            "order": null
+          },
+          {
+            "title": "Subscription Commerce",
+            "path": "/docs/semantic-events/bible/subscription-commerce",
+            "order": null
+          },
+          {
+            "title": "Travel & Hospitality",
+            "path": "/docs/semantic-events/bible/travel-and-hospitality",
+            "order": null
+          }
+        ]
+      },
+      {
+        "title": "The Semantic Event Schema",
+        "path": "/docs/semantic-events/schema",
+        "order": null,
+        "children": [
+          {
+            "title": "Application Information (app.* fields)",
+            "path": "/docs/semantic-events/schema/applications",
+            "order": null
+          },
+          {
+            "title": "Classification Properties",
+            "path": "/docs/semantic-events/schema/classification",
+            "order": null
+          },
+          {
+            "title": "Commerce Event Properties",
+            "path": "/docs/semantic-events/schema/commerce",
+            "order": null
+          },
+          {
+            "title": "Complete Schema Reference Index",
+            "path": "/docs/semantic-events/schema/all",
+            "order": null
+          },
+          {
+            "title": "Core Event Schema Properties",
+            "path": "/docs/semantic-events/schema/core",
+            "order": null
+          },
+          {
+            "title": "Custom Event Properties (properties field)",
+            "path": "/docs/semantic-events/schema/properties",
+            "order": null
+          },
+          {
+            "title": "Device & OS Information",
+            "path": "/docs/semantic-events/schema/devices",
+            "order": null
+          },
+          {
+            "title": "Entity Linking in Events",
+            "path": "/docs/semantic-events/schema/linking",
+            "order": null
+          },
+          {
+            "title": "Event Access Control (access field)",
+            "path": "/docs/semantic-events/schema/access",
+            "order": null
+          },
+          {
+            "title": "Event Content (content field)",
+            "path": "/docs/semantic-events/schema/content",
+            "order": null
+          },
+          {
+            "title": "Event Context Properties",
+            "path": "/docs/semantic-events/schema/context",
+            "order": null
+          },
+          {
+            "title": "Event Data Retention (ttl_days)",
+            "path": "/docs/semantic-events/schema/retention",
+            "order": null
+          },
+          {
+            "title": "Event Dimensions & Ad-hoc Metrics",
+            "path": "/docs/semantic-events/schema/dimensions",
+            "order": null
+          },
+          {
+            "title": "Event Forwarding Control (integrations field)",
+            "path": "/docs/semantic-events/schema/integrations",
+            "order": null
+          },
+          {
+            "title": "Event Location Properties",
+            "path": "/docs/semantic-events/schema/location",
+            "order": null
+          },
+          {
+            "title": "Event Processing & Pipeline Metadata",
+            "path": "/docs/semantic-events/schema/processing",
+            "order": null
+          },
+          {
+            "title": "Event Sources & Services",
+            "path": "/docs/semantic-events/schema/services",
+            "order": null
+          },
+          {
+            "title": "Internal Analysis & Processing Metrics (analysis field)",
+            "path": "/docs/semantic-events/schema/analysis",
+            "order": null
+          },
+          {
+            "title": "Involved Entities & Roles (involves field)",
+            "path": "/docs/semantic-events/schema/involves",
+            "order": null
+          },
+          {
+            "title": "Marketing Attribution (Campaign Fields)",
+            "path": "/docs/semantic-events/schema/marketing",
+            "order": null
+          },
+          {
+            "title": "Required & Automatic Event Properties",
+            "path": "/docs/semantic-events/schema/required",
+            "order": null
+          },
+          {
+            "title": "Schema Compatibility & Evolution",
+            "path": "/docs/semantic-events/schema/compatibility",
+            "order": null
+          },
+          {
+            "title": "Schema Design Considerations & Comparisons",
+            "path": "/docs/semantic-events/schema/comparison",
+            "order": null
+          },
+          {
+            "title": "Sentiment Properties",
+            "path": "/docs/semantic-events/schema/sentiment",
+            "order": null
+          },
+          {
+            "title": "Understanding Event Enrichments",
+            "path": "/docs/semantic-events/schema/enrichments",
+            "order": null
+          },
+          {
+            "title": "User Traits in Event Context",
+            "path": "/docs/semantic-events/schema/traits",
+            "order": null
+          },
+          {
+            "title": "Website Interaction Properties",
+            "path": "/docs/semantic-events/schema/websites",
+            "order": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Understanding Datapoints",
+    "path": "/docs/datapoints",
+    "order": null,
+    "children": []
+  },
+  {
+    "title": "Understanding Entities",
+    "path": "/docs/entities",
+    "order": null,
+    "children": [
+      {
+        "title": "Entity Identification System",
+        "path": "/docs/entities/identification",
+        "order": null
+      },
+      {
+        "title": "Entity Roles",
+        "path": "/docs/entities/roles",
+        "order": null
+      }
+    ]
+  }
+]
