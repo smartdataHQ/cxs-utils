@@ -23,7 +23,7 @@ const renderNavLinks = (items: NavItem[], currentPath: string, level: number = 0
         return (
           <li key={item.path} className={itemIsActive ? 'active' : ''}>
             <Link href={item.path}>
-              <a>{item.title}</a>
+              {item.title}
             </Link>
             {item.children && item.children.length > 0 && (
               renderNavLinks(item.children, currentPath, level + 1)
@@ -69,10 +69,11 @@ export function SideNav() {
       {navData.map((section) => (
         <div key={section.path} className="nav-section">
           {/* Top-level item is a link itself */}
-          <Link href={section.path}>
-            <a className={router.pathname === section.path ? 'active section-title' : 'section-title'}>
-              {section.title}
-            </a>
+          <Link
+            href={section.path}
+            className={router.pathname === section.path ? 'active section-title' : 'section-title'}
+          >
+            {section.title}
           </Link>
           {/* Render children if they exist */}
           {section.children && section.children.length > 0 && (

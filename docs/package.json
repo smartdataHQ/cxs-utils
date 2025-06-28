@@ -9,6 +9,7 @@
   "dependencies": {
     "@markdoc/markdoc": "latest",
     "@markdoc/next.js": "latest",
+    "flexsearch": "^0.8.205",
     "next": "latest",
     "prismjs": "latest",
     "react": "latest",
