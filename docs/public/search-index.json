@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Introduction",
+    "url": "/",
+    "content": "Welcome to the documentation. This section introduces the project and its goals.",
+    "headings": ["Getting Started", "Overview"]
+  },
+  {
+    "title": "Installation",
+    "url": "/installation",
+    "content": "Learn how to install the project, including prerequisites and setup steps.",
+    "headings": ["Requirements", "Setup", "Troubleshooting"]
+  },
+  {
+    "title": "API Reference",
+    "url": "/api",
+    "content": "Detailed API documentation, including endpoints, parameters, and response formats.",
+    "headings": ["Endpoints", "Authentication", "Examples"]
+  }
+]

@@ -1,6 +1,39 @@
 :root {
   --top-nav-height: 51px;
-  --border-color: #dce6e9;
+  --border-color: #dce6e9; /* General border color */
+
+  /* Text Colors */
+  --text-color-main: rgba(60, 66, 87, 1);
+  --text-color-secondary: rgba(100, 116, 139, 1);
+
+  /* Link Colors */
+  --link-color: rgba(75, 85, 99, 1);
+  --link-color-active: #0070f3;
+
+  /* Code Area Backgrounds */
+  --code-pane-bg: #f7f7f7;
+  --code-bg: #f9fafb;
+
+  /* Callout Type Colors */
+  /* Note (Blue) */
+  --note-color: #3b82f6;
+  --note-bg-color: #eff6ff;
+  --note-text-color: #2563eb; /* Darker blue for text if needed, defaults to --note-color */
+
+  /* Warning (Orange) */
+  --warning-color: #f97316;
+  --warning-bg-color: #fff7ed;
+  --warning-text-color: #ea580c;
+
+  /* Tip (Green) */
+  --tip-color: #10b981;
+  --tip-bg-color: #f0fdf4;
+  --tip-text-color: #059669;
+
+  /* Important (Red) */
+  --important-color: #ef4444;
+  --important-bg-color: #fef2f2;
+  --important-text-color: #dc2626;
 }
 
 *,
