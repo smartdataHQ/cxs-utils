@@ -45,17 +45,19 @@ const SearchResults: React.FC = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result.path}>
-              <Link href={result.path}>
-                <a onClick={() => setIsSearchVisible(false)} className="search-result-link">
-                  <div className="search-result-title">
-                    <Highlight text={result.title} query={searchQuery} />
+              <Link
+                href={result.path}
+                className="search-result-link"
+                onClick={() => setIsSearchVisible(false)}
+              >
+                <div className="search-result-title">
+                  <Highlight text={result.title} query={searchQuery} />
+                </div>
+                {result.descriptionSnippet && (
+                  <div className="search-result-snippet">
+                    <Highlight text={result.descriptionSnippet} query={searchQuery} />
                   </div>
-                  {result.descriptionSnippet && (
-                    <div className="search-result-snippet">
-                      <Highlight text={result.descriptionSnippet} query={searchQuery} />
-                    </div>
-                  )}
-                </a>
+                )}
               </Link>
             </li>
           ))}
