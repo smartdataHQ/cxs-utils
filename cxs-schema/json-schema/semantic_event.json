@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/semantic_event.json",
-  "title": "ContextSuite Semantic Event",
+  "title": "Semantic Event",
   "description": "Schema for a ContextSuite Semantic Event. Avro is the primary source of truth.",
   "type": "object",
   "properties": {

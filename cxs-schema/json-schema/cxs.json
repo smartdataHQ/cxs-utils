@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/cxs_schema.json",
-  "title": "ContextSuite Root Schema",
+  "title": "XCS Root Schema",
   "description": "Root schema for all ContextSuite data types. It references individual schemas for entities, semantic events, etc.",
   "type": "object",
   "properties": {

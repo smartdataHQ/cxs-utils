@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/location_schema.json",
-  "title": "ContextSuite Location",
+  "title": "Location",
   "description": "Schema for location information, usable for entities and events.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/embeddings_schema.json",
-  "title": "ContextSuite Entity Embeddings",
+  "title": "Embeddings",
   "description": "Schema for an embedding associated with an entity's content.",
   "type": "object",
   "properties": {

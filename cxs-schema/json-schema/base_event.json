@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/base_event_info_schema.json",
-  "title": "ContextSuite Semantic Event Base Event Info",
+  "title": "Base Event Info",
   "description": "Schema for information about a base event, used when an event is derived from one or more root events.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/timeseries.json",
-  "title": "ContextSuite Time Series",
+  "title": "Time Series",
   "description": "Schema for a ContextSuite Time Series, including its metadata and references to data points.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/traits_schema.json",
-  "title": "ContextSuite Semantic Event Traits",
+  "title": "Traits",
   "description": "Schema for user traits associated with an identify or group event.",
   "type": "object",
   "properties": {

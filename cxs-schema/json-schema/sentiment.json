@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/sentiment_schema.json",
-  "title": "ContextSuite Semantic Event Sentiment",
+  "title": "Sentiment",
   "description": "Schema for sentiment expressed in a semantic event.",
   "type": "object",
   "properties": {

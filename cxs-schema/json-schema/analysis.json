@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/analysis_schema.json",
-  "title": "ContextSuite Semantic Event Analysis",
+  "title": "Analysis",
   "description": "Schema for internal cost or processing analysis related to an event. Not for general client use.",
   "type": "object",
   "properties": {

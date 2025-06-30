@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/entity_linking_schema.json",
-  "title": "ContextSuite Semantic Event Entity Linking",
+  "title": "Entity Linking",
   "description": "Schema for an entity linking reference in a semantic event.",
   "type": "object",
   "properties": {

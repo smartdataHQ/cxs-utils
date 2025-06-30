@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/content_schema.json",
-  "title": "ContextSuite Entity Content",
+  "title": "Content",
   "description": "Schema for a content item associated with an entity.",
   "type": "object",
   "properties": {

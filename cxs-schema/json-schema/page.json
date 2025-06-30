@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/page_schema.json",
-  "title": "ContextSuite Semantic Event Page",
+  "title": "Page",
   "description": "Schema for page view information.",
   "type": "object",
   "properties": {
