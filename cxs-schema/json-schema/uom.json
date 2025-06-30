@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/uom.json",
-  "title": "UnitOfMeasure",
+  "title": "Unit of Measure (UOM)",
   "description": "Schema for a Unit of Measure (UOM) entity.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/source_info_schema.json",
-  "title": "SourceInfo",
+  "title": "Source Info",
   "description": "Schema for information about the source system or input of an event.",
   "type": "object",
   "properties": {
