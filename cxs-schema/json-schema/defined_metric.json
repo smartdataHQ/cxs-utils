@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/defined_metric_schema.json",
-  "title": "Defined Metric",
+  "title": "DefinedMetric",
   "description": "Schema for a metric definition within a time series.",
   "type": "object",
   "properties": {

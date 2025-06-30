@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "SemanticEvent",
+  "name": "Semantic Event",
   "namespace": "com.contextsuite.schema",
   "fields": [
     {
@@ -16,6 +16,15 @@
     {
       "name": "type",
       "type": "string",
+      "enum": [
+        "track",
+        "page",
+        "identify",
+        "group",
+        "alias",
+        "screen",
+        "other"
+      ],
       "doc": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")"
     },
     {
