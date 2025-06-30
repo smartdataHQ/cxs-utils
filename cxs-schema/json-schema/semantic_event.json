@@ -225,12 +225,10 @@
   "required": [
     "timestamp",
     "type",
+    "event",
     "message_id",
     "write_key",
-    "entity_gid",
-    "event",
     "event_gid",
-    "root_event_gid",
     "partition"
   ]
 }

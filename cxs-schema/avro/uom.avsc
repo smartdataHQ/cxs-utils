@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "UOMModel",
+  "name": "UnitOfMeasured",
   "namespace": "com.contextsuite.schema",
   "fields": [
     {
