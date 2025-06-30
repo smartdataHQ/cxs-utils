@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/involved_schema.json",
-  "title": "ContextSuite Semantic Event Involved Entity",
+  "title": "Involved Entity",
   "description": "Schema for an entity involved in a semantic event.",
   "type": "object",
   "properties": {

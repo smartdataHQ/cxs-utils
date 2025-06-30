@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/access_schema.json",
-  "title": "ContextSuite Semantic Event Access",
+  "title": "Access",
   "description": "Schema for access control (blacklist/whitelist) information for an event.",
   "type": "object",
   "properties": {

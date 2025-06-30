@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/contextual_awareness_schema.json",
-  "title": "ContextSuite Semantic Event Contextual Awareness",
+  "title": "Contextual Awareness",
   "description": "Schema for contextual awareness information related to an entity in a semantic event.",
   "type": "object",
   "properties": {

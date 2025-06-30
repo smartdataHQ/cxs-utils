@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/app_schema.json",
-  "title": "ContextSuite Semantic Event Application",
+  "title": "Application",
   "description": "Schema for mobile application information.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/classification_schema.json",
-  "title": "ContextSuite Classification",
+  "title": "Classification",
   "description": "Schema for classification information, usable for entities and events.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/user_agent_data_schema.json",
-  "title": "ContextSuite Semantic Event User Agent Data",
+  "title": "User Agent Data",
   "description": "Schema for user agent client hints data (brand and version), part of UserAgent.",
   "type": "object",
   "properties": {

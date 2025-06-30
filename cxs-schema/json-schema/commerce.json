@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/commerce_schema.json",
-  "title": "ContextSuite Semantic Event Commerce",
+  "title": "Commerce",
   "description": "Schema for commerce-related information in a semantic event.",
   "type": "object",
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/screen_schema.json",
-  "title": "ContextSuite Semantic Event Screen",
+  "title": "Screen",
   "description": "Schema for screen information.",
   "type": ["null", "object"],
   "properties": {
