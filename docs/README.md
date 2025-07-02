@@ -1,2 +1,0 @@
-# ContextSuite Utilities
-
