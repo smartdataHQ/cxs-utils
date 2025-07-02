@@ -1,0 +1,373 @@
+---
+title: Introduction to Semantic Events
+description: Learn about semantic events and how they enhance traditional event tracking with rich context and meaning
+---
+
+# Introduction to Semantic Events
+
+Semantic events go beyond traditional event tracking by adding rich context and clear meaning to your operational data. While standard analytics events capture basic interactions, extended semantic events enhance those interactions with structured context (often achieved through a detailed schema incorporating **Entities** and **Datapoints**), deeper insights, and enriched metadata. This richer event model unlocks advanced analytics, enabling organizations to proactively understand customer behavior, streamline operations, and make real-time, data-driven decisions.
+
+Extended Semantic Events build upon the Segment.com event schema by adding specialized properties and structures that provide a comprehensive view of each interaction. These additions include detailed product information, entity linking, classification, sentiment analysis, supply-chain context, and more. By leveraging these extended properties, events become immediately actionable, significantly improving operational observability and decision support.
+
+{% callout type="info" title="Beyond Basic Analytics" %}
+Traditional event tracking captures *what* happened. Semantic events capture *what* happened, *why* it happened, *who* was involved, and *how* it relates to your broader business context.
+{% /callout %}
+
+## What Makes Events "Semantic"?
+
+Semantic events derive their power from three key enhancements over traditional analytics events:
+
+### 1. Rich Contextual Information
+
+Traditional events might capture:
+```json
+{
+  "event": "page_view",
+  "user_id": "12345",
+  "page": "/product/abc"
+}
+```
+
+Semantic events capture:
+```json
+{
+  "event": "product_viewed",
+  "user_id": "12345",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "properties": {
+    "product_id": "abc",
+    "product_name": "Wireless Headphones",
+    "category": "Electronics",
+    "brand": "AudioTech",
+    "price": 199.99,
+    "currency": "USD",
+    "availability": "in_stock",
+    "view_source": "search_results",
+    "search_query": "bluetooth headphones"
+  },
+  "context": {
+    "user_segment": "premium",
+    "session_duration": 1200,
+    "previous_page": "/search",
+    "device_type": "mobile"
+  }
+}
+```
+
+### 2. Entity Relationships
+
+Semantic events explicitly model relationships between business entities:
+
+```json
+{
+  "event": "order_completed",
+  "involves": [
+    {
+      "entity_type": "User",
+      "role": "Purchaser",
+      "id": "user_12345"
+    },
+    {
+      "entity_type": "Product", 
+      "role": "PurchasedItem",
+      "id": "product_abc"
+    },
+    {
+      "entity_type": "Merchant",
+      "role": "Seller", 
+      "id": "merchant_xyz"
+    }
+  ]
+}
+```
+
+### 3. Standardized Schema
+
+All semantic events follow consistent, industry-specific schemas that ensure:
+- **Data Quality**: Validation and type checking
+- **Interoperability**: Events work across different systems
+- **Analytics Readiness**: Built-in dimensions and metrics
+- **Future-Proofing**: Extensible structure for new requirements
+
+{% callout type="success" title="Schema Benefits" %}
+Standardized schemas eliminate the guesswork in event design and ensure your data is immediately useful for analytics, machine learning, and business intelligence.
+{% /callout %}
+
+## Core Components of Semantic Events
+
+### Event Structure
+
+Every semantic event contains these core components:
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| **Event Name** | Standardized action identifier | `product_viewed`, `order_completed` |
+| **Timestamp** | When the event occurred | `2024-01-15T10:30:00Z` |
+| **Properties** | Event-specific data | Product details, transaction amounts |
+| **Context** | Environmental information | Device, location, session data |
+| **Entities** | Involved business objects | Users, products, orders |
+| **Metadata** | System and processing info | Source, version, enrichments |
+
+### Entity Integration
+
+Semantic events are tightly integrated with your entity model:
+
+- **Entity Identification**: Events reference entities using consistent identifiers
+- **Role Definition**: Entities have specific roles within each event
+- **Relationship Mapping**: Events capture how entities relate to each other
+- **State Tracking**: Events can update entity states and properties
+
+{% callout type="info" title="Entity-Centric Analysis" %}
+This integration enables powerful entity-centric analytics, allowing you to track user journeys, product performance, and business relationships over time.
+{% /callout %}
+
+### Datapoint Enrichment
+
+Events can be enriched with granular datapoints:
+
+- **Measurements**: Quantitative metrics and KPIs
+- **Attributes**: Descriptive characteristics
+- **Classifications**: Categorical information
+- **Derived Values**: Calculated fields and aggregations
+
+## Industry-Specific Enhancements
+
+Semantic events include specialized properties for different industries:
+
+### E-Commerce Events
+
+```json
+{
+  "event": "product_added_to_cart",
+  "properties": {
+    "product_id": "SKU-12345",
+    "variant_id": "VAR-67890", 
+    "quantity": 2,
+    "unit_price": 29.99,
+    "discount_applied": 5.00,
+    "cart_total": 54.98,
+    "inventory_level": 150,
+    "fulfillment_method": "standard_shipping"
+  },
+  "commerce": {
+    "product_category_hierarchy": ["Electronics", "Audio", "Headphones"],
+    "brand_tier": "premium",
+    "margin_category": "high",
+    "seasonality": "year_round"
+  }
+}
+```
+
+### Travel & Hospitality Events
+
+```json
+{
+  "event": "hotel_booking_completed",
+  "properties": {
+    "hotel_id": "HTL-789",
+    "room_type": "deluxe_suite",
+    "check_in": "2024-03-15",
+    "check_out": "2024-03-18", 
+    "guests": 2,
+    "total_price": 450.00,
+    "booking_channel": "direct"
+  },
+  "travel": {
+    "destination_type": "business",
+    "advance_booking_days": 30,
+    "loyalty_tier": "gold",
+    "corporate_rate": true
+  }
+}
+```
+
+### Real Estate Events
+
+```json
+{
+  "event": "property_inquiry_submitted",
+  "properties": {
+    "property_id": "PROP-456",
+    "inquiry_type": "viewing_request",
+    "preferred_date": "2024-02-20",
+    "message": "Interested in scheduling a viewing"
+  },
+  "real_estate": {
+    "property_type": "residential",
+    "price_range": "mid_market", 
+    "location_desirability": "high",
+    "market_conditions": "seller_favorable"
+  }
+}
+```
+
+{% callout type="info" title="Industry Schemas" %}
+Each industry has specialized event schemas that capture domain-specific context, ensuring your events contain all the relevant business information.
+{% /callout %}
+
+## Advanced Semantic Features
+
+### Sentiment Analysis
+
+Events can include sentiment information:
+
+```json
+{
+  "event": "review_submitted",
+  "properties": {
+    "rating": 4,
+    "review_text": "Great product, fast delivery!"
+  },
+  "sentiment": {
+    "overall_score": 0.8,
+    "aspects": {
+      "product_quality": 0.9,
+      "delivery_speed": 0.85,
+      "customer_service": 0.7
+    }
+  }
+}
+```
+
+### Supply Chain Context
+
+Events can include supply chain information:
+
+```json
+{
+  "event": "product_shipped",
+  "properties": {
+    "order_id": "ORD-123",
+    "tracking_number": "TRK-456"
+  },
+  "supply_chain": {
+    "fulfillment_center": "FC-WEST-01",
+    "carrier": "FedEx",
+    "estimated_delivery": "2024-01-18",
+    "shipping_cost": 12.99,
+    "carbon_footprint": 2.3
+  }
+}
+```
+
+### Classification and Tagging
+
+Events support rich classification systems:
+
+```json
+{
+  "event": "content_viewed",
+  "properties": {
+    "content_id": "ART-789",
+    "content_type": "article"
+  },
+  "classification": {
+    "topics": ["technology", "artificial_intelligence"],
+    "content_tier": "premium",
+    "audience_level": "expert",
+    "content_format": "long_form"
+  }
+}
+```
+
+{% callout type="success" title="Actionable Intelligence" %}
+These advanced features transform raw events into actionable business intelligence, enabling automated decision-making and real-time optimization.
+{% /callout %}
+
+## Benefits of Semantic Events
+
+### For Analytics Teams
+
+- **Consistent Data Structure**: No more guessing about event properties
+- **Rich Context**: Every event contains comprehensive business context
+- **Ready-to-Use Dimensions**: Built-in segmentation and filtering capabilities
+- **Cross-Platform Compatibility**: Events work across all analytics tools
+
+### For Engineering Teams
+
+- **Validation and Quality**: Automatic schema validation ensures data quality
+- **Documentation**: Self-documenting events with clear property definitions
+- **Versioning**: Schema evolution without breaking existing integrations
+- **Performance**: Optimized for high-volume, real-time processing
+
+### For Business Teams
+
+- **Immediate Insights**: Events are designed for business understanding
+- **Operational Visibility**: Real-time view into business processes
+- **Customer Understanding**: Deep insights into user behavior and preferences
+- **Decision Support**: Data structured for automated decision-making
+
+### For Data Science Teams
+
+- **Feature Engineering**: Rich properties ready for machine learning
+- **Entity Relationships**: Graph-like data structure for advanced modeling
+- **Temporal Analysis**: Time-series data with proper context
+- **Experimentation**: Built-in support for A/B testing and experimentation
+
+{% callout type="info" title="Cross-Functional Value" %}
+Semantic events provide value across all teams by ensuring everyone works with the same high-quality, well-structured data.
+{% /callout %}
+
+## Implementation Approach
+
+### 1. Start with Core Events
+
+Begin with the most important business interactions:
+
+- **E-Commerce**: Product views, cart actions, purchases
+- **Content**: Page views, content engagement, conversions  
+- **User Management**: Registrations, logins, profile updates
+- **Support**: Ticket creation, resolution, feedback
+
+### 2. Add Industry-Specific Context
+
+Enhance core events with industry-specific properties:
+
+- **Retail**: Inventory levels, seasonal factors, promotional context
+- **SaaS**: Feature usage, subscription status, plan details
+- **Media**: Content categories, engagement metrics, recommendation context
+- **Financial**: Transaction types, risk scores, compliance flags
+
+### 3. Integrate with Entities
+
+Connect events to your entity model:
+
+- **User Entities**: Demographics, preferences, behavior history
+- **Product Entities**: Catalog information, performance metrics, relationships
+- **Business Entities**: Organizational structure, operational context
+
+### 4. Enable Real-Time Processing
+
+Design for real-time analytics and decision-making:
+
+- **Stream Processing**: Events flow through real-time pipelines
+- **Immediate Enrichment**: Context added as events are processed
+- **Automated Actions**: Events trigger business rules and workflows
+- **Live Dashboards**: Real-time visibility into business operations
+
+{% callout type="warning" title="Implementation Strategy" %}
+Start simple with core events and gradually add complexity. Focus on data quality and consistency before adding advanced features.
+{% /callout %}
+
+## Getting Started
+
+Ready to implement semantic events? Here's your next steps:
+
+1. **[Review the Event Bible](/docs/semantic-events/bible)** - Explore standardized events for your industry
+2. **[Understand the Schema](/docs/semantic-events/schema/all)** - Learn about event properties and structure  
+3. **[Follow Best Practices](/docs/semantic-events/best-practices)** - Implement events the right way
+4. **[Set Up Validation](/docs/semantic-events/validation)** - Ensure data quality from day one
+
+{% callout type="success" title="Transform Your Data" %}
+Semantic events will transform your raw interaction data into a rich, contextual understanding of your business operations and customer behavior.
+{% /callout %}
+
+## What's Next?
+
+- **[Getting Started Guide](/docs/semantic-events/getting-started)** - Step-by-step implementation
+- **[Event Bible](/docs/semantic-events/bible)** - Complete catalog of standardized events
+- **[Schema Reference](/docs/semantic-events/schema/all)** - Detailed property documentation
+- **[Entity Integration](/docs/entities)** - Learn about entity relationships
+- **[Datapoint Analysis](/docs/datapoints)** - Understand granular data capture
+
+By implementing semantic events, you're not just tracking what happens in your application—you're building a comprehensive understanding of your business that enables smarter decisions, better customer experiences, and more effective operations.

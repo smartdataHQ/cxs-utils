@@ -1,0 +1,194 @@
+---
+title: Entity Identification System
+description: Learn about Context Suite's semantic web inspired approach for entity identification
+---
+
+# Entity Identification in Context Suite
+
+Context Suite uses a semantic web inspired approach for entity identification across our data model.
+
+## Concepts
+
+- **GID_URL**: Represents the authoritative location where an entity "resides" - inspired by RDF and semantic web principles. These are preferably real URLs that serve as the canonical identifier for an entity.
+
+- **Entity_GID**: A UUID derived from the GID_URL using a named UUID algorithm. This provides a compact, database-friendly identifier that's consistently generated from the same URL.
+
+{% callout type="info" title="Semantic Web Inspiration" %}
+Our approach draws from RDF and semantic web principles, where entities have authoritative URIs that define their identity and meaning.
+{% /callout %}
+
+## Benefits
+
+1. **Semantic Meaning**: GID_URLs carry semantic meaning about what the entity is and where it's defined
+2. **Size Efficiency**: Entity_GIDs are more compact than full URLs (just 16 bytes)
+3. **Performance**: UUIDs are optimized for database operations like indexing and joining
+4. **Consistency**: The same GID_URL will always generate the same Entity_GID
+
+{% callout type="success" title="Deterministic Generation" %}
+The deterministic nature of our UUID generation ensures that the same entity will always have the same identifier across different systems and time periods.
+{% /callout %}
+
+## How It Works
+
+- Every `_gid` suffixed field is always a calculated value from "something meaningful"
+- When you see a `_gid` field, you can know it represents a constant ID for some URL
+- We sometimes have the `gid_url` explicitly, other times we create it from known unique data
+- A `gid_url` always contains more semantic meaning than just timestamps or random values
+
+{% callout type="warning" title="Meaningful Sources" %}
+GID_URLs should always be derived from meaningful, stable identifiers rather than temporary or random values to ensure consistency over time.
+{% /callout %}
+
+## Examples
+
+### Shopify Product Example
+
+For a Shopify product with ID 15100602155333:
+
+```json
+{
+  "entity_gid": "550e8400-e29b-41d4-a716-446655440000", 
+  "properties": {
+    "gid_url": "https://shop.example.com/products/15100602155333",
+    "admin_graphql_api_id": "gid://shopify/Product/15100602155333"
+  }
+}
+```
+
+{% callout type="info" title="External System Integration" %}
+When integrating with external systems like Shopify, we incorporate the source system identifier into our GID_URL structure to maintain uniqueness and traceability.
+{% /callout %}
+
+## Implementation Notes
+
+1. Always generate Entity_GIDs consistently from the same input GID_URL
+2. When creating a new entity, establish a meaningful GID_URL that uniquely identifies it
+3. For external entities, incorporate the source system and ID into the GID_URL
+4. GID_URLs should follow URI format but don't necessarily need to be resolvable web URLs
+
+{% callout type="warning" title="Consistency Requirements" %}
+It's crucial that the same GID_URL always generates the same Entity_GID. Any changes to the URL format or generation logic could break entity relationships.
+{% /callout %}
+
+## Technical Implementation
+
+Entity_GIDs are generated using UUID version 5 (name-based) with a fixed namespace UUID and the GID_URL as input:
+
+```python
+import uuid
+
+# Use the standard DNS namespace or a custom namespace for your organization
+NAMESPACE = uuid.UUID('6ba7b810-9dad-11d1-80b4-00c04fd430c8')  # DNS namespace
+
+# Generate a deterministic UUID from a GID_URL
+def generate_entity_gid(gid_url):
+    return uuid.uuid5(NAMESPACE, gid_url)
+
+# Example usage
+gid_url = "https://shop.example.com/products/15100602155333"
+entity_gid = generate_entity_gid(gid_url)
+print(entity_gid)  # Will always produce the same UUID for the same input URL
+```
+
+{% callout type="success" title="Cross-System Compatibility" %}
+This approach ensures that any system processing the same entity will generate identical identifiers, enabling seamless data integration across your entire ecosystem.
+{% /callout %}
+
+## Best Practices
+
+### URL Structure Guidelines
+
+When designing GID_URLs, follow these best practices:
+
+- **Use consistent domain patterns**: `https://your-domain.com/entity-type/id`
+- **Include entity type in path**: This makes the URL self-documenting
+- **Use stable identifiers**: Avoid using temporary or session-based IDs
+- **Maintain backwards compatibility**: Once established, avoid changing URL patterns
+
+### Example URL Patterns
+
+```text
+# Products
+https://shop.example.com/products/SKU-12345
+
+# Users  
+https://platform.example.com/users/user-67890
+
+# Orders
+https://commerce.example.com/orders/ORDER-2024-001
+
+# Events
+https://analytics.example.com/events/event-abc123
+```
+
+### Integration with External Systems
+
+When integrating with external platforms:
+
+```json
+{
+  "entity_gid": "generated-uuid-here",
+  "gid_url": "https://integration.yourcompany.com/shopify/products/15100602155333",
+  "external_ids": {
+    "shopify_id": "15100602155333",
+    "shopify_gid": "gid://shopify/Product/15100602155333"
+  }
+}
+```
+
+{% callout type="info" title="External ID Preservation" %}
+Always preserve original external identifiers alongside your generated GID_URLs to maintain audit trails and enable reverse lookups.
+{% /callout %}
+
+## Validation and Quality Assurance
+
+### GID_URL Validation
+
+Implement validation to ensure GID_URL quality:
+
+```python
+import re
+from urllib.parse import urlparse
+
+def validate_gid_url(gid_url):
+    """Validate that a GID_URL meets our standards"""
+    
+    # Must be a valid URL
+    try:
+        parsed = urlparse(gid_url)
+        if not all([parsed.scheme, parsed.netloc]):
+            return False, "Invalid URL format"
+    except Exception:
+        return False, "Malformed URL"
+    
+    # Must use HTTPS (recommended)
+    if parsed.scheme != 'https':
+        return False, "Should use HTTPS scheme"
+    
+    # Must have meaningful path
+    if not parsed.path or parsed.path == '/':
+        return False, "URL must have meaningful path"
+    
+    # Should not contain query parameters or fragments
+    if parsed.query or parsed.fragment:
+        return False, "URL should not contain query parameters or fragments"
+    
+    return True, "Valid GID_URL"
+```
+
+### Entity_GID Verification
+
+Verify that Entity_GIDs are generated correctly:
+
+```python
+def verify_entity_gid(gid_url, entity_gid):
+    """Verify that an Entity_GID was correctly generated from a GID_URL"""
+    expected_gid = generate_entity_gid(gid_url)
+    return str(expected_gid) == str(entity_gid)
+```
+
+{% callout type="warning" title="Data Integrity" %}
+Always validate that Entity_GIDs match their source GID_URLs to prevent data corruption and maintain referential integrity.
+{% /callout %}
+
+This approach ensures that any system processing the same entity will generate identical identifiers, enabling seamless data integration across your entire ecosystem.

@@ -1,0 +1,531 @@
+---
+title: Event Validation
+description: Validate semantic events against the Avro schema and event modeling rules
+---
+
+# Event Validation
+
+The Context Suite includes a robust event validation system that ensures events conform to both the Avro schema definition and event modeling best practices. This validator is dynamically driven by the Avro schema, ensuring that validation rules evolve automatically as the schema is updated.
+
+{% callout type="info" title="Dynamic Schema Validation" %}
+Unlike static validation approaches, our validator automatically adapts to schema changes, ensuring your validation rules stay current without manual updates.
+{% /callout %}
+
+## Features
+
+The validator provides comprehensive validation of event JSON objects:
+
+1. **Required Field Validation**: Ensures presence of schema-defined required fields
+2. **Type Validation**: Verifies field types match schema expectations
+3. **Event Modeling Rules**: Validates compliance with best practices:
+   - Property order recommendations
+   - Entity references in `involves` array
+   - Nested structure validation
+4. **Unknown Field Detection**: Identifies fields not defined in the Avro schema, including in nested structures
+
+{% callout type="success" title="Comprehensive Coverage" %}
+The validator checks everything from basic field presence to complex nested structures, ensuring your events meet both technical and business requirements.
+{% /callout %}
+
+## How It Works
+
+The validator processes event validation in three steps:
+
+1. **Avro Schema Parsing**: Extracts field definitions, types, and requirements directly from the Avro schema files (`.avsc`)
+2. **Event Analysis**: Processes the event structure against schema requirements
+3. **Validation Results**: Provides clear error/warning messages with specific details
+
+Unlike previous validation approaches, this validator is dynamically driven by the Avro schema files, ensuring that validation rules automatically evolve as the schema is updated without requiring code changes.
+
+{% callout type="warning" title="Schema-Driven Approach" %}
+The validator's rules are derived directly from your Avro schema files. Any schema changes automatically update validation behavior.
+{% /callout %}
+
+## File Structure
+
+The validator consists of three primary components:
+
+- **avro_schema_parser.py**: Parses the Avro schemas to extract field definitions and requirements
+- **event_validator.py**: Core validation logic that checks events against schema rules
+- **run_validator.py**: CLI tool to validate JSON event files
+
+These files are located in the `cxs-schema/` directory of the project.
+
+## Usage
+
+### Command Line Interface
+
+The validator can be run directly from the command line:
+
+```bash
+# Validate a single event file
+python cxs-schema/run_validator.py examples/events/product_updated.json
+
+# Validate all events in a directory
+python cxs-schema/run_validator.py -d examples/events/
+```
+
+{% callout type="info" title="Batch Processing" %}
+Use the directory option to validate multiple events at once, perfect for testing large event datasets or during CI/CD processes.
+{% /callout %}
+
+### Python API
+
+You can also use the validator programmatically in your Python code:
+
+```python
+from cxs_schema.event_validator import validate_event_file, validate_events
+
+# Validate a single file
+is_valid, errors, warnings = validate_event_file('path/to/event.json')
+
+# Validate a list of events
+events = [
+    {"type": "semantic_events", "event": "product_updated", ...},
+    {"type": "semantic_events", "event": "user_login", ...}
+]
+results = validate_events(events)
+```
+
+## Validation Rules
+
+### Required Fields
+
+The validator enforces the presence of all required fields from the SQL schema:
+- `type`
+- `event`
+- `timestamp`
+- `entity_gid`
+- `event_gid`
+
+```json
+{
+  "type": "semantic_events",
+  "event": "product_updated",
+  "timestamp": "2023-04-18T15:22:31.000Z",
+  "entity_gid": "gid://Product/123",
+  "event_gid": "gid://Event/456"
+  // ... other fields
+}
+```
+
+{% callout type="error" title="Required Field Enforcement" %}
+Missing any required field will cause validation to fail. Ensure all core fields are present before submitting events.
+{% /callout %}
+
+### Entity References
+
+All fields ending with `_id` (except `message_id`) should be moved to the `involves` array with proper roles and entity types:
+
+```json
+{
+  // ... other fields
+  "involves": [
+    {
+      "entity_type": "User",
+      "id": "123",
+      "id_type": "database",
+      "role": "Actor"
+    },
+    {
+      "entity_type": "Product",
+      "id": "456",
+      "id_type": "database",
+      "role": "Subject"
+    }
+  ]
+}
+```
+
+{% callout type="warning" title="Entity Reference Migration" %}
+Legacy `*_id` fields should be migrated to the `involves` array structure for better semantic modeling and relationship tracking.
+{% /callout %}
+
+### Property Ordering
+
+For improved readability, the validator recommends that events follow a standard property order:
+
+1. **First properties**: `type`, `event`, `timestamp`, `entity_gid`, `event_gid`
+2. **Last properties**: `source`/`source_info`, `partition`, `integration`, `analysis`, `message_id`
+
+These ordering rules generate warnings but do not cause validation failures.
+
+{% callout type="info" title="Readability Enhancement" %}
+While property ordering doesn't affect functionality, consistent ordering makes events easier to read and debug.
+{% /callout %}
+
+### Nested Fields
+
+Nested structures like `commerce.products`, `involves`, and `classification` are validated against their schema-defined fields:
+
+```json
+{
+  // ... other fields
+  "commerce": {
+    "products": [
+      {
+        "id": "product123",
+        "name": "Sample Product",
+        "category": "Clothing",
+        "url": "https://example.com/products/123"
+      }
+    ]
+  }
+}
+```
+
+## Edge Cases
+
+The validator handles several edge cases:
+
+1. **Map Fields**: Special handling for fields like `flags`, `properties` which can have arbitrary keys
+2. **Content Fields**: Fields like `properties` and `content` can contain arbitrary structures
+3. **Nullable Fields**: Handles nullable fields from the SQL schema appropriately
+4. **Nested Structures**: Properly validates nested arrays and objects, including multi-level nesting
+
+{% callout type="success" title="Robust Handling" %}
+The validator is designed to handle complex, real-world event structures while maintaining strict validation where needed.
+{% /callout %}
+
+## Examples
+
+### Valid Event Example
+
+Below is a complete, validated example of a product_updated event that passes all validation checks against the Avro schema:
+
+```json
+{
+  "type": "track",
+  "event": "Product Updated",
+  "timestamp": "2025-06-06T17:32:46-04:00",
+  "entity_gid": "ede9ed75-dd83-519b-89c2-aa20966962cd",
+  "event_gid": "ede9ed75-dd83-519b-89c2-aa20966962cd",
+  "content": {
+    "Description": "This is test snowboard",
+    "Title": "The test snowboard"
+  },
+  "context": {
+    "ip": "127.0.0.1",
+    "locale": "en-US",
+    "timezone": "America/Los_Angeles"
+  },
+  "flags": {
+    "is_taxable": true
+  },
+  "involves": [
+    {
+      "entity_type": "Product",
+      "id": "15100602155333",
+      "id_type": "Shopify",
+      "label": "The test snowboard",
+      "role": "Source"
+    },
+    {
+      "entity_type": "Category",
+      "id": "sg-4-17-2-17",
+      "id_type": "ShopifyCategory",
+      "label": "Snowboards",
+      "role": "Classification"
+    }
+  ],
+  "classification": [
+    {
+      "type": "Category",
+      "value": "Sporting Goods"
+    },
+    {
+      "type": "Category",
+      "value": "Outdoor Recreation"
+    },
+    {
+      "type": "Category",
+      "value": "Winter Sports & Activities"
+    },
+    {
+      "type": "Category",
+      "value": "Skiing & Snowboarding"
+    },
+    {
+      "type": "Category",
+      "value": "Snowboards"
+    }
+  ],
+  "commerce": {
+    "products": [
+      {
+        "product_id": "15100602155333",
+        "product": "The test snowboard",
+        "category": "Snowboards",
+        "categories": [
+          "Sporting Goods",
+          "Outdoor Recreation", 
+          "Winter Sports & Activities", 
+          "Skiing & Snowboarding", 
+          "Snowboards"
+        ],
+        "url": "gid://shopify/Product/15100602155333"
+      }
+    ]
+  },
+  "properties": {
+    "admin_graphql_api_id": "gid://shopify/Product/15100602155333",
+    "category_full_path": "Sporting Goods > Outdoor Recreation > Winter Sports & Activities > Skiing & Snowboarding > Snowboards"
+  },
+  "source_info": {
+    "label": "Shopify",
+    "type": "eCommerce"
+  },
+  "message_id": "shopify_product_15100602155333"
+}
+```
+
+{% callout type="success" title="Complete Example" %}
+This example demonstrates a fully compliant semantic event with rich context, proper entity relationships, and comprehensive classification.
+{% /callout %}
+
+### Validation Output Examples
+
+For a successful validation:
+
+```bash
+✓ product_updated_corrected.json: Validation passed!
+```
+
+For a validation with warnings:
+
+```bash
+⚠️ product_updated.json: Passed with warnings:
+  1. Unknown field 'commerce.products[0].path' is not defined in SQL schema
+```
+
+For a validation failure:
+
+```bash
+❌ invalid_event.json: Validation failed:
+  1. Missing required field 'event'
+  2. Field 'timestamp' has invalid type: expected 'DateTime', got 'string'
+  3. Unknown field 'user_data' is not defined in SQL schema
+```
+
+{% callout type="info" title="Clear Feedback" %}
+The validator provides clear, actionable feedback to help you quickly identify and fix validation issues.
+{% /callout %}
+
+## Testing the Validator
+
+You can test the validator with provided example events:
+
+```bash
+# Test with a valid event
+python cxs-schema/run_validator.py examples/events/product_updated_corrected.json
+
+# Test with an event that has warnings
+python cxs-schema/run_validator.py examples/events/product_updated.json
+
+# Test with multiple events
+python cxs-schema/run_validator.py -d examples/events/
+```
+
+## Troubleshooting
+
+If you encounter validation errors or warnings:
+
+### 1. Missing Required Fields
+Ensure all required fields from the SQL schema are present:
+
+```json
+{
+  "type": "semantic_events",        // Required
+  "event": "product_viewed",        // Required
+  "timestamp": "2024-01-15T10:30:00Z", // Required
+  "entity_gid": "uuid-here",        // Required
+  "event_gid": "uuid-here"          // Required
+}
+```
+
+### 2. Type Errors
+Check that field types match schema expectations:
+
+```json
+{
+  "timestamp": "2024-01-15T10:30:00Z", // String in ISO format
+  "price": 29.99,                      // Number, not string
+  "quantity": 2,                       // Integer, not string
+  "is_available": true                 // Boolean, not string
+}
+```
+
+### 3. Unknown Fields
+Verify that all fields are defined in the SQL schema:
+
+```json
+{
+  // This field might not be in schema
+  "custom_field": "value",
+  
+  // Move to properties if needed
+  "properties": {
+    "custom_field": "value"
+  }
+}
+```
+
+### 4. ID Fields Migration
+Move all `*_id` fields into the `involves` array:
+
+```json
+{
+  // Instead of this:
+  "user_id": "123",
+  "product_id": "456",
+  
+  // Use this:
+  "involves": [
+    {
+      "entity_type": "User",
+      "id": "123",
+      "role": "Actor"
+    },
+    {
+      "entity_type": "Product", 
+      "id": "456",
+      "role": "Subject"
+    }
+  ]
+}
+```
+
+### 5. Commerce Products Path Field
+The `path` field in `commerce.products` is not part of the SQL schema:
+
+```json
+{
+  "commerce": {
+    "products": [
+      {
+        "product_id": "123",
+        "name": "Product Name",
+        "category": "Electronics",
+        // Remove this field:
+        // "path": "/products/123"
+        
+        // Use url instead:
+        "url": "https://example.com/products/123"
+      }
+    ]
+  }
+}
+```
+
+{% callout type="warning" title="Schema Compliance" %}
+Always ensure your events comply with the current schema definition. Unknown fields may indicate schema drift or implementation errors.
+{% /callout %}
+
+## Integration with CI/CD
+
+### Automated Validation
+
+Integrate validation into your deployment pipeline:
+
+```bash
+#!/bin/bash
+# validate-events.sh
+
+echo "Validating semantic events..."
+
+# Validate all events in the events directory
+python cxs-schema/run_validator.py -d events/
+
+if [ $? -eq 0 ]; then
+    echo "✓ All events passed validation"
+    exit 0
+else
+    echo "❌ Event validation failed"
+    exit 1
+fi
+```
+
+### Pre-commit Hooks
+
+Add validation to pre-commit hooks:
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: validate-events
+        name: Validate Semantic Events
+        entry: python cxs-schema/run_validator.py
+        language: system
+        files: '\.json$'
+        args: ['-d', 'events/']
+```
+
+{% callout type="success" title="Quality Assurance" %}
+Automated validation in your CI/CD pipeline ensures that only valid events reach production, maintaining data quality and system reliability.
+{% /callout %}
+
+## Advanced Validation Features
+
+### Custom Validation Rules
+
+Extend the validator with custom business rules:
+
+```python
+def validate_business_rules(event):
+    """Custom business validation rules"""
+    errors = []
+    
+    # Example: Ensure price is positive for commerce events
+    if event.get('event') == 'product_purchased':
+        commerce = event.get('commerce', {})
+        products = commerce.get('products', [])
+        for product in products:
+            if product.get('price', 0) <= 0:
+                errors.append(f"Product {product.get('id')} has invalid price")
+    
+    return errors
+```
+
+### Schema Version Validation
+
+Validate against specific schema versions:
+
+```python
+from cxs_schema.event_validator import validate_event_with_version
+
+# Validate against a specific schema version
+is_valid, errors, warnings = validate_event_with_version(
+    event_data, 
+    schema_version="v2.1.0"
+)
+```
+
+### Batch Validation Reports
+
+Generate comprehensive validation reports:
+
+```python
+from cxs_schema.event_validator import generate_validation_report
+
+# Generate detailed report for multiple events
+report = generate_validation_report(events_directory)
+print(f"Total events: {report.total_events}")
+print(f"Valid events: {report.valid_events}")
+print(f"Events with warnings: {report.warning_events}")
+print(f"Invalid events: {report.invalid_events}")
+```
+
+{% callout type="info" title="Enterprise Features" %}
+Advanced validation features provide enterprise-grade quality assurance and reporting capabilities for large-scale event processing.
+{% /callout %}
+
+For more detailed information about event modeling best practices, refer to the [Best Practices](/docs/semantic-events/best-practices) and [Events vs. Timestamps](/docs/semantic-events/events-vs-timestamps) documentation.
+
+## Next Steps
+
+- **[Event Schema Reference](/docs/semantic-events/schema/all)** - Complete schema documentation
+- **[Best Practices](/docs/semantic-events/best-practices)** - Implementation guidelines
+- **[Getting Started](/docs/semantic-events/getting-started)** - Begin implementing semantic events
+- **[Entity Integration](/docs/entities)** - Learn about entity relationships

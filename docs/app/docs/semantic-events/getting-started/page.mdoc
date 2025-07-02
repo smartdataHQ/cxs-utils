@@ -1,0 +1,560 @@
+---
+title: Getting Started with Semantic Events
+description: Quick start guide to implementing semantic events in your application with the CXS Analytics client
+---
+
+# Getting Started with Semantic Events
+
+This comprehensive guide helps you quickly set up the CXS Analytics client (a fork of Jitsu's analytics library) and implement semantic event tracking in your application. You'll learn how to send your first semantic event and build upon it with rich, contextual data.
+
+{% callout type="info" title="What You'll Learn" %}
+By the end of this guide, you'll have the CXS client installed, configured, and sending semantic events with rich context and standardized properties.
+{% /callout %}
+
+## Overview
+
+Semantic events capture meaningful business interactions with rich context, going beyond traditional analytics to provide actionable insights. The CXS Analytics client makes it easy to implement standardized event tracking that follows industry best practices.
+
+### Key Benefits
+
+- **Standardized Schema**: Events follow consistent, validated schemas
+- **Rich Context**: Capture comprehensive metadata about interactions
+- **Real-time Processing**: Events are processed and available immediately
+- **Cross-Platform**: Works in browsers, Node.js, and mobile applications
+- **Analytics Ready**: Built-in dimensions and metrics for analysis
+
+## 1. Install the CXS Client
+
+First, add the CXS client to your project. Choose the appropriate package for your environment:
+
+### Browser / JavaScript (npm)
+
+```bash
+npm install @smartdataHQ/cxs-analytics
+```
+
+### Node.js / Server-side
+
+```bash
+npm install @smartdataHQ/cxs-analytics-node
+```
+
+### Alternative Installation Methods
+
+```bash
+# Using Yarn
+yarn add @smartdataHQ/cxs-analytics
+
+# Using pnpm
+pnpm add @smartdataHQ/cxs-analytics
+```
+
+{% callout type="success" title="Package Selection" %}
+Choose the browser package for client-side applications and the Node.js package for server-side implementations. Both packages provide the same semantic event capabilities.
+{% /callout %}
+
+## 2. Initialize the CXS Client
+
+Set up the client in your project with your Context Suite credentials:
+
+### Browser Example
+
+```javascript title="app.js"
+import { cxsAnalytics } from '@smartdataHQ/cxs-analytics';
+
+// Initialize CXS client for browser
+const cxs = cxsAnalytics({
+  host: 'https://inbox.contextsuite.com',
+  writeKey: 'YOUR_WRITE_KEY', // Replace with your actual write_key
+  debug: true, // Enable debug mode for development
+});
+
+// Optional: Set user context
+cxs.identify('user_12345', {
+  email: 'user@example.com',
+  name: 'John Doe',
+  plan: 'premium'
+});
+```
+
+### Node.js Example
+
+```javascript title="server.js"
+const { cxsAnalytics } = require('@smartdataHQ/cxs-analytics-node');
+
+// Initialize CXS client for Node.js
+const cxs = cxsAnalytics({
+  host: 'https://inbox.contextsuite.com',
+  writeKey: 'YOUR_WRITE_KEY', // Replace with your actual write_key
+  flushAt: 20, // Send events in batches of 20
+  flushInterval: 10000, // Send events every 10 seconds
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  cxs.flush(() => {
+    process.exit(0);
+  });
+});
+```
+
+### Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `host` | string | Required | Your Context Suite endpoint |
+| `writeKey` | string | Required | Your project's write key |
+| `debug` | boolean | `false` | Enable debug logging |
+| `flushAt` | number | `20` | Batch size for events |
+| `flushInterval` | number | `10000` | Flush interval in milliseconds |
+
+{% callout type="warning" title="Write Key Security" %}
+Keep your write key secure and never expose it in client-side code in production. Use environment variables or secure configuration management.
+{% /callout %}
+
+## 3. Send Your First Event
+
+Start with a simple "Hello World" event to verify your setup:
+
+### Basic Hello World Event
+
+```javascript title="hello-world.js"
+// Browser Example
+cxs.track('Hello World Sent', {
+  content: {
+    message: 'This is my first semantic event!'
+  },
+  timestamp: new Date().toISOString()
+});
+```
+
+```javascript title="hello-world-node.js"
+// Node.js Example
+cxs.track('Hello World Sent', {
+  content: {
+    message: 'This is my first semantic event from Node!'
+  },
+  timestamp: new Date().toISOString()
+}).then(() => {
+  console.log('Event sent successfully!');
+}).catch((error) => {
+  console.error('Error sending event:', error);
+});
+```
+
+### Enhanced Hello World with Context
+
+```javascript title="enhanced-hello-world.js"
+// Enhanced event with rich context
+cxs.track('Hello World Sent', {
+  content: {
+    message: 'This is my first semantic event!',
+    version: '1.0.0'
+  },
+  properties: {
+    source: 'getting_started_guide',
+    environment: 'development',
+    user_agent: navigator.userAgent
+  },
+  context: {
+    page: {
+      url: window.location.href,
+      title: document.title,
+      referrer: document.referrer
+    },
+    device: {
+      type: 'desktop',
+      os: 'macOS'
+    }
+  }
+});
+```
+
+{% callout type="success" title="Event Sent!" %}
+Once you send your first event, it will appear in your Context Suite dashboard within seconds. The real-time processing ensures immediate visibility into your data.
+{% /callout %}
+
+## 4. Verify Your Event
+
+After sending the event, verify it arrived in your Context Suite dashboard:
+
+### Dashboard Verification Steps
+
+1. **Visit your Context Suite Dashboard**
+   - Navigate to `https://app.contextsuite.com`
+   - Log in with your credentials
+
+2. **Check the Events Explorer**
+   - Go to the "Events" section
+   - Look for the "Event Explorer" or "Live Events" view
+
+3. **Find Your Event**
+   - Search for events named "Hello World Sent"
+   - Verify the custom properties are present
+   - Check the timestamp and context data
+
+### Expected Event Structure
+
+Your event should appear with this structure:
+
+```json
+{
+  "event": "Hello World Sent",
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "user_id": "user_12345",
+  "content": {
+    "message": "This is my first semantic event!"
+  },
+  "properties": {
+    "source": "getting_started_guide",
+    "environment": "development"
+  },
+  "context": {
+    "page": {
+      "url": "https://example.com/getting-started",
+      "title": "Getting Started - My App"
+    },
+    "library": {
+      "name": "cxs-analytics",
+      "version": "1.0.0"
+    }
+  }
+}
+```
+
+{% callout type="info" title="Event Processing Time" %}
+Events typically appear in your dashboard within 1-2 seconds. If you don't see your event immediately, check your write key and network connectivity.
+{% /callout %}
+
+## 5. Implement Semantic Events
+
+Now that you've verified basic tracking works, let's implement proper semantic events:
+
+### E-Commerce Events
+
+```javascript title="ecommerce-events.js"
+// Product viewed event
+cxs.track('product_viewed', {
+  product_id: 'SKU-12345',
+  product_name: 'Wireless Headphones',
+  category: 'Electronics',
+  brand: 'AudioTech',
+  price: 199.99,
+  currency: 'USD',
+  availability: 'in_stock',
+  rating: 4.5,
+  review_count: 128
+});
+
+// Product added to cart
+cxs.track('product_added_to_cart', {
+  product_id: 'SKU-12345',
+  product_name: 'Wireless Headphones',
+  quantity: 1,
+  price: 199.99,
+  currency: 'USD',
+  cart_total: 199.99,
+  cart_item_count: 1
+});
+
+// Order completed
+cxs.track('order_completed', {
+  order_id: 'ORDER-789',
+  total: 199.99,
+  currency: 'USD',
+  payment_method: 'credit_card',
+  shipping_method: 'standard',
+  products: [
+    {
+      product_id: 'SKU-12345',
+      product_name: 'Wireless Headphones',
+      quantity: 1,
+      price: 199.99
+    }
+  ]
+});
+```
+
+### Content Events
+
+```javascript title="content-events.js"
+// Article viewed
+cxs.track('article_viewed', {
+  article_id: 'ART-456',
+  article_title: 'Getting Started with Semantic Events',
+  category: 'Documentation',
+  author: 'Context Suite Team',
+  word_count: 1500,
+  reading_time: 6
+});
+
+// Video played
+cxs.track('video_played', {
+  video_id: 'VID-789',
+  video_title: 'Semantic Events Tutorial',
+  duration: 300,
+  quality: '1080p',
+  player_type: 'html5'
+});
+```
+
+### User Journey Events
+
+```javascript title="user-journey.js"
+// User registration
+cxs.track('user_registered', {
+  user_id: 'user_12345',
+  email: 'user@example.com',
+  registration_method: 'email',
+  source: 'organic',
+  plan: 'free'
+});
+
+// Feature used
+cxs.track('feature_used', {
+  feature_name: 'semantic_events',
+  feature_category: 'analytics',
+  usage_count: 1,
+  user_plan: 'premium'
+});
+```
+
+{% callout type="success" title="Semantic Event Benefits" %}
+These standardized events provide rich context that enables powerful analytics, personalization, and machine learning capabilities.
+{% /callout %}
+
+## 6. Best Practices
+
+### Event Naming Conventions
+
+Follow standardized event naming from the [Event Bible](/docs/semantic-events/bible):
+
+```javascript
+// Good - Use standardized names
+cxs.track('product_viewed', { ... });
+cxs.track('order_completed', { ... });
+cxs.track('user_registered', { ... });
+
+// Avoid - Custom or inconsistent names
+cxs.track('productView', { ... });
+cxs.track('purchase', { ... });
+cxs.track('signup', { ... });
+```
+
+### Include Rich Context
+
+Always include relevant context properties:
+
+```javascript title="rich-context.js"
+cxs.track('product_viewed', {
+  // Core product data
+  product_id: 'SKU-12345',
+  product_name: 'Wireless Headphones',
+  category: 'Electronics',
+  
+  // Pricing context
+  price: 199.99,
+  currency: 'USD',
+  discount_amount: 20.00,
+  
+  // Inventory context
+  availability: 'in_stock',
+  stock_level: 'high',
+  
+  // Social proof
+  rating: 4.5,
+  review_count: 128,
+  
+  // User context
+  view_source: 'search_results',
+  search_query: 'bluetooth headphones',
+  
+  // Session context
+  session_id: 'sess_abc123',
+  page_view_id: 'pv_def456'
+});
+```
+
+### Error Handling
+
+Implement proper error handling:
+
+```javascript title="error-handling.js"
+// Browser error handling
+try {
+  cxs.track('product_viewed', eventData);
+} catch (error) {
+  console.error('Failed to track event:', error);
+  // Optional: Send to error tracking service
+}
+
+// Node.js error handling with promises
+cxs.track('product_viewed', eventData)
+  .then(() => {
+    console.log('Event tracked successfully');
+  })
+  .catch((error) => {
+    console.error('Failed to track event:', error);
+    // Optional: Retry logic or fallback
+  });
+```
+
+### Performance Optimization
+
+```javascript title="performance.js"
+// Batch events for better performance
+const events = [
+  { event: 'product_viewed', properties: { ... } },
+  { event: 'product_added_to_cart', properties: { ... } },
+  { event: 'checkout_started', properties: { ... } }
+];
+
+// Send multiple events efficiently
+events.forEach(eventData => {
+  cxs.track(eventData.event, eventData.properties);
+});
+
+// Flush immediately if needed
+cxs.flush();
+```
+
+{% callout type="warning" title="Performance Considerations" %}
+Avoid sending too many events in rapid succession. The client automatically batches events for optimal performance, but be mindful of event frequency in high-traffic applications.
+{% /callout %}
+
+## 7. Advanced Configuration
+
+### Custom Context
+
+Add custom context to all events:
+
+```javascript title="custom-context.js"
+// Set global context
+cxs.context({
+  app: {
+    name: 'My E-commerce App',
+    version: '2.1.0',
+    environment: 'production'
+  },
+  campaign: {
+    source: 'google',
+    medium: 'cpc',
+    name: 'summer_sale_2024'
+  }
+});
+```
+
+### Event Middleware
+
+Process events before sending:
+
+```javascript title="middleware.js"
+// Add middleware to modify events
+cxs.addSourceMiddleware(({ payload, next }) => {
+  // Add custom timestamp
+  payload.obj.custom_timestamp = Date.now();
+  
+  // Add user agent
+  if (typeof navigator !== 'undefined') {
+    payload.obj.user_agent = navigator.userAgent;
+  }
+  
+  // Continue processing
+  next(payload);
+});
+```
+
+### Environment-Specific Configuration
+
+```javascript title="environment-config.js"
+const config = {
+  development: {
+    host: 'https://inbox-dev.contextsuite.com',
+    writeKey: 'dev_write_key',
+    debug: true,
+    flushAt: 1 // Send events immediately in dev
+  },
+  production: {
+    host: 'https://inbox.contextsuite.com',
+    writeKey: 'prod_write_key',
+    debug: false,
+    flushAt: 20
+  }
+};
+
+const environment = process.env.NODE_ENV || 'development';
+const cxs = cxsAnalytics(config[environment]);
+```
+
+## 8. Troubleshooting
+
+### Common Issues
+
+**Events not appearing in dashboard:**
+- Verify your write key is correct
+- Check network connectivity
+- Ensure the host URL is correct
+- Look for JavaScript errors in the console
+
+**Events missing properties:**
+- Validate your event structure
+- Check for typos in property names
+- Ensure all required fields are included
+
+**Performance issues:**
+- Reduce event frequency
+- Use batching appropriately
+- Implement proper error handling
+
+### Debug Mode
+
+Enable debug mode to see detailed logging:
+
+```javascript title="debug.js"
+const cxs = cxsAnalytics({
+  host: 'https://inbox.contextsuite.com',
+  writeKey: 'YOUR_WRITE_KEY',
+  debug: true // Enable detailed logging
+});
+
+// Check if events are being queued
+console.log('Queued events:', cxs.queue);
+```
+
+### Network Debugging
+
+```javascript title="network-debug.js"
+// Monitor network requests
+cxs.on('track', (event) => {
+  console.log('Event tracked:', event);
+});
+
+cxs.on('error', (error) => {
+  console.error('Tracking error:', error);
+});
+```
+
+{% callout type="info" title="Getting Help" %}
+If you encounter issues, check the [Event Validation](/docs/semantic-events/validation) guide or refer to the [Schema Reference](/docs/semantic-events/schema/all) for detailed property documentation.
+{% /callout %}
+
+## Next Steps
+
+Now that you have semantic events working, explore these advanced topics:
+
+1. **[Event Bible](/docs/semantic-events/bible)** - Browse all available standardized events
+2. **[Schema Reference](/docs/semantic-events/schema/all)** - Complete property documentation
+3. **[Event Validation](/docs/semantic-events/validation)** - Ensure data quality
+4. **[Best Practices](/docs/semantic-events/best-practices)** - Advanced implementation tips
+5. **[Entity Management](/docs/entities)** - Learn about entity relationships
+
+### Industry-Specific Guides
+
+- **[E-Commerce Events](/docs/semantic-events/bible/core-events)** - Product, cart, and order tracking
+- **[Travel Events](/docs/semantic-events/bible/travel-and-hospitality)** - Booking and travel-specific events
+- **[Real Estate Events](/docs/semantic-events/bible/real-estate)** - Property and inquiry tracking
+- **[Content Events](/docs/semantic-events/bible/digital-goods-and-content)** - Media and content tracking
+
+{% callout type="success" title="You're Ready!" %}
+Congratulations! You now have semantic events implemented and can start capturing rich, meaningful data about your users' interactions. The standardized approach will provide immediate value for analytics and enable advanced use cases as your implementation grows.
+{% /callout %}
