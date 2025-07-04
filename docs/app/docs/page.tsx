@@ -8,7 +8,6 @@ import { MarkdocRenderer } from '@/components/markdoc/markdoc-renderer';
 import { readMarkdocContent, getMarkdocPath } from '@/lib/markdoc-utils';
 
 export default function DocsHome() {
-  // Read the main docs content from the .mdoc file
   const markdocPath = getMarkdocPath('app/docs');
   const markdocContent = readMarkdocContent(markdocPath);
 
