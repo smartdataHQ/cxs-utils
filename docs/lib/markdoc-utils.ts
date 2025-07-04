@@ -27,9 +27,19 @@ export function readMarkdocContent(relativePath: string): string {
 
 /**
  * Generate the full path to a Markdoc file based on the page path
+ * Tries page.mdoc first, then falls back to index.mdoc if page.mdoc doesn't exist
  */
 export function getMarkdocPath(pagePath: string): string {
-  return `${pagePath}/page.mdoc`;
+  const pageMdocPath = `${pagePath}/page.mdoc`;
+  const indexMdocPath = `${pagePath}/index.mdoc`;
+  
+  // Check if page.mdoc exists, otherwise use index.mdoc
+  if (existsSync(join(process.cwd(), pageMdocPath))) {
+    return pageMdocPath;
+  } else {
+    console.log('📝 [getMarkdocPath] page.mdoc not found, trying index.mdoc');
+    return indexMdocPath;
+  }
 }
 
 /**
