@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://contextsuite.com/schemas/data_point.json",
-  "title": "Data Point",
+  "title": "DataPoint",
   "description": "Schema for an individual Data Point within a Time Series.",
   "type": "object",
   "properties": {
