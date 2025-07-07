@@ -136,30 +136,6 @@ export default function DocsHome() {
           </div>
         </div>
       </div>
-
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-16 sm:py-24 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Ready to Implement Semantic Events?
-          </h2>
-          <p className="mt-6 text-lg leading-8 text-blue-100">
-            Start tracking meaningful business interactions with our comprehensive event schemas and best practices.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button asChild size="lg" variant="secondary">
-              <Link href={ROUTES.gettingStarted}>
-                Start Implementation
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="text-white border-white hover:bg-white hover:text-blue-600">
-              <Link href="/docs/integrations">
-                View Integrations
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
