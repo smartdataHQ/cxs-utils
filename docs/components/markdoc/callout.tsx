@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 interface CalloutProps {
   type?: 'info' | 'warning' | 'success' | 'error' | 'tip' | 'note';
   title?: string;
+  /** Optional action element (e.g. a link or button) */
+  action?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -41,21 +43,46 @@ const calloutConfig = {
   },
 };
 
-export function Callout({ type = 'info', title, children }: CalloutProps) {
-  const config = calloutConfig[type];
-  const Icon = config.icon;
+export function Callout({
+  type = 'info',
+  title,
+  action,
+  children,
+}: CalloutProps) {
+  const { icon: Icon, className, iconClassName } = calloutConfig[type];
 
   return (
-    <Alert className={cn('my-8 callout border-l-4 shadow-sm', config.className)}>
-      <Icon className={cn('h-4 w-4', config.iconClassName)} />
-      {title && (
-        <AlertTitle className="mb-3 font-semibold text-base">
-          {title}
-        </AlertTitle>
+    <Alert
+      role="alert"
+      className={cn(
+        'my-8 rounded-md border-0 border-l-4 p-4 shadow-sm',
+        className
       )}
-      <AlertDescription className="prose-sm [&>*]:mb-2 [&>*:last-child]:mb-0 [&>p]:leading-relaxed">
-        {children}
-      </AlertDescription>
+    >
+      {/* Optional action button in the top-right */}
+      {action && (
+        <div className="absolute right-4 top-4 shrink-0">{action}</div>
+      )}
+
+      {/* Main content row – icon + text column */}
+      <div className="flex items-start gap-3">
+        <Icon
+          aria-hidden
+          className={cn('h-5 w-5 flex-shrink-0', iconClassName)}
+        />
+
+        <div className="min-w-0 flex-1">
+          {title && (
+            <AlertTitle className="text-base font-semibold leading-6">
+              {title}
+            </AlertTitle>
+          )}
+
+          <AlertDescription className="mt-2 prose-sm max-w-none [&>*]:mb-2 [&>*:last-child]:mb-0">
+            {children}
+          </AlertDescription>
+        </div>
+      </div>
     </Alert>
   );
 }
