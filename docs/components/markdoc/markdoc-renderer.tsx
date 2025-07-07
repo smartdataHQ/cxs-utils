@@ -15,13 +15,11 @@ interface MarkdocRendererProps {
   content: string;
 }
 
-// Helper function to get Lucide icon by name
 function getLucideIcon(iconName: string) {
   const iconKey = iconName.charAt(0).toUpperCase() + iconName.slice(1);
   return (LucideIcons as any)[iconKey] || LucideIcons.FileText;
 }
 
-// Custom component for rendering icons in text
 function IconText({ iconName, children }: { iconName: string; children: React.ReactNode }) {
   const Icon = getLucideIcon(iconName);
   return (
@@ -32,7 +30,6 @@ function IconText({ iconName, children }: { iconName: string; children: React.Re
   );
 }
 
-// Custom table components for better styling
 function Table({ children }: { children: React.ReactNode }) {
   return (
     <div className="table-container overflow-x-auto my-8">
@@ -53,10 +50,7 @@ function TableBody({ children }: { children: React.ReactNode }) {
 
 function TableRow({ children, isHeader = false }: { children: React.ReactNode; isHeader?: boolean }) {
   return (
-    <tr className={isHeader 
-      ? 'bg-muted/50' 
-      : 'hover:bg-muted/20 transition-colors duration-150 even:bg-muted/10'
-    }>
+    <tr className={isHeader ? 'bg-muted/50' : 'hover:bg-muted/20 transition-colors duration-150 even:bg-muted/10'}>
       {children}
     </tr>
   );
@@ -78,7 +72,6 @@ function TableCell({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Custom heading component with proper styling
 function Heading({ level, children, id }: { level: number; children: React.ReactNode; id?: string }) {
   const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
   const headingClasses = {
@@ -89,15 +82,7 @@ function Heading({ level, children, id }: { level: number; children: React.React
     5: 'text-lg font-semibold text-foreground mt-6 mb-3 scroll-mt-20',
     6: 'text-base font-semibold text-foreground mt-4 mb-2 scroll-mt-20',
   };
-  
-  return React.createElement(
-    HeadingTag,
-    { 
-      className: headingClasses[level as keyof typeof headingClasses],
-      id: id,
-    },
-    children
-  );
+  return React.createElement(HeadingTag, { className: headingClasses[level as keyof typeof headingClasses], id }, children);
 }
 
 export function MarkdocRenderer({ content }: MarkdocRendererProps) {
@@ -107,145 +92,81 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
       nodes: {
         fence: {
           render: 'CodeBlock',
-          attributes: {
-            language: { type: String },
-            title: { type: String },
-          },
+          attributes: { language: { type: String }, title: { type: String } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
             const children = node.transformChildren(config);
-            
-            return new Markdoc.Tag(
-              'CodeBlock',
-              {
-                language: attributes.language || 'text',
-                title: attributes.title,
-              },
-              children
-            );
+            return new Markdoc.Tag('CodeBlock', { language: attributes.language || 'text', title: attributes.title }, children);
           },
         },
         table: {
           render: 'Table',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'Table',
-              {},
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('Table', {}, node.transformChildren(config));
           },
         },
         thead: {
           render: 'TableHead',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'TableHead',
-              {},
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('TableHead', {}, node.transformChildren(config));
           },
         },
         tbody: {
           render: 'TableBody',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'TableBody',
-              {},
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('TableBody', {}, node.transformChildren(config));
           },
         },
         tr: {
           render: 'TableRow',
           transform(node, config) {
             const isHeader = node.parent?.type === 'thead';
-            return new Markdoc.Tag(
-              'TableRow',
-              { isHeader },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('TableRow', { isHeader }, node.transformChildren(config));
           },
         },
         th: {
           render: 'TableHeader',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'TableHeader',
-              {},
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('TableHeader', {}, node.transformChildren(config));
           },
         },
         td: {
           render: 'TableCell',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'TableCell',
-              {},
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('TableCell', {}, node.transformChildren(config));
           },
         },
         heading: {
           render: 'Heading',
-          attributes: {
-            level: { type: Number, required: true },
-            id: { type: String },
-          },
+          attributes: { level: { type: Number, required: true }, id: { type: String } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
             const children = node.transformChildren(config);
-            
-            return new Markdoc.Tag(
-              'Heading',
-              { 
-                level: attributes.level,
-                id: attributes.id,
-              },
-              children
-            );
+            return new Markdoc.Tag('Heading', { level: attributes.level, id: attributes.id }, children);
           },
         },
         paragraph: {
           render: 'p',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'p',
-              { className: 'text-foreground leading-7 mb-6 text-base' },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('p', { className: 'text-foreground leading-7 mb-6 text-base' }, node.transformChildren(config));
           },
         },
         list: {
           render: ({ ordered, children }: { ordered?: boolean; children: React.ReactNode }) => {
             const ListTag = ordered ? 'ol' : 'ul';
-            const listClasses = ordered 
-              ? 'list-decimal mb-6 space-y-2 text-foreground pl-6'
-              : 'list-disc mb-6 space-y-2 text-foreground pl-6';
-            
+            const listClasses = ordered ? 'list-decimal mb-6 space-y-2 text-foreground pl-6' : 'list-disc mb-6 space-y-2 text-foreground pl-6';
             return React.createElement(ListTag, { className: listClasses }, children);
           },
-          attributes: {
-            ordered: { type: Boolean },
-          },
+          attributes: { ordered: { type: Boolean } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
-            
-            return new Markdoc.Tag(
-              this.render,
-              { ordered: attributes.ordered },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag(this.render, { ordered: attributes.ordered }, node.transformChildren(config));
           },
         },
         item: {
           render: 'li',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'li',
-              { className: 'leading-7 text-base mb-1' },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('li', { className: 'leading-7 text-base mb-1' }, node.transformChildren(config));
           },
         },
         blockquote: {
@@ -260,25 +181,22 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
         },
         code: {
           render: 'code',
-          transform(node, config) {
+          transform(node) {
             return new Markdoc.Tag(
               'code',
               { className: 'bg-muted px-2 py-1 rounded text-sm font-mono text-foreground border' },
-              node.transformChildren(config)
+              [node.attributes?.content ?? '']
             );
           },
         },
         link: {
           render: 'a',
-          attributes: {
-            href: { type: String, required: true },
-            title: { type: String },
-          },
+          attributes: { href: { type: String, required: true }, title: { type: String } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
             return new Markdoc.Tag(
               'a',
-              { 
+              {
                 href: attributes.href,
                 title: attributes.title,
                 className: 'text-primary hover:text-primary/80 underline underline-offset-4 transition-colors font-medium',
@@ -290,64 +208,39 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
         strong: {
           render: 'strong',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'strong',
-              { className: 'font-semibold text-foreground' },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('strong', { className: 'font-semibold text-foreground' }, node.transformChildren(config));
           },
         },
         em: {
           render: 'em',
           transform(node, config) {
-            return new Markdoc.Tag(
-              'em',
-              { className: 'italic' },
-              node.transformChildren(config)
-            );
+            return new Markdoc.Tag('em', { className: 'italic' }, node.transformChildren(config));
           },
         },
         hr: {
           render: 'hr',
-          transform(node, config) {
-            return new Markdoc.Tag(
-              'hr',
-              { className: 'border-border my-12' },
-              []
-            );
+          transform() {
+            return new Markdoc.Tag('hr', { className: 'border-border my-12' }, []);
           },
         },
       },
       tags: {
         callout: {
           render: 'Callout',
-          attributes: {
-            type: { type: String, default: 'info' },
-            title: { type: String },
-          },
+          attributes: { type: { type: String, default: 'info' }, title: { type: String } },
         },
         icon: {
           render: 'IconText',
-          attributes: {
-            name: { type: String, required: true },
-          },
+          attributes: { name: { type: String, required: true } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
             const children = node.transformChildren(config);
-            
-            return new Markdoc.Tag(
-              'IconText',
-              {
-                iconName: attributes.name,
-              },
-              children
-            );
+            return new Markdoc.Tag('IconText', { iconName: attributes.name }, children);
           },
         },
       },
     });
 
-    // Add all custom components
     const extendedComponents = {
       ...components,
       IconText,
@@ -360,14 +253,9 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
       Heading,
     };
 
-    return (
-      <div className="markdoc-content max-w-none">
-        {Markdoc.renderers.react(renderedContent, React, { components: extendedComponents })}
-      </div>
-    );
+    return <div className="markdoc-content max-w-none">{Markdoc.renderers.react(renderedContent, React, { components: extendedComponents })}</div>;
   } catch (error) {
     console.error('Error rendering Markdoc content:', error);
-    
     return (
       <div className="prose prose-slate dark:prose-invert max-w-none">
         <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-6">
@@ -375,13 +263,9 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
             <LucideIcons.AlertTriangle className="h-5 w-5" />
             Rendering Error
           </h2>
-          <p className="text-red-700 dark:text-red-300 mb-4">
-            There was an error rendering this page. Please check the console for details.
-          </p>
+          <p className="text-red-700 dark:text-red-300 mb-4">There was an error rendering this page. Please check the console for details.</p>
           <details className="text-sm">
-            <summary className="cursor-pointer font-medium text-red-800 dark:text-red-200 mb-2">
-              Error Details
-            </summary>
+            <summary className="cursor-pointer font-medium text-red-800 dark:text-red-200 mb-2">Error Details</summary>
             <pre className="text-xs bg-red-100 dark:bg-red-900/50 p-3 rounded border overflow-auto">
               {error instanceof Error ? error.message : 'Unknown error'}
             </pre>
