@@ -8,19 +8,15 @@ import { join } from 'path';
 export function readMarkdocContent(relativePath: string): string {
   const markdocPath = join(process.cwd(), relativePath);
   
-  console.log('📖 [readMarkdocContent] Reading file:', markdocPath);
   
   if (!existsSync(markdocPath)) {
-    console.error('❌ [readMarkdocContent] File not found:', markdocPath);
     throw new Error(`Markdoc file not found: ${markdocPath}`);
   }
   
   try {
     const content = readFileSync(markdocPath, 'utf8');
-    console.log('✅ [readMarkdocContent] Successfully read file, content length:', content.length);
     return content;
   } catch (error) {
-    console.error('❌ [readMarkdocContent] Error reading file:', error);
     throw error;
   }
 }
@@ -37,7 +33,6 @@ export function getMarkdocPath(pagePath: string): string {
   if (existsSync(join(process.cwd(), pageMdocPath))) {
     return pageMdocPath;
   } else {
-    console.log('📝 [getMarkdocPath] page.mdoc not found, trying index.mdoc');
     return indexMdocPath;
   }
 }
@@ -54,11 +49,9 @@ export interface DocPageMetadata {
  * Extract metadata from Markdoc frontmatter
  */
 export function extractMetadata(content: string): DocPageMetadata {
-  console.log('🔍 [extractMetadata] Extracting metadata from content');
   
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (!frontmatterMatch) {
-    console.log('⚠️ [extractMetadata] No frontmatter found');
     return { title: 'Documentation' };
   }
 
@@ -71,7 +64,6 @@ export function extractMetadata(content: string): DocPageMetadata {
     description: descriptionMatch ? descriptionMatch[1].trim().replace(/['"]/g, '') : undefined,
   };
   
-  console.log('✅ [extractMetadata] Extracted metadata:', metadata);
   return metadata;
 }
 
@@ -83,7 +75,6 @@ export function markdocFileExists(pagePath: string): boolean {
     const markdocPath = getMarkdocPath(`app/docs/${pagePath}`);
     const fullPath = join(process.cwd(), markdocPath);
     const exists = existsSync(fullPath);
-    console.log('🔍 [markdocFileExists] Checking:', fullPath, 'exists:', exists);
     return exists;
   } catch {
     return false;
