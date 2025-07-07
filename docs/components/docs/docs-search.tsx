@@ -68,14 +68,14 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl p-0 gap-0">
-        <div className="flex items-center border-b px-4">
+        <div className="flex items-center h-10 px-4 pr-10 mx-4 border-b rounded-t-md">
           <Search className="h-4 w-4 text-muted-foreground" />
           <Input
+            className="flex-1 h-10 border-0 shadow-none focus-visible:ring-0 text-base px-2"
             placeholder="Search semantic events documentation..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="border-0 shadow-none focus-visible:ring-0 text-base"
             autoFocus
           />
           <kbd className="hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
