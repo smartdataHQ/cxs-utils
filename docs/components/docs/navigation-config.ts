@@ -122,7 +122,6 @@ export const navigationConfig: NavigationSection[] = [
     items: [
       { title: 'The Event Bible', href: '/docs/semantic-events/bible', icon: Book },
       { title: 'Core Events', href: '/docs/semantic-events/bible/core-events', icon: Activity },
-      { title: 'Events by Category', href: '/docs/semantic-events/bible/by-category', icon: Layers },
     ],
   },
   {
