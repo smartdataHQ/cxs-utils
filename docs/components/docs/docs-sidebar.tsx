@@ -62,7 +62,8 @@ function NavigationItem({ item, level = 0 }: { item: NavigationItem; level?: num
 
 export function DocsSidebar() {
   return (
-    <ScrollArea className="h-[calc(100vh-4rem)] px-4 py-6">
+  <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-hidden">
+    <ScrollArea className="h-full px-4 py-6">
       <div className="space-y-8">
         {navigationConfig.map((section) => (
           <div key={section.title}>
@@ -78,5 +79,6 @@ export function DocsSidebar() {
         ))}
       </div>
     </ScrollArea>
+  </div>
   );
 }

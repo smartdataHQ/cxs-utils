@@ -27,12 +27,6 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             onClick={() => setSidebarOpen(false)}
           />
         )}
-        
-        {/* Sidebar */}
-        <aside className={`
-          fixed inset-y-0 left-0 z-50 w-72 transform bg-background border-r transition-transform duration-200 ease-in-out lg:static lg:translate-x-0
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        `}>
           <div className="flex h-16 items-center justify-between px-6 border-b lg:hidden">
             <span className="text-lg font-semibold">Documentation</span>
             <Button
@@ -43,8 +37,9 @@ export function DocsLayout({ children }: DocsLayoutProps) {
               <X className="h-5 w-5" />
             </Button>
           </div>
+          <aside className="sticky top-16 h-[calc(100vh-4rem)]">
           <DocsSidebar />
-        </aside>
+          </aside>
         
         {/* Main content */}
         <main className="flex-1 lg:pl-0">
