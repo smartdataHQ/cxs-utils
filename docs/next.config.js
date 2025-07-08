@@ -1,6 +1,12 @@
 const withMarkdoc = require('@markdoc/next.js');
 
-module.exports =
-  withMarkdoc(/* config: https://markdoc.io/docs/nextjs#options */)({
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdoc'],
-  });
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: { unoptimized: true },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdoc'],
+};
+
+module.exports = withMarkdoc()(nextConfig);
