@@ -6,7 +6,6 @@ This directory contains JSON Schemas that define the structure and constraints f
 
 The schemas are designed based on a combination of:
 -   **Avro schemas (`.avsc` files)**: Considered the primary source of truth for data structure and field definitions.
--   **ClickHouse SQL table definitions**: Used for database storage and querying.
 -   **Pydantic models**: Used within the Python applications for data validation and manipulation.
 
 All schemas adhere to the **JSON Schema Draft 2020-12** specification.
@@ -29,9 +28,9 @@ The schemas are organized into:
 
 ## Key Principles
 
--   **SQL as Source of Truth**: Where discrepancies existed between data definitions (SQL, Avro, Pydantic), the ClickHouse SQL definition was prioritized for structure and nullability in the JSON schemas.
--   **Optionality and Nullability**: Fields are generally made nullable (e.g., `type: ["null", "string"]`) and excluded from `required` arrays if they are optional in Pydantic models (e.g., via `OmitIfNone`) or nullable in SQL. This provides flexibility for data producers. Mandatory fields are explicitly listed in `required` arrays.
--   **Descriptions**: Efforts have been made to include meaningful `description` fields for properties, drawing from SQL comments, Avro `doc` strings, and Pydantic model field descriptions. Further enrichment of these descriptions is an ongoing process.
+-   **Avro as Source of Truth**: Where discrepancies existed between data definitions (Avro, Pydantic), the Avro schema definition was prioritized for structure and nullability in the JSON schemas.
+-   **Optionality and Nullability**: Fields are generally made nullable (e.g., `type: ["null", "string"]`) and excluded from `required` arrays if they are optional in Avro or Pydantic models, or nullable in SQL. This provides flexibility for data producers. Mandatory fields are explicitly listed in `required` arrays.
+-   **Descriptions**: Efforts have been made to include meaningful `description` fields for properties, drawing from Avro `doc` strings, SQL comments, and Pydantic model field descriptions. Further enrichment of these descriptions is an ongoing process.
 
 ## Usage
 
