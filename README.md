@@ -75,30 +75,6 @@ event.involves.append({
 import asyncio
 asyncio.run(client.track(event))
 ```
-
-## ClickHouse Docker Setup
-
-This repository includes Docker configuration for running ClickHouse locally:
-
-```bash
-# Start the ClickHouse Docker container
-cd clickhouse
-docker-compose up -d
-```
-
-### Import SQL Schemas
-
-Use the import script to load all schemas into ClickHouse:
-
-```bash
-./clickhouse/scripts/import-sql.sh
-```
-
-### Important Notes
-
-- The setup uses a single node cluster configuration (`clickhouse/config/single_node_cluster.xml`)
-- When importing SQL schemas with LowCardinality data types (especially with Float32), use the `--allow_suspicious_low_cardinality_types=1` flag as a workaround to avoid ClickHouse exceptions
-
 ## Schema Conversion and Comparison
 
 ### JSON Schema ↔ Avro Schema Conversion
