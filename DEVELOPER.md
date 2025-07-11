@@ -11,7 +11,7 @@ The repository is organized as follows:
     - `avro/`: Apache Avro schemas (`.avsc` files). Includes a `README.md` and validation script.
     - `json-schema/`: JSON Schema definitions (`.json` files). Includes a `README.md` and validation script.
     - `pydantic/`: Pydantic models generated from the schemas. Includes validation scripts.
-    - `sql/`: SQL table definitions (`.sql` files) related to the schemas. Includes a `README.md`.
+
 - **`docs/`**: Contains a documentation website built with Next.js and Markdoc. This site likely serves as user-facing documentation for the schemas and tools.
     - `pages/docs/`: Contains the actual documentation content in Markdown.
 - **`javascript/`**: Contains JavaScript/TypeScript code and related utilities.
