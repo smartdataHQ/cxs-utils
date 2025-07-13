@@ -15,9 +15,9 @@
       "type": "string",
       "format": "date-time"
     },
-    "type": {
-      "description": "The event type (e.g. \"track, page, identify, group, alias, screen etc.\")",
-      "type": "string"
+    "ty": {
+      "description": "The event type",
+      "enum": ["track", "page", "identify", "group", "alias", "screen", "other"]
     },
     "event": {
       "description": "The event name (e.g. \"Product Added\") always capitalized and always ended with a verb in passed tense",
