@@ -1,0 +1,574 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced Markdoc content styling */
+.markdoc-content {
+  @apply text-foreground max-w-none;
+  line-height: 1.7;
+}
+
+/* Typography improvements */
+.markdoc-content h1 {
+  @apply text-4xl font-bold text-foreground border-b border-border pb-4 mb-8 mt-0;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.markdoc-content h2 {
+  @apply text-3xl font-semibold text-foreground mt-16 mb-6;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.markdoc-content h3 {
+  @apply text-2xl font-semibold text-foreground mt-12 mb-5;
+  line-height: 1.3;
+}
+
+.markdoc-content h4 {
+  @apply text-xl font-semibold text-foreground mt-8 mb-4;
+  line-height: 1.4;
+}
+
+.markdoc-content h5 {
+  @apply text-lg font-semibold text-foreground mt-6 mb-3;
+}
+
+.markdoc-content h6 {
+  @apply text-base font-semibold text-foreground mt-4 mb-2;
+}
+
+/* Paragraph and text styling */
+.markdoc-content p {
+  @apply text-foreground leading-7 mb-6;
+  font-size: 1rem;
+}
+
+.markdoc-content p:last-child {
+  @apply mb-0;
+}
+
+/* Fixed list styling - prevent double bullets/numbers and ensure content shows */
+.markdoc-content ul {
+  @apply text-foreground mb-6 space-y-2 pl-6;
+  list-style-type: disc;
+}
+
+.markdoc-content ol {
+  @apply text-foreground mb-6 space-y-2 pl-6;
+  list-style-type: decimal;
+}
+
+.markdoc-content li {
+  @apply leading-7 text-foreground mb-1;
+  list-style: inherit;
+  display: list-item;
+}
+
+.markdoc-content li > p {
+  @apply mb-2;
+  display: inline;
+}
+
+.markdoc-content li > p:last-child {
+  @apply mb-0;
+}
+
+/* Nested lists */
+.markdoc-content ul ul, 
+.markdoc-content ol ol, 
+.markdoc-content ul ol, 
+.markdoc-content ol ul {
+  @apply mt-2 mb-2;
+}
+
+/* Prevent list style duplication */
+.markdoc-content ul ul {
+  list-style-type: circle;
+}
+
+.markdoc-content ul ul ul {
+  list-style-type: square;
+}
+
+.markdoc-content ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdoc-content ol ol ol {
+  list-style-type: lower-roman;
+}
+
+/* Ensure list items are visible */
+.markdoc-content li::marker {
+  color: hsl(var(--foreground));
+}
+
+/* Blockquote styling */
+.markdoc-content blockquote {
+  @apply border-l-4 border-primary pl-6 py-4 italic text-muted-foreground bg-muted/30 rounded-r-lg my-8;
+  font-size: 1.1rem;
+}
+
+.markdoc-content blockquote p {
+  @apply mb-2;
+}
+
+.markdoc-content blockquote p:last-child {
+  @apply mb-0;
+}
+
+/* Inline code styling */
+.markdoc-content code:not(pre code) {
+  @apply bg-muted px-2 py-1 rounded text-sm font-mono text-foreground border;
+  font-size: 0.875em;
+}
+
+/* Pre and code block styling */
+.markdoc-content pre {
+  @apply my-8;
+}
+
+.markdoc-content pre code {
+  @apply bg-transparent p-0 text-sm border-0;
+}
+
+/* Enhanced Table styling */
+.markdoc-content .table-container {
+  @apply overflow-x-auto my-8 rounded-lg border border-border shadow-sm;
+}
+
+.markdoc-content table {
+  @apply w-full border-collapse min-w-full;
+  border-spacing: 0;
+}
+
+.markdoc-content thead {
+  @apply bg-muted/50;
+}
+
+.markdoc-content th {
+  @apply border-r border-border px-4 py-3 text-left font-semibold text-foreground bg-muted/50;
+  font-size: 0.875rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.markdoc-content th:last-child {
+  @apply border-r-0;
+}
+
+.markdoc-content td {
+  @apply border-r border-border px-4 py-3 text-foreground;
+  font-size: 0.875rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.markdoc-content td:last-child {
+  @apply border-r-0;
+}
+
+.markdoc-content tbody tr:nth-child(even) {
+  @apply bg-muted/10;
+}
+
+.markdoc-content tbody tr:hover {
+  @apply bg-muted/20 transition-colors duration-150;
+}
+
+.markdoc-content tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Table responsiveness */
+@media (max-width: 768px) {
+  .markdoc-content .table-container {
+    @apply -mx-4;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .markdoc-content table {
+    font-size: 0.75rem;
+  }
+  
+  .markdoc-content th,
+  .markdoc-content td {
+    @apply px-2 py-2;
+  }
+}
+
+/* Link styling */
+.markdoc-content a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-4 transition-colors font-medium;
+  text-decoration-thickness: 1px;
+}
+
+.markdoc-content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Text formatting */
+.markdoc-content strong {
+  @apply font-semibold text-foreground;
+}
+
+.markdoc-content em {
+  @apply italic;
+}
+
+.markdoc-content mark {
+  @apply bg-yellow-200 dark:bg-yellow-800 px-1 rounded;
+}
+
+/* Horizontal rule */
+.markdoc-content hr {
+  @apply border-border my-12;
+}
+
+/* Image styling */
+.markdoc-content img {
+  @apply rounded-lg border my-8 shadow-sm;
+}
+
+.markdoc-content figure {
+  @apply my-8;
+}
+
+.markdoc-content figcaption {
+  @apply text-sm text-muted-foreground text-center mt-3;
+}
+
+/* Callout improvements */
+.markdoc-content .callout {
+  @apply my-8;
+}
+
+/* Icon text styling */
+.markdoc-content .icon-text {
+  @apply inline-flex items-center gap-1;
+}
+
+.markdoc-content .icon-text svg {
+  @apply h-4 w-4 text-muted-foreground;
+}
+
+/* Prose customizations for fallback */
+.prose {
+  @apply text-foreground;
+}
+
+.prose h1 {
+  @apply text-3xl font-bold text-foreground border-b border-border pb-2 mb-6;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold text-foreground mt-8 mb-4;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold text-foreground mt-6 mb-3;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold text-foreground mt-4 mb-2;
+}
+
+.prose p {
+  @apply text-foreground leading-7 mb-4;
+}
+
+.prose ul, .prose ol {
+  @apply text-foreground mb-4;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4 italic text-muted-foreground;
+}
+
+.prose code:not(pre code) {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply bg-muted p-4 rounded-lg overflow-x-auto;
+}
+
+.prose table {
+  @apply w-full border-collapse border border-border;
+}
+
+.prose th {
+  @apply border border-border bg-muted px-4 py-2 text-left font-semibold;
+}
+
+.prose td {
+  @apply border border-border px-4 py-2;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary/80 underline underline-offset-4;
+}
+
+.prose mark {
+  @apply bg-yellow-200 dark:bg-yellow-800 px-1 rounded;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-foreground;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Animation for copy button */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.copy-success {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Improved spacing for content sections */
+.markdoc-content > *:first-child {
+  @apply mt-0;
+}
+
+.markdoc-content > *:last-child {
+  @apply mb-0;
+}
+
+/* Better spacing between sections */
+.markdoc-content h2 + * {
+  @apply mt-0;
+}
+
+.markdoc-content h3 + * {
+  @apply mt-0;
+}
+
+.markdoc-content h4 + * {
+  @apply mt-0;
+}
+
+/* Code syntax highlighting improvements */
+.markdoc-content pre[class*="language-"] {
+  @apply text-sm;
+}
+
+.markdoc-content code[class*="language-"] {
+  @apply text-sm;
+}
+
+/* Print styles */
+@media print {
+  .markdoc-content {
+    @apply text-black;
+  }
+  
+  .markdoc-content h1,
+  .markdoc-content h2,
+  .markdoc-content h3,
+  .markdoc-content h4,
+  .markdoc-content h5,
+  .markdoc-content h6 {
+    @apply text-black;
+    break-after: avoid;
+  }
+  
+  .markdoc-content pre,
+  .markdoc-content blockquote {
+    break-inside: avoid;
+  }
+  
+  .markdoc-content table {
+    break-inside: avoid;
+  }
+}
+
+/* Additional table styling for better visual hierarchy */
+.markdoc-content table th {
+  position: relative;
+}
+
+.markdoc-content table th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  opacity: 0.1;
+}
+
+/* Better mobile table handling */
+@media (max-width: 640px) {
+  .markdoc-content .table-container {
+    @apply -mx-6;
+  }
+}
+
+/* Ensure proper table cell alignment */
+.markdoc-content table td,
+.markdoc-content table th {
+  vertical-align: top;
+}
+
+/* Special styling for code in table cells */
+.markdoc-content table td code,
+.markdoc-content table th code {
+  @apply text-xs;
+  white-space: nowrap;
+}
+
+/* Fix for list item content visibility */
+.markdoc-content li {
+  color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.markdoc-content li * {
+  color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure text content in lists is visible */
+.markdoc-content ul li,
+.markdoc-content ol li {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: hsl(var(--foreground));
+}
+
+/* Fix for nested content in lists */
+.markdoc-content li > * {
+  margin-bottom: 0.5rem;
+}
+
+.markdoc-content li > *:last-child {
+  margin-bottom: 0;
+}
