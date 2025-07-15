@@ -14,6 +14,10 @@ setup(
         "fastavro>=1.9.1",
         "deepdiff>=6.3.1",
         "jsonschema>=4.19.1",
+        "Unidecode==1.4.0",
+        "Jinja2==3.1.6",
+        "pandas==2.3.1",
+        "python-slugify==8.0.4"
     ],
     python_requires=">=3.8",
 )
