@@ -27,6 +27,19 @@ cxs-utils/
 ├── requirements.txt           # Dependencies
 └── .gitignore                 # Git ignore rules
 ```
+## Virtual Environment
+preferred version for python (python3.10)
+```
+python3.10 -m venv .venv
+```
+On Unix / macOS:
+```
+source .venv/bin/activate
+```
+On Windows (Command Prompt):
+```
+.venv\Scripts\activate.bat
+```
 
 ## Installation
 
@@ -46,35 +59,6 @@ python -m cxs.tools.validation.validate_schemas
 
 ### Creating and Sending Events
 
-```python
-from datetime import datetime
-import uuid
-from cxs.schema.pydantic.semantic_event import SemanticEvent
-from cxs.core.client.cxs_client import CXSClient
-
-# Create a client with required write_key
-client = CXSClient(write_key='your_write_key', endpoint='https://inbox.contextsuite.com/v1')
-
-# Create a semantic event with required fields
-event = SemanticEvent(
-    event='Product Viewed',  # Descriptive past-tense name
-    type='track',
-    timestamp=datetime.now(),
-    entity_gid=uuid.uuid4()
-)
-
-# Add entity involvement with proper role
-event.involves.append({
-    'role': 'Source',
-    'entity_type': 'Product',
-    'id': '12345',
-    'label': 'Premium Headphones'
-})
-
-# Send the event (async method)
-import asyncio
-asyncio.run(client.track(event))
-```
 ## Schema Conversion and Comparison
 
 ### JSON Schema ↔ Avro Schema Conversion
@@ -83,13 +67,13 @@ The toolkit includes utilities to convert between JSON Schema and Avro Schema fo
 
 ```bash
 # Convert a single schema file
-python -m cxs.tools.converter.schema_cli convert semantic_event.json
+python -m cxs.tools.converter.schema_cli convert examples/semantic_event.json
 
 # Convert an Avro schema to JSON Schema
-python -m cxs.tools.converter.schema_cli convert semantic_event.avsc
+python -m cxs.tools.converter.schema_cli convert examples/semantic_event.avsc
 
 # Convert all schemas in a directory
-python -m cxs.tools.converter.schema_cli convert-dir ./json-schema --pattern "*.json"
+python -m cxs.tools.converter.schema_cli convert-dir cxs-schema/json-schema --pattern "*.json"
 ```
 
 ### Schema Comparison
@@ -97,26 +81,8 @@ python -m cxs.tools.converter.schema_cli convert-dir ./json-schema --pattern "*.
 Compare schemas to identify functional differences while ignoring formatting variations:
 
 ```bash
-# Compare two schemas
-python -m cxs.tools.converter.schema_cli compare semantic_event.json semantic_event.avsc
-
 # Batch compare all schemas between two directories
 python -m cxs.tools.converter.schema_cli batch-compare --schema-dir ./cxs-schema
-```
-
-### JSON ↔ Avro Data Conversion
-
-Convert between JSON data files and Avro binary files with support for logical types:
-
-```bash
-# Convert JSON to Avro binary
-python -m cxs.tools.converter.avro_json_cli convert event.json
-
-# Convert Avro binary to JSON
-python -m cxs.tools.converter.avro_json_cli convert event.avro
-
-# Batch convert all files in a directory
-python -m cxs.tools.converter.avro_json_cli convert-dir ./data --pattern "*.json"
 ```
 
 ## Documentation & Core Concepts
