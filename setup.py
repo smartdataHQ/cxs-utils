@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "requests>=2.28.1",
-        "pydantic>=2.11.5",
+        "pydantic>=2.10.5",
         "aiohttp>=3.9.1",
         "aioresponses>=0.7.5",
         "fastavro>=1.9.1",
