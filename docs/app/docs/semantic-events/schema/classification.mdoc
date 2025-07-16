@@ -4,22 +4,22 @@ title: Classification Properties
 
 # Classification Properties
 
-The `classification` nested structure provides a robust method to categorize, tag, segment, and prioritize business events and their associated entities. It enables the assignment of rich, structured metadata, making events easily discoverable, actionable, and analyzable. Classifications are especially useful for leveraging AI-driven autonomous analytics, decision-support systems, and deriving contextual insights.
+The `classification` structure provides a comprehensive method to categorize, tag, and classify semantic events and their associated entities. This enables rich metadata assignment that makes events discoverable, actionable, and analyzable. Classifications support both manual tagging and AI-driven automated categorization.
 
-Typically, an event may contain a `classification` field which is a list (array) of classification objects. Each object in this list describes a single classification applied to the event or an entity within it.
+The `classification` field is an array of classification objects, where each object represents a specific classification applied to the event or its entities.
 
-## Classification Object Structure
+## Classification Properties
 
-The following table details the fields found within each classification object.
+Each classification object contains the following properties for comprehensive categorization and analysis.
 
-| Name         | Required | Data Type | Description                                                                                                                                                              |
-|--------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `type`       |          | `String`  | Type of classification, indicating the category or nature of the classification (e.g., 'Intent', 'Category', 'Tag'). See "Allowed Types" below for common examples. Originally `LowCardinality(String)`. |
-| `value`      |          | `String`  | The specific classification value assigned, corresponding to the `type` (e.g., "Support Request", "Electronics", "urgent_tag"). Originally `LowCardinality(String)`.      |
-| `reasoning`  |          | `String`  | An optional explanation or basis for why this classification was assigned. This field is primarily used for ML/LLM-generated classifications to provide transparency into the decision-making process and is not typically present in standard data integrations.                                                                       |
-| `score`      |          | `Float`   | A numerical score assigned to the classification, often by a model or rule (e.g., a relevance or priority score). This field is optional.                                  |
-| `confidence` |          | `Float`   | The confidence level (e.g., 0.0 to 1.0) from a model that assigned this classification. This field is optional.                                                            |
-| `weight`     |          | `Float`   | The relevance, importance, or weight of this classification (0.0 to 1.0). This field is primarily used for ML/LLM-generated classifications to indicate confidence or importance, or to represent hierarchical relationships in taxonomies (higher weights for more specific categories). Not typically present in standard data integrations.                                                                 |
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | String | Yes | Type of classification (e.g., 'Intent', 'Intent Category', 'Category', 'Subcategory', 'Tag', 'Segmentation', 'Age Group', 'Inbox', 'Keyword', 'Priority', 'Other') |
+| `value` | String | Yes | The specific classification value (e.g., "Support Request", "Electronics", "High Priority") |
+| `reasoning` | String | No | Explanation for why this classification was assigned (primarily for ML/AI-generated classifications) |
+| `score` | Float | No | Numerical score assigned to the classification (e.g., relevance or priority score) |
+| `confidence` | Float | No | Confidence level from classification model (typically 0.0 to 1.0) |
+| `weight` | Float | Yes | Relevance or importance weight of the classification (default: 0.0) |
 
 
 ## Allowed Types and Descriptions
@@ -82,49 +82,150 @@ The typical workflow for internal model classification within the Context Suite:
   - Classification results are appended directly to the original event records within the nested classification structure.
 
 
-## Example: LLM-Generated Classification
-Scenario: A customer submits a support ticket describing delayed delivery.
+## Practical Examples
 
-**Raw Event Example:**
-```
-{
-    "type": "track",
-    "event": "Support Ticket Created",
-    "content": {
-        "Subject": "Package delayed",
-        "Body": "I ordered my item two weeks ago, and it has not arrived yet."
+### E-commerce Purchase Classification
+```javascript
+jitsu.track('Order Completed', {
+  classification: [
+    {
+      type: 'Category',
+      value: 'High-Value Purchase',
+      weight: 1.0
+    },
+    {
+      type: 'Intent',
+      value: 'Purchase',
+      weight: 1.0
+    },
+    {
+      type: 'Segmentation',
+      value: 'Premium Customer',
+      weight: 0.8
     }
-}
+  ]
+});
 ```
 
-**LLM-Generated Classification Output:**
+### Support Ticket with AI Classification
+```javascript
+jitsu.track('Support Ticket Created', {
+  classification: [
+    {
+      type: 'Intent Category',
+      value: 'Support',
+      reasoning: 'Detected from semantic understanding of ticket content',
+      score: 0.98,
+      confidence: 0.95,
+      weight: 1.0
+    },
+    {
+      type: 'Intent',
+      value: 'Report Delivery Issue',
+      reasoning: 'Extracted from keywords related to delivery delays',
+      score: 0.94,
+      confidence: 0.90,
+      weight: 0.9
+    },
+    {
+      type: 'Priority',
+      value: 'High',
+      reasoning: 'Customer frustration indicates urgency',
+      score: 0.92,
+      confidence: 0.89,
+      weight: 1.0
+    },
+    {
+      type: 'Inbox',
+      value: 'Shipping Support',
+      weight: 0.7
+    }
+  ]
+});
 ```
-"classification": [
-  {
-    "type": "intent_category",
-    "value": "Support",
-    "reasoning": "Detected from semantic understanding of ticket content.",
-    "score": 0.98,
-    "confidence": 0.95,
-    "weight": 1.0
-  },
-  {
-    "type": "customer_intent",
-    "value": "Report Delivery Issue",
-    "reasoning": "Extracted from keywords and context related to delivery delays.",
-    "score": 0.94,  
-    "confidence": 0.90,
-    "weight": 0.9
-  },
-  {
-    "type": "Priority",
-    "value": "High",
-    "reasoning": "Customer frustration indicated urgency; time-sensitive issue.",
-    "score": 0.92,
-    "confidence": 0.89,
-    "weight": 1.0
-  }
-]
+
+### Content Engagement Classification
+```javascript
+jitsu.track('Article Viewed', {
+  classification: [
+    {
+      type: 'Category',
+      value: 'Technology',
+      weight: 1.0
+    },
+    {
+      type: 'Subcategory',
+      value: 'AI & Machine Learning',
+      weight: 0.9
+    },
+    {
+      type: 'Tag',
+      value: 'Trending',
+      weight: 0.6
+    },
+    {
+      type: 'Age Group',
+      value: '25-34',
+      weight: 0.5
+    }
+  ]
+});
+```
+
+### B2B Lead Classification
+```javascript
+jitsu.track('Lead Generated', {
+  classification: [
+    {
+      type: 'Intent',
+      value: 'Enterprise Inquiry',
+      weight: 1.0
+    },
+    {
+      type: 'Priority',
+      value: 'High',
+      weight: 1.0
+    },
+    {
+      type: 'Segmentation',
+      value: 'Enterprise Prospect',
+      weight: 0.9
+    },
+    {
+      type: 'Keyword',
+      value: 'Implementation Timeline',
+      weight: 0.7
+    }
+  ]
+});
+```
+
+### Marketing Campaign Classification
+```javascript
+jitsu.track('Email Opened', {
+  classification: [
+    {
+      type: 'Category',
+      value: 'Marketing',
+      weight: 1.0
+    },
+    {
+      type: 'Subcategory',
+      value: 'Email Campaign',
+      weight: 0.8
+    },
+    {
+      type: 'Tag',
+      value: 'Holiday Promotion',
+      weight: 0.7
+    },
+    {
+      type: 'Segmentation',
+      value: 'Returning Customer',
+      weight: 0.6
+    }
+  ]
+});
 ```
 
 ## Best Practices for ML/DL/LLM Classification Integration

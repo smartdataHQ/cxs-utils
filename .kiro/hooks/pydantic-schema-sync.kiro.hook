@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Pydantic Schema Sync",
+  "description": "Monitors Pydantic schema files for changes and automatically updates corresponding JSON Schema and Avro schema files to maintain compatibility across all schema formats in the data transport layer.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "cxs/schema/pydantic/semantic_event.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A Pydantic schema file has been modified. Please analyze the changes and update the corresponding JSON Schema files in cxs-schema/json-schema/ and Avro schema files in cxs-schema/avro/ to ensure they remain compatible with the updated Pydantic schema. Use best practices for each schema format while maintaining data transport layer compatibility. Focus on the specific schema that changed and ensure field types, constraints, and structure are properly translated across all three formats."
+  }
+}

@@ -1,53 +1,191 @@
 ---
-title: Event Location Properties
+title: Location Schema Properties
 ---
 
-# Event Location Properties
+# Location Schema Properties
 
-The `location` nested structure within the Semantic Event Schema is used to describe a geographical place relevant to the event itself. This is distinct from an entity's primary or canonical address (which might be stored with the entity's own properties). Instead, the event location specifies where the event occurred, where its impact is felt, or a location it pertains to (e.g., a venue for a ticketed event).
+The `location` structure captures comprehensive geographical and address information relevant to semantic events. Location data can represent where an event occurred, where entities are located, or any geographic context important to the event. The schema supports both structured address components and precise geographic coordinates.
 
-When an event includes location details, the `location` field typically holds a single object with the properties detailed below. This allows for a rich, structured description of the place.
+Location information is typically provided as an array of location objects, allowing events to capture multiple relevant locations (e.g., shipping address, billing address, store location, user location).
 
-## Location Object Properties
+## Location Properties
 
-The following table details the fields found within the `location` object of a semantic event.
+Each location object contains the following properties for comprehensive geographic and address information.
 
-| Name              | Required | Data Type | Description                                                                                                                                                              |
-|-------------------|----------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `location_of`     |          | `String`  | Describes what the location information pertains to in the context of this event (e.g., "event_occurrence", "user_device", "service_area", "venue"). Originally `LowCardinality(String)`. |
-| `label`           |          | `String`  | A human-readable label or name for the location (e.g., "Main Street Store", "User's Home"). Originally `LowCardinality(String)`. This field is optional.                   |
-| `country`         |          | `String`  | The full name of the country (e.g., "United States", "Germany"). Originally `LowCardinality(String)`. This field is optional.                                              |
-| `country_code`    |          | `String`  | ISO 3166-1 alpha-2 country code (e.g., "US", "DE"). Originally `LowCardinality(String)`. This field is optional.                                                            |
-| `code`            |          | `String`  | Other relevant code for the location, could be specific to a system (e.g. UN/LOCODE). Originally `LowCardinality(String)`. This field is optional.                          |
-| `region`          |          | `String`  | State, province, or region name (e.g., "California", "Bavaria"). Originally `LowCardinality(String)`. This field is optional.                                               |
-| `division`        |          | `String`  | A smaller administrative division, like a county or district. Originally `LowCardinality(String)`. This field is optional.                                                  |
-| `municipality`    |          | `String`  | City, town, or village name (e.g., "San Francisco", "Munich"). Originally `LowCardinality(String)`. This field is optional.                                                 |
-| `locality`        |          | `String`  | A more specific locality, neighborhood, or area within the municipality. Originally `LowCardinality(String)`. This field is optional.                                       |
-| `postal_code`     |          | `String`  | Postal or ZIP code (e.g., "94107", "80331"). Originally `LowCardinality(String)`. This field is optional.                                                                  |
-| `postal_name`     |          | `String`  | The name associated with the postal code, if different from municipality/locality. Originally `LowCardinality(String)`. This field is optional.                               |
-| `street`          |          | `String`  | Street name (e.g., "Market Street", "Marienplatz"). This field is optional.                                                                                                |
-| `street_nr`       |          | `String`  | Street number or house number. This field is optional.                                                                                                                     |
-| `address`         |          | `String`  | Full, unstructured address, if a structured breakdown isn't available or for display purposes. This field is optional.                                                     |
-| `longitude`       |          | `Double`  | Geographic longitude in decimal degrees. This field is optional.                                                                                                           |
-| `latitude`        |          | `Double`  | Geographic latitude in decimal degrees. This field is optional.                                                                                                            |
-| `geohash`         |          | `String`  | Geohash representing the longitude and latitude. This field is optional.                                                                                                   |
-| `duration_from`   |          | `Timestamp`| If the location is relevant for a specific period, this marks the start of that period. This field is optional.                                                              |
-| `duration_until`  |          | `Timestamp`| If the location is relevant for a specific period, this marks the end of that period. This field is optional.                                                               |
+### Location Context
 
-## Use Cases and Explanations
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `location_of` | String | No | Type of location (e.g., "Customer", "Supplier", "Postal Address", "Business Address", "Home Address", "Other") |
+| `label` | String | No | Human-readable label for the location (e.g., "Street name 1, 1234") |
 
-The `location` properties provide context crucial for various types of analysis and operational logic:
+### Geographic Information
 
-*   **Point of Sale Transactions:** For an "Order Completed" event, the `location` could specify the store where the purchase was made. `location_of` might be "store_transaction".
-*   **Mobile App Usage:** An event triggered from a mobile app could include the user's current geographical coordinates (`latitude`, `longitude`) at the time of the event. `location_of` could be "user_device_approximate".
-*   **Service Delivery:** For an event like "Service Technician Dispatched", the `location` could be the customer's address where the service will occur. `location_of` might be "service_destination".
-*   **Event Ticketing:** If a "Ticket Purchased" event occurs, the `location` object could describe the venue of the show or game. `location_of` could be "event_venue".
-*   **Geofencing:** Events like "Geofence Entered" or "Geofence Exited" would use these fields to specify the geofence's defined area or the point of crossing.
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `country` | String | No | Full country name (e.g., "Iceland", "United States") |
+| `country_code` | String | No | ISO 3166-1 alpha-2 country code (e.g., "IS", "US") |
+| `code` | String | No | Location code (e.g., postal code, area code) |
+| `longitude` | Float | No | Geographic longitude in decimal degrees (e.g., -21.9333) |
+| `latitude` | Float | No | Geographic latitude in decimal degrees (e.g., 64.1355) |
+| `geohash` | String | No | Geohash representation of coordinates (e.g., "gcpuv") |
 
-**Key Fields:**
+### Administrative Divisions
 
-*   `location_of`: This field is particularly important as it clarifies *what aspect of the event* the location data refers to. Without it, ambiguity can arise. For example, is it the user's location, the business's location, or a location mentioned in the event's content?
-*   `latitude`, `longitude`, `geohash`: Provide precise geographic coordinates, enabling map-based visualizations and spatial queries.
-*   `duration_from`, `duration_until`: Useful for events where a location is relevant only for a specific time window (e.g., a temporary pop-up shop location, or the duration a user was in a specific area).
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `region` | String | No | State, province, or region (e.g., "Gullbringu og kjósarsýsla", "California") |
+| `division` | String | No | Administrative division (e.g., "Capital Region", "Bay Area") |
+| `municipality` | String | No | City, town, or municipality (e.g., "Reykjavik", "San Francisco") |
+| `locality` | String | No | Neighborhood or locality within municipality (e.g., "Vesturbær", "SOMA") |
 
-By capturing event-specific location data, businesses can perform geo-spatial analysis, understand regional trends, personalize user experiences based on location, and enhance logistical operations.
+### Address Components
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `postal_code` | String | No | Postal or ZIP code (e.g., "101", "94107") |
+| `postal_name` | String | No | Name associated with postal code (e.g., "Vesturbær") |
+| `street` | String | No | Street name (e.g., "Laugavegur", "Market Street") |
+| `street_nr` | String | No | Street number or house number (e.g., "1", "123A") |
+| `address` | String | No | Complete unstructured address (e.g., "Laugavegur 1, 101 Reykjavik") |
+
+### Temporal Context
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `duration_from` | DateTime | No | Start date if location is temporary (e.g., "2022-01-01 00:00:00") |
+| `duration_until` | DateTime | No | End date if location is temporary (e.g., "2022-01-01 00:00:00") |
+
+## Practical Examples
+
+### E-commerce Order with Multiple Locations
+```javascript
+jitsu.track('Order Completed', {
+  location: [
+    {
+      location_of: 'Shipping Address',
+      label: 'Customer Home',
+      country: 'United States',
+      country_code: 'US',
+      region: 'California',
+      municipality: 'San Francisco',
+      locality: 'SOMA',
+      street: 'Market Street',
+      street_nr: '123',
+      postal_code: '94107',
+      address: '123 Market Street, San Francisco, CA 94107'
+    },
+    {
+      location_of: 'Business Address',
+      label: 'Main Warehouse',
+      country: 'United States',
+      country_code: 'US',
+      region: 'California',
+      municipality: 'Oakland',
+      postal_code: '94607',
+      latitude: 37.8044,
+      longitude: -122.2711
+    }
+  ]
+});
+```
+
+### Service Delivery Event
+```javascript
+jitsu.track('Service Technician Dispatched', {
+  location: [
+    {
+      location_of: 'Customer',
+      label: 'Service Location',
+      country: 'Iceland',
+      country_code: 'IS',
+      region: 'Gullbringu og kjósarsýsla',
+      division: 'Capital Region',
+      municipality: 'Reykjavik',
+      locality: 'Vesturbær',
+      street: 'Laugavegur',
+      street_nr: '1',
+      postal_code: '101',
+      postal_name: 'Vesturbær',
+      latitude: 64.1355,
+      longitude: -21.9333,
+      geohash: 'gcpuv'
+    }
+  ]
+});
+```
+
+### Mobile App Location Event
+```javascript
+jitsu.track('Store Visited', {
+  location: [
+    {
+      location_of: 'Supplier',
+      label: 'Downtown Store Location',
+      country: 'United States',
+      country_code: 'US',
+      municipality: 'New York',
+      locality: 'Manhattan',
+      latitude: 40.7589,
+      longitude: -73.9851,
+      geohash: 'dr5reg'
+    }
+  ]
+});
+```
+
+### Temporary Event Location
+```javascript
+jitsu.track('Pop-up Store Opened', {
+  location: [
+    {
+      location_of: 'Business Address',
+      label: 'Holiday Pop-up Store',
+      country: 'United States',
+      country_code: 'US',
+      municipality: 'Los Angeles',
+      street: 'Melrose Avenue',
+      street_nr: '456',
+      postal_code: '90046',
+      duration_from: '2024-11-01T00:00:00Z',
+      duration_until: '2024-12-31T23:59:59Z'
+    }
+  ]
+});
+```
+
+### International B2B Transaction
+```javascript
+jitsu.track('International Shipment Sent', {
+  location: [
+    {
+      location_of: 'Supplier',
+      label: 'Manufacturing Facility',
+      country: 'Germany',
+      country_code: 'DE',
+      region: 'Bavaria',
+      municipality: 'Munich',
+      postal_code: '80331'
+    },
+    {
+      location_of: 'Customer',
+      label: 'Distribution Center',
+      country: 'United States',
+      country_code: 'US',
+      region: 'Texas',
+      municipality: 'Dallas',
+      postal_code: '75201'
+    }
+  ]
+});
+```
+
+## Best Practices
+
+1. **Use Descriptive Location Types**: Choose clear `location_of` values that specify what the location represents in the event context
+2. **Include Relevant Detail Levels**: Provide appropriate geographic detail for your use case - from country-level to street address
+3. **Leverage Coordinates**: Include `latitude`, `longitude`, and `geohash` for precise location-based analysis
+4. **Multiple Locations**: Use the array structure to capture all relevant locations (shipping, billing, store, etc.)
+5. **Temporal Context**: Use `duration_from` and `duration_until` for temporary or time-bound locations
+6. **Consistent Formatting**: Standardize address formats and country codes across your organization
+7. **Privacy Considerations**: Be mindful of location privacy requirements and regulations in your jurisdiction

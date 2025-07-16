@@ -23,23 +23,23 @@
     {
       "name": "product_id",
       "type": "string",
-      "doc": "Database id of the product being purchases"
+      "doc": "Database id of the product being purchases. External ID by the customer"
     },
     {
       "name": "entity_gid",
       "type": ["null", {"type": "string", "logicalType": "uuid"}],
       "default": null,
-      "doc": "Database id of the product being purchases"
+      "doc": "Database id of the product being purchases. A GID id for the product if it exists"
     },
     {
       "name": "sku",
       "type": "string",
-      "doc": "Sku of the product being purchased"
+      "doc": "Sku of the product being purchased. Store-Native ID of the product. It may varie between stores in a chain."
     },
     {
       "name": "barcode",
       "type": "string",
-      "doc": "Barcode of the product being purchased"
+      "doc": "Barcode of the product being purchased."
     },
     {
       "name": "gtin",
