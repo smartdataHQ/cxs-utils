@@ -57,14 +57,9 @@ export const navigationConfig: NavigationSection[] = [
     title: 'Getting Started',
     items: [
       { 
-        title: 'Introduction to Semantic Events', 
+        title: 'Understanding Semantic Events', 
         href: '/docs', 
         icon: BookOpen 
-      },
-      { 
-        title: 'Integrations', 
-        href: '/docs/integrations', 
-        icon: Globe 
       },
       { 
         title: 'Understanding Datapoints', 
@@ -115,28 +110,6 @@ export const navigationConfig: NavigationSection[] = [
       },
       { title: 'Best Practices', href: '/docs/semantic-events/best-practices', icon: CheckCircle },
       { title: 'Core Functions', href: '/docs/semantic-events/core-functions', icon: Code },
-    ],
-  },
-  {
-    title: 'Event Bible',
-    items: [
-      { title: 'The Event Bible', href: '/docs/semantic-events/bible', icon: Book },
-      { title: 'Core Events', href: '/docs/semantic-events/bible/core-events', icon: Activity },
-    ],
-  },
-  {
-    title: 'Industry Events',
-    items: [
-      { title: 'Auctions & C2C Marketplaces', href: '/docs/semantic-events/bible/auctions-and-c2c-marketplaces', icon: ShoppingCart },
-      { title: 'Automotive & Mobility', href: '/docs/semantic-events/bible/automotive-and-mobility', icon: Car },
-      { title: 'B2B Wholesale & Procurement', href: '/docs/semantic-events/bible/b2b-wholesale-and-procurement', icon: Package },
-      { title: 'Digital Goods & Content', href: '/docs/semantic-events/bible/digital-goods-and-content', icon: Music },
-      { title: 'Events & Ticketing', href: '/docs/semantic-events/bible/events-and-ticketing', icon: Calendar },
-      { title: 'Food & Dining', href: '/docs/semantic-events/bible/food-and-dining', icon: Utensils },
-      { title: 'Online Services', href: '/docs/semantic-events/bible/online-services', icon: Cloud },
-      { title: 'Real Estate', href: '/docs/semantic-events/bible/real-estate', icon: Home },
-      { title: 'Subscription Commerce', href: '/docs/semantic-events/bible/subscription-commerce', icon: CreditCard },
-      { title: 'Travel & Hospitality', href: '/docs/semantic-events/bible/travel-and-hospitality', icon: Plane },
     ],
   },
   {

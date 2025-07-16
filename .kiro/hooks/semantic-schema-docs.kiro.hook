@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Semantic Event Documentation Sync",
+  "description": "Monitors changes to pydantic semantic event schema files and updates the corresponding documentation to reflect the schema changes with intuitive structure and jitsu-based code examples",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": [
+      "cxs/schema/pydantic/semantic_event.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The pydantic schema files for semantic events have been modified. Please update the documentation in the docs/app/docs/semantic-events/schema/ directory to perfectly reflect these schema changes. The documentation should be structured intuitively and accessibly, potentially different from the code structure. Include jitsu-based code examples that show the most relevant data and data structures for each schema component. Do not show the output of the jitsu track function unless explicitly requested. Focus on making the documentation clear and practical for developers implementing semantic events."
+  }
+}

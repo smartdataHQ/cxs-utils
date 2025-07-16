@@ -3,27 +3,17 @@ title: The Semantic Event Schema
 ---
 
 # Introduction
-The Extended Semantic Events Schema provides a powerful and highly extensible framework for capturing, structuring, and analyzing semantic business events. Building upon foundational event structures popularized by platforms like Segment.com, our schema enriches traditional semantic events with extensive contextual, analytical, and operational data, enabling organizations to achieve deep insights and highly autonomous analytics.
+The Context Suite Semantic Events Schema provides a comprehensive framework for capturing rich, contextual business events with deep semantic meaning. Built upon proven event tracking patterns while extending far beyond traditional analytics, our schema enables organizations to capture not just what happened, but the full context of who was involved, where it occurred, and why it matters.
 
-By integrating rich metadata, contextual details, user traits, advanced classification methods, sentiment analysis, and robust access control, this schema supports sophisticated use cases across diverse industries. Optimized for compatibility, scalability, and compliance (including GDPR), our Extended Semantic Events Schema is designed specifically for organizations leveraging real-time analytics, machine learning, and AI-driven decision-making through the Context Suite.
-## Key features include:
+The schema is designed around three core concepts that work together to provide complete event context: **Semantic Events** capture what happened, **Entities** identify who or what was involved, and **Datapoints** provide the specific measurements and details. This structured approach ensures events are meaningful to both humans and automated systems.
+## Key Features
 
-- **Semantic Clarity:**\
-Events are explicitly named and categorized, facilitating clear interpretation and analysis.
-
-- **Comprehensive Identification:**\
-Unified management of anonymous and identified users, sessions, entities, and transactional identifiers ensures robust tracking across all touchpoints.
-
-- **Contextual Richness:**\
-Nested structures capture in-depth context, including entity roles, product attributes, location data, and sentiment insights, enhancing predictive and analytical capabilities.
-
-- **GDPR and Compliance:**\
-Personally identifiable information (PII) is managed separately, ensuring compliance with privacy regulations.
-
-- **Advanced Analytics Support:**\
-Explicit classification, access control, and internal analysis metadata enable detailed insights and optimized resource management.
-
-Designed with scalability and adaptability in mind, the Semantic Events Schema serves as a robust foundation for enterprises aiming to leverage real-time analytics and autonomous decision-making through contextual awareness and artificial intelligence.
+- **Rich Entity Context**: Track not just users, but all entities involved in events - customers, products, organizations, locations, and more
+- **Flexible Classification**: Built-in support for categorization, sentiment analysis, and custom taxonomies
+- **Commerce-Ready**: Comprehensive product and transaction modeling for e-commerce and B2B scenarios  
+- **Location Awareness**: Detailed geographic and address information with geohash support
+- **Analysis Integration**: Native support for AI/ML analysis results, embeddings, and processing metadata
+- **Privacy Compliant**: Structured approach to PII handling and data access controls
 
 ## Core Schema Concepts
 
@@ -37,3 +27,71 @@ An Entity represents a distinct, identifiable actor or object involved in a Sema
 A Datapoint is a specific piece of information, measurement, or attribute that provides granular details about an event or an entity. Examples include the price of a product, the duration of a user session, a customer rating, or a specific error code. Datapoints are the most granular level of information, and their purpose is to offer precise details that are essential for in-depth analysis, reporting, and triggering automated processes. For a more detailed explanation, see [Datapoints](../../datapoints/index.md).
 
 These three core concepts—Semantic Events, Entities, and Datapoints—interrelate to provide a comprehensive and multi-dimensional view of business activities. A Semantic Event tells you what happened; the associated **Entities** identify who or what was involved; and the relevant **Datapoints** provide the specific, granular details and measurements related to the event and those entities. This structured approach ensures that data is not only captured but also imbued with meaning and context, making it highly valuable for analytics, operational decision-making, and automated systems.
+
+## Schema Structure Overview
+
+The Semantic Event Schema is organized into several key components:
+
+### Core Event Properties
+- **Event Identification**: `event`, `type`, `timestamp`, `event_gid`
+- **User & Session Tracking**: `user_id`, `anonymous_id`, `session_id` 
+- **Entity Linking**: `entity_gid` for primary entity association
+
+### Contextual Components
+- **[Involved Entities](./involves)**: Track all parties involved in an event with roles and relationships
+- **[Location Data](./location)**: Comprehensive geographic and address information
+- **[Classification](./classification)**: Categorization, tagging, and intent classification
+- **[Sentiment Analysis](./sentiment)**: Emotional context and opinion tracking
+
+### Commerce & Products
+- **[Commerce Properties](./commerce)**: Transaction details, payments, and order information
+- **[Product Information](./product)**: Detailed product attributes, pricing, and categorization
+
+### Analysis & Enrichment
+- **[Analysis Results](./analysis)**: AI/ML processing results and token usage
+- **Context Information**: Device, browser, app, and environmental data
+
+### Example Event Structure
+```javascript
+// Track a product purchase with full context
+jitsu.track('Order Completed', {
+  // Core event properties
+  entity_gid: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
+  
+  // Commerce details
+  commerce: {
+    order_id: 'ORD-12345',
+    revenue: 299.99,
+    currency: 'USD',
+    products: [{
+      product_id: 'LAPTOP-001',
+      product: 'MacBook Pro 14"',
+      brand: 'Apple',
+      category: 'Electronics',
+      unit_price: 299.99,
+      units: 1
+    }]
+  },
+  
+  // Involved entities
+  involves: [{
+    role: 'Buyer',
+    entity_type: 'Person',
+    id: 'customer-789'
+  }],
+  
+  // Location context
+  location: [{
+    location_of: 'Shipping Address',
+    country: 'United States',
+    country_code: 'US',
+    postal_code: '10001'
+  }],
+  
+  // Classification
+  classification: [{
+    type: 'Category',
+    value: 'High-Value Purchase'
+  }]
+});
+```

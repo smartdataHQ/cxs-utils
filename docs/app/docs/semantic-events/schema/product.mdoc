@@ -1,0 +1,309 @@
+---
+title: Product Schema Properties
+---
+
+# Product Schema Properties
+
+The Product schema captures comprehensive information about products involved in semantic events. Products can represent physical goods, digital items, services, subscriptions, or any other purchasable entity. This schema supports detailed product identification, categorization, pricing, and contextual information.
+
+Products are typically used within commerce events like `Order Completed`, `Product Added To Cart`, `Product Viewed`, and `Checkout Started`, but can also appear in other contexts like inventory management, catalog updates, or recommendation events.
+
+## Product Schema Structure
+
+Products can appear in multiple contexts within semantic events:
+- As part of commerce events (within `commerce.products` array)
+- As standalone product events (`Product Viewed`, `Product Added to Wishlist`)
+- In recommendation or search result events
+
+## Product Properties
+
+### Core Identifiers
+
+These fields uniquely identify the product within various systems.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `entry_type` | String | No | Context of the product entry: 'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Stockout' |
+| `position` | Integer | No | Position in the product list (e.g., 3rd item in cart) |
+| `line_id` | String | No | Unique ID for this specific line item |
+| `product_id` | String | No | Database ID of the product - your system's external ID |
+| `entity_gid` | UUID | No | Context Suite Graph UUID for the product entity |
+
+### Global Product Identifiers
+
+Standardized identifiers for product identification across systems.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `sku` | String | No | Stock Keeping Unit - store-native ID that may vary between stores |
+| `barcode` | String | No | Scanned barcode value |
+| `gtin` | String | No | Global Trade Item Number |
+| `upc` | String | No | Universal Product Code |
+| `ean` | String | No | European Article Number |
+| `isbn` | String | No | International Standard Book Number (for books) |
+| `serial_number` | String | No | Serial number of the product |
+| `supplier_number` | String | No | Supplier's product number |
+| `tpx_serial_number` | String | No | Third-party serial number (non-GS1) |
+
+### Product Description & Attributes
+
+These fields describe the product's characteristics and details.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `product` | String | No | Display name of the product (e.g., 'MacBook Pro 14"') |
+| `variant` | String | No | Specific variant of the product (e.g., 'Space Gray', 'Large') |
+| `novelty` | String | No | Novelty status (e.g., 'New', 'Limited Edition', 'Refurbished') |
+| `size` | String | No | Size of the product (e.g., 'XL', '100ml', '14-inch') |
+| `packaging` | String | No | Packaging type (e.g., 'Box', 'Bottle', 'Bag') |
+| `condition` | String | No | Condition of the product (e.g., 'New', 'Used', 'Fresh', 'Frozen') |
+| `ready_for_use` | Boolean | No | Whether the product is ready for immediate use |
+| `core_product` | String | No | Core product name without brand/variant (e.g., 'Laptop', 'Sweater') |
+| `origin` | String | No | Location identifier for product origin |
+| `brand` | String | No | Brand name (e.g., 'Apple', 'Nike') |
+| `product_line` | String | No | Product line or collection name |
+| `own_product` | Boolean | No | Whether this is a store/private label product |
+| `product_dist` | String | No | Distribution class (e.g., 'A', 'B', 'C') |
+| `bundle_id` | String | No | ID of bundle this product belongs to |
+| `bundle` | String | No | Name of the bundle |
+| `url` | String | No | URL to the product page |
+| `img_url` | String | No | URL to the product image |
+
+### Product Categorization
+
+Fields for classifying the product within taxonomies and classification systems.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `main_category` | String | No | Top-level product category (e.g., 'Electronics', 'Apparel') |
+| `main_category_id` | String | No | ID of the main category |
+| `category` | String | No | Sub-category name (e.g., 'Laptops', 'Sweaters') |
+| `category_id` | String | No | ID of the sub-category |
+| `income_category` | String | No | Revenue type (e.g., 'New Sale', 'Renewal', 'Upgrade') |
+
+### GS1 Global Product Classification
+
+Standardized GS1 classification hierarchy for global product identification.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `gs1_brick_id` | String | No | GS1 Brick ID for product classification |
+| `gs1_brick` | String | No | GS1 Brick name/description |
+| `gs1_brick_short` | String | No | Short GS1 Brick name |
+| `gs1_brick_variant` | String | No | GS1 Brick variant |
+| `gs1_conditions` | String | No | GS1 Brick conditions |
+| `gs1_processed` | String | No | GS1 Brick processed status |
+| `gs1_consumable` | String | No | GS1 Brick consumable status |
+| `gs1_class` | String | No | GS1 Class |
+| `gs1_family` | String | No | GS1 Family |
+| `gs1_segment` | String | No | GS1 Segment |
+
+### Pricing & Quantity Information
+
+Financial and unit information for the product.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `units` | Float | No | Quantity of the product (1 if sold by weight) |
+| `unit_size` | Float | No | Quantity of each unit |
+| `uom` | String | No | Unit of measure (e.g., 'piece', 'kg', 'litre') |
+| `unit_price` | Float | No | Price per unit before discounts |
+| `unit_cost` | Float | No | Cost per unit (COGS) |
+| `bundled_units` | Integer | No | Number of units in a volume pack or bundle |
+| `price_bracket` | String | No | Price bracket or tier |
+| `tax_percentage` | Float | No | Tax rate applied (e.g., 0.24 for 24%) |
+| `discount_percentage` | Float | No | Discount rate applied (e.g., 0.1 for 10%) |
+| `kickback_percentage` | Float | No | Kickback percentage for affiliates/partners |
+| `commission` | Float | No | Commission percentage on line basis |
+| `coupon` | String | No | Coupon code applied to this product |
+
+### Supply Chain & Management
+
+Information about the product's supply chain and internal management.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `supplier` | String | No | Supplier name |
+| `supplier_id` | String | No | Supplier ID |
+| `manufacturer` | String | No | Manufacturer name |
+| `manufacturer_id` | String | No | Manufacturer ID |
+| `promoter` | String | No | Promoter name |
+| `promoter_id` | String | No | Promoter ID |
+| `product_mgr` | String | No | Product manager name |
+| `product_mgr_id` | String | No | Product manager ID |
+
+### Service & Event Attributes
+
+Fields for services, events, subscriptions, and time-based products.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `starts` | DateTime | No | Start date/time for service or event |
+| `ends` | DateTime | No | End date/time for service or event |
+| `duration` | Float | No | Duration in minutes |
+| `seats` | String | No | Seat assignments (e.g., 'A1, A2') |
+| `destination` | String | No | Location for travel/event products |
+| `lead_time` | Float | No | Lead time in days from order to delivery |
+| `dwell_time_ms` | Integer | No | Time product was in viewport (milliseconds) |
+
+### Point-of-Sale & Transaction Flags
+
+Boolean flags providing transaction context, especially for retail/POS data.
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `scale_item` | Boolean | No | Whether item was weighed at checkout |
+| `price_changed` | Boolean | No | Whether price was manually overridden |
+| `line_discounted` | Boolean | No | Whether discount was applied to this line |
+
+## Practical Examples
+
+### E-commerce Product Purchase
+```javascript
+jitsu.track('Order Completed', {
+  commerce: {
+    order_id: 'ORD-12345',
+    revenue: 1299.99,
+    currency: 'USD',
+    products: [
+      {
+        entry_type: 'Line Item',
+        position: 1,
+        product_id: 'LAPTOP-MBP14-001',
+        entity_gid: 'd1e2f3a4-b5c6-7890-1234-567890abcdef',
+        sku: 'MBP14-SG-512',
+        product: 'MacBook Pro 14"',
+        brand: 'Apple',
+        variant: 'Space Gray',
+        size: '14-inch',
+        condition: 'New',
+        main_category: 'Electronics',
+        category: 'Laptops',
+        units: 1,
+        unit_price: 1299.99,
+        uom: 'piece',
+        income_category: 'New Sale',
+        url: 'https://store.example.com/macbook-pro-14',
+        img_url: 'https://cdn.example.com/images/mbp14-spacegray.jpg'
+      }
+    ]
+  }
+});
+```
+
+### Retail Point-of-Sale Event
+```javascript
+jitsu.track('Product Purchased', {
+  commerce: {
+    products: [
+      {
+        entry_type: 'Line Item',
+        product_id: 'PRODUCE-APPLE-001',
+        sku: 'APPLE-GALA-LB',
+        product: 'Gala Apples',
+        brand: 'Fresh Farms',
+        condition: 'Fresh',
+        main_category: 'Produce',
+        category: 'Fruits',
+        units: 2.5,
+        unit_size: 1.0,
+        uom: 'lb',
+        unit_price: 3.99,
+        scale_item: true,
+        supplier: 'Local Orchards Co',
+        origin: 'Washington State'
+      }
+    ]
+  }
+});
+```
+
+### Service/Event Product
+```javascript
+jitsu.track('Event Ticket Purchased', {
+  commerce: {
+    products: [
+      {
+        entry_type: 'Line Item',
+        product_id: 'EVENT-CONCERT-001',
+        product: 'Summer Music Festival - VIP Pass',
+        brand: 'MusicFest Productions',
+        main_category: 'Entertainment',
+        category: 'Concerts',
+        starts: '2024-07-15T19:00:00Z',
+        ends: '2024-07-15T23:00:00Z',
+        duration: 240,
+        seats: 'VIP Section A, Row 1, Seats 15-16',
+        destination: 'Central Park Amphitheater',
+        units: 2,
+        unit_price: 150.00,
+        uom: 'ticket'
+      }
+    ]
+  }
+});
+```
+
+### B2B Product with Supply Chain Details
+```javascript
+jitsu.track('Purchase Order Created', {
+  commerce: {
+    products: [
+      {
+        entry_type: 'Purchase Order',
+        product_id: 'STEEL-BEAM-H200',
+        sku: 'SB-H200-6M',
+        product: 'H-Beam Steel 200mm x 6m',
+        main_category: 'Construction Materials',
+        category: 'Structural Steel',
+        units: 50,
+        unit_size: 6.0,
+        uom: 'meter',
+        unit_price: 125.00,
+        supplier: 'Industrial Steel Corp',
+        supplier_id: 'SUP-001',
+        manufacturer: 'SteelWorks Ltd',
+        manufacturer_id: 'MFG-789',
+        lead_time: 14,
+        product_mgr: 'Sarah Johnson',
+        product_mgr_id: 'EMP-456'
+      }
+    ]
+  }
+});
+```
+
+### Digital Product/Subscription
+```javascript
+jitsu.track('Subscription Started', {
+  commerce: {
+    products: [
+      {
+        entry_type: 'Line Item',
+        product_id: 'SAAS-PRO-MONTHLY',
+        product: 'Professional Plan - Monthly',
+        brand: 'CloudSoft',
+        product_line: 'Business Solutions',
+        main_category: 'Software',
+        category: 'SaaS',
+        starts: '2024-01-01T00:00:00Z',
+        duration: 43200, // 30 days in minutes
+        units: 1,
+        unit_price: 99.99,
+        uom: 'subscription',
+        income_category: 'New Sale'
+      }
+    ]
+  }
+});
+```
+
+## Best Practices
+
+1. **Use Consistent Entry Types**: Standardize `entry_type` values across your organization
+2. **Complete Product Identification**: Include both internal IDs (`product_id`, `sku`) and external standards (`gtin`, `upc`) when available
+3. **Rich Categorization**: Use both your internal categories and standardized classifications like GS1
+4. **Accurate Pricing**: Ensure `unit_price` reflects the actual price at transaction time
+5. **Supply Chain Visibility**: Include supplier and manufacturer information for B2B scenarios
+6. **Service Details**: For services and events, use `starts`, `ends`, `duration`, and `destination` fields
+7. **POS Context**: Use boolean flags like `scale_item`, `price_changed` for retail scenarios

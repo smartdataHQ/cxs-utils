@@ -2,42 +2,158 @@
 title: Sentiment Properties
 ---
 
-# Semantic Event Schema: Sentiment Properties
+# Sentiment Properties
 
-Sentiment properties are designed to capture and describe subjective opinions, feelings, or attitudes expressed within or related to a semantic event. This is often crucial for understanding customer feedback, analyzing social media interactions, or evaluating responses to surveys and communications.
+The `sentiment` structure captures subjective opinions, feelings, and attitudes expressed within or related to semantic
+events. This is essential for understanding customer feedback, analyzing social interactions, evaluating survey
+responses, and monitoring brand perception.
 
-Typically, an event may contain a `sentiment` field which is a list (array) of sentiment objects. Each object in this list describes a single piece of expressed sentiment.
+The `sentiment` field is an array of sentiment objects, where each object represents a specific sentiment expression
+with detailed context about what the sentiment is about and why it was expressed.
 
-## Sentiment Object Properties
+## Sentiment Properties
 
-The following table details the fields found within each sentiment object.
+Each sentiment object contains the following properties for comprehensive sentiment analysis and context.
 
-| Name              | Required | Data Type | Description                                                                                                                                                                                             |
-|-------------------|----------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `type`            |          | `String`  | The classification of the sentiment expressed. Enum-like values include: 'Praise', 'Criticism', 'Complaint', 'Request', 'Suggestion', 'Question', 'Abuse', 'Threat', 'Opinion', 'Other'. Originally `LowCardinality(String)`. |
-| `sentiment`       |          | `String`  | The actual sentiment expressed, often a keyword or phrase (e.g., "positive", "negative", "loved_it", "too_complex"). Originally `LowCardinality(String)`.                                                  |
-| `entity_type`     |          | `String`  | The type of entity the sentiment is *about* (e.g., "product", "service", "company", "employee"). Originally `LowCardinality(String)`.                                                                     |
-| `entity_gid`      |          | `UUID`    | The Global ID (GID) of the specific entity instance the sentiment is about. This field is optional.                                                                                                     |
-| `id_type`         |          | `String`  | The type of identifier used in the `id` field (e.g., "sku", "ticket_number", "user_id"). Originally `LowCardinality(String)`. This field is optional.                                                      |
-| `id`              |          | `String`  | The specific identifier (matching `id_type`) of the entity instance the sentiment is about. This field is optional.                                                                                       |
-| `target_category` |          | `String`  | Broad category of what the sentiment specifically targets (e.g., "Usability", "Customer Support", "Pricing"). Originally `LowCardinality(String)`. This field is optional.                               |
-| `target_type`     |          | `String`  | More specific type within the `target_category` (e.g., "Button Design" if category is "Usability"). Originally `LowCardinality(String)`. This field is optional.                                          |
-| `target_entity`   |          | `String`  | The exact aspect, feature, or sub-component the sentiment is directed towards (e.g., "Checkout Button"). This field is optional.                                                                          |
-| `reason`          |          | `String`  | The reasoning or justification provided for the expressed sentiment. This field is optional.                                                                                                              |
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `type` | String | Yes | Type of sentiment: 'Praise', 'Criticism', 'Complaint', 'Abuse', 'Threat', 'Opinion', 'Other' |
+| `sentiment` | String | Yes | The sentiment expressed (e.g., "positive", "negative", "frustrated", "satisfied") |
+| `entity_type` | String | No | Type of entity the sentiment is about (e.g., "Product", "Service", "Organization") |
+| `entity_gid` | UUID | No | Context Suite Graph UUID of the entity the sentiment is about |
+| `id_type` | String | No | Type of identifier for the entity (e.g., "ProductID", "TicketNumber") |
+| `id` | String | No | Specific identifier of the entity the sentiment is about |
+| `target_category` | String | No | Broad category of what the sentiment targets (e.g., "Usability", "Support",
+"Pricing") |
+| `target_type` | String | No | Specific type within the target category |
+| `target_entity` | String | No | Exact aspect or feature the sentiment is directed towards |
+| `reason` | String | No | Reasoning or justification for the expressed sentiment |
 
-## Understanding and Using Sentiment Data
+## Practical Examples
 
-Sentiment data provides valuable context to events, transforming raw interactions into richer insights. Here's how it can be leveraged:
+### Product Review Sentiment
+```javascript
+jitsu.track('Product Review Submitted', {
+sentiment: [
+{
+type: 'Praise',
+sentiment: 'positive',
+entity_type: 'Product',
+entity_gid: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
+id: 'LAPTOP-001',
+id_type: 'ProductID',
+target_category: 'Performance',
+target_entity: 'Battery Life',
+reason: 'Customer mentioned excellent all-day battery performance'
+},
+{
+type: 'Criticism',
+sentiment: 'negative',
+entity_type: 'Product',
+entity_gid: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
+id: 'LAPTOP-001',
+id_type: 'ProductID',
+target_category: 'Usability',
+target_entity: 'Keyboard Layout',
+reason: 'Customer found the keyboard layout confusing'
+}
+]
+});
+```
 
-*   **Customer Feedback Analysis:** Analyze sentiment expressed in support tickets, surveys, app reviews, or social media mentions to understand customer satisfaction, identify pain points, and discover areas for improvement. For example, a "Complaint" `type` with a "negative" `sentiment` about a "product" (`entity_type`) might specify "Documentation" as the `target_category` and "Installation Guide" as the `target_entity`.
-*   **Brand Monitoring:** Track public sentiment towards your brand or specific products over time.
-*   **Service Quality Assessment:** Gauge sentiment towards customer service interactions, helping to identify training needs or process improvements.
-*   **Proactive Issue Resolution:** Identify emerging negative sentiment trends to address issues before they escalate.
+### Customer Support Interaction
+```javascript
+jitsu.track('Support Ticket Resolved', {
+sentiment: [
+{
+type: 'Opinion',
+sentiment: 'satisfied',
+entity_type: 'Service',
+target_category: 'Customer Support',
+target_type: 'Response Time',
+reason: 'Customer appreciated quick resolution'
+},
+{
+type: 'Praise',
+sentiment: 'positive',
+entity_type: 'Organization',
+target_category: 'Service Quality',
+target_entity: 'Technical Support Team',
+reason: 'Customer praised the expertise of support staff'
+}
+]
+});
+```
 
-**Key Distinctions:**
+### Social Media Mention
+```javascript
+jitsu.track('Social Media Mention Detected', {
+sentiment: [
+{
+type: 'Complaint',
+sentiment: 'frustrated',
+entity_type: 'Organization',
+target_category: 'Service',
+target_type: 'Delivery',
+target_entity: 'Shipping Speed',
+reason: 'Customer expressed frustration about delayed delivery'
+}
+]
+});
+```
 
-*   **Sentiment About vs. Sentiment Target:**
-    *   `entity_type`, `entity_gid`, `id_type`, and `id` define the primary subject the sentiment is *about* (e.g., a specific purchased product).
-    *   `target_category`, `target_type`, and `target_entity` allow for more granular detail on what *aspect* of that primary subject the sentiment is directed at (e.g., the "battery life" of that purchased product). If the sentiment is about the entity as a whole, these target fields might be omitted.
+### Survey Response
+```javascript
+jitsu.track('Survey Response Submitted', {
+sentiment: [
+{
+type: 'Opinion',
+sentiment: 'neutral',
+entity_type: 'Product',
+id: 'MOBILE-APP-001',
+id_type: 'AppID',
+target_category: 'Usability',
+target_entity: 'Navigation Menu',
+reason: 'Customer found navigation adequate but not exceptional'
+},
+{
+type: 'Praise',
+sentiment: 'positive',
+entity_type: 'Product',
+id: 'MOBILE-APP-001',
+id_type: 'AppID',
+target_category: 'Features',
+target_entity: 'Search Functionality',
+reason: 'Customer highlighted excellent search capabilities'
+}
+]
+});
+```
 
-By structuring sentiment data this way, organizations can perform nuanced analysis, connecting opinions directly to the entities and specific aspects they concern, leading to more targeted actions and a better understanding of qualitative feedback at scale.
+### Employee Feedback
+```javascript
+jitsu.track('Employee Feedback Submitted', {
+sentiment: [
+{
+type: 'Criticism',
+sentiment: 'negative',
+entity_type: 'Organization',
+target_category: 'Work Environment',
+target_type: 'Communication',
+target_entity: 'Team Meetings',
+reason: 'Employee suggested meetings are too frequent and unproductive'
+}
+]
+});
+```
+
+## Best Practices
+
+1. **Clear Sentiment Types**: Use appropriate sentiment types that match the nature of the feedback
+2. **Entity Context**: Always specify what entity the sentiment is about using `entity_type` and identifiers
+3. **Granular Targeting**: Use `target_category`, `target_type`, and `target_entity` for specific aspect analysis
+4. **Reasoning Documentation**: Include `reason` field for AI-generated sentiment analysis to provide transparency
+5. **Consistent Sentiment Values**: Standardize sentiment values (e.g., "positive", "negative", "neutral") across your
+organization
+6. **Multiple Sentiments**: Use the array structure to capture multiple sentiment aspects from a single interaction
+7. **Entity Linking**: Leverage `entity_gid` when entities are managed in Context Suite for better analysis

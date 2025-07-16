@@ -4,11 +4,11 @@ title: Involved Entities & Roles (involves field)
 
 # Involved Entities & Roles (`involves` field)
 
-The `involves` field in the Semantic Event Schema provides a structured way to explicitly list multiple entities that participate in an event. For each involved entity, it details their specific role in the event, their type, unique identifiers, and optionally, the capacity or extent of their involvement.
+The `involves` field in the Semantic Event Schema provides a structured way to explicitly list all entities that participate in an event. For each involved entity, it captures their specific role, type, identifiers, and optionally their capacity or extent of involvement.
 
-As highlighted by the schema's design ("Used to explicitly define entities involved in the event, rather than implicitly through other fields"), the `involves` structure is key for making the participation of various entities clear, unambiguous, and directly associated with the event. This is particularly useful for events where multiple entities interact in different capacities.
+This structure is essential for making entity participation clear and unambiguous, moving beyond implicit relationships to explicit declarations of who was involved and how. This is particularly valuable for complex events where multiple entities interact in different capacities.
 
-The `involves` field is typically an array (list) of objects, where each object represents one involved entity and its context within the event.
+The `involves` field is an array of objects, where each object represents one involved entity and its context within the event.
 
 ## Involved Entity Object Properties
 
@@ -36,83 +36,119 @@ The `involves` structure is powerful for detailing complex interactions where mu
 *   **`capacity`**: This field allows for specifying non-binary involvement. For example, if multiple consultants contribute to a single "Consultation Provided" event, `capacity` could represent the proportion of work each contributed (e.g., Consultant A: 0.6, Consultant B: 0.4). It can also represent quantities if the role implies it (e.g., "Attendee" role with `capacity: 2` for two tickets).
 *   **`label`**: Provides a quick, human-readable identifier for the entity in the context of the event, which can be useful for logging or display purposes.
 
-**Use-Case Examples:**
+## Practical Examples
 
-1.  **E-commerce "Order Placed" Event:**
-    ```json
-    "involves": [
-      {
-        "role": "Buyer",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-buyer-123",
-        "label": "John Doe"
-      },
-      {
-        "role": "Seller",
-        "entity_type": "Organization",
-        "entity_gid": "org-uuid-seller-456",
-        "label": "MegaMart Inc."
-      },
-      {
-        "role": "PaymentMethod",
-        "entity_type": "Instrument", // Assuming a generic entity type for payment instruments
-        "id": "card_xxxxxxxxxxxx4242",
-        "id_type": "CreditCardToken",
-        "label": "Visa ending in 4242"
-      }
-    ]
-    ```
+### E-commerce Purchase
+```javascript
+jitsu.track('Order Completed', {
+  involves: [
+    {
+      label: 'John Smith',
+      role: 'Buyer',
+      entity_type: 'Person',
+      id: 'customer-12345',
+      id_type: 'CustomerDB'
+    },
+    {
+      label: 'Acme Electronics Store',
+      role: 'Seller',
+      entity_type: 'Organization',
+      entity_gid: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
+      id: 'store-001',
+      id_type: 'StoreSystem'
+    }
+  ]
+});
+```
 
-2.  **"Document Shared" Event:**
-    ```json
-    "involves": [
-      {
-        "role": "Owner",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-owner-789"
-      },
-      {
-        "role": "Editor",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-editor-abc"
-      },
-      {
-        "role": "Viewer",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-viewer-def"
-      },
-      {
-        "role": "SharedDocument",
-        "entity_type": "Document",
-        "entity_gid": "doc-uuid-xyz789"
-      }
-    ]
-    ```
+### B2B Contract Signing
+```javascript
+jitsu.track('Contract Signed', {
+  involves: [
+    {
+      label: 'ABC Construction Inc.',
+      role: 'PrimaryContractor',
+      entity_type: 'LegalEntity',
+      id: 'company-abc-123',
+      id_type: 'BusinessRegistry'
+    },
+    {
+      label: 'XYZ Plumbing Services',
+      role: 'Subcontractor',
+      entity_type: 'Organization',
+      id: 'company-xyz-456',
+      id_type: 'VendorDB',
+      capacity: 0.3
+    },
+    {
+      label: 'Jane Doe',
+      role: 'ClientRepresentative',
+      entity_type: 'Person',
+      id: 'contact-789',
+      id_type: 'CRM'
+    }
+  ]
+});
+```
 
-3.  **"Medical Consultation Provided" Event with Capacity:**
-    Two doctors collaborated on a consultation.
-    ```json
-    "involves": [
-      {
-        "role": "Patient",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-patient-444"
-      },
-      {
-        "role": "Consultant",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-dr-smith",
-        "label": "Dr. Smith",
-        "capacity": 0.6
-      },
-      {
-        "role": "Consultant",
-        "entity_type": "User",
-        "entity_gid": "user-uuid-dr-jones",
-        "label": "Dr. Jones",
-        "capacity": 0.4
-      }
-    ]
-    ```
+### Supply Chain Event
+```javascript
+jitsu.track('Shipment Received', {
+  involves: [
+    {
+      label: 'Global Logistics Corp',
+      role: 'Carrier',
+      entity_type: 'Organization',
+      id: 'carrier-gl001',
+      id_type: 'LogisticsSystem'
+    },
+    {
+      label: 'Manufacturing Plant A',
+      role: 'Supplier',
+      entity_type: 'Organization',
+      id: 'plant-a-001',
+      id_type: 'ERPSystem'
+    },
+    {
+      label: 'Distribution Center East',
+      role: 'Receiver',
+      entity_type: 'Organization',
+      id: 'dc-east-001',
+      id_type: 'WMS'
+    }
+  ]
+});
+```
+
+### Multi-stakeholder Project Event
+```javascript
+jitsu.track('Project Milestone Completed', {
+  involves: [
+    {
+      label: 'Alice Johnson',
+      role: 'ProjectManager',
+      entity_type: 'Person',
+      id: 'emp-001',
+      id_type: 'HRIS'
+    },
+    {
+      label: 'Development Team Alpha',
+      role: 'Contributor',
+      entity_type: 'Organization',
+      id: 'team-alpha',
+      id_type: 'TeamRegistry',
+      capacity: 0.7
+    },
+    {
+      label: 'Quality Assurance Team',
+      role: 'Reviewer',
+      entity_type: 'Organization',
+      id: 'team-qa',
+      id_type: 'TeamRegistry',
+      capacity: 0.3
+    }
+  ]
+});
+```
 
 By using the `involves` array, events can accurately represent complex scenarios with multiple participating entities, each playing a distinct role and having a measurable capacity of involvement. This leads to richer data for analytics, auditing, and understanding interconnected processes.

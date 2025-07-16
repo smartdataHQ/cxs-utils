@@ -111,15 +111,20 @@ class Location(CXSBase):
     duration_until: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="The end date of the location (e.g. \"2022-01-01 00:00:00\") Used if the location is temporary") # SQL: Nullable(DateTime64)
 
 class Product(CXSBase):
-    position: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="Position in the product list (ex. 3)") # SQL: Nullable(UInt16)
+    # product entry type to indicate the involvement of the product in the semantic event
     entry_type: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="'Cart Item', 'Line Item', 'Wishlist', 'Recommendation', 'Purchase Order', 'Search Results', 'Other', 'Delivery', 'Reservation', 'Reservation', 'Stockout'") # SQL: LowCardinality(String)
+
+    # ordering and line_id information to correctly place the product line on a reciept etc.
+    position: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="Position in the product list (ex. 3)") # SQL: Nullable(UInt16)
     line_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unique ID for the line item") # SQL: Nullable(String)
 
-    product_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Database id of the product being purchases") # SQL: LowCardinality(String)
-    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="Database id of the product being purchases") # SQL: LowCardinality(UUID) - assuming Nullable if Optional
+    # Internal product ID information
+    product_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Database id of the product being purchases. External ID by the customer") # SQL: LowCardinality(String)
+    entity_gid: Annotated[Optional[uuid.UUID], OmitIfNone()] = Field(default=None, description="Database id of the product being purchases. A GID id for the product if it exists") # SQL: LowCardinality(UUID) - assuming Nullable if Optional
 
-    sku: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Sku of the product being purchased")
-    barcode: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Barcode of the product being purchased")
+    # Product Identification
+    sku: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Sku of the product being purchased. Store-Native ID of the product. It may varie between stores in a chain.")
+    barcode: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Barcode of the product being purchased.")
     gtin: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GTIN of the product being purchased")
     upc: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="UPC of the product being purchased")
     ean: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="EAN of the product being purchased")
@@ -128,8 +133,7 @@ class Product(CXSBase):
     supplier_number: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier number of the product being purchased")
     tpx_serial_number: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Serial number of the product being purchased issued by a third party (not GS1)")
 
-    bundle_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the bundle the product belongs to when listing all products in a bundle")
-    bundle: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the bundle the product belongs to")
+    # Product Details
     product: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Name of the product being viewed") # Field name in Pydantic, SQL is also 'product'
     variant: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Variant of the product being purchased")
     novelty: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Novelty of the product being purchased")
@@ -143,7 +147,10 @@ class Product(CXSBase):
     product_line: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product line associated with the product")
     own_product: Annotated[Optional[bool], OmitIfNone()] = Field(default=None, description="If the item is a store brand") # SQL: Nullable(BOOLEAN)
     product_dist: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Distribution is used to track the distribution class of the product (e.g. \"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\", \"J\")")
+    bundle_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The ID of the bundle the product belongs to when listing all products in a bundle")
+    bundle: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="The name of the bundle the product belongs to")
 
+    #classification
     main_category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product category being purchased")
     main_category_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product category ID being purchased")
     category: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Name of the sub-category of the product being purchased")
@@ -161,6 +168,7 @@ class Product(CXSBase):
     gs1_family: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Family")
     gs1_segment: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="GS1 Segment")
 
+    # Timed Events and Tickets
     starts: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="Start date for the product being purchased") # SQL: Nullable(DateTime64)
     ends: Annotated[Optional[datetime], OmitIfNone()] = Field(default=None, description="End date for the product being purchased") # SQL: Nullable(DateTime64)
     duration: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Duration for the product being purchased in minutes") # SQL: Nullable(Float32)
@@ -170,6 +178,7 @@ class Product(CXSBase):
 
     dwell_time_ms: Annotated[Optional[int], OmitIfNone()] = Field(default=None, description="The time that this product was in the viewport of the customer (above the fold)") # SQL: Nullable(Int64)
 
+    # Supply chaing
     supplier: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier of the product being purchased")
     supplier_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Supplier ID of the product being purchased")
     manufacturer: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Manufacturer of the product being purchased")
@@ -179,6 +188,7 @@ class Product(CXSBase):
     product_mgr_id: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Manager ID of the product being purchased")
     product_mgr: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Product Manager of the product being purchased")
 
+    # Purchase Details
     units: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="Product units (1 if sold by wight (see quantity))") # SQL: Nullable(Float64)
     unit_size: Annotated[Optional[float], OmitIfNone()] = Field(default=None, description="The quantity of each unit") # SQL: Nullable(Float64)
     uom: Annotated[Optional[str], OmitIfNone()] = Field(default="", description="Unit of measure of the product(s) being purchased (Weight, Duration, Items, Volume, etc.)")
