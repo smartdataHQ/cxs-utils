@@ -2185,7 +2185,7 @@
       "airtable_id": "recoqV6tbqs7sognC",
       "airtableId": "recoqV6tbqs7sognC",
       "name": "Payment Failed",
-      "description": "When a payment fails",
+      "description": "When a payment failed",
       "category": "Payments",
       "domain": [
         "Finances"
@@ -2401,7 +2401,8 @@
       "airtable_id": "recuVKY11Jd9VztCV",
       "airtableId": "recuVKY11Jd9VztCV",
       "name": "Consumption Failed",
-      "description": "When playback of a media item fails",
+      "description": "When playback of a media item failed",
+      "description": "When playback of a media item failed",
       "category": "Consumption",
       "domain": [
         "Consumption"
@@ -2410,9 +2411,9 @@
       "topicSlug": "consumptionconsumptionconsumption-failed",
       "aliases": [
         {
-          "name": "Playback Fails",
+          "name": "Playback Failed",
           "vertical": "Streaming Media",
-          "topic": "consumption.consumption.playback_fails"
+          "topic": "consumption.consumption.playback_failed"
         }
       ],
       "lastUpdated": "2025-07-16T11:40:37.000Z",
@@ -2521,9 +2522,9 @@
       "topicSlug": "consumptionconsumptionconsumption-started",
       "aliases": [
         {
-          "name": "Playback Starts",
+          "name": "Playback Started",
           "vertical": "Streaming Media",
-          "topic": "consumption.consumption.playback_starts"
+          "topic": "consumption.consumption.playback_started"
         }
       ],
       "lastUpdated": "2025-07-15T19:13:45.000Z",
