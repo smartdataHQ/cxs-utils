@@ -161,7 +161,7 @@ export default function EventBiblePage() {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <BookOpen className="h-8 w-8 text-primary" />
-          <h1 className="text-4xl font-bold">Event Bible</h1>
+          <h1 className="text-4xl font-bold">Event Bible ({eventsCount})</h1>
         </div>
         <p className="text-lg text-muted-foreground max-w-3xl">
           Discover and explore all available semantic events. Search, filter, and dive deep into 
@@ -169,20 +169,6 @@ export default function EventBiblePage() {
         </p>
       </div>
 
-      {/* Fallback Mode Notification */}
-      {usingFallback && (
-        <Alert className="mb-6" variant="default">
-          <WifiOff className="h-4 w-4" />
-          <AlertDescription>
-            <div className="space-y-2">
-              <p className="font-medium">Running in Offline Mode</p>
-              <p className="text-sm">
-                {FALLBACK_ERROR_MESSAGE}
-              </p>
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
 
       {/* Priming Status */}
       {isLoading && (
@@ -193,21 +179,6 @@ export default function EventBiblePage() {
               <p className="font-medium">Loading Event Bible</p>
               <p className="text-sm">
                 Priming cache with events from Airtable...
-              </p>
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {/* Priming Success */}
-      {isReady && eventsCount > 0 && (
-        <Alert className="mb-6" variant="default">
-          <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertDescription>
-            <div>
-              <p className="font-medium">Event Bible Ready</p>
-              <p className="text-sm">
-                Loaded {eventsCount} events from Airtable
               </p>
             </div>
           </AlertDescription>

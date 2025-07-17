@@ -3,12 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import { SemanticEvent } from '@/lib/types/event-bible';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { EventTableSkeleton } from '@/components/common/loading-spinner';
 import { VirtualizedEventTable } from './virtualized-event-table';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
 
 interface EventBibleTableProps {
@@ -189,7 +187,6 @@ export function EventBibleTable({
                           Domain {getSortIcon('domain')}
                         </Button>
                       </th>
-                      <th className="text-left p-4">Description</th>
                       <th className="text-left p-4">
                         <Button
                           variant="ghost"
@@ -211,7 +208,7 @@ export function EventBibleTable({
                         }`}
                         onClick={() => onEventClick?.(event)}
                       >
-                        <td className="p-4">
+                        <td className="p-4 whitespace-nowrap">
                           <div className="flex items-center gap-2">
                             <div className="font-medium">{event.name}</div>
                             {event.deprecated && (
@@ -241,11 +238,6 @@ export function EventBibleTable({
                         </td>
                         <td className="p-4">
                           <Badge variant="secondary">{event.domain}</Badge>
-                        </td>
-                        <td className="p-4 max-w-xs">
-                          <p className="text-sm text-muted-foreground truncate">
-                            {event.description}
-                          </p>
                         </td>
                         <td className="p-4 text-sm text-muted-foreground">
                           {formatDate(event.lastUpdated)}
@@ -279,9 +271,6 @@ export function EventBibleTable({
                         </Badge>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      {event.description}
-                    </p>
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
