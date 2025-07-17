@@ -143,9 +143,6 @@ export function VirtualizedEventTable({
                 Domain {getSortIcon('domain')}
               </Button>
             </div>
-            <div className="col-span-3">
-              <span className="font-semibold text-sm">Description</span>
-            </div>
             <div className="col-span-1">
               <Button
                 variant="ghost"
@@ -208,11 +205,6 @@ export function VirtualizedEventTable({
                       </div>
                       <div className="col-span-2">
                         <Badge variant="secondary" className="text-xs">{event.domain}</Badge>
-                      </div>
-                      <div className="col-span-3">
-                        <p className="text-xs text-muted-foreground line-clamp-2">
-                          {event.description}
-                        </p>
                       </div>
                       <div className="col-span-1">
                         <span className="text-xs text-muted-foreground">
