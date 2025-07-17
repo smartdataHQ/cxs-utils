@@ -98,7 +98,7 @@ export default function EventDetailPageRoute() {
 
   // Handle navigation to another event using topic slug
   const handleEventClick = (clickedEvent: SemanticEvent) => {
-    router.push(`/docs/semantic-events/bible/${clickedEvent.topicSlug}`);
+    router.push(`/docs/semantic-events/bible/${clickedEvent.topic}`);
   };
 
   // Loading state

@@ -83,7 +83,7 @@ export default function EventBiblePage() {
     // Handle domain field separately (might be string or array)
     const domainFields: string[] = [];
     if (event.domain) {
-        domainFields.push(event.domain.toLowerCase());
+        domainFields.push(event.domain);
     }
 
     // Search in aliases with proper type checking
@@ -152,7 +152,7 @@ export default function EventBiblePage() {
 
   // Handle event click - navigate to detail page using topic slug
   const handleEventClick = useCallback((event: SemanticEvent) => {
-    router.push(`/docs/semantic-events/bible/${event.topicSlug}`);
+    router.push(`/docs/semantic-events/bible/${event.topic}`);
   }, [router]);
 
   return (

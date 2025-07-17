@@ -24,7 +24,7 @@ export async function GET(
     if (hasLocalData) {
       const localData = await localEventBibleService.loadLocalData();
       if (localData && localData.events.length > 0) {
-        event = localData.events.find(e => e.topicSlug === slug);
+        event = localData.events.find((e: { topic: string; }) => e.topic === slug);
         if (event) {
           console.log(`API: Serving event with slug ${slug} from local JSON file`);
           return NextResponse.json({ 

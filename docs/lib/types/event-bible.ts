@@ -16,7 +16,6 @@ export interface SemanticEvent {
   domain: string; // Domain can be a string or array of strings
   aliases: Alias[];
   topic: string;
-  topicSlug: string; // URL-friendly slug derived from topic
   lastUpdated: string;
   airtableId: string;
   deprecated?: boolean;

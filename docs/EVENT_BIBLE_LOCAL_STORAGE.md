@@ -37,7 +37,6 @@ data/
       "category": "Category",
       "domain": "domain",
       "topic": "Topic Name",
-      "topicSlug": "topic-name",
       "aliases": [
         {
           "name": "Alias Name",

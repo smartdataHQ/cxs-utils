@@ -91,7 +91,7 @@ export class AirtableService {
         try {
           // Get all events and find the one with matching slug
           const allEvents = await this.fetchAllEvents();
-          return allEvents.find(event => event.topicSlug === slug) || null;
+          return allEvents.find(event => event.topic === slug) || null;
         } catch (error) {
           throw this.handleError(error, `Failed to fetch event with slug: ${slug}`);
         }
@@ -277,7 +277,6 @@ export class AirtableService {
         category: fields.Category || '',
         domain: fields.Domain || '',
         topic: fields.Topic || '',
-        topicSlug: '', // Will be set in second pass
         aliases,
         lastUpdated: fields['Last Updated'] || record.createdTime,
         deprecated: fields.Deprecated || false,
@@ -304,7 +303,7 @@ export class AirtableService {
 
       return {
         ...event,
-        topicSlug: finalSlug,
+        topic: finalSlug,
       };
     });
   }

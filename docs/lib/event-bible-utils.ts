@@ -38,7 +38,6 @@ export function transformEventRecord(
     category: sanitizeString(fields.Category),
     domain: sanitizeString(fields.Domain),
     topic: sanitizeString(fields.Topic),
-    topicSlug: sanitizeString(fields.Topic),
     aliases,
     lastUpdated: fields['Last Updated'] || eventRecord.createdTime,
   };
