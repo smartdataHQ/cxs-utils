@@ -28,18 +28,25 @@ export const searchResults: SearchResult[] = [
     type: 'page'
   },
   {
-    title: 'The Event Bible',
+    title: 'Event Bible',
     href: '/docs/semantic-events/bible',
-    content: 'Comprehensive catalog of standardized events across all industries and use cases.',
+    content: 'Interactive catalog of semantic events from Airtable with search, filtering, and detailed documentation for each event type.',
     section: 'Semantic Events',
     type: 'page'
   },
   {
-    title: 'Core Events',
-    href: '/docs/semantic-events/bible/core-events',
-    content: 'Essential eCommerce events like product views, purchases, and cart actions.',
+    title: 'Browse All Events',
+    href: '/docs/semantic-events/bible',
+    content: 'Search and filter through all available semantic events by category, domain, and vertical.',
     section: 'Event Bible',
-    type: 'page'
+    type: 'section'
+  },
+  {
+    title: 'Event Documentation',
+    href: '/docs/semantic-events/bible',
+    content: 'Detailed event schemas, code examples, and implementation guides for each semantic event.',
+    section: 'Event Bible',
+    type: 'section'
   },
   {
     title: 'Event Validation',
@@ -86,11 +93,11 @@ export const searchResults: SearchResult[] = [
 ];
 
 export const recentSearches = [
+  'event bible',
   'core events',
   'schema reference',
   'validation',
-  'entity identification',
-  'travel events'
+  'entity identification'
 ];
 
 /**

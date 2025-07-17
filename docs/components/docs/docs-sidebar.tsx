@@ -13,7 +13,7 @@ function NavigationItem({ item, level = 0 }: { item: NavigationItem; level?: num
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = item.children && item.children.length > 0;
-  const isActive = pathname === item.href || (item.href !== '/docs' && pathname.startsWith(item.href));
+  const isActive = pathname === item.href || (item.href !== '/docs' && pathname?.startsWith(item.href));
 
   return (
     <li>

@@ -17,20 +17,11 @@ import {
   Book,
   Layers,
   Link as LinkIcon,
-  Eye,
   Filter,
   BarChart3,
   Workflow,
-  Car,
   ShoppingCart,
-  Package,
-  Calendar,
-  Music,
-  Utensils,
   Cloud,
-  Home,
-  CreditCard,
-  Plane,
   type LucideIcon
 } from 'lucide-react';
 
@@ -97,6 +88,12 @@ export const navigationConfig: NavigationSection[] = [
         title: 'Getting Started', 
         href: '/docs/semantic-events/getting-started', 
         icon: Zap 
+      },
+      { 
+        title: 'Event Bible', 
+        href: '/docs/semantic-events/bible', 
+        icon: Book,
+        badge: 'Interactive'
       },
       { 
         title: 'Events vs Timestamps', 

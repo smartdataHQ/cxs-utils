@@ -7,8 +7,25 @@ import { MarkdocRenderer } from '@/components/markdoc/markdoc-renderer';
 import { readMarkdocContent, getMarkdocPath } from '@/lib/markdoc-utils';
 
 export default function DocsHome() {
-  const markdocPath = getMarkdocPath('app/docs');
-  const markdocContent = readMarkdocContent(markdocPath);
+  let markdocContent = '';
+  try {
+    const markdocPath = getMarkdocPath('app/docs');
+    markdocContent = readMarkdocContent(markdocPath);
+  } catch (error) {
+    console.error('Failed to load Markdoc content:', error);
+    // Provide fallback content
+    markdocContent = `
+---
+title: ContextSuite Documentation
+description: Semantic Events Platform for Modern Applications
+---
+
+# ContextSuite
+## Semantic Events Platform
+
+Welcome to the ContextSuite documentation. This platform provides comprehensive semantic event tracking for modern applications.
+    `;
+  }
 
   const features = [
     {

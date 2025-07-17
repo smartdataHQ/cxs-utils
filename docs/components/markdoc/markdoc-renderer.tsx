@@ -72,6 +72,12 @@ function TableCell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function List({ ordered, children }: { ordered?: boolean; children: React.ReactNode }) {
+  const ListTag = ordered ? 'ol' : 'ul';
+  const listClasses = ordered ? 'list-decimal mb-6 space-y-2 text-foreground pl-6' : 'list-disc mb-6 space-y-2 text-foreground pl-6';
+  return React.createElement(ListTag, { className: listClasses }, children);
+}
+
 function Heading({ level, children, id }: { level: number; children: React.ReactNode; id?: string }) {
   const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
   const headingClasses = {
@@ -120,8 +126,7 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
         tr: {
           render: 'TableRow',
           transform(node, config) {
-            const isHeader = node.parent?.type === 'thead';
-            return new Markdoc.Tag('TableRow', { isHeader }, node.transformChildren(config));
+            return new Markdoc.Tag('TableRow', {}, node.transformChildren(config));
           },
         },
         th: {
@@ -152,15 +157,11 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
           },
         },
         list: {
-          render: ({ ordered, children }: { ordered?: boolean; children: React.ReactNode }) => {
-            const ListTag = ordered ? 'ol' : 'ul';
-            const listClasses = ordered ? 'list-decimal mb-6 space-y-2 text-foreground pl-6' : 'list-disc mb-6 space-y-2 text-foreground pl-6';
-            return React.createElement(ListTag, { className: listClasses }, children);
-          },
+          render: 'List',
           attributes: { ordered: { type: Boolean } },
           transform(node, config) {
             const attributes = node.transformAttributes(config);
-            return new Markdoc.Tag(this.render, { ordered: attributes.ordered }, node.transformChildren(config));
+            return new Markdoc.Tag('List', { ordered: attributes.ordered }, node.transformChildren(config));
           },
         },
         item: {
@@ -250,6 +251,7 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
       TableRow,
       TableHeader,
       TableCell,
+      List,
       Heading,
     };
 

@@ -1,0 +1,3261 @@
+{
+  "events": [
+    {
+      "airtable_id": "rec0uVAEZJcrQhB5d",
+      "airtableId": "rec0uVAEZJcrQhB5d",
+      "name": "Privileges Updated",
+      "description": "When user privileges are changed",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.privileges_updated",
+      "topicSlug": "softwareaccessprivileges-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:41:32.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec1yYADCzlTcu52m",
+      "airtableId": "rec1yYADCzlTcu52m",
+      "name": "Unit Unreserved",
+      "description": "When a previously reserved rental unit is unreserved ",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_unreserved",
+      "topicSlug": "commercerentalunit-unreserved",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:47:36.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec21kFeGbssWO6ps",
+      "airtableId": "rec21kFeGbssWO6ps",
+      "name": "Coupon Entered",
+      "description": "When a user enters a coupon code during checkout (before validation)",
+      "category": "Discounts",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discounts.coupon_entered",
+      "topicSlug": "commercediscountscoupon-entered",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:10:39.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec26USuex6gFbRpy",
+      "airtableId": "rec26USuex6gFbRpy",
+      "name": "Unit Rented",
+      "description": "When a rental period starts",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_rented",
+      "topicSlug": "commercerentalunit-rented",
+      "aliases": [
+        {
+          "name": "Room Booked",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_booked"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:17:48.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec2AeZYiJnWkm3ob",
+      "airtableId": "rec2AeZYiJnWkm3ob",
+      "name": "Access Created",
+      "description": "When API key or service token is created",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_created",
+      "topicSlug": "softwareaccessaccess-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:16:32.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec2kn8x4SYJQY4b0",
+      "airtableId": "rec2kn8x4SYJQY4b0",
+      "name": "Shipment Cancelled",
+      "description": "When a shipment is cancelled",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_cancelled",
+      "topicSlug": "commerceshippingshipment-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:00:27.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec2npKyXa2COz4PV",
+      "airtableId": "rec2npKyXa2COz4PV",
+      "name": "Message Recieved",
+      "description": "When notifications, messages, emails, sMS etc is received from a customer",
+      "category": "Communications",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.communications.message_recieved",
+      "topicSlug": "crmcommunicationsmessage-recieved",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:37:18.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec3baVgFmf6o6Yx9",
+      "airtableId": "rec3baVgFmf6o6Yx9",
+      "name": "Unit Upgraded",
+      "description": "When a rental is upgraded to a higher quality unit",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_upgraded",
+      "topicSlug": "commercerentalunit-upgraded",
+      "aliases": [
+        {
+          "name": "Room Upgraded",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_upgraded"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:19:05.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec3wT2mHCwP1dXfp",
+      "airtableId": "rec3wT2mHCwP1dXfp",
+      "name": "Invoice Credited",
+      "description": "When an invoices is credited",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_credited",
+      "topicSlug": "financesinvoicinginvoice-credited",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:48:29.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec43eZoQVFZvNG4w",
+      "airtableId": "rec43eZoQVFZvNG4w",
+      "name": "Checkout Abandoned",
+      "description": "When checkout is abandoned by the customer",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_abandoned",
+      "topicSlug": "commercecheckoutcheckout-abandoned",
+      "aliases": [
+        {
+          "name": "Booking Abandoned",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_abandoned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T14:27:59.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec480TspzrJ6mciI",
+      "airtableId": "rec480TspzrJ6mciI",
+      "name": "List Viewed",
+      "description": "When a user views the contents of their shopping cart",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.list_viewed",
+      "topicSlug": "commerceitem-listlist-viewed",
+      "aliases": [
+        {
+          "name": "Cart Viewed",
+          "vertical": "Retail & eCommerce",
+          "topic": "commerce.item_list.cart_viewed"
+        }
+      ],
+      "lastUpdated": "2025-05-17T09:08:16.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec4G865qRY9M9iLE",
+      "airtableId": "rec4G865qRY9M9iLE",
+      "name": "Solution Instance Restarted",
+      "description": "When a software/solution solution is restarted",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_instance_restarted",
+      "topicSlug": "softwaresolutionssolution-instance-restarted",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:00:17.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec4iamxbJSdwOBM2",
+      "airtableId": "rec4iamxbJSdwOBM2",
+      "name": "Payment Method Validated",
+      "description": "When a creditcard is validated",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_method_validated",
+      "topicSlug": "financespaymentspayment-method-validated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:51:27.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec59JnuHPGVMYdCU",
+      "airtableId": "rec59JnuHPGVMYdCU",
+      "name": "Campaign Asset Engadged",
+      "description": "When a prospect engaged with a marketing asset",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_asset_engadged",
+      "topicSlug": "publicitymarketingcampaign-asset-engadged",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:10:40.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec5BwHazHiuyakwQ",
+      "airtableId": "rec5BwHazHiuyakwQ",
+      "name": "Solution Instance Scaled",
+      "description": "When a software/solution solution is scaled",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_instance_scaled",
+      "topicSlug": "softwaresolutionssolution-instance-scaled",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T20:59:54.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec60W8T9aCtMMsGs",
+      "airtableId": "rec60W8T9aCtMMsGs",
+      "name": "Picking Started",
+      "description": "When a shipment is beeing prepared",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_started",
+      "topicSlug": "commerceshippingpicking-started",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:03:46.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec62pegIMUFpPgDM",
+      "airtableId": "rec62pegIMUFpPgDM",
+      "name": "Entity Deactivated",
+      "description": "When a user account is deactivated",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_deactivated",
+      "topicSlug": "softwareprovisioningentity-deactivated",
+      "aliases": [
+        {
+          "name": "Account Deactivated",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_deactivated"
+        },
+        {
+          "name": "User Deactivated",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_deactivated"
+        }
+      ],
+      "lastUpdated": "2025-07-15T17:37:38.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec6Ed35jIX0bteZS",
+      "airtableId": "rec6Ed35jIX0bteZS",
+      "name": "Solution Updated",
+      "description": "When deployd software/solution is updated",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_updated",
+      "topicSlug": "softwaresolutionssolution-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:16:27.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec6I9C4ZcAkkWIzf",
+      "airtableId": "rec6I9C4ZcAkkWIzf",
+      "name": "Service Renewed",
+      "description": "When a customer renewes a subscription or it is auto-reneved",
+      "category": "Services",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.services.service_renewed",
+      "topicSlug": "commerceservicesservice-renewed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:33:44.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec6IAnZ8fZ4hqA5P",
+      "airtableId": "rec6IAnZ8fZ4hqA5P",
+      "name": "Item Removed",
+      "description": "When a user removes a product from their shopping cart",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.item_removed",
+      "topicSlug": "commerceitem-listitem-removed",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:08:09.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec72hFY9EOfBw1ER",
+      "airtableId": "rec72hFY9EOfBw1ER",
+      "name": "Shipment Created",
+      "description": "When shipment is created",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_created",
+      "topicSlug": "commerceshippingshipment-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:58:24.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec7aOQYo3rFMMrv4",
+      "airtableId": "rec7aOQYo3rFMMrv4",
+      "name": "Purchase Cancelled",
+      "description": "When an existing order is cancelled",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_cancelled",
+      "topicSlug": "commercepurchasingpurchase-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:09:54.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec8AZcq8N5bfCrlw",
+      "airtableId": "rec8AZcq8N5bfCrlw",
+      "name": "Checkout Completed",
+      "description": "When a user finishes the checkout process",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_completed",
+      "topicSlug": "commercecheckoutcheckout-completed",
+      "aliases": [
+        {
+          "name": "Booking Completed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_completed"
+        }
+      ],
+      "lastUpdated": "2025-07-16T10:43:06.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec8HiNRbkos7xNCr",
+      "airtableId": "rec8HiNRbkos7xNCr",
+      "name": "Checkout Aborted",
+      "description": "When checkout is aborted for some internal reason",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_aborted",
+      "topicSlug": "commercecheckoutcheckout-aborted",
+      "aliases": [
+        {
+          "name": "Booking Aborted",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_aborted"
+        }
+      ],
+      "lastUpdated": "2025-07-16T14:27:47.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rec9IhsCny7T1ZCPk",
+      "airtableId": "rec9IhsCny7T1ZCPk",
+      "name": "Item Viewed",
+      "description": "When a user views information about a specific item/product",
+      "category": "Discovery",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discovery.item_viewed",
+      "topicSlug": "commercediscoveryitem-viewed",
+      "aliases": [
+        {
+          "name": "Hotel Viewed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.discovery.hotel_viewed"
+        }
+      ],
+      "lastUpdated": "2025-05-17T08:27:15.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recAQJ6faXkqppPSg",
+      "airtableId": "recAQJ6faXkqppPSg",
+      "name": "Event Scheduled",
+      "description": "When an event is scheduled",
+      "category": "Scheduling",
+      "domain": [
+        "Event"
+      ],
+      "topic": "event.scheduling.event_scheduled",
+      "topicSlug": "eventschedulingevent-scheduled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:17:06.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recARQvo1eZC1cvF1",
+      "airtableId": "recARQvo1eZC1cvF1",
+      "name": "Shipment Delivered",
+      "description": "When a shipment has been delivered",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_delivered",
+      "topicSlug": "commerceshippingshipment-delivered",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:59:36.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recAnCbRhV8FHMx5B",
+      "airtableId": "recAnCbRhV8FHMx5B",
+      "name": "Picking Paused",
+      "description": "When a shipment preparation is paused",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_paused",
+      "topicSlug": "commerceshippingpicking-paused",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:35:23.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recAnTs9NMu6IM1jj",
+      "airtableId": "recAnTs9NMu6IM1jj",
+      "name": "Membership Invitation Accepted",
+      "description": "When a user accepts an invitation",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_invitation_accepted",
+      "topicSlug": "servicesmembershipmembership-invitation-accepted",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:20:04.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recB8kXKowUHxsbCl",
+      "airtableId": "recB8kXKowUHxsbCl",
+      "name": "Invoice Overdue",
+      "description": "When an invoice is overdue",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_overdue",
+      "topicSlug": "financesinvoicinginvoice-overdue",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:01:08.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recBLoOVJRDsqAtcX",
+      "airtableId": "recBLoOVJRDsqAtcX",
+      "name": "Membership Ended",
+      "description": "Mhen a membership ends for other reasons",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_ended",
+      "topicSlug": "servicesmembershipmembership-ended",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:22:51.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recBjOJvPE6EuD3gy",
+      "airtableId": "recBjOJvPE6EuD3gy",
+      "name": "Observation Alert Sent",
+      "description": "When an observation is sent to a particular user/employee",
+      "category": "Actionable Intelligence",
+      "domain": [
+        "Operational Intelligence"
+      ],
+      "topic": "operational_intelligence.actionable_intelligence.observation_alert_sent",
+      "topicSlug": "operational-intelligenceactionable-intelligenceobservation-alert-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:46:46.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recBkztwH1qhvsofN",
+      "airtableId": "recBkztwH1qhvsofN",
+      "name": "Checkout Step Viewed",
+      "description": "When a user views any step within a multi-step checkout process",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_step_viewed",
+      "topicSlug": "commercecheckoutcheckout-step-viewed",
+      "aliases": [
+        {
+          "name": "Booking Step Viewed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_step_viewed"
+        }
+      ],
+      "lastUpdated": "2025-05-17T09:08:53.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recCk7kLzhjB09RYQ",
+      "airtableId": "recCk7kLzhjB09RYQ",
+      "name": "Access Activated",
+      "description": "When user/account access is activated (aster suspension or not)",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_activated",
+      "topicSlug": "softwareaccessaccess-activated",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:43:56.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recCxPq58btds4xvu",
+      "airtableId": "recCxPq58btds4xvu",
+      "name": "Entity Activated",
+      "description": "When a user account is activated",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_activated",
+      "topicSlug": "softwareprovisioningentity-activated",
+      "aliases": [
+        {
+          "name": "Account Activated",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_activated"
+        },
+        {
+          "name": "User Activated",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_activated"
+        }
+      ],
+      "lastUpdated": "2025-07-15T17:42:30.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recCzT3iKyj9TY54N",
+      "airtableId": "recCzT3iKyj9TY54N",
+      "name": "Unit Downgraded",
+      "description": "When a rented unit is downgraded from a higher quality unit that was reserved",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_downgraded",
+      "topicSlug": "commercerentalunit-downgraded",
+      "aliases": [
+        {
+          "name": "Room Downgraded",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_downgraded"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:19:12.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recDAFqfnisbrqDIC",
+      "airtableId": "recDAFqfnisbrqDIC",
+      "name": "Purchase Completed",
+      "description": "When a user successfully completes a purchase",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_completed",
+      "topicSlug": "commercepurchasingpurchase-completed",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:09:15.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recDF3UBvzKVxdUXA",
+      "airtableId": "recDF3UBvzKVxdUXA",
+      "name": "List Deleted",
+      "description": "When a list of products is deleted by the customer",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.list_deleted",
+      "topicSlug": "commerceitem-listlist-deleted",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:56:29.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recDdvwuulETc5e07",
+      "airtableId": "recDdvwuulETc5e07",
+      "name": "Invoice Line Created",
+      "description": "When an invoice line is added to an invoice",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_line_created",
+      "topicSlug": "financesinvoicinginvoice-line-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:42:44.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recDlPsusHE8wKJ9X",
+      "airtableId": "recDlPsusHE8wKJ9X",
+      "name": "Event Cancelled",
+      "description": "When a scheduled event is cancelled",
+      "category": "Scheduling",
+      "domain": [
+        "Event"
+      ],
+      "topic": "event.scheduling.event_cancelled",
+      "topicSlug": "eventschedulingevent-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:19:27.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recDzt4QQFQ8dgpvx",
+      "airtableId": "recDzt4QQFQ8dgpvx",
+      "name": "Data Linked",
+      "description": "Aggregate functions from the CXS process",
+      "category": "Data Onboarding",
+      "domain": [
+        "Data"
+      ],
+      "topic": "data.data_onboarding.data_linked",
+      "topicSlug": "datadata-onboardingdata-linked",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:27:00.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recEN5os19sEr12uG",
+      "airtableId": "recEN5os19sEr12uG",
+      "name": "Service Suspended",
+      "description": "When a subscription is exterminated by provider",
+      "category": "Services",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.services.service_suspended",
+      "topicSlug": "commerceservicesservice-suspended",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:34:28.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recEieLUCj1jqU8DK",
+      "airtableId": "recEieLUCj1jqU8DK",
+      "name": "Membership Invitation Expired",
+      "description": "When a user invitation expires",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_invitation_expired",
+      "topicSlug": "servicesmembershipmembership-invitation-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:20:13.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recEprwB8e1Dn3mP8",
+      "airtableId": "recEprwB8e1Dn3mP8",
+      "name": "Service Created",
+      "description": "When a customer subscribes to a product or a service",
+      "category": "Services",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.services.service_created",
+      "topicSlug": "commerceservicesservice-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:33:24.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recEz9EubPMro8a6i",
+      "airtableId": "recEz9EubPMro8a6i",
+      "name": "Unit Reserved",
+      "description": "When a rental unit is reserved",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_reserved",
+      "topicSlug": "commercerentalunit-reserved",
+      "aliases": [
+        {
+          "name": "Room Reserved",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_reserved"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:25:40.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recFJGp5LiIHCTab7",
+      "airtableId": "recFJGp5LiIHCTab7",
+      "name": "Item Inventory Level Verified",
+      "description": "When inventory levels are verified with manual/trusted counting",
+      "category": "Inventory",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.inventory.item_inventory_level_verified",
+      "topicSlug": "commerceinventoryitem-inventory-level-verified",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:06:40.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recGNOOne9I74BS9j",
+      "airtableId": "recGNOOne9I74BS9j",
+      "name": "List Abandoned",
+      "description": "When a customer abandons a cart/list with items in it",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.list_abandoned",
+      "topicSlug": "commerceitem-listlist-abandoned",
+      "aliases": [
+        {
+          "name": "Cart Abandoned",
+          "vertical": "Retail & eCommerce",
+          "topic": "commerce.item_list.cart_abandoned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T10:20:47.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recGqTjRUngPosNAy",
+      "airtableId": "recGqTjRUngPosNAy",
+      "name": "Invoice Created",
+      "description": "When an invoice is created",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_created",
+      "topicSlug": "financesinvoicinginvoice-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:48:16.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recH0GE4DTvQql2o6",
+      "airtableId": "recH0GE4DTvQql2o6",
+      "name": "Invoice Line Deleted",
+      "description": "When an invoice line is deleted from an invoice",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_line_deleted",
+      "topicSlug": "financesinvoicinginvoice-line-deleted",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:43:19.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recHDEIT00Rhdl2G4",
+      "airtableId": "recHDEIT00Rhdl2G4",
+      "name": "Access Updated",
+      "description": "When access is updated",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_updated",
+      "topicSlug": "softwareaccessaccess-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:16:54.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recHNtAqd5Q94hkPF",
+      "airtableId": "recHNtAqd5Q94hkPF",
+      "name": "Trend Change Detected",
+      "description": "When a trend change is detected in sales, usage or views",
+      "category": "Decision Support",
+      "domain": [
+        "Operational Intelligence"
+      ],
+      "topic": "operational_intelligence.decision_support.trend_change_detected",
+      "topicSlug": "operational-intelligencedecision-supporttrend-change-detected",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:06:42.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recHkukDyssmcTcG9",
+      "airtableId": "recHkukDyssmcTcG9",
+      "name": "Unit Refreshed",
+      "description": "When a rented unit is prepared for the next rental period",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_refreshed",
+      "topicSlug": "commercerentalunit-refreshed",
+      "aliases": [
+        {
+          "name": "Room Cleaned",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_cleaned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:18:21.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recIqNI36GshwdvBc",
+      "airtableId": "recIqNI36GshwdvBc",
+      "name": "Solution Installed",
+      "description": "When software/solution is deployed or installed",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_installed",
+      "topicSlug": "softwaresolutionssolution-installed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:33:25.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recJBg4x7Epe9k4Un",
+      "airtableId": "recJBg4x7Epe9k4Un",
+      "name": "Unit Allocated",
+      "description": "When a rented unit is allocatedd for a specific time",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_allocated",
+      "topicSlug": "commercerentalunit-allocated",
+      "aliases": [
+        {
+          "name": "Room Allocated",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_allocated"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:19:24.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recJWFlJ3XHR2AXxu",
+      "airtableId": "recJWFlJ3XHR2AXxu",
+      "name": "Item Engaged",
+      "description": "When a user/customer engages with a post (like, comment etc.)",
+      "category": "Engagement",
+      "domain": [
+        "Social"
+      ],
+      "topic": "social.engagement.item_engaged",
+      "topicSlug": "socialengagementitem-engaged",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:14:05.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recJtbQpcqAO4enb2",
+      "airtableId": "recJtbQpcqAO4enb2",
+      "name": "Access Verified",
+      "description": "When an account/access is verified (2FA and more)",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_verified",
+      "topicSlug": "softwareaccessaccess-verified",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:48:33.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recJw72s6ZaCWsWvR",
+      "airtableId": "recJw72s6ZaCWsWvR",
+      "name": "Invoice Due",
+      "description": "When an invoice is due",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_due",
+      "topicSlug": "financesinvoicinginvoice-due",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:00:43.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recKUyXZvNUNhG4iz",
+      "airtableId": "recKUyXZvNUNhG4iz",
+      "name": "Data Consumed",
+      "description": "Aggregate functions from the CXS process",
+      "category": "Data Onboarding",
+      "domain": [
+        "Data"
+      ],
+      "topic": "data.data_onboarding.data_consumed",
+      "topicSlug": "datadata-onboardingdata-consumed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:25:42.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recL6zmT1x9x9FT7n",
+      "airtableId": "recL6zmT1x9x9FT7n",
+      "name": "Access Denied",
+      "description": "Authentication Failed",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_denied",
+      "topicSlug": "softwareaccessaccess-denied",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:16:54.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recLRGXBbh7KmV2VH",
+      "airtableId": "recLRGXBbh7KmV2VH",
+      "name": "Item Added",
+      "description": "When a user adds a product to their shopping cart",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.item_added",
+      "topicSlug": "commerceitem-listitem-added",
+      "aliases": [
+        {
+          "name": "Product Added",
+          "vertical": "Retail & eCommerce",
+          "topic": "commerce.item_list.product_added"
+        }
+      ],
+      "lastUpdated": "2025-05-17T09:07:26.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recLftJieiNL0SRTA",
+      "airtableId": "recLftJieiNL0SRTA",
+      "name": "Invoice Line Updated",
+      "description": "When an invoice line is updated",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_line_updated",
+      "topicSlug": "financesinvoicinginvoice-line-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:43:09.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recLwPmeSTRdQBayR",
+      "airtableId": "recLwPmeSTRdQBayR",
+      "name": "Purchase Updated",
+      "description": "When an existing order is updated",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_updated",
+      "topicSlug": "commercepurchasingpurchase-updated",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:09:44.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recLxkjKERkTGKUH1",
+      "airtableId": "recLxkjKERkTGKUH1",
+      "name": "Event Ended",
+      "description": "When an event comes to an end",
+      "category": "Scheduling",
+      "domain": [
+        "Event"
+      ],
+      "topic": "event.scheduling.event_ended",
+      "topicSlug": "eventschedulingevent-ended",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:18:20.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recMkvuE7xQCuX0xI",
+      "airtableId": "recMkvuE7xQCuX0xI",
+      "name": "List Created",
+      "description": "When a list of products is created by the customer",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.list_created",
+      "topicSlug": "commerceitem-listlist-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:30:09.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recNaspAONgarqLAj",
+      "airtableId": "recNaspAONgarqLAj",
+      "name": "Unit Commissioned",
+      "description": "When a rented unit is commissioned",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_commissioned",
+      "topicSlug": "commercerentalunit-commissioned",
+      "aliases": [
+        {
+          "name": "Room Commissioned",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_commissioned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:18:40.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recPCl9zEH8FSR9Gw",
+      "airtableId": "recPCl9zEH8FSR9Gw",
+      "name": "Discount Applied",
+      "description": "When a discount is applied to an invoice",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.discount_applied",
+      "topicSlug": "financesinvoicingdiscount-applied",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:42:18.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recPs1SpELwZmNMcy",
+      "airtableId": "recPs1SpELwZmNMcy",
+      "name": "Support Case Closed",
+      "description": "When a support case/ticket has been solved and is to be closed",
+      "category": "Support",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.support.support_case_closed",
+      "topicSlug": "crmsupportsupport-case-closed",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:48:16.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recQQnQ7nHEEkFnCD",
+      "airtableId": "recQQnQ7nHEEkFnCD",
+      "name": "Session Ended",
+      "description": "When a session ends",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.session_ended",
+      "topicSlug": "softwareaccesssession-ended",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:07:35.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recQppyYSjVVsilh2",
+      "airtableId": "recQppyYSjVVsilh2",
+      "name": "Payment Information Entered",
+      "description": "When a user successfully provides payment information during checkout",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.payment_information_entered",
+      "topicSlug": "commercecheckoutpayment-information-entered",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:09:09.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recR3puD6KD0XkRn0",
+      "airtableId": "recR3puD6KD0XkRn0",
+      "name": "Shipment Returned",
+      "description": "When a shipment is returned to sender",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_returned",
+      "topicSlug": "commerceshippingshipment-returned",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:59:42.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recRBsf0AHqL88WcC",
+      "airtableId": "recRBsf0AHqL88WcC",
+      "name": "Unit Cancelled",
+      "description": "When a reservation for a rented unit is cancelled",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_cancelled",
+      "topicSlug": "commercerentalunit-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:28:55.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recRSWdhrGW6bVtot",
+      "airtableId": "recRSWdhrGW6bVtot",
+      "name": "Event Started",
+      "description": "WWhen an event starts",
+      "category": "Scheduling",
+      "domain": [
+        "Event"
+      ],
+      "topic": "event.scheduling.event_started",
+      "topicSlug": "eventschedulingevent-started",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:18:14.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recRa6IVZYdnLTb4K",
+      "airtableId": "recRa6IVZYdnLTb4K",
+      "name": "Consumption Paused",
+      "description": "When playback of a media item is paysed",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_paused",
+      "topicSlug": "consumptionconsumptionconsumption-paused",
+      "aliases": [
+        {
+          "name": "Playback Paused",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_paused"
+        }
+      ],
+      "lastUpdated": "2025-07-15T19:14:19.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recRskwFXCeaFr2zq",
+      "airtableId": "recRskwFXCeaFr2zq",
+      "name": "Session Started",
+      "description": "When a session is created",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.session_started",
+      "topicSlug": "softwareaccesssession-started",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:48:14.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recTFgkeKVs0GfLMJ",
+      "airtableId": "recTFgkeKVs0GfLMJ",
+      "name": "Item Reviewed",
+      "description": "When a customer submits a review of a product",
+      "category": "Engagement",
+      "domain": [
+        "Social"
+      ],
+      "topic": "social.engagement.item_reviewed",
+      "topicSlug": "socialengagementitem-reviewed",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:11:32.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recTQN1XetjugnJ35",
+      "airtableId": "recTQN1XetjugnJ35",
+      "name": "Checkout Step Completed",
+      "description": "When a user successfully completes a step within the checkout process",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_step_completed",
+      "topicSlug": "commercecheckoutcheckout-step-completed",
+      "aliases": [
+        {
+          "name": "Booking Step Completed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_step_completed"
+        }
+      ],
+      "lastUpdated": "2025-05-17T09:09:01.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recTfpaDs9EnPSHIt",
+      "airtableId": "recTfpaDs9EnPSHIt",
+      "name": "Invoice Written Off",
+      "description": "When an invoice is reckognized as lost revenue",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_written_off",
+      "topicSlug": "financesinvoicinginvoice-written-off",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:41:49.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recTqgMou2sdiml8Z",
+      "airtableId": "recTqgMou2sdiml8Z",
+      "name": "Opportunity Detected",
+      "description": "When an oppportunity is detected",
+      "category": "Actionable Intelligence",
+      "domain": [
+        "Operational Intelligence"
+      ],
+      "topic": "operational_intelligence.actionable_intelligence.opportunity_detected",
+      "topicSlug": "operational-intelligenceactionable-intelligenceopportunity-detected",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:24:48.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recUaNDZcBQkfr6me",
+      "airtableId": "recUaNDZcBQkfr6me",
+      "name": "Item Unreserved",
+      "description": "When a product is returned after purchase",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.item_unreserved",
+      "topicSlug": "commercepurchasingitem-unreserved",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:51:22.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recUmmfzdT4MnKm7K",
+      "airtableId": "recUmmfzdT4MnKm7K",
+      "name": "Entity Demoted",
+      "description": "When a user access is demoted",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_demoted",
+      "topicSlug": "softwareprovisioningentity-demoted",
+      "aliases": [
+        {
+          "name": "Account Demoted",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_demoted"
+        },
+        {
+          "name": "User Demoted",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_demoted"
+        }
+      ],
+      "lastUpdated": "2025-07-15T17:41:31.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recUx7CJzJuCIkBqk",
+      "airtableId": "recUx7CJzJuCIkBqk",
+      "name": "Entity Removed",
+      "description": "When a user account is removed",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_removed",
+      "topicSlug": "softwareprovisioningentity-removed",
+      "aliases": [
+        {
+          "name": "Account Removed",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_removed"
+        },
+        {
+          "name": "User Removed",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_removed"
+        }
+      ],
+      "lastUpdated": "2025-07-15T17:37:45.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recVRd5nbG1NrZvfp",
+      "airtableId": "recVRd5nbG1NrZvfp",
+      "name": "Payment Method Added",
+      "description": "When a creditcard is added to an account",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_method_added",
+      "topicSlug": "financespaymentspayment-method-added",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:33:09.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recW9LxSdMgENkCg8",
+      "airtableId": "recW9LxSdMgENkCg8",
+      "name": "Entity Created",
+      "description": "When a user account is created",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_created",
+      "topicSlug": "softwareprovisioningentity-created",
+      "aliases": [
+        {
+          "name": "Account Created",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_created"
+        },
+        {
+          "name": "User Created",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_created"
+        }
+      ],
+      "lastUpdated": "2025-07-16T13:01:04.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recWK5EtiYQzLqR5s",
+      "airtableId": "recWK5EtiYQzLqR5s",
+      "name": "Unit Deallocated",
+      "description": "When a rented unit is deallocated",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_deallocated",
+      "topicSlug": "commercerentalunit-deallocated",
+      "aliases": [
+        {
+          "name": "Room Deallocated",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_deallocated"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:19:31.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recWMDiTdpFGxgol6",
+      "airtableId": "recWMDiTdpFGxgol6",
+      "name": "Solution Instance Stopped",
+      "description": "When a software/solution solution is stopeed",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_instance_stopped",
+      "topicSlug": "softwaresolutionssolution-instance-stopped",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:36:23.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recX9CSOFkqZaKczh",
+      "airtableId": "recX9CSOFkqZaKczh",
+      "name": "Collection Reminder Sent",
+      "description": "When a collection reminder is send",
+      "category": "Collection",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.collection.collection_reminder_sent",
+      "topicSlug": "financescollectioncollection-reminder-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:48:42.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recXPCd36B88c7SM4",
+      "airtableId": "recXPCd36B88c7SM4",
+      "name": "Unit Decommissioned",
+      "description": "When a rented unit is decommissioned",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_decommissioned",
+      "topicSlug": "commercerentalunit-decommissioned",
+      "aliases": [
+        {
+          "name": "Room Decommissioned",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_decommissioned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:18:50.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recZ7krNwUTqSbCwU",
+      "airtableId": "recZ7krNwUTqSbCwU",
+      "name": "Message Opened",
+      "description": "When notifications, messages, emails, sMS etc is opened by the customer",
+      "category": "Communications",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.communications.message_opened",
+      "topicSlug": "crmcommunicationsmessage-opened",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:39:52.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recZQKXD8k4tfnAqJ",
+      "airtableId": "recZQKXD8k4tfnAqJ",
+      "name": "Membership Started",
+      "description": "When a membership starts",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_started",
+      "topicSlug": "servicesmembershipmembership-started",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:16:45.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recZT7R7FHW1JbyW2",
+      "airtableId": "recZT7R7FHW1JbyW2",
+      "name": "Entity Promoted",
+      "description": "When a user access is promoted",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_promoted",
+      "topicSlug": "softwareprovisioningentity-promoted",
+      "aliases": [
+        {
+          "name": "Account Promoted",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_promoted"
+        },
+        {
+          "name": "User Promoted",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_promoted"
+        }
+      ],
+      "lastUpdated": "2025-07-15T17:41:21.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recaHmNGrj1VSWcCI",
+      "airtableId": "recaHmNGrj1VSWcCI",
+      "name": "Consumption Stoped",
+      "description": "When playback of a media item is stopped",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_stoped",
+      "topicSlug": "consumptionconsumptionconsumption-stoped",
+      "aliases": [
+        {
+          "name": "Playback Stops",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_stops"
+        }
+      ],
+      "lastUpdated": "2025-07-15T19:14:13.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recac2KsM4iQDmSt1",
+      "airtableId": "recac2KsM4iQDmSt1",
+      "name": "Item Stocked",
+      "description": "When a product is restocked",
+      "category": "Inventory",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.inventory.item_stocked",
+      "topicSlug": "commerceinventoryitem-stocked",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:05:17.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recbd5bZ1HLAMF4Tz",
+      "airtableId": "recbd5bZ1HLAMF4Tz",
+      "name": "Membership Cancelled",
+      "description": "When a user/customer cancels a membership",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_cancelled",
+      "topicSlug": "servicesmembershipmembership-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:51:06.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recbiOnwwFX0ibRS2",
+      "airtableId": "recbiOnwwFX0ibRS2",
+      "name": "Access Granted",
+      "description": "Authentication completed",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_granted",
+      "topicSlug": "softwareaccessaccess-granted",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:16:46.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recbqWV0M6OeEeAo5",
+      "airtableId": "recbqWV0M6OeEeAo5",
+      "name": "Coupon Rejected",
+      "description": "When an invalid coupon is entered",
+      "category": "Discounts",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discounts.coupon_rejected",
+      "topicSlug": "commercediscountscoupon-rejected",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:53:43.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recc2PeKjq9ykuQGy",
+      "airtableId": "recc2PeKjq9ykuQGy",
+      "name": "Message Bounced",
+      "description": "When notifications, messages, emails, sMS etc can not be delivered to a a customer",
+      "category": "Communications",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.communications.message_bounced",
+      "topicSlug": "crmcommunicationsmessage-bounced",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:37:28.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recc6Jtq7XoNn967j",
+      "airtableId": "recc6Jtq7XoNn967j",
+      "name": "Shipment Location Updated",
+      "description": "When shipment location is updated",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_location_updated",
+      "topicSlug": "commerceshippingshipment-location-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:59:29.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recceEkfX4BAqLTNj",
+      "airtableId": "recceEkfX4BAqLTNj",
+      "name": "Membership Invitation Sent",
+      "description": "When a user is invited to join something",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_invitation_sent",
+      "topicSlug": "servicesmembershipmembership-invitation-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:19:55.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reccnbB4UImzDwhE7",
+      "airtableId": "reccnbB4UImzDwhE7",
+      "name": "Item Stockout Detected",
+      "description": "When a product stockout is detected",
+      "category": "Inventory",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.inventory.item_stockout_detected",
+      "topicSlug": "commerceinventoryitem-stockout-detected",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:05:41.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recd2jM0bVoa87FW1",
+      "airtableId": "recd2jM0bVoa87FW1",
+      "name": "Payment Scheduled",
+      "description": "When a payment is scheduled into the future",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_scheduled",
+      "topicSlug": "financespaymentspayment-scheduled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:32:11.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "receJtjbnJHjJEZop",
+      "airtableId": "receJtjbnJHjJEZop",
+      "name": "Picking Status Updated",
+      "description": "When a picking status is updated",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_status_updated",
+      "topicSlug": "commerceshippingpicking-status-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:04:18.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "receq7Wj9OSQbaODo",
+      "airtableId": "receq7Wj9OSQbaODo",
+      "name": "Payment Method Invalidated",
+      "description": "When a reditcard expired or can not be charged too many times",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_method_invalidated",
+      "topicSlug": "financespaymentspayment-method-invalidated",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:32:38.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recesOF89pIzKW3Wx",
+      "airtableId": "recesOF89pIzKW3Wx",
+      "name": "Campaign Asset Viewed",
+      "description": "When an any marketing asset is viewed by a prospect",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_asset_viewed",
+      "topicSlug": "publicitymarketingcampaign-asset-viewed",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:11:56.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recfoqcGrN67ob0p6",
+      "airtableId": "recfoqcGrN67ob0p6",
+      "name": "Membership Expired",
+      "description": "When a membership exprirers",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_expired",
+      "topicSlug": "servicesmembershipmembership-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:21:32.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recgOa74y5DWSwYX4",
+      "airtableId": "recgOa74y5DWSwYX4",
+      "name": "Service Expired",
+      "description": "When a subscription expires",
+      "category": "Services",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.services.service_expired",
+      "topicSlug": "commerceservicesservice-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:34:14.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recgsF7Dvaxr5YrGO",
+      "airtableId": "recgsF7Dvaxr5YrGO",
+      "name": "Unit Serviced",
+      "description": "When a rental unis is services",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_serviced",
+      "topicSlug": "commercerentalunit-serviced",
+      "aliases": [
+        {
+          "name": "Room Cleaned",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_cleaned"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:25:58.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recgu3hKFPSt9rXYZ",
+      "airtableId": "recgu3hKFPSt9rXYZ",
+      "name": "Solution Downgraded",
+      "description": "When deployd software/solution is downgraded",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_downgraded",
+      "topicSlug": "softwaresolutionssolution-downgraded",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:16:36.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rechPZcKfFyVZ8fs8",
+      "airtableId": "rechPZcKfFyVZ8fs8",
+      "name": "Campaign Paused",
+      "description": "When a marketing campaign paused",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_paused",
+      "topicSlug": "publicitymarketingcampaign-paused",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:11:49.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rechRtstK3SOJkTHq",
+      "airtableId": "rechRtstK3SOJkTHq",
+      "name": "Data Ingested",
+      "description": "Aggregate functions from the CXS process",
+      "category": "Data Onboarding",
+      "domain": [
+        "Data"
+      ],
+      "topic": "data.data_onboarding.data_ingested",
+      "topicSlug": "datadata-onboardingdata-ingested",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:25:33.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rechogvNEOnfvT5ba",
+      "airtableId": "rechogvNEOnfvT5ba",
+      "name": "Item Shared",
+      "description": "When a customer shares product information (via social media, email, etc.)",
+      "category": "Engagement",
+      "domain": [
+        "Social"
+      ],
+      "topic": "social.engagement.item_shared",
+      "topicSlug": "socialengagementitem-shared",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:11:22.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rechxC1wBArr4fVEg",
+      "airtableId": "rechxC1wBArr4fVEg",
+      "name": "Shipment Sent",
+      "description": "When a shipment has departed to the customer",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.shipment_sent",
+      "topicSlug": "commerceshippingshipment-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:58:59.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reciOcxftTK6ybH1g",
+      "airtableId": "reciOcxftTK6ybH1g",
+      "name": "Service Cancelled",
+      "description": "When a customer cancels a service or a subscription",
+      "category": "Services",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.services.service_cancelled",
+      "topicSlug": "commerceservicesservice-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:33:54.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recj4ZwrCK1L2pp0v",
+      "airtableId": "recj4ZwrCK1L2pp0v",
+      "name": "Entity Purged",
+      "description": "When all user data has been purged from a system",
+      "category": "Provisioning",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.provisioning.entity_purged",
+      "topicSlug": "softwareprovisioningentity-purged",
+      "aliases": [
+        {
+          "name": "Account Purged",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.account_purged"
+        },
+        {
+          "name": "User Purged",
+          "vertical": "SaaS",
+          "topic": "software.provisioning.user_purged"
+        }
+      ],
+      "lastUpdated": "2025-07-16T12:58:07.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recjOZ5R4acP1Sh9W",
+      "airtableId": "recjOZ5R4acP1Sh9W",
+      "name": "Item List Viewed",
+      "description": "When a user views a list or category of products",
+      "category": "Discovery",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discovery.item_list_viewed",
+      "topicSlug": "commercediscoveryitem-list-viewed",
+      "aliases": [
+        {
+          "name": "Hotel List Viewed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.discovery.hotel_list_viewed"
+        },
+        {
+          "name": "Room List Viewed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.discovery.room_list_viewed"
+        }
+      ],
+      "lastUpdated": "2025-05-17T08:27:15.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reck0tP0EQLXcZ7GV",
+      "airtableId": "reck0tP0EQLXcZ7GV",
+      "name": "Access Reset Requested",
+      "description": "When a password reset request is recieved",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_reset_requested",
+      "topicSlug": "softwareaccessaccess-reset-requested",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:01:13.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reck4xGYg0dJ3JBCj",
+      "airtableId": "reck4xGYg0dJ3JBCj",
+      "name": "Picking Resumed",
+      "description": "When a shipment preparation is resumed",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_resumed",
+      "topicSlug": "commerceshippingpicking-resumed",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:35:32.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reckURCHWG4fyLt0Z",
+      "airtableId": "reckURCHWG4fyLt0Z",
+      "name": "Coupon Applied",
+      "description": "When a coupon code is successfully applied to an order or cart",
+      "category": "Discounts",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discounts.coupon_applied",
+      "topicSlug": "commercediscountscoupon-applied",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:10:41.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reckleTMJzzRoOTBd",
+      "airtableId": "reckleTMJzzRoOTBd",
+      "name": "Picking Cancelled",
+      "description": "When a shipment preparation is cancelled",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_cancelled",
+      "topicSlug": "commerceshippingpicking-cancelled",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:34:56.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recl7YxeP3KlzVQJ8",
+      "airtableId": "recl7YxeP3KlzVQJ8",
+      "name": "Item Stockout Ended",
+      "description": "When a product stockout end is detected",
+      "category": "Inventory",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.inventory.item_stockout_ended",
+      "topicSlug": "commerceinventoryitem-stockout-ended",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:05:57.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recldOLC2IdQbnUEP",
+      "airtableId": "recldOLC2IdQbnUEP",
+      "name": "Campaign Started",
+      "description": "When a marketing campaign starts",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_started",
+      "topicSlug": "publicitymarketingcampaign-started",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:11:35.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reclkkDXKZtlxaOPP",
+      "airtableId": "reclkkDXKZtlxaOPP",
+      "name": "Coupon Removed",
+      "description": "When a coupon is removed from an order or cart",
+      "category": "Discounts",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discounts.coupon_removed",
+      "topicSlug": "commercediscountscoupon-removed",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:10:50.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reclt2Y8cXXLjKual",
+      "airtableId": "reclt2Y8cXXLjKual",
+      "name": "Purchase Refunded",
+      "description": "When a refund is processed for an order",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_refunded",
+      "topicSlug": "commercepurchasingpurchase-refunded",
+      "aliases": [],
+      "lastUpdated": "2025-05-17T09:10:04.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recmZNhbGuSoPqnpE",
+      "airtableId": "recmZNhbGuSoPqnpE",
+      "name": "Unit Returned",
+      "description": "When a rental unit is returned",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_returned",
+      "topicSlug": "commercerentalunit-returned",
+      "aliases": [
+        {
+          "name": "Room Checkout Completed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_checkout_completed"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:18:15.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recmdq7oed4koZX9q",
+      "airtableId": "recmdq7oed4koZX9q",
+      "name": "Items Compared",
+      "description": "When a user views comparisong information for multiple items/products",
+      "category": "Discovery",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discovery.items_compared",
+      "topicSlug": "commercediscoveryitems-compared",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:38:19.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recmpSfZ9CsLtcI62",
+      "airtableId": "recmpSfZ9CsLtcI62",
+      "name": "Item Reserved",
+      "description": "When a productis reserved for a set period of time ",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.item_reserved",
+      "topicSlug": "commercepurchasingitem-reserved",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:52:44.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recnIDFrfwdLpYxD4",
+      "airtableId": "recnIDFrfwdLpYxD4",
+      "name": "Item Searched",
+      "description": "When a user performs a search query to find products",
+      "category": "Discovery",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.discovery.item_searched",
+      "topicSlug": "commercediscoveryitem-searched",
+      "aliases": [
+        {
+          "name": "Accommodation Searched",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.discovery.accommodation_searched"
+        },
+        {
+          "name": "Hotel Searched",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.discovery.hotel_searched"
+        }
+      ],
+      "lastUpdated": "2025-05-17T08:27:15.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recniiKAHMLmp5YP7",
+      "airtableId": "recniiKAHMLmp5YP7",
+      "name": "Campaign Asset Sent",
+      "description": "When an email of direct marketing asset is sent to a prospect",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_asset_sent",
+      "topicSlug": "publicitymarketingcampaign-asset-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:12:46.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recoes3svl05haHUq",
+      "airtableId": "recoes3svl05haHUq",
+      "name": "Invoice Drafted",
+      "description": "When an invoice is drafted",
+      "category": "Invoicing",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.invoicing.invoice_drafted",
+      "topicSlug": "financesinvoicinginvoice-drafted",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:32:12.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recohCmBtT9348RGi",
+      "airtableId": "recohCmBtT9348RGi",
+      "name": "Customer Details Updated",
+      "description": "When customer details are updated",
+      "category": "CRM",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.crm.customer_details_updated",
+      "topicSlug": "crmcrmcustomer-details-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:53:20.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recoigz605HVJEI3z",
+      "airtableId": "recoigz605HVJEI3z",
+      "name": "List Expired",
+      "description": "When a list of product list expires/removed",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.list_expired",
+      "topicSlug": "commerceitem-listlist-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T10:56:57.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recoqV6tbqs7sognC",
+      "airtableId": "recoqV6tbqs7sognC",
+      "name": "Payment Failed",
+      "description": "When a payment fails",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_failed",
+      "topicSlug": "financespaymentspayment-failed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:49:00.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recpkpGBjLLI78e6Q",
+      "airtableId": "recpkpGBjLLI78e6Q",
+      "name": "Access Expired",
+      "description": "When API key or service expired",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_expired",
+      "topicSlug": "softwareaccessaccess-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:16:42.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recrK6HamPOGzuNq7",
+      "airtableId": "recrK6HamPOGzuNq7",
+      "name": "Access Credentials Reset",
+      "description": "When a password is reset",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_credentials_reset",
+      "topicSlug": "softwareaccessaccess-credentials-reset",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:01:35.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recrLH3MXCQTVOfut",
+      "airtableId": "recrLH3MXCQTVOfut",
+      "name": "Consumption Resumed",
+      "description": "When playback of a media item is resumed",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_resumed",
+      "topicSlug": "consumptionconsumptionconsumption-resumed",
+      "aliases": [
+        {
+          "name": "Playback Resumed",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_resumed"
+        }
+      ],
+      "lastUpdated": "2025-07-15T19:14:26.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recsZOuwHovf4VJr1",
+      "airtableId": "recsZOuwHovf4VJr1",
+      "name": "Purchase Cancellation Requested",
+      "description": "When a purchase cancellation is requested",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_cancellation_requested",
+      "topicSlug": "commercepurchasingpurchase-cancellation-requested",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:46:20.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recsqyPmwTK0ypv1d",
+      "airtableId": "recsqyPmwTK0ypv1d",
+      "name": "Support Case Update",
+      "description": "When a support case/ticket is updated",
+      "category": "Support",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.support.support_case_update",
+      "topicSlug": "crmsupportsupport-case-update",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:48:07.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rect2hqnEuKFq2enG",
+      "airtableId": "rect2hqnEuKFq2enG",
+      "name": "Unit Inspected",
+      "description": "When the condition of a rented unit is inspected",
+      "category": "Rental",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.rental.unit_inspected",
+      "topicSlug": "commercerentalunit-inspected",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:29:45.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rectAqkrkcwXAfRso",
+      "airtableId": "rectAqkrkcwXAfRso",
+      "name": "Observation Made",
+      "description": "When an observation is detected",
+      "category": "Actionable Intelligence",
+      "domain": [
+        "Operational Intelligence"
+      ],
+      "topic": "operational_intelligence.actionable_intelligence.observation_made",
+      "topicSlug": "operational-intelligenceactionable-intelligenceobservation-made",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:34:07.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rectnwQUHL8W06WWb",
+      "airtableId": "rectnwQUHL8W06WWb",
+      "name": "Support Case Created",
+      "description": "When a new support case/ticket is craeted",
+      "category": "Support",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.support.support_case_created",
+      "topicSlug": "crmsupportsupport-case-created",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:47:26.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rectuey7Sg5WEsy2O",
+      "airtableId": "rectuey7Sg5WEsy2O",
+      "name": "Campaign Resumed",
+      "description": "When a marketing campaign is resumed after being paused",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_resumed",
+      "topicSlug": "publicitymarketingcampaign-resumed",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:11:56.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "rectv4DLQcegSKQ8S",
+      "airtableId": "rectv4DLQcegSKQ8S",
+      "name": "Collection Status Changed",
+      "description": "When a collection status changes for an invoice or an account",
+      "category": "Collection",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.collection.collection_status_changed",
+      "topicSlug": "financescollectioncollection-status-changed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:57:27.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recu2b9c2U7pIJMLA",
+      "airtableId": "recu2b9c2U7pIJMLA",
+      "name": "Support Case Solved",
+      "description": "When a support case/ticket is believed to be solved, before it is closed.",
+      "category": "Support",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.support.support_case_solved",
+      "topicSlug": "crmsupportsupport-case-solved",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:48:26.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recu5r8MFRQlX5xHN",
+      "airtableId": "recu5r8MFRQlX5xHN",
+      "name": "Data Enriched",
+      "description": "Aggregate functions from the CXS process",
+      "category": "Data Onboarding",
+      "domain": [
+        "Data"
+      ],
+      "topic": "data.data_onboarding.data_enriched",
+      "topicSlug": "datadata-onboardingdata-enriched",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:26:37.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recu7VcfcmrzORKxb",
+      "airtableId": "recu7VcfcmrzORKxb",
+      "name": "Item Count Changed",
+      "description": "When the item count for a product in the cart is changed",
+      "category": "Item List",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.item_list.item_count_changed",
+      "topicSlug": "commerceitem-listitem-count-changed",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:51:55.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recuVKY11Jd9VztCV",
+      "airtableId": "recuVKY11Jd9VztCV",
+      "name": "Consumption Failed",
+      "description": "When playback of a media item fails",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_failed",
+      "topicSlug": "consumptionconsumptionconsumption-failed",
+      "aliases": [
+        {
+          "name": "Playback Fails",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_fails"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:40:37.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recuhrZ7IwC6fThMc",
+      "airtableId": "recuhrZ7IwC6fThMc",
+      "name": "Access Assistance Sent",
+      "description": "When some details are sent to the user regarding his ongoing login attempt",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_assistance_sent",
+      "topicSlug": "softwareaccessaccess-assistance-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:38:16.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recun0S3535K3G7mT",
+      "airtableId": "recun0S3535K3G7mT",
+      "name": "Membership Terminated",
+      "description": "When a user/customer membership is cancelled by the owner of the membership",
+      "category": "Membership",
+      "domain": [
+        "Services"
+      ],
+      "topic": "services.membership.membership_terminated",
+      "topicSlug": "servicesmembershipmembership-terminated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:24:13.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recuqDCHkT7z7CeVi",
+      "airtableId": "recuqDCHkT7z7CeVi",
+      "name": "Session Expired",
+      "description": "When a session expires",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.session_expired",
+      "topicSlug": "softwareaccesssession-expired",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:42:46.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recusHS2yt5uNBALT",
+      "airtableId": "recusHS2yt5uNBALT",
+      "name": "Access Removed",
+      "description": "When API key or service is removed ",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_removed",
+      "topicSlug": "softwareaccessaccess-removed",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:17:08.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recvfz73eDF5wTknJ",
+      "airtableId": "recvfz73eDF5wTknJ",
+      "name": "Message Sent",
+      "description": "When notifications, messages, emails, sMS etc is sent to a customer",
+      "category": "Communications",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.communications.message_sent",
+      "topicSlug": "crmcommunicationsmessage-sent",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:36:43.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recvsvctvnEKX2wNv",
+      "airtableId": "recvsvctvnEKX2wNv",
+      "name": "Item Rated",
+      "description": "When a customer rates a product",
+      "category": "Engagement",
+      "domain": [
+        "Social"
+      ],
+      "topic": "social.engagement.item_rated",
+      "topicSlug": "socialengagementitem-rated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:56:10.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recwENFAZaCME0Mx0",
+      "airtableId": "recwENFAZaCME0Mx0",
+      "name": "Consumption Started",
+      "description": "When playback of a media item is started",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_started",
+      "topicSlug": "consumptionconsumptionconsumption-started",
+      "aliases": [
+        {
+          "name": "Playback Starts",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_starts"
+        }
+      ],
+      "lastUpdated": "2025-07-15T19:13:45.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recwO5RapZ2zfVMjq",
+      "airtableId": "recwO5RapZ2zfVMjq",
+      "name": "Payment Made",
+      "description": "When a payment is made successfully",
+      "category": "Payments",
+      "domain": [
+        "Finances"
+      ],
+      "topic": "finances.payments.payment_made",
+      "topicSlug": "financespaymentspayment-made",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:48:06.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recwrJSBgnKyzCwlz",
+      "airtableId": "recwrJSBgnKyzCwlz",
+      "name": "Projection Updated",
+      "description": "When a projection is update",
+      "category": "Decision Support",
+      "domain": [
+        "Operational Intelligence"
+      ],
+      "topic": "operational_intelligence.decision_support.projection_updated",
+      "topicSlug": "operational-intelligencedecision-supportprojection-updated",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T21:06:02.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recxp9jTSbCSFBSLM",
+      "airtableId": "recxp9jTSbCSFBSLM",
+      "name": "Access Suspended",
+      "description": "When user/account access is suspended (permanently or temporarily)",
+      "category": "Access",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.access.access_suspended",
+      "topicSlug": "softwareaccessaccess-suspended",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T14:43:38.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recxswlREUjM3wChg",
+      "airtableId": "recxswlREUjM3wChg",
+      "name": "Support Case Reopened",
+      "description": "When a support case/ticket that was markds as solved or closed is activated or updated again ",
+      "category": "Support",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.support.support_case_reopened",
+      "topicSlug": "crmsupportsupport-case-reopened",
+      "aliases": [],
+      "lastUpdated": "2025-07-13T15:48:39.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recxtX5QoryCj9jYV",
+      "airtableId": "recxtX5QoryCj9jYV",
+      "name": "Campaign Ended",
+      "description": "When a marketing campaign ends ",
+      "category": "Marketing",
+      "domain": [
+        "Publicity"
+      ],
+      "topic": "publicity.marketing.campaign_ended",
+      "topicSlug": "publicitymarketingcampaign-ended",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T11:11:43.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recyW2Kj5XJlZroXo",
+      "airtableId": "recyW2Kj5XJlZroXo",
+      "name": "Purchase Cancellation Rejected",
+      "description": "When a purchase ",
+      "category": "Purchasing",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.purchasing.purchase_cancellation_rejected",
+      "topicSlug": "commercepurchasingpurchase-cancellation-rejected",
+      "aliases": [],
+      "lastUpdated": "2025-07-16T13:46:34.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recyaexPwbNwj6uRh",
+      "airtableId": "recyaexPwbNwj6uRh",
+      "name": "Picking Completed",
+      "description": "When a shipment has been prepared and picked",
+      "category": "Shipping",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.shipping.picking_completed",
+      "topicSlug": "commerceshippingpicking-completed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T18:58:52.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "recyiPDJNQCgV2v7r",
+      "airtableId": "recyiPDJNQCgV2v7r",
+      "name": "Data Analysed",
+      "description": "Aggregate functions from the CXS process",
+      "category": "Data Onboarding",
+      "domain": [
+        "Data"
+      ],
+      "topic": "data.data_onboarding.data_analysed",
+      "topicSlug": "datadata-onboardingdata-analysed",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T19:26:53.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reczQ6AbzVnL6FgLo",
+      "airtableId": "reczQ6AbzVnL6FgLo",
+      "name": "Customer Communication Logged",
+      "description": "When customer communication is logged",
+      "category": "CRM",
+      "domain": [
+        "CRM"
+      ],
+      "topic": "crm.crm.customer_communication_logged",
+      "topicSlug": "crmcrmcustomer-communication-logged",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T17:53:55.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reczWyUdnwtBtKZN9",
+      "airtableId": "reczWyUdnwtBtKZN9",
+      "name": "Consumption Error",
+      "description": "When playback of a media item has delivery or playback errors",
+      "category": "Consumption",
+      "domain": [
+        "Consumption"
+      ],
+      "topic": "consumption.consumption.consumption_error",
+      "topicSlug": "consumptionconsumptionconsumption-error",
+      "aliases": [
+        {
+          "name": "Playback Errors Detected",
+          "vertical": "Streaming Media",
+          "topic": "consumption.consumption.playback_errors_detected"
+        }
+      ],
+      "lastUpdated": "2025-07-16T11:42:55.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reczcI1R8uqfAL02N",
+      "airtableId": "reczcI1R8uqfAL02N",
+      "name": "Solution Uninstalled",
+      "description": "When software/solution is revoked or deinstalled",
+      "category": "Solutions",
+      "domain": [
+        "Software"
+      ],
+      "topic": "software.solutions.solution_uninstalled",
+      "topicSlug": "softwaresolutionssolution-uninstalled",
+      "aliases": [],
+      "lastUpdated": "2025-07-15T20:59:12.000Z",
+      "deprecated": false
+    },
+    {
+      "airtable_id": "reczwxIzdaJUgssWL",
+      "airtableId": "reczwxIzdaJUgssWL",
+      "name": "Checkout Started",
+      "description": "When a user initiates the checkout process",
+      "category": "Checkout",
+      "domain": [
+        "Commerce"
+      ],
+      "topic": "commerce.checkout.checkout_started",
+      "topicSlug": "commercecheckoutcheckout-started",
+      "aliases": [
+        {
+          "name": "Booking Started",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.checkout.booking_started"
+        }
+      ],
+      "lastUpdated": "2025-05-17T09:08:27.000Z",
+      "deprecated": false
+    }
+  ],
+  "filterOptions": {
+    "categories": [
+      "Access",
+      "Actionable Intelligence",
+      "CRM",
+      "Checkout",
+      "Collection",
+      "Communications",
+      "Consumption",
+      "Data Onboarding",
+      "Decision Support",
+      "Discounts",
+      "Discovery",
+      "Engagement",
+      "Inventory",
+      "Invoicing",
+      "Item List",
+      "Marketing",
+      "Membership",
+      "Payments",
+      "Provisioning",
+      "Purchasing",
+      "Rental",
+      "Scheduling",
+      "Services",
+      "Shipping",
+      "Solutions",
+      "Support"
+    ],
+    "domains": [
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "CRM"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Commerce"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Consumption"
+      ],
+      [
+        "Data"
+      ],
+      [
+        "Data"
+      ],
+      [
+        "Data"
+      ],
+      [
+        "Data"
+      ],
+      [
+        "Data"
+      ],
+      [
+        "Event"
+      ],
+      [
+        "Event"
+      ],
+      [
+        "Event"
+      ],
+      [
+        "Event"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Finances"
+      ],
+      [
+        "Operational Intelligence"
+      ],
+      [
+        "Operational Intelligence"
+      ],
+      [
+        "Operational Intelligence"
+      ],
+      [
+        "Operational Intelligence"
+      ],
+      [
+        "Operational Intelligence"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Publicity"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Services"
+      ],
+      [
+        "Social"
+      ],
+      [
+        "Social"
+      ],
+      [
+        "Social"
+      ],
+      [
+        "Social"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ],
+      [
+        "Software"
+      ]
+    ],
+    "verticals": [
+      "Retail & eCommerce",
+      "SaaS",
+      "Streaming Media",
+      "Travel & Hospitality"
+    ]
+  },
+  "metadata": {
+    "lastUpdated": "2025-07-17T07:57:41.005Z",
+    "source": "airtable",
+    "eventsCount": 164,
+    "version": "1.0.0"
+  }
+}

@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { ErrorBoundary } from '@/components/common/error-boundary';
+import { EventBiblePrimingProvider } from '@/components/event-bible/priming-provider';
 import { APP_CONFIG, THEME_CONFIG } from '@/lib/constants';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -37,7 +38,9 @@ export default function RootLayout({
             enableSystem={THEME_CONFIG.enableSystem}
             disableTransitionOnChange={THEME_CONFIG.disableTransitionOnChange}
           >
-            {children}
+            <EventBiblePrimingProvider>
+              {children}
+            </EventBiblePrimingProvider>
             <Toaster />
           </ThemeProvider>
         </ErrorBoundary>
