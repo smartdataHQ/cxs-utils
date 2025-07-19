@@ -66,22 +66,21 @@ export const navigationConfig: NavigationSection[] = [
   {
     title: "Schema Reference",
     items: [
-      { title: 'Overview', href: '/docs/semantic-events/overview', icon: SquarePlay},
-      { title: 'Semantic Events', href: '/docs/semantic-events/components', icon: Component, children: [
-        { title: 'Analysis Cost', href: '/docs/semantic-events/components/analysis-cost', icon: Code },
-        { title: 'Classification', href: '/docs/semantic-events/components/classification', icon: Code },
-        { title: 'Commerce', href: '/docs/semantic-events/components/commerce', icon: Code },
-        { title: 'Content & Properties', href: '/docs/semantic-events/components/content-and-properties', icon: Code },
-        { title: 'Context', href: '/docs/semantic-events/components/context', icon: Code },
-        { title: 'Dimensions & Metrics (BI)', href: '/docs/semantic-events/components/dimensions-and-metrics', icon: Code },
-        { title: 'Entity Sentiment', href: '/docs/semantic-events/components/sentiment', icon: Code },
-        { title: 'Governance', href: '/docs/semantic-events/components/governance', icon: Code },
-        { title: 'Involves', href: '/docs/semantic-events/components/involves', icon: Code },
-        { title: 'Location', href: '/docs/semantic-events/components/location', icon: Code },
-        { title: 'Processing Controls', href: '/docs/semantic-events/components/processing', icon: Code },
-        { title: 'Products', href: '/docs/semantic-events/components/products', icon: Code },
-        { title: 'Root Event', href: '/docs/semantic-events/components/root', icon: Code },
-        { title: 'Traits', href: '/docs/semantic-events/components/traits', icon: Code },
+      { title: 'Semantic Events', href: '/docs/semantic-events/schema/overview', icon: Component, children: [
+        { title: 'Analysis Cost', href: '/docs/semantic-events/schema/analysis-cost', icon: Code },
+        { title: 'Classification', href: '/docs/semantic-events/schema/classification', icon: Code },
+        { title: 'Commerce', href: '/docs/semantic-events/schema/commerce', icon: Code },
+        { title: 'Content & Properties', href: '/docs/semantic-events/schema/content-and-properties', icon: Code },
+        { title: 'Context', href: '/docs/semantic-events/schema/context', icon: Code },
+        { title: 'Dimensions & Metrics (BI)', href: '/docs/semantic-events/schema/dimensions-and-metrics', icon: Code },
+        { title: 'Entity Sentiment', href: '/docs/semantic-events/schema/sentiment', icon: Code },
+        { title: 'Governance', href: '/docs/semantic-events/schema/governance', icon: Code },
+        { title: 'Involves', href: '/docs/semantic-events/schema/involves', icon: Code },
+        { title: 'Location', href: '/docs/semantic-events/schema/location', icon: Code },
+        { title: 'Processing Controls', href: '/docs/semantic-events/schema/processing', icon: Code },
+        { title: 'Products', href: '/docs/semantic-events/schema/products', icon: Code },
+        { title: 'Root Event', href: '/docs/semantic-events/schema/root', icon: Code },
+        { title: 'Traits', href: '/docs/semantic-events/schema/traits', icon: Code },
       ]},
     ]
   }
