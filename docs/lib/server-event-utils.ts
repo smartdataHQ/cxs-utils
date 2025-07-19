@@ -99,15 +99,16 @@ export async function getEventDocumentation(slug: string): Promise<string | null
       const event = events.find(event => 
         event.aliases && event.aliases.some(alias => alias.topic === slug)
       );
-      
+
+      console.log(slug)
       if (event) {
         // Try with the main event's topic
-        docPath = join(process.cwd(), 'data/event-bible/documentation', `${event.topic}.mdoc`);
+        docPath = join(process.cwd(), 'data/event-bible/documentation', `${slug}.mdoc`);
+        console.log(docPath);
         try {
           const content = await readFile(docPath, 'utf8');
           return content.trim() || null;
         } catch (error) {
-          // If still not found, try with generated slug
           const generatedSlug = generateEventSlug(event);
           docPath = join(process.cwd(), 'data/event-bible/documentation', `${generatedSlug}.mdoc`);
           try {
