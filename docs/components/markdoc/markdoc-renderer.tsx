@@ -6,6 +6,30 @@ import { CodeBlock } from './code-block';
 import { Callout } from './callout';
 import * as LucideIcons from 'lucide-react';
 
+// Helper function to extract text content from Markdoc children
+function extractTextFromChildren(children: any[]): string {
+  return children
+    .map(child => {
+      if (typeof child === 'string') return child;
+      if (child && typeof child === 'object' && child.children) {
+        return extractTextFromChildren(child.children);
+      }
+      return '';
+    })
+    .join('')
+    .trim();
+}
+
+// Helper function to generate URL-safe slugs from heading text
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+}
+
 const components = {
   CodeBlock,
   Callout,
@@ -179,7 +203,15 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
           transform(node, config) {
             const attributes = node.transformAttributes(config);
             const children = node.transformChildren(config);
-            return new Markdoc.Tag('Heading', { level: attributes.level, id: attributes.id }, children);
+            
+            // Generate ID from heading text if not provided
+            let id = attributes.id;
+            if (!id && children && children.length > 0) {
+              const headingText = extractTextFromChildren(children);
+              id = generateSlug(headingText);
+            }
+            
+            return new Markdoc.Tag('Heading', { level: attributes.level, id }, children);
           },
         },
         paragraph: {

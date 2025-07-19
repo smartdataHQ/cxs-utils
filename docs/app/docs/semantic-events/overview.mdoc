@@ -1,24 +1,36 @@
 ---
 title: Overview
 prompt: |
-  Now, in the same way, write a section titled "Overview" where you outline the documentation for a complete Semantic Event to data-engineer and a developer. Make sure all sub-components are introduced. Include no code examples in this section. Just introduce each component briefly.
-  All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single `when annotating a code section. I will add the otherer on our side.
+Now, in the same way, write a section titled "Overview" where you outline the documentation for a complete Semantic
+Event to data-engineer and a developer. Make sure all sub-components are introduced. Include no code examples in this
+section. Just introduce each component briefly.
+All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must
+never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as
+single `when annotating a code section. I will add the otherer on our side.
 ---
 
-A single Semantic Event is a rich, self-contained JSON object designed to capture the complete context of a business occurrence. While its structure is comprehensive, it is logically organized into distinct components. This overview introduces each major component of the event schema to provide a high-level map for developers and data engineers.
+A single Semantic Event is a rich, self-contained JSON object designed to capture the complete context of a business
+occurrence. While its structure is comprehensive, it is logically organized into distinct components. This overview
+introduces each major component of the event schema to provide a high-level map for developers and data engineers.
 
 ---
 
 ### Core Event Properties
-These are the fundamental, top-level attributes that define the event itself. They answer the basic questions of *what* happened and *when*. This includes the event `type` (like `track` or `identify`), the specific `event` name, the `timestamp`, and unique identifiers like `messageId` and `event_gid`. 
+These are the fundamental, top-level attributes that define the event itself. They answer the basic questions of *what*
+happened and *when*. This includes the event `type` (like `track` or `identify`), the specific `event` name, the
+`timestamp`, and unique identifiers like `messageId` and `event_gid`.
 
-For detailed information, see [Core Properties](/docs/semantic-events/components/root).
+For detailed information, see [Core Properties](/docs/semantic-events/components/root#foundational-event-details).
 
 ### Identity & Session
-This group of fields establishes who performed the action. It includes all identifiers necessary for user tracking and identity resolution, such as `user_id` for known users, `anonymous_id` for unknown visitors, and `session_id` to group events from a single browsing session. It also includes `previous_id` for linking identities after an `alias` call.
+This group of fields establishes who performed the action. It includes all identifiers necessary for user tracking and
+identity resolution, such as `user_id` for known users, `anonymous_id` for unknown visitors, and `session_id` to group
+events from a single browsing session. It also includes `previous_id` for linking identities after an `alias` call.
 
 ### Standard Context Objects
-To ensure broad compatibility and ease of use, our schema incorporates the standard context objects popularized by Segment.com. These are typically captured automatically by client-side libraries or enriched on the server. This includes detailed information about the user's environment, such as:
+To ensure broad compatibility and ease of use, our schema incorporates the standard context objects popularized by
+Segment.com. These are typically captured automatically by client-side libraries or enriched on the server. This
+includes detailed information about the user's environment, such as:
 - `context`: General context like IP address and locale.
 - `device`: Details about the user's device (e.g., model, manufacturer).
 - `os`: The operating system.
@@ -28,27 +40,50 @@ To ensure broad compatibility and ease of use, our schema incorporates the stand
 - `screen`: For mobile events, the name of the screen being viewed.
 - `campaign`: Marketing attribution data (e.g., source, medium, term).
 
-For complete details on these objects, see [Basic Context Objects](/docs/semantic-events/components/context).
+For complete details on these objects, see [Basic Context Objects](/docs/semantic-events/components/context) covering
+[app](/docs/semantic-events/components/context#the-app-object),
+[device](/docs/semantic-events/components/context#the-device-object),
+[OS](/docs/semantic-events/components/context#the-os-object),
+[page](/docs/semantic-events/components/context#the-page-object),
+[screen](/docs/semantic-events/components/context#the-screen-object), and
+[campaign](/docs/semantic-events/components/context#the-campaign-object) objects.
 
 ### User & Group Traits
-The `traits` object is a container for properties about the user (in an `identify` call) or a group (in a `group` call). This is where you store attributes like a user's name, email, subscription plan, or a company's industry and employee count.
+The `traits` object is a container for properties about the user (in an `identify` call) or a group (in a `group` call).
+This is where you store attributes like a user's name, email, subscription plan, or a company's industry and employee
+count.
 
 Learn more about user traits in [Traits](/docs/semantic-events/components/traits).
 
 ### Commerce
-The `commerce` object is a powerful, deeply nested structure designed to capture every detail of an e-commerce transaction. It goes far beyond basic order information to include order and checkout IDs, revenue, tax, discounts, and payment details. Its most critical sub-component is the `products` array.
+The `commerce` object is a powerful, deeply nested structure designed to capture every detail of an e-commerce
+transaction. It goes far beyond basic order information to include order and checkout IDs, revenue, tax, discounts, and
+payment details. Its most critical sub-component is the `products` array.
 
-- **Products**: Each entry in the `products` array is a rich object describing a single product line item. It contains dozens of fields for detailed product identification (SKU, GTIN), classification (category, brand), pricing, and supply chain information (supplier, manufacturer).
+- **Products**: Each entry in the `products` array is a rich object describing a single product line item. It contains
+dozens of fields for detailed product identification (SKU, GTIN), classification (category, brand), pricing, and supply
+chain information (supplier, manufacturer).
 
-For complete details, see [Commerce](/docs/semantic-events/components/commerce) and [Products](/docs/semantic-events/components/products).
+For complete details, see [Commerce](/docs/semantic-events/components/commerce) covering [transaction
+identifiers](/docs/semantic-events/components/commerce#transaction-identifiers), [transaction
+details](/docs/semantic-events/components/commerce#transaction-details), and [financial
+summary](/docs/semantic-events/components/commerce#financial-summary), plus
+[Products](/docs/semantic-events/components/products).
 
 ### Context Suite Extended Properties
-These proprietary objects are what elevate a standard event into a truly *semantic* one, enabling advanced operational intelligence.
-- [`involves`](/docs/semantic-events/components/involves): An array that explicitly links any entity—a person, a product, a document—to the event, describing its specific `role` in the interaction.
-- [`classification`](/docs/semantic-events/components/classification): An array used to categorize the event with tags, keywords, or business-specific intents (e.g., `Intent: 'Purchase'`, `Priority: 'High'`).
-- [`sentiment`](/docs/semantic-events/components/sentiment): An array containing the results of sentiment analysis, linking positive, negative, or neutral sentiment to specific targets within the event.
-- [`content`](/docs/semantic-events/components/content-and-properties): A dictionary for attaching any unstructured text associated with the event, such as the body of an email or the subject of a support ticket.
-- [`location`](/docs/semantic-events/components/location): An array for attaching one or more detailed geographical locations relevant to the event.
+These proprietary objects are what elevate a standard event into a truly *semantic* one, enabling advanced operational
+intelligence.
+- [`involves`](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement): An array that
+explicitly links any entity—a person, a product, a document—to the event, describing its specific `role` in the
+interaction.
+- [`classification`](/docs/semantic-events/components/classification#properties): An array used to categorize the event
+with tags, keywords, or business-specific intents (e.g., `Intent: 'Purchase'`, `Priority: 'High'`).
+- [`sentiment`](/docs/semantic-events/components/sentiment): An array containing the results of sentiment analysis,
+linking positive, negative, or neutral sentiment to specific targets within the event.
+- [`content`](/docs/semantic-events/components/content-and-properties): A dictionary for attaching any unstructured text
+associated with the event, such as the body of an email or the subject of a support ticket.
+- [`location`](/docs/semantic-events/components/location): An array for attaching one or more detailed geographical
+locations relevant to the event.
 
 ### Custom Extensibility
 For any data that doesn't fit into the predefined schema, we provide flexible map objects for custom data.
@@ -57,12 +92,17 @@ For any data that doesn't fit into the predefined schema, we provide flexible ma
 - `metrics`: For custom numerical key-value pairs.
 - `flags`: For custom boolean flags.
 
-Learn more about these flexible structures in [Content and Properties](/docs/semantic-events/components/content-and-properties) and [Dimensions and Metrics](/docs/semantic-events/components/dimensions-and-metrics).
+Learn more about these flexible structures in [Content and
+Properties](/docs/semantic-events/components/content-and-properties) and [Dimensions and
+Metrics](/docs/semantic-events/components/dimensions-and-metrics).
 
 ### Data Governance & Processing
-This final set of objects and fields provides metadata for data lifecycle management, access control, and directing internal processing logic. This includes `access` rules, a `ttl_days` (time-to-live) setting, and `integrations` flags to control which downstream systems should receive the event.
+This final set of objects and fields provides metadata for data lifecycle management, access control, and directing
+internal processing logic. This includes `access` rules, a `ttl_days` (time-to-live) setting, and `integrations` flags
+to control which downstream systems should receive the event.
 
-For details on governance features, see [Governance](/docs/semantic-events/components/governance) and [Processing](/docs/semantic-events/components/processing).
+For details on governance features, see [Governance](/docs/semantic-events/components/governance) and
+[Processing](/docs/semantic-events/components/processing).
 
 ---
 
@@ -71,17 +111,31 @@ For details on governance features, see [Governance](/docs/semantic-events/compo
 Explore the detailed documentation for each component:
 
 **Core Components:**
-- [Core Properties](/docs/semantic-events/components/root) - Essential event properties and identifiers
-- [Basic Context Objects](/docs/semantic-events/components/context) - Device, OS, page, and app context
+- [Core Properties](/docs/semantic-events/components/root) - [Event
+details](/docs/semantic-events/components/root#foundational-event-details) and [user
+identifiers](/docs/semantic-events/components/root#user-and-session-identifiers)
+- [Basic Context Objects](/docs/semantic-events/components/context) -
+[App](/docs/semantic-events/components/context#the-app-object),
+[device](/docs/semantic-events/components/context#the-device-object),
+[OS](/docs/semantic-events/components/context#the-os-object),
+[page](/docs/semantic-events/components/context#the-page-object), and
+[campaign](/docs/semantic-events/components/context#the-campaign-object) context
 - [User & Group Traits](/docs/semantic-events/components/traits) - User profile and group information
 
 **Commerce & Products:**
-- [Commerce](/docs/semantic-events/components/commerce) - Transaction and payment details
+- [Commerce](/docs/semantic-events/components/commerce) - [Transaction
+IDs](/docs/semantic-events/components/commerce#transaction-identifiers), [payment
+details](/docs/semantic-events/components/commerce#transaction-details), and [financial
+summary](/docs/semantic-events/components/commerce#financial-summary)
 - [Products](/docs/semantic-events/components/products) - Rich product information and line items
 
 **Advanced Context:**
-- [Entity Relationships](/docs/semantic-events/components/involves) - Link entities with specific roles
-- [Classification](/docs/semantic-events/components/classification) - Structured tags and categories
+- [Entity Relationships](/docs/semantic-events/components/involves) - [Explicit
+involvement](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement) and [implicit
+linking](/docs/semantic-events/components/involves#implicit--enriched-involvement)
+- [Classification](/docs/semantic-events/components/classification) -
+[Properties](/docs/semantic-events/components/classification#properties) and [common
+types](/docs/semantic-events/components/classification#common-classification-types)
 - [Sentiment Analysis](/docs/semantic-events/components/sentiment) - Capture opinions and emotions
 - [Location](/docs/semantic-events/components/location) - Geographic context and addresses
 
@@ -93,4 +147,5 @@ Explore the detailed documentation for each component:
 - [Governance](/docs/semantic-events/components/governance) - Access control and data lifecycle
 - [Processing](/docs/semantic-events/components/processing) - Integration and analysis controls
 
-{% navigation previous="/docs/semantic-events/event-types" previousTitle="Event Types" next="/docs/semantic-events/the-event-bible" nextTitle="The Event Bible" /%}
+{% navigation previous="/docs/semantic-events/event-types" previousTitle="Event Types"
+next="/docs/semantic-events/the-event-bible" nextTitle="The Event Bible" /%}
