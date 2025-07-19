@@ -91,6 +91,38 @@ function Heading({ level, children, id }: { level: number; children: React.React
   return React.createElement(HeadingTag, { className: headingClasses[level as keyof typeof headingClasses], id }, children);
 }
 
+function Navigation({ previous, previousTitle, next, nextTitle }: { 
+  previous?: string; 
+  previousTitle?: string; 
+  next?: string; 
+  nextTitle?: string; 
+}) {
+  return (
+    <div className="flex justify-between items-center mt-8 pt-4 border-t border-border">
+      <div>
+        {previous && (
+          <a 
+            href={previous} 
+            className="inline-flex items-center px-4 py-2 bg-muted text-muted-foreground hover:bg-muted/80 text-decoration-none rounded-md font-medium transition-colors"
+          >
+            ← Previous: {previousTitle || 'Previous'}
+          </a>
+        )}
+      </div>
+      <div>
+        {next && (
+          <a 
+            href={next} 
+            className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 text-decoration-none rounded-md font-medium transition-colors"
+          >
+            Next: {nextTitle || 'Next'} →
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function MarkdocRenderer({ content }: MarkdocRendererProps) {
   try {
     const ast = Markdoc.parse(content);
@@ -224,6 +256,12 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
             return new Markdoc.Tag('hr', { className: 'border-border my-12' }, []);
           },
         },
+        html_block: {
+          render: 'div',
+          transform(node) {
+            return new Markdoc.Tag('div', { dangerouslySetInnerHTML: { __html: node.attributes?.content || '' } }, []);
+          },
+        },
       },
       tags: {
         callout: {
@@ -237,6 +275,19 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
             const attributes = node.transformAttributes(config);
             const children = node.transformChildren(config);
             return new Markdoc.Tag('IconText', { iconName: attributes.name }, children);
+          },
+        },
+        navigation: {
+          render: 'Navigation',
+          attributes: { 
+            previous: { type: String },
+            previousTitle: { type: String },
+            next: { type: String },
+            nextTitle: { type: String }
+          },
+          transform(node, config) {
+            const attributes = node.transformAttributes(config);
+            return new Markdoc.Tag('Navigation', attributes, []);
           },
         },
       },
@@ -253,6 +304,7 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
       TableCell,
       List,
       Heading,
+      Navigation,
     };
 
     return <div className="markdoc-content max-w-none">{Markdoc.renderers.react(renderedContent, React, { components: extendedComponents })}</div>;

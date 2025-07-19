@@ -1,120 +1,134 @@
 ---
 title: Basic Context Objects
 prompt: |
-    Now, in the same way, write a section titled "Basic Context Objects" where you explain The context properties of Semantic Events.
-    Use a simple table when that is the most intuative way to list properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
-    Show an example of a simple track event pre and post auto-population.
-    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+Now, in the same way, write a section titled "Basic Context Objects" where you explain The context properties of
+Semantic Events.
+Use a simple table when that is the most intuative way to list properties. Make a clear distinction between values that
+must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property",
+"Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+Show an example of a simple track event pre and post auto-population.
+All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must
+never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must
+always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ```
+in your putput.
 ---
 
-Every Semantic Event is enriched with a set of standardized context objects. These objects provide a wealth of information about the environment in which the event occurred, such as the user's device, operating system, and application details. Understanding these objects is key to unlocking the full analytical power of your event stream.
+Every Semantic Event is enriched with a set of standardized context objects. These objects provide a wealth of
+information about the environment in which the event occurred, such as the user's device, operating system, and
+application details. Understanding these objects is key to unlocking the full analytical power of your event stream.
 
-Much of this context is captured automatically by the Jitsu client library, reducing the amount of manual instrumentation required. For the core event properties that work alongside these context objects, see [Core Properties](/docs/semantic-events/components/root). Below is a breakdown of the most common context objects and their properties.
+Much of this context is captured automatically by the Jitsu client library, reducing the amount of manual
+instrumentation required. For the core event properties that work alongside these context objects, see [Core
+Properties](/docs/semantic-events/components/root). Below is a breakdown of the most common context objects and their
+properties.
 
 ---
 
 ## The App Object
 Contains details about the application that generated the event, typically a mobile app.
 
-| Property  | Description                                        | Provided By     |
+| Property | Description | Provided By |
 | :-------- | :------------------------------------------------- | :-------------- |
-| `name`      | The name of the app (e.g., "MyShop App").            | Auto-Populated  |
-| `version`   | The version of the app (e.g., "1.2.0").              | Auto-Populated  |
-| `build`     | The build number of the app (e.g., "1024").            | Auto-Populated  |
-| `namespace` | The namespace of the app (e.g., "com.myshop.app"). | Auto-Populated  |
+| `name` | The name of the app (e.g., "MyShop App"). | Auto-Populated |
+| `version` | The version of the app (e.g., "1.2.0"). | Auto-Populated |
+| `build` | The build number of the app (e.g., "1024"). | Auto-Populated |
+| `namespace` | The namespace of the app (e.g., "com.myshop.app"). | Auto-Populated |
 
 ---
 
 ## The Device Object
 Captures information about the user's device.
 
-| Property            | Description                                            | Provided By      |
+| Property | Description | Provided By |
 | :------------------ | :----------------------------------------------------- | :--------------- |
-| `id`                | A unique identifier for the device instance.           | Auto-Populated   |
-| `manufacturer`      | The manufacturer of the device (e.g., "Apple").        | Auto-Populated   |
-| `model`             | The model of the device (e.g., "iPhone 14 Pro").       | Auto-Populated   |
-| `name`              | The user-assigned name of the device.                  | Auto-Populated   |
-| `type`              | The type of device (e.g., "mobile", "tablet").         | Auto-Populated   |
-| `ad_tracking_enabled`| A boolean indicating if ad tracking is on.            | Auto-Populated   |
-| `advertising_id`    | The device's advertising identifier (IDFA/GAID).      | Auto-Populated   |
+| `id` | A unique identifier for the device instance. | Auto-Populated |
+| `manufacturer` | The manufacturer of the device (e.g., "Apple"). | Auto-Populated |
+| `model` | The model of the device (e.g., "iPhone 14 Pro"). | Auto-Populated |
+| `name` | The user-assigned name of the device. | Auto-Populated |
+| `type` | The type of device (e.g., "mobile", "tablet"). | Auto-Populated |
+| `ad_tracking_enabled`| A boolean indicating if ad tracking is on. | Auto-Populated |
+| `advertising_id` | The device's advertising identifier (IDFA/GAID). | Auto-Populated |
 
 ---
 
 ## The OS Object
 Details about the operating system of the device.
 
-| Property  | Description                               | Provided By     |
+| Property | Description | Provided By |
 | :-------- | :---------------------------------------- | :-------------- |
-| `name`      | The name of the OS (e.g., "iOS").         | Auto-Populated  |
-| `version`   | The version of the OS (e.g., "16.5.1").   | Auto-Populated  |
+| `name` | The name of the OS (e.g., "iOS"). | Auto-Populated |
+| `version` | The version of the OS (e.g., "16.5.1"). | Auto-Populated |
 
 ---
 
 ## The Page Object
 For web events, this object contains information about the page being viewed.
 
-| Property  | Description                                  | Provided By     |
+| Property | Description | Provided By |
 | :-------- | :------------------------------------------- | :-------------- |
-| `url`       | The full URL of the page.                    | Auto-Populated  |
-| `path`      | The path portion of the URL (e.g., "/pricing"). | Auto-Populated  |
-| `referrer`  | The URL of the page that referred the user. | Auto-Populated  |
-| `title`     | The `<title>` of the page.                   | Auto-Populated  |
-| `search`    | The query string portion of the URL.        | Auto-Populated  |
+| `url` | The full URL of the page. | Auto-Populated |
+| `path` | The path portion of the URL (e.g., "/pricing"). | Auto-Populated |
+| `referrer` | The URL of the page that referred the user. | Auto-Populated |
+| `title` | The `<title>` of the page. | Auto-Populated |
+  | `search` | The query string portion of the URL. | Auto-Populated |
 
----
+  ---
 
-## The Screen Object
-For mobile events, this object details the screen being viewed.
+  ## The Screen Object
+  For mobile events, this object details the screen being viewed.
 
-| Property | Description                                 | Provided By         |
-| :------- | :------------------------------------------ | :------------------ |
-| `name`     | The name you provide for the screen.          | User-Provided       |
-| `height`   | The height of the screen in pixels.         | Auto-Populated      |
-| `width`    | The width of the screen in pixels.          | Auto-Populated      |
-| `density`  | The pixel density of the screen.            | Auto-Populated      |
+  | Property | Description | Provided By |
+  | :------- | :------------------------------------------ | :------------------ |
+  | `name` | The name you provide for the screen. | User-Provided |
+  | `height` | The height of the screen in pixels. | Auto-Populated |
+  | `width` | The width of the screen in pixels. | Auto-Populated |
+  | `density` | The pixel density of the screen. | Auto-Populated |
 
----
+  ---
 
-## The Campaign Object
-Captures marketing campaign information, typically from URL parameters.
+  ## The Campaign Object
+  Captures marketing campaign information, typically from URL parameters.
 
-| Property   | Description                                           | Provided By     |
-| :--------- | :---------------------------------------------------- | :-------------- |
-| `name`       | The name of the campaign (from `utm_campaign`).       | Auto-Populated  |
-| `source`     | The source of the traffic (from `utm_source`).        | Auto-Populated  |
-| `medium`     | The medium of the campaign (from `utm_medium`).       | Auto-Populated  |
-| `term`       | The keyword for the campaign (from `utm_term`).       | Auto-Populated  |
-| `content`    | The specific ad content (from `utm_content`).         | Auto-Populated  |
+  | Property | Description | Provided By |
+  | :--------- | :---------------------------------------------------- | :-------------- |
+  | `name` | The name of the campaign (from `utm_campaign`). | Auto-Populated |
+  | `source` | The source of the traffic (from `utm_source`). | Auto-Populated |
+  | `medium` | The medium of the campaign (from `utm_medium`). | Auto-Populated |
+  | `term` | The keyword for the campaign (from `utm_term`). | Auto-Populated |
+  | `content` | The specific ad content (from `utm_content`). | Auto-Populated |
 
----
+  ---
 
-## Event Enrichment Example
+  ## Event Enrichment Example
 
-The true power of the context objects comes from automatic enrichment. A simple `track` event sent from the client becomes a rich, detailed record on the server.
+  The true power of the context objects comes from automatic enrichment. A simple `track` event sent from the client
+  becomes a rich, detailed record on the server.
 
-### Event as Sent by the User (Client-Side)
-Here is a `track` event for a user adding a product to their cart. Notice how little information the developer needs to provide manually.
+  ### Event as Sent by the User (Client-Side)
+  Here is a `track` event for a user adding a product to their cart. Notice how little information the developer needs
+  to provide manually.
 
-```json
-{
+  ```json
+  {
   "type": "track",
   "event": "Product Added",
   "userId": "user-9b8d7c",
   "properties": {
-    "cart_id": "cart-a1b2c3",
-    "product_id": "prod-f4g5h6",
-    "sku": "SKU-BLK-LG",
-    "price": 49.99,
-    "quantity": 1
+  "cart_id": "cart-a1b2c3",
+  "product_id": "prod-f4g5h6",
+  "sku": "SKU-BLK-LG",
+  "price": 49.99,
+  "quantity": 1
   }
-}
-```
+  }
+  ```
 
-### Event After Auto-Population (Server-Side)
-After the event is received, it is enriched with the context objects. The final event stored is much more detailed, providing a complete picture of the interaction without extra work from the developer.
+  ### Event After Auto-Population (Server-Side)
+  After the event is received, it is enriched with the context objects. The final event stored is much more detailed,
+  providing a complete picture of the interaction without extra work from the developer.
 
-```json
-{
+  ```json
+  {
   "type": "track",
   "event": "Product Added",
   "userId": "user-9b8d7c",
@@ -122,36 +136,38 @@ After the event is received, it is enriched with the context objects. The final 
   "messageId": "msg_a1b2c3d4e5f6",
   "event_gid": "...",
   "properties": {
-    "cart_id": "cart-a1b2c3",
-    "product_id": "prod-f4g5h6",
-    "sku": "SKU-BLK-LG",
-    "price": 49.99,
-    "quantity": 1
+  "cart_id": "cart-a1b2c3",
+  "product_id": "prod-f4g5h6",
+  "sku": "SKU-BLK-LG",
+  "price": 49.99,
+  "quantity": 1
   },
   "context": {
-    "ip": "203.0.113.1",
-    "locale": "en-US",
-    "timezone": "America/Los_Angeles"
+  "ip": "203.0.113.1",
+  "locale": "en-US",
+  "timezone": "America/Los_Angeles"
   },
   "page": {
-    "path": "/products/some-product-page",
-    "referrer": "https://example.com/category/shirts",
-    "search": "",
-    "title": "Cool Black Shirt - MyShop",
-    "url": "https://example.com/products/some-product-page"
+  "path": "/products/some-product-page",
+  "referrer": "https://example.com/category/shirts",
+  "search": "",
+  "title": "Cool Black Shirt - MyShop",
+  "url": "https://example.com/products/some-product-page"
   },
   "device": {
-    "id": "...",
-    "manufacturer": "Apple",
-    "model": "iPhone",
-    "type": "mobile"
+  "id": "...",
+  "manufacturer": "Apple",
+  "model": "iPhone",
+  "type": "mobile"
   },
   "os": {
-    "name": "iOS",
-    "version": "16.5"
+  "name": "iOS",
+  "version": "16.5"
   },
   "user_agent": {
-      "signature": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) ..."
+  "signature": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) ..."
   }
-}
-```
+  }
+  ```
+  {% navigation previous="/docs/semantic-events/components/root" previousTitle="Core Properties"
+  next="/docs/semantic-events/components/traits" nextTitle="Traits" /%}
