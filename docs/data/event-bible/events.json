@@ -2257,7 +2257,7 @@
       "airtable_id": "recuVKY11Jd9VztCV",
       "airtableId": "recuVKY11Jd9VztCV",
       "name": "Consumption Failed",
-      "description": "When playback of a media item failed",
+      "description": "When consumption failed",
       "category": "Consumption",
       "domain": [
         "Consumption"
@@ -2267,6 +2267,7 @@
         {
           "name": "Playback Failed",
           "vertical": "Streaming Media",
+          "description": "When playback failed",
           "topic": "consumption.consumption.playback_failed"
         }
       ],
