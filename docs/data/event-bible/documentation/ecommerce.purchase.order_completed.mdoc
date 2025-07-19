@@ -1,0 +1,111 @@
+---
+title: "Order Completed Event Documentation"
+description: "Detailed documentation for the order_completed event in ecommerce"
+---
+
+# Order Completed Event
+
+This event is triggered when a customer successfully completes an order in the ecommerce system.
+
+## Event Properties
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `order_id` | string | Yes | Unique identifier for the completed order |
+| `customer_id` | string | Yes | Unique identifier for the customer |
+| `total_amount` | number | Yes | Total order amount in cents |
+| `currency` | string | Yes | Currency code (e.g., 'USD', 'EUR') |
+| `items` | array | Yes | Array of purchased items |
+| `payment_method` | string | Yes | Payment method used |
+| `shipping_address` | object | No | Shipping address details |
+
+## Implementation Examples
+
+### Basic Order Completion
+
+```javascript
+jitsu.track('order_completed', {
+  order_id: 'order_12345',
+  customer_id: 'customer_67890',
+  total_amount: 9999, // $99.99 in cents
+  currency: 'USD',
+  items: [
+    {
+      product_id: 'prod_123',
+      name: 'Premium Widget',
+      quantity: 2,
+      price: 4999
+    }
+  ],
+  payment_method: 'credit_card'
+});
+```
+
+### Complete Order with Shipping
+
+```javascript
+jitsu.track('order_completed', {
+  order_id: 'order_12345',
+  customer_id: 'customer_67890',
+  total_amount: 12499, // $124.99 in cents
+  currency: 'USD',
+  items: [
+    {
+      product_id: 'prod_123',
+      name: 'Premium Widget',
+      quantity: 1,
+      price: 9999,
+      category: 'Electronics'
+    },
+    {
+      product_id: 'prod_456',
+      name: 'Shipping',
+      quantity: 1,
+      price: 2500,
+      category: 'Shipping'
+    }
+  ],
+  payment_method: 'credit_card',
+  shipping_address: {
+    street: '123 Main St',
+    city: 'Anytown',
+    state: 'CA',
+    zip: '12345',
+    country: 'US'
+  },
+  // Additional context
+  coupon_code: 'SAVE10',
+  discount_amount: 1000,
+  tax_amount: 1000
+});
+```
+
+## Item Object Structure
+
+Each item in the `items` array should include:
+
+- `product_id`: Unique product identifier
+- `name`: Product name
+- `quantity`: Number of items purchased
+- `price`: Price per item in cents
+- `category`: Product category (optional)
+- `sku`: Product SKU (optional)
+
+## Best Practices
+
+{% callout type="info" title="Revenue Tracking" %}
+Always include accurate pricing information and use consistent currency formatting (cents) for reliable revenue analytics.
+{% /callout %}
+
+- Track this event immediately after payment confirmation
+- Include all relevant order details for comprehensive analytics
+- Use consistent product identifiers across your system
+- Include shipping and tax information when available
+- Consider privacy regulations when tracking customer data
+
+## Related Events
+
+- `order_started`: When customer begins checkout process
+- `payment_initiated`: When payment process begins
+- `order_shipped`: When order is shipped to customer
+- `order_delivered`: When order is delivered to customer
