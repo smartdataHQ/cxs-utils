@@ -8,11 +8,11 @@ prompt: |
     All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
 ---
 
-The `Product` object is a richly detailed structure designed to capture comprehensive information about every single item involved in a commerce-related event. When you send a `Commerce` object as part of an event like `Order Completed`, it contains a `products` array, and each element in that array is a `Product` object.
+The `Product` object is a richly detailed structure designed to capture comprehensive information about every single item involved in a commerce-related event. When you send a [`Commerce`](/docs/semantic-events/components/commerce) object as part of an event like `Order Completed`, it contains a `products` array, and each element in that array is a `Product` object.
 
 Our schema significantly extends standard e-commerce tracking specifications. It's designed to capture not just what was sold, but also crucial supply chain, classification, and contextual details. This depth is the key to unlocking powerful analytics, from real-time dashboarding to predictive modeling.
 
-A key concept to understand is the relationship between the line items in the `products` array and the header-level fields in the parent `Commerce` object. Properties like `commerce.revenue`, `commerce.tax`, and `commerce.discount` are typically the sum or aggregation of the corresponding values (`unit_price`, `tax_percentage`, `discount_percentage`) from every `Product` object in the list. This provides both a high-level summary and granular, item-level detail in a single event.
+A key concept to understand is the relationship between the line items in the `products` array and the header-level fields in the parent [`Commerce`](/docs/semantic-events/components/commerce) object. Properties like `commerce.revenue`, `commerce.tax`, and `commerce.discount` are typically the sum or aggregation of the corresponding values (`unit_price`, `tax_percentage`, `discount_percentage`) from every `Product` object in the list. This provides both a high-level summary and granular, item-level detail in a single event.
 
 ---
 

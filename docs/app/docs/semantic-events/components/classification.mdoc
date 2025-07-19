@@ -10,7 +10,7 @@ prompt: |
 
 The `classification` object is a powerful, flexible structure that allows you to add layers of categorical and contextual understanding to any semantic event. Think of it as adding smart tags to your data. An event isn't just a single occurrence; it can represent a customer's `intent`, fall into a specific `category`, or be assigned a `priority`. A single event can have multiple classifications, allowing for a rich, multi-faceted description.
 
-This classification can be assigned when the event is created or, more powerfully, it can be added automatically by downstream systems like the Context Suite. Using Natural Language Processing (NLP) and Large Language Models (LLMs), the system can analyze the content of an event and enrich it with classifications, turning raw data into structured, actionable intelligence without any manual effort.
+This classification can be assigned when the event is created or, more powerfully, it can be added automatically by downstream systems like the Context Suite. Using Natural Language Processing (NLP) and Large Language Models (LLMs), the system can analyze the [`content`](/docs/semantic-events/components/content-and-properties) of an event and enrich it with classifications, turning raw data into structured, actionable intelligence without any manual effort.
 
 ---
 
@@ -68,7 +68,7 @@ jitsu.track('Feedback Submitted', {
 
 ### 2. The Enriched Event (After Automatic Classification)
 
-The Context Suite receives this event. Its AI engine analyzes the `content.body` and automatically adds a `classification` array to the event, transforming it into a structured, intelligent record.
+The Context Suite receives this event. Its AI engine analyzes the [`content.body`](/docs/semantic-events/components/content-and-properties) and automatically adds a `classification` array to the event, transforming it into a structured, intelligent record.
 
 ```json
 {

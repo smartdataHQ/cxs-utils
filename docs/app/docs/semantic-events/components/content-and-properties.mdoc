@@ -14,7 +14,7 @@ While the Semantic Event schema is designed to be comprehensive and structured, 
 
 The `content` property is a dictionary specifically designed to hold significant blocks of text associated with an event. This is where you would place the raw, unstructured text that is often the subject of the event itself, such as the body of an email, the description of a support ticket, or the content of a user-generated comment.
 
-By structuring text this way, you make it immediately available for downstream processes like Natural Language Processing (NLP), sentiment analysis, and automated entity linking. The keys of the dictionary should be descriptive of the text they contain.
+By structuring text this way, you make it immediately available for downstream processes like Natural Language Processing (NLP), [`sentiment analysis`](/docs/semantic-events/components/sentiment), and automated [`entity linking`](/docs/semantic-events/components/involves). The keys of the dictionary should be descriptive of the text they contain.
 
 For example, an event for a `Support Ticket Submitted` might have a `content` object like this:
 

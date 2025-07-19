@@ -7,7 +7,7 @@ prompt: |
 
 The Context Suite uses a set of core event types to provide a standardized framework for capturing user interactions. Each type corresponds to a distinct, meaningful action. Using these correctly is the first step to creating a clean, reliable, and powerful data stream.
 
-This section provides a high-level overview of each core event type. Detailed implementation guides and property definitions for each are available in subsequent sections.
+This section provides a high-level overview of each core event type. For detailed implementation guides, see [Getting Started](/docs/semantic-events/getting-started), and for property definitions, see [Core Properties](/docs/semantic-events/components/root).
 
 ---
 
@@ -15,7 +15,7 @@ This section provides a high-level overview of each core event type. Detailed im
 
 The `track` event is the workhorse of your analytics and is used to record any custom action a user performs that you want to measure. Unlike the other specialized event types, `track` is versatile and can represent anything from a button click to a file download or a comment submission.
 
-The key to using `track` effectively is to establish a clear and consistent naming convention for your events (e.g., `Object Verb-Past-Tense`, like `Article Completed`).
+The key to using `track` effectively is to establish a clear and consistent naming convention for your events (e.g., `Object Verb-Past-Tense`, like `Article Completed`). For predefined events that unlock powerful analytics, explore [The Event Bible](/docs/semantic-events/the-event-bible).
 
 ```javascript
 jitsu.track('Product Added to Cart', {

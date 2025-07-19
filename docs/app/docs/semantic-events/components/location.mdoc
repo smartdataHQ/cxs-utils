@@ -8,7 +8,7 @@ prompt: |
     All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
 ---
 
-The `Location` object is a crucial component for enriching semantic events with geographical context. Understanding where an event occurs is fundamental to a wide range of analytics, from market segmentation and logistics to personalization and fraud detection.
+The `Location` object is a crucial component for enriching semantic events with geographical context. Understanding where an event occurs is fundamental to a wide range of analytics, from market segmentation and logistics to personalization and fraud detection. Location data works particularly well with [`involves`](/docs/semantic-events/components/involves) to understand which entities are associated with specific places.
 
 An event can be associated with multiple locations. For instance, a `Product Shipped` event could have one location object for the origin warehouse and another for the customer's destination address. For this reason, location data is sent as an array of `Location` objects within the main event payload.
 

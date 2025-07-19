@@ -10,7 +10,7 @@ prompt: |
 
 The `sentiment` array in a Semantic Event is a powerful feature for capturing opinions, feelings, and attitudes expressed within the event's content. It allows you to systematically track and analyze subjective information, turning unstructured text from emails, support tickets, or reviews into structured, actionable data.
 
-This analysis can be performed **automatically** by the Context Suite platform. Using Large Language Models (LLMs), incoming events with text content can be analyzed in real-time to detect and classify expressions of sentiment. This means you don't always have to provide the sentiment object yourself; you can send an event with raw text, and the enriched event will contain the structured sentiment data.
+This analysis can be performed **automatically** by the Context Suite platform. Using Large Language Models (LLMs), incoming events with text [`content`](/docs/semantic-events/components/content-and-properties) can be analyzed in real-time to detect and classify expressions of sentiment. This means you don't always have to provide the sentiment object yourself; you can send an event with raw text, and the enriched event will contain the structured sentiment data.
 
 ---
 
@@ -107,3 +107,5 @@ After the Context Suite platform processes this event, it automatically analyzes
 ```
 
 This automated process transforms raw, unstructured feedback into valuable data points that can be used to trigger alerts, populate dashboards tracking product quality, and measure overall customer satisfaction without manual intervention.
+
+The sentiment analysis works hand-in-hand with other Context Suite features like [`entity_linking`](/docs/semantic-events/components/involves) to identify what the sentiment is about, and [`classification`](/docs/semantic-events/components/classification) to categorize the type of feedback received.

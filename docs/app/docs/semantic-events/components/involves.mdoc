@@ -41,7 +41,7 @@ The `role` is rarely a simple repeat of the `entity_type`. For example, in a car
 Beyond the explicit `involves` array, entities can be linked to an event implicitly through other structures. The `entity_linking` and `contextual_awareness` arrays are powerful server-side enrichments that automatically build out the event's graph.
 
 ### `entity_linking`
-This structure is automatically populated by our servers using **Named Entity Recognition (NER)** on any text provided in the `content` object of an event. It identifies mentions of known entities and links them to their formal graph representation.
+This structure is automatically populated by our servers using **Named Entity Recognition (NER)** on any text provided in the [`content`](/docs/semantic-events/components/content-and-properties) object of an event. It identifies mentions of known entities and links them to their formal graph representation.
 
 | Property        | Description                                                              | Provided By    |
 | :-------------- | :----------------------------------------------------------------------- | :------------- |
@@ -66,7 +66,7 @@ After an entity is identified via `entity_linking` or other means, the server ca
 | `context`     | The snippet of contextual information (e.g., "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars..."). | Auto-Populated |
 
 ### Other Implicit Structures
-Entities are also involved implicitly through other dedicated structures, most notably the `products` array within a `commerce` event. Each object in this list represents a product's involvement in a commercial transaction, with its own rich set of properties.
+Entities are also involved implicitly through other dedicated structures, most notably the [`products`](/docs/semantic-events/components/products) array within a [`commerce`](/docs/semantic-events/components/commerce) event. Each object in this list represents a product's involvement in a commercial transaction, with its own rich set of properties.
 
 
 ## Example: From Simple Event to Enriched Graph
