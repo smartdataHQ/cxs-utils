@@ -22,7 +22,7 @@ import {
   Workflow,
   ShoppingCart,
   Cloud,
-  type LucideIcon, Boxes, FastForward, FileSearch2, Component, SquarePlay, FileDown
+  type LucideIcon, Boxes, FastForward, FileSearch2, Component, SquarePlay, FileDown, CheckCheck, BookType
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -45,27 +45,29 @@ export interface NavigationSection {
  */
 export const navigationConfig: NavigationSection[] = [
   {
-    title: 'Quick Start',
+    title: 'Semantic Events',
     items: [
       { title: 'What are Semantic Events?', href: '/docs/semantic-events/understanding-semantic-events', icon: BookOpen},
-      { title: 'You first track event', href: '/docs/semantic-events/getting-started', icon: Zap, badge: 'Quick', children: [
+      { title: 'Quick Start', href: '/docs/semantic-events/getting-started', icon: Zap, children: [
         { title: 'Installation', href: '/docs/semantic-events/installation', icon: FileDown}
       ]},
-      { title: 'Core event types', href: '/docs/semantic-events/event-types', icon: Boxes},
+      { title: 'Event Types', href: '/docs/semantic-events/event-types', icon: BookType},
       { title: 'Advanced Concepts', href: '/docs/semantic-events/advanced-concepts', icon: Boxes},
+      { title: 'Core Principles', href: '/docs/semantic-events/core-principles', icon: CheckCheck},
     ],
   },
   {
-    title: "Event Bible",
+    title: "Examples",
     items: [
       { title: 'The shortcut to insights', href: '/docs/semantic-events/the-event-bible', icon: FastForward },
-      { title: 'Explorer', href: '/docs/semantic-events/bible', icon: FileSearch2, badge: 'Interactive' },]
+      { title: 'Event Bible', href: '/docs/semantic-events/bible', icon: FileSearch2, badge: 'Interactive' },
+    ]
   },
   {
-    title: "Event Components",
+    title: "Schema Reference",
     items: [
       { title: 'Overview', href: '/docs/semantic-events/overview', icon: SquarePlay},
-      { title: 'Components', href: '/docs/semantic-events/components', icon: Component, children: [
+      { title: 'Semantic Events', href: '/docs/semantic-events/components', icon: Component, children: [
         { title: 'Analysis Cost', href: '/docs/semantic-events/components/analysis-cost', icon: Code },
         { title: 'Classification', href: '/docs/semantic-events/components/classification', icon: Code },
         { title: 'Commerce', href: '/docs/semantic-events/components/commerce', icon: Code },

@@ -2507,18 +2507,18 @@
     {
       "airtable_id": "reczWyUdnwtBtKZN9",
       "airtableId": "reczWyUdnwtBtKZN9",
-      "name": "Consumption Error",
+      "name": "Consumption Error Occurred",
       "description": "When playback of a media item has delivery or playback errors",
       "category": "Consumption",
       "domain": [
         "Consumption"
       ],
-      "topic": "consumption.consumption.consumption_error",
+      "topic": "consumption.consumption.consumption_error_occurred",
       "aliases": [
         {
-          "name": "Playback Errors Detected",
+          "name": "Playback Error Occurred",
           "vertical": "Streaming Media",
-          "topic": "consumption.consumption.playback_errors_detected"
+          "topic": "consumption.consumption.playback_errors_occurred"
         }
       ],
       "lastUpdated": "2025-07-16T11:42:55.000Z",

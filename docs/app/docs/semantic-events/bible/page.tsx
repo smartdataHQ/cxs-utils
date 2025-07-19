@@ -185,24 +185,7 @@ export default function EventBiblePage() {
             Searchable Documentation
           </Badge>
         </div>
-        
-        {/* Alias Info */}
-        <div className="mt-6 p-4 bg-muted/50 rounded-lg border">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 mt-0.5">
-              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            </div>
-            <div className="text-sm">
-              <p className="font-medium mb-1">Industry-Specific Views Available</p>
-              <p className="text-muted-foreground">
-                Many events have industry-specific aliases (like "Room Booked" for "Unit Rented" in Travel & Hospitality). 
-                Click on alias badges in the table or search for industry terms to discover tailored views.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
-
 
       {/* Priming Status */}
       {isLoading && (

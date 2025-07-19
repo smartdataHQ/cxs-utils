@@ -6,6 +6,7 @@ export interface Alias {
   name: string;
   vertical: string;
   topic: string;
+  description: string;
 }
 
 export interface SemanticEvent {

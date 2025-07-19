@@ -1,0 +1,126 @@
+---
+title: Core Principles
+prompt: |
+    Now, in the same way, write a detailed section titled "Core Principles" where you detail the Core Principles of creating good Semantic Events.
+    These are rules like "Always send from the appropriate system", "Send thick events containing everything at hand" and more. Go through the documentation to find all the principles and present them in a intuative and cathy way. Make sure that all examples and references are according to the documentation/specification.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+Creating high-quality semantic events is not just about logging data; it's about crafting a high-fidelity, trustworthy chronicle of your business. Adhering to the following core principles ensures that your event stream is reliable, actionable, and ready to power advanced analytics and AI.
+
+---
+
+## 1. The Event Bible: Speak a Common Language
+
+Your events are a shared, universal asset across the entire company. To maximize their value, they must be mapped to a standard, well-understood schema. This ensures everyone—from developers to analysts to AI models—is speaking the same language.
+
+Think of your event schema as the `Event Bible`: the single source of truth for what events exist, what they mean, and what data they contain. This practice eliminates data silos and inconsistencies, making your event stream immediately recognizable and usable by predefined dashboards and analytics tools.
+
+- **DO**: Use a centralized tool (like Avo) to design, document, and manage your event schemas collaboratively.
+- **DON'T**: Allow different teams to create ad-hoc events with inconsistent naming and structures.
+
+---
+
+## 2. The Authoritative Source: Truth from the Master
+
+For the event stream to be reliable, each event must be sent from the system that is the **authoritative master** for that business domain. This ensures a single, undisputed source of truth for every action.
+
+- The **CRM** is the authority on customer data and should send events like `Customer Created`.
+- The **Billing System** is the authority on payments and should send `Payment Succeeded` or `Payment Failed`.
+- The **eCommerce Platform** is the authority on orders and should send `Order Placed`.
+
+Furthermore, events should be sent from the **server-side** whenever possible, especially for critical transactions. Client-side tracking can be unreliable due to ad-blockers, network issues, or script blockers. Server-side tracking provides a secure, trusted environment that guarantees data integrity and accuracy.
+
+---
+
+## 3. The Naming Convention: Readable, ending with a verb in past tense
+
+A strict and simple naming convention makes the event stream instantly readable and clearly signifies a completed business action.
+
+**Rule**: Every event name must be descriptive and end with a verb in the past tense.
+
+- **Good**: `Subscription Renewed`, `Product Added`, `Shipment Dispatched`
+- **Bad**: `Renew Subscription`, `Product Add`, `Shipping`
+
+This convention makes it clear that each event represents a **historical fact**—something that has already occurred.
+
+---
+
+## 4. Send Fat, Without Strain
+
+This is the most crucial practical principle. It has two parts:
+
+- **Send Fat**: Pack the event with all the rich context available *in memory* at the moment of creation. This creates an `autonomous`, self-contained event that doesn't require lookups to be understood. This is the concept of `Event-Carried State Transfer`.
+
+- **Without Strain**: The process of sending the event must be lightweight, asynchronous, and safe. It must **never** impact the performance or stability of the source application. Use a message queue to decouple the sending process from the application's main thread. If additional data is needed for a specific use case, perform further enrichment `downstream` in your data pipeline, not at the source.
+
+---
+
+## 5. First-Class Citizens: Events, Not Timestamps
+
+In traditional systems, rich business actions are often reduced to simple timestamp fields like `created_at`, `updated_at`, or `published_at`. This loses invaluable context about who made the change, what specifically changed, and why.
+
+Semantic events should be treated as `first-class citizens`, not mere state changes.
+
+- **Instead of this timestamp:**
+
+| Field | Value |
+| :--- | :--- |
+| `published_at` | `"2025-06-06T17:31:23-04:00"` |
+
+- **Use this explicit event:**
+
+| Event Name | Description |
+| :--- | :--- |
+| `Product Published` | An event capturing the full context of a product being published. |
+
+This event-centric approach provides a much richer foundation for analysis and allows you to build comprehensive timelines of every action.
+
+---
+
+## 6. Entity Linking: Involve, Don't Just Reference
+
+When you see an `_id` field in a data structure (e.g., `inventory_item_id`), it's a signal that you should be linking to a related entity using the `involves` structure, not just passing a foreign key.
+
+- **Instead of this:**
+
+| Property | Value | Provided By |
+| :--- | :--- | :--- |
+| `inventory_item_id` | `"54319739470149"` | User-Provided |
+
+- **Use the `involves` structure:**
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `involves` | An array of objects describing entities involved in the event. | User-Provided |
+| `involves.label` | A human-readable label for the entity. | User-Provided |
+| `involves.role` | The role the entity plays in this specific event. | User-Provided |
+| `involves.entity_type` | The type of entity (e.g., 'InventoryItem'). | User-Provided |
+| `involves.id` | The external ID of the entity. | User-Provided |
+| `involves.id_type` | The system that issued the ID (e.g., 'Shopify'). | User-Provided (Optional) |
+
+This approach makes relationships explicit and ensures each event carries complete context about all participating entities.
+
+---
+
+## 7. Roles Describe Involvement, Not Type
+
+The `role` field within the `involves` structure is crucial and often misunderstood. It describes **how** the entity is involved in this specific event, and it is rarely a repeat of the `entity_type`.
+
+Consider a `Car Crash` event. Multiple entities might be of type `Person`, but their roles are distinct:
+
+| Entity Type | Role |
+| :--- | :--- |
+| `Person` | `Driver` |
+| `Person` | `Pedestrian` |
+| `Person` | `Witness` |
+
+#### Special Roles
+
+There are also special, reserved roles that define the fundamental relationships in an event:
+
+| Role | Description |
+| :--- | :--- |
+| `Source` | The primary entity that triggered or is the subject of the event. |
+| `Parent` | A hierarchical relationship (e.g., a 'Product' is the Parent of a 'ProductVariant'). |
