@@ -20,7 +20,7 @@ export async function GET(
     if (hasLocalData) {
       const localData = await localEventBibleService.loadLocalData();
       if (localData && localData.events.length > 0) {
-        event = localData.events.find(e => e.airtable_id === id || e.airtableId === id);
+        event = localData.events.find((e: any) => e.airtable_id === id || e.airtableId === id);
         if (event) {
           console.log(`API: Serving event ${id} from local JSON file`);
           return NextResponse.json({

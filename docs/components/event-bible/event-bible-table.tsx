@@ -14,6 +14,7 @@ interface EventBibleTableProps {
   loading?: boolean;
   error?: string | null;
   onEventClick?: (event: SemanticEvent) => void;
+  onAliasClick?: (event: SemanticEvent, alias: { name: string; vertical: string; topic: string }) => void;
 }
 
 type SortField = 'name' | 'category' | 'domain' | 'lastUpdated';
@@ -31,7 +32,8 @@ export function EventBibleTable({
   events, 
   loading = false, 
   error, 
-  onEventClick 
+  onEventClick,
+  onAliasClick 
 }: EventBibleTableProps) {
   // Search is now handled by parent component
   const [sortConfig, setSortConfig] = useState<SortConfig>({ 
@@ -221,12 +223,29 @@ export function EventBibleTable({
                           {event.aliases.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-1">
                               {event.aliases.slice(0, 2).map((alias, index) => (
-                                <Badge key={index} variant="secondary" className="text-xs">
+                                <Badge 
+                                  key={index} 
+                                  variant="secondary" 
+                                  className="text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onAliasClick?.(event, alias);
+                                  }}
+                                  title={`View ${alias.name} (${alias.vertical})`}
+                                >
                                   {alias.name}
                                 </Badge>
                               ))}
                               {event.aliases.length > 2 && (
-                                <Badge variant="outline" className="text-xs">
+                                <Badge 
+                                  variant="outline" 
+                                  className="text-xs cursor-pointer hover:bg-accent transition-colors"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onEventClick?.(event);
+                                  }}
+                                  title="View all aliases"
+                                >
                                   +{event.aliases.length - 2} more
                                 </Badge>
                               )}
@@ -283,7 +302,16 @@ export function EventBibleTable({
                       <p className="text-xs text-muted-foreground mb-1">Aliases:</p>
                       <div className="flex flex-wrap gap-1">
                         {event.aliases.map((alias, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
+                          <Badge 
+                            key={index} 
+                            variant="secondary" 
+                            className="text-xs cursor-pointer hover:bg-secondary/80 transition-colors"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onAliasClick?.(event, alias);
+                            }}
+                            title={`View ${alias.name} (${alias.vertical})`}
+                          >
                             {alias.name}
                           </Badge>
                         ))}

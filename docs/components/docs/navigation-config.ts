@@ -59,7 +59,7 @@ export const navigationConfig: NavigationSection[] = [
     title: "Event Bible",
     items: [
       { title: 'The shortcut to insights', href: '/docs/semantic-events/the-event-bible', icon: FastForward },
-      { title: 'Explorer', href: '/docs/semantic-events/bible', icon: FileSearch2, badge: 'Examples' },]
+      { title: 'Explorer', href: '/docs/semantic-events/bible', icon: FileSearch2, badge: 'Interactive' },]
   },
   {
     title: "Event Components",

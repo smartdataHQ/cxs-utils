@@ -290,7 +290,7 @@ export function MarkdocRenderer({ content }: MarkdocRendererProps) {
         },
         html_block: {
           render: 'div',
-          transform(node) {
+          transform(node: any) {
             return new Markdoc.Tag('div', { dangerouslySetInnerHTML: { __html: node.attributes?.content || '' } }, []);
           },
         },

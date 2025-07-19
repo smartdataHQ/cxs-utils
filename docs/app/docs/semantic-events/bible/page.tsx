@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { EventBibleTable } from '@/components/event-bible/event-bible-table';
 import { SearchAndFilter, FilterState } from '@/components/event-bible/search-and-filter';
+import { AliasSuggestions } from '@/components/event-bible/alias-suggestions';
 import { SemanticEvent } from '@/lib/types/event-bible';
 import { createClientAirtableService } from '@/lib/client-airtable-service';
 import { getFallbackEvents, FALLBACK_ERROR_MESSAGE } from '@/lib/event-bible-fallback';
@@ -11,6 +12,7 @@ import { useEventBiblePriming } from '@/hooks/use-event-bible-priming';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, BookOpen, RefreshCw, WifiOff, CheckCircle } from 'lucide-react';
 
 export default function EventBiblePage() {
@@ -155,6 +157,11 @@ export default function EventBiblePage() {
     router.push(`/docs/semantic-events/bible/${event.topic}`);
   }, [router]);
 
+  // Handle alias click - navigate to alias-specific view
+  const handleAliasClick = useCallback((event: SemanticEvent, alias: { name: string; vertical: string; topic: string }) => {
+    router.push(`/docs/semantic-events/bible/${alias.topic}`);
+  }, [router]);
+
   return (
     <div className="container mx-auto py-8 px-4 max-w-7xl">
       {/* Header */}
@@ -167,6 +174,33 @@ export default function EventBiblePage() {
           Discover and explore all available semantic events. Search, filter, and dive deep into 
           event documentation to understand how to implement them in your applications.
         </p>
+        <div className="flex flex-wrap gap-2 mt-4">
+          <Badge variant="outline" className="text-xs">
+            Core Events & Industry Aliases
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            Interactive Navigation
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            Searchable Documentation
+          </Badge>
+        </div>
+        
+        {/* Alias Info */}
+        <div className="mt-6 p-4 bg-muted/50 rounded-lg border">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0 mt-0.5">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            </div>
+            <div className="text-sm">
+              <p className="font-medium mb-1">Industry-Specific Views Available</p>
+              <p className="text-muted-foreground">
+                Many events have industry-specific aliases (like "Room Booked" for "Unit Rented" in Travel & Hospitality). 
+                Click on alias badges in the table or search for industry terms to discover tailored views.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
 
@@ -258,6 +292,16 @@ export default function EventBiblePage() {
         </Card>
       )}
 
+      {/* Alias Suggestions */}
+      {!isLoading && !primingError && events.length > 0 && searchTerm && (
+        <AliasSuggestions
+          events={events}
+          searchTerm={searchTerm}
+          onAliasClick={handleAliasClick}
+          onEventClick={handleEventClick}
+        />
+      )}
+
       {/* No Results State */}
       {!isLoading && !primingError && events.length > 0 && filteredEvents.length === 0 && (
         <Card className="p-8 text-center mb-6">
@@ -298,6 +342,7 @@ export default function EventBiblePage() {
         loading={isLoading}
         error={primingError}
         onEventClick={handleEventClick}
+        onAliasClick={handleAliasClick}
       />
 
       {/* Empty State for No Configuration */}

@@ -26,8 +26,8 @@ export async function GET() {
         aliasCount: event.aliases.length,
       })),
       fieldAnalysis: {
-        categories: [...new Set(events.map(e => e.category).filter(Boolean))].length,
-        domains: [...new Set(events.map(e => e.domain).filter(Boolean))].length,
+        categories: Array.from(new Set(events.map(e => e.category).filter(Boolean))).length,
+        domains: Array.from(new Set(events.map(e => e.domain).filter(Boolean))).length,
         totalAliases: events.reduce((sum, e) => sum + e.aliases.length, 0),
       }
     };
