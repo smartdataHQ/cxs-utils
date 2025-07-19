@@ -1,0 +1,204 @@
+---
+title: Product Structure in Commerce Events
+prompt: |
+    Now, in the same way, write a detailed section titled "Product" where you explain the Product structure that is a part of the Commerce object in Semantic Events. You MUST document all the properties available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
+    Include a good description for each group of properties and discuss how some of the "header properties" ar aggregations of the items in the products list. Also detail how we have extended this structure and how proper use of it unlocks dashboards, analysis and projection models.
+    Include an extensive "Order Completed" event using jitsu.track that showcases proper use of the more important product properties.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `Product` object is a richly detailed structure designed to capture comprehensive information about every single item involved in a commerce-related event. When you send a `Commerce` object as part of an event like `Order Completed`, it contains a `products` array, and each element in that array is a `Product` object.
+
+Our schema significantly extends standard e-commerce tracking specifications. It's designed to capture not just what was sold, but also crucial supply chain, classification, and contextual details. This depth is the key to unlocking powerful analytics, from real-time dashboarding to predictive modeling.
+
+A key concept to understand is the relationship between the line items in the `products` array and the header-level fields in the parent `Commerce` object. Properties like `commerce.revenue`, `commerce.tax`, and `commerce.discount` are typically the sum or aggregation of the corresponding values (`unit_price`, `tax_percentage`, `discount_percentage`) from every `Product` object in the list. This provides both a high-level summary and granular, item-level detail in a single event.
+
+---
+
+## Product Properties
+
+The properties of a `Product` object are grouped into logical sections.
+
+### Entry & Ordering Information
+
+This group defines *why* the product is included in the event and its position within a list, such as on a receipt or in a shopping cart.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `entry_type` | The reason the product is included (e.g., `Purchased Item`, `Returned`, `View Item`). | User-Provided |
+| `position` | The product's position in a list or cart, starting from 1. | User-Provided (Optional) |
+| `line_id` | A unique identifier for this specific line item in the transaction. | User-Provided (Optional) |
+
+### Product Identification
+
+These are the universal and store-specific identifiers that uniquely define the product. Providing at least one is crucial for linking event data to your product catalog.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `product_id` | The internal database ID for the product. | User-Provided |
+| `entity_gid` | The Context Suite Graph ID (GID) for the product, if it exists. | User-Provided (Optional) |
+| `sku` | The Stock Keeping Unit, a store-native identifier. | User-Provided (Optional) |
+| `barcode` | The product's barcode value. | User-Provided (Optional) |
+| `gtin` | The Global Trade Item Number. | User-Provided (Optional) |
+| `upc` | The Universal Product Code. | User-Provided (Optional) |
+| `ean` | The International Article Number (European Article Number). | User-Provided (Optional) |
+| `isbn` | The International Standard Book Number, for books. | User-Provided (Optional) |
+| `serial_number` | The unique serial number for this specific unit. | User-Provided (Optional) |
+| `supplier_number`| The product number used by the supplier. | User-Provided (Optional) |
+
+### Product Details
+
+This section captures descriptive attributes of the product.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `product` | The name of the product. | User-Provided |
+| `variant` | The specific variant of the product (e.g., "Large", "Red"). | User-Provided (Optional) |
+| `brand` | The brand associated with the product (e.g., "Acme"). | User-Provided (Optional) |
+| `core_product` | The fundamental product, stripped of brand and variant (e.g., "Spaghetti"). | User-Provided (Optional) |
+| `condition` | The condition of the product (e.g., "New", "Used", "Fresh"). | User-Provided (Optional) |
+| `size` | The size of the product. | User-Provided (Optional) |
+| `packaging` | The packaging type (e.g., "Box", "Bottle"). | User-Provided (Optional) |
+| `origin` | The country or region of origin. | User-Provided (Optional) |
+| `bundle` | The name of the bundle this product is a part of. | User-Provided (Optional) |
+
+### Product Classification
+
+Classification is one of the most powerful extensions. Properly categorizing products allows for sophisticated segmentation and analysis in our ready-made dashboards. This includes standard categories as well as the GS1 global standard.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `main_category` | The top-level category of the product (e.g., "Electronics"). | User-Provided |
+| `category` | The name of the sub-category (e.g., "Smartphones"). | User-Provided (Optional) |
+| `gs1_brick` | The GS1 Brick classification name. | User-Provided (Optional) |
+| `gs1_class` | The GS1 Class name. | User-Provided (Optional) |
+| `gs1_family` | The GS1 Family name. | User-Provided (Optional) |
+| `gs1_segment` | The GS1 Segment name. | User-Provided (Optional) |
+
+### Timed Events and Tickets
+
+For non-physical goods like services, rentals, or travel tickets, these properties define the time-based aspects.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `starts` | The start date/time for the service or event. | User-Provided (Optional) |
+| `ends` | The end date/time for the service or event. | User-Provided (Optional) |
+| `duration` | The duration in minutes. | User-Provided (Optional) |
+| `destination` | The destination for a travel-related product. | User-Provided (Optional) |
+| `seats` | Seat assignments for a ticketed event. | User-Provided (Optional) |
+
+### Supply Chain
+
+Tracking supply chain information directly on the event provides deep insights into manufacturer performance and supplier relationships.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `supplier` | The name of the product's supplier. | User-Provided (Optional) |
+| `manufacturer`| The name of the product's manufacturer. | User-Provided (Optional) |
+| `product_mgr` | The name of the internal product manager responsible for the item. | User-Provided (Optional) |
+
+### Purchase Details
+
+This section contains all financial and transactional details for the specific line item.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `units` | The number of units purchased. Defaults to 1. | User-Provided |
+| `unit_price` | The price of a single unit of the product. | User-Provided |
+| `unit_cost` | The cost of a single unit of the product (COGS). | User-Provided (Optional) |
+| `uom` | The Unit of Measure (e.g., "kg", "lbs", "item"). | User-Provided (Optional) |
+| `tax_percentage` | The total tax percentage applied to this line item. | User-Provided (Optional) |
+| `discount_percentage`| The discount percentage applied to this line item. | User-Provided (Optional) |
+| `coupon` | A coupon code applied specifically to this product. | User-Provided (Optional) |
+
+### Contextual Flags & URLs
+
+These properties add final contextual details about the product in the event.
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `url` | The direct URL to the product's page. | User-Provided (Optional) |
+| `img_url` | The URL for the product's primary image. | User-Provided (Optional) |
+| `dwell_time_ms`| The time in milliseconds the product was in the user's viewport. | Auto-Populated |
+
+---
+
+## Unlocking Advanced Analytics
+
+Consistently and accurately populating the `Product` structure is not just about data collection; it's about enabling intelligence. When you provide rich data, especially for **identification** and **classification**, you immediately unlock:
+
+- **Ready-Made Dashboards**: Our platform automatically recognizes your data, populating dashboards for sales performance, category analysis, and brand comparisons without any configuration.
+- **Basket Analysis**: Understand which products are frequently purchased together, informing bundling, cross-selling, and store layout strategies.
+- **Predictive Projections**: Rich historical data fuels machine learning models for demand forecasting, inventory management, and customer lifetime value (CLV) predictions.
+
+---
+
+## Example: `Order Completed` Event
+
+Here is an extensive example of a `jitsu.track` call for an `Order Completed` event, showcasing how to populate the `commerce` and `products` structures for a mixed cart containing a physical good, a discounted item, and a service.
+
+```javascript
+jitsu.track('Order Completed', {
+  commerce: {
+    order_id: 'd9f80703-a8d8-44d4-9844-599a3a7f618a',
+    affiliation: 'Main Street Store',
+    revenue: 1069.89, // 999.99 + (99.99 * 0.8) + 0 - 10 (coupon)
+    tax: 85.59,
+    discount: 20.00,
+    coupon: 'SUMMER10',
+    currency: 'USD',
+    payment_type: 'Card',
+    payment_sub_type: 'Visa',
+    products: [
+      // Item 1: A standard physical good
+      {
+        entry_type: 'Purchased Item',
+        position: 1,
+        product_id: 'PROD-112233',
+        sku: 'ACME-TV-4K-55',
+        product: 'Acme 55" 4K Smart TV',
+        brand: 'Acme',
+        main_category: 'Electronics',
+        category: 'Televisions',
+        gs1_brick: 'TV/Video Display Units',
+        supplier: 'Electronics Distribution Inc.',
+        units: 1,
+        unit_price: 999.99,
+        unit_cost: 649.99,
+        url: 'https://example.com/products/acme-tv-4k-55'
+      },
+      // Item 2: A discounted accessory
+      {
+        entry_type: 'Purchased Item',
+        position: 2,
+        product_id: 'PROD-445566',
+        sku: 'ACME-SND-21',
+        product: 'Acme 2.1 Soundbar',
+        brand: 'Acme',
+        main_category: 'Electronics',
+        category: 'Home Audio',
+        units: 1,
+        unit_price: 99.99,
+        discount_percentage: 20.0, // 20% off
+        line_discounted: true
+      },
+      // Item 3: A service (installation)
+      {
+        entry_type: 'Purchased Item',
+        position: 3,
+        product_id: 'SVC-998877',
+        sku: 'SVC-TV-INSTALL',
+        product: 'Premium TV Installation Service',
+        main_category: 'Services',
+        category: 'Home Services',
+        units: 1,
+        unit_price: 0.00, // Included with TV promotion
+        starts: '2025-07-25T14:00:00Z',
+        ends: '2025-07-25T16:00:00Z',
+        duration: 120
+      }
+    ]
+  }
+});
+```

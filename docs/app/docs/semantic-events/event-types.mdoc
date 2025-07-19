@@ -1,0 +1,85 @@
+---
+title: Event Types
+prompt: |
+  Now, in the same way, write a section titled "Event Types" wher you explain the different core event types. Make sure to include a good description fro all the standard segment.com event types. You must lookup good examples for these on the Jitsu website (https://docs.jitsu.com/sending-data/js-reference/) to make sure they are all correctly formatted and used. Create super short jitsu examples for each type. They will all be explained in details in other sections.
+  All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single `when annotating a code section. I will add the otherer on our side.
+---
+
+The Context Suite uses a set of core event types to provide a standardized framework for capturing user interactions. Each type corresponds to a distinct, meaningful action. Using these correctly is the first step to creating a clean, reliable, and powerful data stream.
+
+This section provides a high-level overview of each core event type. Detailed implementation guides and property definitions for each are available in subsequent sections.
+
+---
+
+### **Track**
+
+The `track` event is the workhorse of your analytics and is used to record any custom action a user performs that you want to measure. Unlike the other specialized event types, `track` is versatile and can represent anything from a button click to a file download or a comment submission.
+
+The key to using `track` effectively is to establish a clear and consistent naming convention for your events (e.g., `Object Verb-Past-Tense`, like `Article Completed`).
+
+```javascript
+jitsu.track('Product Added to Cart', {
+  productId: 'product-123',
+  category: 'Apparel'
+});
+```
+
+---
+
+### **Page**
+
+The `page` event is used specifically to record when a user views a page on your **website**. This is fundamental for tracking user journeys, understanding navigation flows, and analyzing content engagement. In most single-page applications, you will need to call this function manually as the user navigates between virtual pages.
+
+```javascript
+jitsu.page('Pricing', {
+  plan: 'Enterprise'
+});
+```
+
+---
+
+### **Screen**
+
+The `screen` event is the mobile app equivalent of the `page` event. It should be called whenever a user views a specific screen or view within your **mobile application**. It allows you to analyze navigation patterns, feature adoption, and user engagement within your app.
+
+```javascript
+jitsu.screen('Settings', {
+  section: 'Notifications'
+});
+```
+
+---
+
+### **Identify**
+
+The `identify` event is one of the most important calls you'll make. Its purpose is to associate all the actions a user is performing with a unique, known identity. You should call `identify` when a user signs up, logs in, or updates their profile information. This call links their anonymous activity to a `userId` and attaches `traits` (like name, email, or subscription plan) to their profile.
+
+```javascript
+jitsu.identify('user-97980', {
+  email: 'sara.smith@example.com',
+  name: 'Sara Smith'
+});
+```
+
+---
+
+### **Group**
+
+The `group` event is used to associate an individual user with a larger group or organization. This is essential for B2B applications where you need to analyze behavior at the company or account level, not just the individual user level. Calling `group` links a `userId` to a `groupId` and allows you to set `traits` for the entire group (like company name, industry, or employee count).
+
+```javascript
+jitsu.group('org-54321', {
+  name: 'Global Tech Inc.',
+  industry: 'Software'
+});
+```
+
+---
+
+### **Alias**
+
+The `alias` event has a very specific and critical function: to merge two previously separate user identities. This is most commonly used to connect a user's anonymous activity (tracked with an `anonymousId`) to their known identity (the `userId`) after they sign up or log in for the first time. This ensures that all pre-authentication activity is correctly attributed to the final user profile, creating a complete and unbroken user journey.
+
+```javascript
+jitsu.alias('user-97980');
+```

@@ -1,0 +1,75 @@
+---
+title: Traits
+prompt: |
+    Now, in the same way, write a detailed section titled "Traits" where you explain the Traits structure in Semantic Events. You must include all the properties and all enums values available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
+    Also explain how traites are never stored with the event and the GDPR compliant way we are treating sensitive personal information. List the event types that accept trades according tot he segment.com spec.
+    Use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `traits` object is a specialized structure within a Semantic Event designed to hold information about a user or a group. It's the primary mechanism for creating a profile of your users, which is essential for personalization, segmentation, and detailed analysis.
+
+---
+
+## A GDPR-Compliant Approach to Personal Data
+
+At Context Suite, we treat personal and sensitive information with the utmost care, ensuring our architecture is compliant with privacy regulations like GDPR. A critical aspect of this is how we handle `traits`.
+
+Unlike other event properties, **the data within the `traits` object is never stored directly with the event log**. When an `identify` or `group` call is made, the `traits` payload is processed separately. It's stored in a secure, dedicated profile store that is segregated from the immutable event stream. The event itself only contains the `user_id` or `group_id`, which acts as a pointer to this external profile.
+
+This separation provides two key benefits:
+1.  **Data Minimization**: The main event stream, used for broad analytics, does not contain sensitive Personally Identifiable Information (PII).
+2.  **Right to be Forgotten**: When a user requests data deletion, we can remove their profile from the traits store without altering the immutable, historical event log. This honors the user's request while preserving the integrity of the anonymized analytical data.
+
+---
+
+## Event Types with Traits
+
+According to the standard specification shared by platforms like Segment.com, `traits` are primarily associated with two specific event types:
+
+* `identify`: The `traits` object contains attributes of an individual user. This call is used to create or update a user's profile.
+* `group`: The `traits` object contains attributes of a group, such as a company or an account. This call links a user to that group and updates the group's profile.
+
+---
+
+## Trait Properties
+
+The properties within the `traits` object range from standard user information to advanced fields used for deeper business context.
+
+### Standard Traits
+
+These are commonly used fields for identifying and describing a user.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `name` | The user's full name (e.g., "John Doe"). | User-Provided (Optional) |
+| `first_name` | The user's first name. | User-Provided (Optional) |
+| `last_name` | The user's last name. | User-Provided (Optional) |
+| `email` | The user's email address. | User-Provided (Optional) |
+| `phone` | The user's phone number. | User-Provided (Optional) |
+| `username` | The user's unique username. | User-Provided (Optional) |
+| `birthday` | The user's date of birth. | User-Provided (Optional) |
+| `avatar` | A URL to the user's profile picture. | User-Provided (Optional) |
+| `gender` | The user's gender. | User-Provided (Optional) |
+| `description` | A free-form description of the user. | User-Provided (Optional) |
+| `website` | The user's personal or company website. | User-Provided (Optional) |
+| `address` | An object containing address details like `street`, `city`, `state`, `postalCode`, and `country`. | User-Provided (Optional) |
+| `created_at` | The timestamp of when the user account was created. | User-Provided (Optional) |
+
+### Advanced Context Suite Traits
+
+These properties provide deeper, business-specific context about a user's role and value.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `social_security_nr`| The user's social security number. This is highly sensitive and should only be used where legally required. | User-Provided (Optional) |
+| `age` | The user's age. | User-Provided (Optional) |
+| `company` | The name of the company the user works for. | User-Provided (Optional) |
+| `title` | The user's job title. | User-Provided (Optional) |
+| `pronouns` | The user's preferred pronouns (e.g., "she/her"). | User-Provided (Optional) |
+| `salutation` | A formal salutation for the user (e.g., "Mr.", "Dr."). | User-Provided (Optional) |
+| `industry` | The industry the user works in. | User-Provided (Optional) |
+| `employees` | The number of employees at the user's company. | User-Provided (Optional) |
+| `plan` | The user's current subscription or service plan (e.g., "Premium", "Enterprise"). | User-Provided (Optional) |
+| `total_billed` | The total amount billed to the user. | User-Provided (Optional) |
+| `logins` | The total number of times the user has logged in. | User-Provided (Optional) |

@@ -1,0 +1,47 @@
+---
+title: Governance
+prompt: |
+    Now, in the same way, write a detailed section titled "Governance" where you explain the access, governance and lifetime properties available for Semantic Events.
+    Include detailed information about the access object and explain how it can be used for row-level-access-controls. Leave out the processing properties like integrations and analyse.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+Effective data governance is crucial for maintaining security, ensuring compliance, and managing the lifecycle of your event data. The Semantic Event schema includes several built-in properties to give you granular control over who can access an event and how long it should be stored.
+
+---
+
+## Access Control and Row-Level Security
+
+You can control access to individual events by using the `access` property. This property accepts a list of `AccessInfo` objects, allowing you to define highly specific rules for data visibility. This mechanism acts as a form of **Row-Level Security (RLS)**, where each event (or row in a database) carries its own access policy.
+
+Each `AccessInfo` object specifies whether a user or organization is blacklisted (denied access) or whitelisted (granted access). If the `access` list is empty, the event is considered public within your organization. If the list contains one or more entries, access is restricted based on those rules.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | Determines the type of access rule. Can be either `Blacklisted` or `Whitelisted`. | User-Provided |
+| `label` | A human-readable label for the rule, often describing the user or group. | User-Provided (Optional) |
+| `user_gid` | The unique Context Suite GID for a specific user to whom the rule applies. | User-Provided |
+| `organization_gid` | The unique GID for a department or organization. If provided, the rule applies to all users within that organization. | User-Provided (Optional) |
+| `date_from` | The UTC timestamp marking the beginning of when the access rule is effective. | User-Provided (Optional) |
+| `date_to` | The UTC timestamp marking the end of when the access rule is effective. | User-Provided (Optional) |
+
+---
+
+## Data Lifetime (TTL)
+
+To manage data retention policies and comply with privacy regulations like GDPR, you can set a "Time to Live" (TTL) for each event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `ttl_days` | The number of days the event will be stored before it is eligible for automatic deletion. If not set, the event is stored indefinitely. | User-Provided (Optional) |
+
+---
+
+## Customer-Facing Visibility
+
+In many cases, you may want to display a history of events to your end-users (e.g., in an activity feed on a customer portal). The `customer_facing` flag provides a simple way to control which events are suitable for this purpose. This helps you filter out internal or sensitive operational events that are not relevant or appropriate for customers to see.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `customer_facing` | An integer flag indicating if the event can be shown to customers. A value of `1` means it is customer-facing, while the default of `0` means it is not. | User-Provided (Optional) |

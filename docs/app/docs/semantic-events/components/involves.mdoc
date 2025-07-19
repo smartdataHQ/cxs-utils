@@ -1,0 +1,148 @@
+---
+title: Involves
+prompt: |
+    Now, in the same way, write a section titled "Involves" where you explain the Involves structure in Semantic Events. Also detail the structures that contain the implicit involvement like products in the product list (This will be detailed later) and the referenced entities in the entity_linking list and the contextual_awareness list. Together, these structures are used to create the graph for each event.
+    Document the properties of entity_linking and contextual_awareness as well as alternative ways that encapsulate relevant entities. Please not that these two structures are usually enriched and linked on the server-side. Entity-linking is based and NER and contextual_awareness is based on looking up relevant facts about the involved/referenced entities online.
+    Use a simple table when that is the most intuitive way to list properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    Show a great example of a simple jitsu event and the enriched json version using a case where NER is uesd to identify things in "content" and contextual information about the linked entity is relevant for further analysis of the event.
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+Understanding the relationships between an event and the various entities that participate in it is fundamental to creating a rich, analytical data layer. In Context Suite, these relationships are captured through a combination of explicit and implicit structures, which together build a comprehensive graph for each event.
+---
+
+## The `involves` Structure (Explicit Involvement)
+
+The most direct way to define which entities participated in an event is through the `involves` array. This structure allows you to explicitly list every person, organization, product, or object that had a role in the event's story.
+
+Treating entity references as first-class citizens in the `involves` array, rather than just burying IDs in a `properties` blob, is a core principle. An ID field like `inventory_item_id: "54319739470149"` is an indicator that a full `Involved` object should be used instead.
+
+### Role vs. Entity Type
+A common point of confusion is the difference between an entity's `role` and its `entity_type`.
+* **Entity Type**: Describes *what* the entity is (e.g., "Person", "Product", "Organization").
+* **Role**: Describes *how* the entity participated in this specific event (e.g., "Driver", "Witness", "Buyer").
+
+The `role` is rarely a simple repeat of the `entity_type`. For example, in a car crash event, you might have multiple entities of type "Person", but each with a different role: "Driver", "Pedestrian", "Witness".
+
+### `involves` Properties
+
+| Property      | Description                                                                                             | Provided By        |
+| :------------ | :------------------------------------------------------------------------------------------------------ | :----------------- |
+| `label`         | A human-readable label for the entity's involvement (e.g., "The blue Toyota Camry").                      | User-Provided (Optional) |
+| `role`          | The role the entity played in this specific event (e.g., "Buyer", "Source", "Parent", "Victim").          | User-Provided      |
+| `entity_type`   | The general type of the entity (e.g., "Person", "ProductVariant", "LegalEntity").                         | User-Provided      |
+| `id`            | The unique identifier for the entity within its native system (e.g., a Shopify ID, a database primary key). | User-Provided      |
+| `id_type`       | The system or authority that issued the `id` (e.g., "Shopify", "Zendesk", "InternalDB").                   | User-Provided (Optional) |
+| `entity_gid`    | The globally unique Context Suite ID for the entity.                                                    | Auto-Populated     |
+| `capacity`      | The fractional involvement of the entity, if applicable (e.g., 0.5 for a 50% ownership).                | User-Provided (Optional) |
+
+
+## Implicit & Enriched Involvement
+
+Beyond the explicit `involves` array, entities can be linked to an event implicitly through other structures. The `entity_linking` and `contextual_awareness` arrays are powerful server-side enrichments that automatically build out the event's graph.
+
+### `entity_linking`
+This structure is automatically populated by our servers using **Named Entity Recognition (NER)** on any text provided in the `content` object of an event. It identifies mentions of known entities and links them to their formal graph representation.
+
+| Property        | Description                                                              | Provided By    |
+| :-------------- | :----------------------------------------------------------------------- | :------------- |
+| `content_key`   | The key from the `content` object where the entity was found (e.g., "body", "subject"). | Auto-Populated |
+| `label`         | The text snippet that was identified (e.g., "Eiffel Tower").             | Auto-Populated |
+| `starts_at`     | The starting character index of the label within the content.            | Auto-Populated |
+| `ends_at`       | The ending character index of the label within the content.              | Auto-Populated |
+| `entity_type`   | The classified type of the recognized entity (e.g., "Location", "Person"). | Auto-Populated |
+| `entity_gid`    | The Context Suite GID of the linked entity.                              | Auto-Populated |
+| `entity_wid`    | The Wikidata ID for the linked entity, if available.                     | Auto-Populated |
+| `certainty`     | The confidence score of the NER model for this specific link.            | Auto-Populated |
+
+### `contextual_awareness`
+After an entity is identified via `entity_linking` or other means, the server can enrich the event further by looking up relevant external facts about that entity. This provides valuable context that was not present in the original event but is crucial for deeper analysis.
+
+| Property      | Description                                                                                                    | Provided By    |
+| :------------ | :------------------------------------------------------------------------------------------------------------- | :------------- |
+| `type`        | The type of contextual information provided (e.g., "Description", "History", "Fact").                            | Auto-Populated |
+| `entity_type` | The type of the entity this context applies to.                                                                | Auto-Populated |
+| `entity_gid`  | The GID of the entity this context applies to.                                                                   | Auto-Populated |
+| `entity_wid`  | The Wikidata ID of the entity.                                                                                   | Auto-Populated |
+| `context`     | The snippet of contextual information (e.g., "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars..."). | Auto-Populated |
+
+### Other Implicit Structures
+Entities are also involved implicitly through other dedicated structures, most notably the `products` array within a `commerce` event. Each object in this list represents a product's involvement in a commercial transaction, with its own rich set of properties.
+
+
+## Example: From Simple Event to Enriched Graph
+
+Let's see how a simple user-provided event is transformed into a rich, interconnected graph object on the server.
+
+#### **1. User-Provided Jitsu Event**
+A user sends a simple feedback event. They only need to provide the `content`.
+
+```javascript
+jitsu.track("User Feedback Received", {
+    content: {
+        "subject": "My Trip",
+        "body": "I just got back from Paris and the weather near the Eiffel Tower was amazing!"
+    },
+    userId: "user-789"
+});
+```
+
+#### **2. Enriched JSON Event (Server-Side)**
+After processing, the final JSON stored in Context Suite is significantly enriched. The server has performed NER to populate `entity_linking` and then looked up external facts to populate `contextual_awareness`.
+
+```json
+{
+  "type": "track",
+  "event": "User Feedback Received",
+  "userId": "user-789",
+  "content": {
+    "subject": "My Trip",
+    "body": "I just got back from Paris and the weather near the Eiffel Tower was amazing!"
+  },
+  "entity_linking": [
+    {
+      "content_key": "body",
+      "label": "Paris",
+      "starts_at": 22,
+      "ends_at": 27,
+      "entity_type": "City",
+      "entity_gid": "a1b2c3d4-e5f6-...",
+      "entity_wid": "Q90",
+      "certainty": 0.98
+    },
+    {
+      "content_key": "body",
+      "label": "Eiffel Tower",
+      "starts_at": 50,
+      "ends_at": 62,
+      "entity_type": "Landmark",
+      "entity_gid": "f1e2d3c4-b5a6-...",
+      "entity_wid": "Q243",
+      "certainty": 0.99
+    }
+  ],
+  "contextual_awareness": [
+    {
+      "type": "Description",
+      "entity_type": "City",
+      "entity_gid": "a1b2c3d4-e5f6-...",
+      "entity_wid": "Q90",
+      "context": "Paris is the capital and most populous city of France."
+    },
+    {
+      "type": "Fact",
+      "entity_type": "Landmark",
+      "entity_gid": "f1e2d3c4-b5a6-...",
+      "entity_wid": "Q243",
+      "context": "The Eiffel Tower was the main exhibition of the 1889 World's Fair."
+    }
+  ],
+  "involves": [
+    {
+      "role": "Source",
+      "entity_type": "User",
+      "id": "user-789",
+      "id_type": "InternalDB"
+    }
+  ]
+}
+```

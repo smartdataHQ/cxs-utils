@@ -1,0 +1,109 @@
+---
+title: Entity Sentiment
+prompt: |
+    Now, in the same way, write a detailed section titled "Sentiment" where you explain the Sentiment in Semantic Events. You MUST document all the properties available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
+    Mention that this sentiment can be automatic - using LLMs - and that events can be pre-detected as well.
+    Provide an example of a jitsu.track event where the event is then analysed based on the content provided.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `sentiment` array in a Semantic Event is a powerful feature for capturing opinions, feelings, and attitudes expressed within the event's content. It allows you to systematically track and analyze subjective information, turning unstructured text from emails, support tickets, or reviews into structured, actionable data.
+
+This analysis can be performed **automatically** by the Context Suite platform. Using Large Language Models (LLMs), incoming events with text content can be analyzed in real-time to detect and classify expressions of sentiment. This means you don't always have to provide the sentiment object yourself; you can send an event with raw text, and the enriched event will contain the structured sentiment data.
+
+---
+
+## The Sentiment Object
+
+Each object within the `sentiment` array describes a single expression of sentiment. An event can contain multiple sentiment objects if different opinions are expressed.
+
+| Property          | Description                                                                                             | Provided By              |
+| ----------------- | ------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `type`            | The type of sentiment expressed. Common values include `Praise`, `Criticism`, `Complaint`, or `Opinion`. | User-Provided            |
+| `sentiment`       | A short description of the sentiment itself (e.g., "Positive Experience", "Product Defect").               | User-Provided            |
+| `reason`          | The specific reasoning or text snippet that justifies the sentiment classification.                     | User-Provided (Optional) |
+| `target_entity`   | The specific thing the sentiment is about (e.g., "Customer Service", "iPhone 15 Pro").                     | User-Provided (Optional) |
+| `target_category` | A broader category for the target (e.g., "Service", "Product").                                          | User-Provided (Optional) |
+| `target_type`     | A more specific type for the target (e.g., "Support Agent", "Mobile Phone").                               | User-Provided (Optional) |
+| `entity_type`     | The type of the entity the sentiment is about (e.g., `Person`, `Product`).                                | User-Provided (Optional) |
+| `id`              | The specific ID of the entity being discussed.                                                          | User-Provided (Optional) |
+| `id_type`         | The system or authority that issued the `id` (e.g., `Shopify`, `Zendesk`).                                 | User-Provided (Optional) |
+| `entity_gid`      | The Context Suite Graph ID (`UUID`) for the entity, if known.                                              | Auto-Populated           |
+
+---
+
+## Example: Automatic Sentiment Detection
+
+Imagine a customer sends an email to your support address. You can capture this as a single `track` event using the Jitsu client library, providing the raw content of the email.
+
+### 1. The Initial `jitsu.track` Event
+
+Here, we send an event containing the subject and body of an email. No sentiment is provided by the user.
+
+```javascript
+jitsu.track('Support Email Received', {
+  content: {
+    subject: "My new headphones are broken!",
+    body: "I received my order yesterday and the right headphone on the SonicWave Pro headset doesn't produce any sound. I'm really disappointed with the quality. I need a replacement immediately."
+  },
+  involves: [
+    {
+      role: "Product",
+      entity_type: "Product",
+      id: "PROD-12345",
+      id_type: "InternalSKU",
+      label: "SonicWave Pro"
+    }
+  ]
+});
+```
+
+### 2. The Enriched Event with Sentiment
+
+After the Context Suite platform processes this event, it automatically analyzes the `content` and adds a structured `sentiment` object. The final event stored in the system would look like this, with the new section added by the AI.
+
+```json
+{
+  "event": "Support Email Received",
+  "type": "track",
+  "content": {
+    "subject": "My new headphones are broken!",
+    "body": "I received my order yesterday and the right headphone on the SonicWave Pro headset doesn't produce any sound. I'm really disappointed with the quality. I need a replacement immediately."
+  },
+  "involves": [
+    {
+      "role": "Product",
+      "entity_type": "Product",
+      "id": "PROD-12345",
+      "id_type": "InternalSKU",
+      "label": "SonicWave Pro"
+    }
+  ],
+  "sentiment": [
+    {
+      "type": "Complaint",
+      "sentiment": "Product Defective",
+      "reason": "The right headphone... doesn't produce any sound.",
+      "target_entity": "SonicWave Pro",
+      "target_category": "Product",
+      "entity_type": "Product",
+      "id": "PROD-12345",
+      "id_type": "InternalSKU"
+    },
+    {
+      "type": "Criticism",
+      "sentiment": "Poor Quality",
+      "reason": "I'm really disappointed with the quality.",
+      "target_entity": "SonicWave Pro",
+      "target_category": "Product Quality",
+      "entity_type": "Product",
+      "id": "PROD-12345",
+      "id_type": "InternalSKU"
+    }
+  ],
+  // ... other enriched properties
+}
+```
+
+This automated process transforms raw, unstructured feedback into valuable data points that can be used to trigger alerts, populate dashboards tracking product quality, and measure overall customer satisfaction without manual intervention.

@@ -1,0 +1,85 @@
+---
+title: Installation
+prompt: |
+  Now, in the same way, write a section titled "Installation" where you explain How to get the jitsu client going in different environments.
+  All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single "`"when annotating special sections. I will add the other "`" on our side.
+---
+
+Getting started with the Context Suite event stream is straightforward. Our primary client library is based on `Jitsu`, a flexible and robust open-source data collection library. Below are the common installation methods for different environments.
+
+---
+
+## In the Browser (Client-Side)
+
+The easiest way to start sending events from a website or web application is to add the `Jitsu` script tag directly to your HTML file. This is the ideal method for capturing user interactions like `page views` and `clicks`.
+
+1.  **Add the Script to Your HTML**
+
+    Place the following `<script>` tag in the `<head>` section of your website's HTML. This will load the Jitsu library asynchronously from a CDN, so it won't block the rendering of your page.
+
+    ```html
+    <script>
+      (function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;
+      js=d.createElement(s);js.id=id;js.src="[https://cdn.jitsu.com/v2/jitsu.min.js](https://cdn.jitsu.com/v2/jitsu.min.js)";
+      fjs.parentNode.insertBefore(js,fjs);}(document,'script','jitsu-sdk'));
+    </script>
+    ```
+
+2.  **Initialize the Library**
+
+    After including the script, you need to initialize it with your unique `write key`. This key directs the events to your specific data stream in the Context Suite. You can find this key in your project settings. Add this second script snippet right after the first one.
+
+    ```html
+    <script>
+      window.jitsu = window.jitsu || (function(){(window.jitsu.q=window.jitsu.q||[]).push(arguments)});
+      jitsu('init', {
+        key: 'YOUR_WRITE_KEY_HERE',
+        log_level: 'DEBUG' // Optional: 'DEBUG', 'INFO', 'ERROR'. Defaults to 'INFO'.
+      });
+    </script>
+    ```
+
+Now the `jitsu` object is available globally in your browser, and you can start sending events like `jitsu.page()` or `jitsu.track('Button Clicked')`.
+
+---
+
+## In Node.js (Server-Side)
+
+For sending events from your backend services, such as when a user account is created or a payment is processed, you can use the `Jitsu` NPM package. This ensures that critical events are sent reliably and securely.
+
+1.  **Install the NPM Package**
+
+    Open your terminal and run the following command to add the Jitsu SDK to your project:
+
+    ```bash
+    npm install @jitsu/sdk-js
+    ```
+
+2.  **Import and Initialize in Your Application**
+
+    In your JavaScript or TypeScript file, import the library and create an instance, again providing your `write key`.
+
+    ```javascript
+    import jitsu from "@jitsu/sdk-js";
+
+    const jitsuClient = jitsu({
+      key: "YOUR_WRITE_KEY_HERE"
+    });
+
+    // You can now use the client to send events
+    // await jitsuClient.track('User Registered', { plan: 'premium' });
+    ```
+
+    Sending events from the server-side is highly recommended for any action that is critical to your business logic or involves sensitive data.
+
+---
+
+## Other Environments (Python, Java, Go, etc.)
+
+For other server-side languages, we provide dedicated libraries that follow the same principles. The general process is always:
+
+1.  Add the appropriate library/package to your project.
+2.  Initialize a client instance with your `write key`.
+3.  Use the client instance to send `track`, `identify`, and `group` events.
+
+Please refer to the specific documentation for your language of choice for detailed installation and usage instructions.

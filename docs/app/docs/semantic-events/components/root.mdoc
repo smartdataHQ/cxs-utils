@@ -1,0 +1,41 @@
+---
+title: Core Properties
+prompt: |
+    Now, in the same way, write a section titled "Core Properties" where you explain The root properties of Semantic Events. Objects and components can be briefly listed, but we will cover them in details later on. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates.
+    Use a simple table when that is the most intuitive way to list properties.
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single "`"when annotating special sections. I will add the other "`" on our side.
+---
+
+Every Semantic Event, regardless of its `type`, is built upon a set of fundamental root properties. These properties provide the essential framework for identifying, timestamping, and associating the event with a user and their session. Understanding which properties you need to provide versus which are handled automatically is key to successful implementation.
+
+---
+
+## Foundational Event Details
+
+The following table outlines the core properties at the root of the `SemanticEvent` object. These fields are the minimum required data to give an event its unique identity and place it in time.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | The fundamental type of event. It determines the event's primary purpose. Must be one of: `track`, `page`, `screen`, `identify`, or `group`. | **User-Provided** |
+| `event` | The specific name of the action being recorded, like `Product Purchased`. This is **required** only when `type` is `track`. The name should be in past-tense. | **User-Provided** |
+| `timestamp` | An ISO 8601 timestamp in UTC indicating when the event occurred. If omitted, the Jitsu library will set it to the current time upon receiving the event. | User-Provided (Optional) |
+| `messageId` | A unique identifier (UUID) for this specific event message. The Jitsu client library typically generates this automatically to prevent message duplication. | Auto-Populated |
+
+## User and Session Identifiers
+
+These properties are crucial for linking an event to a specific user and their journey through your application. The Jitsu library plays a significant role in managing and persisting these IDs.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `anonymous_id` | A unique identifier for a user before they are known (i.e., not logged in). The Jitsu library automatically generates and manages this ID. | Auto-Populated |
+| `user_id` | The unique identifier for a user once they are known (e.g., after logging in). You must provide this ID in an `identify` call. | **User-Provided** |
+| `previous_id` | Used in an `alias` call to link a previous ID (like `anonymous_id`) to a new `user_id`. The library manages the mechanics of this transfer. | Auto-Populated |
+| `session_id` | A unique identifier for a single user session. The Jitsu library typically manages the lifecycle of this ID automatically. | Auto-Populated |
+
+## Rich Context Objects
+
+Beyond the core properties, a Semantic Event contains several rich, nested objects that hold detailed contextual information. While we will cover these in later sections, they include:
+
+- **Standard Context**: `context`, `app`, `device`, `os`, `page`, `screen`, `library`, and `campaign` objects, which are largely auto-populated by the Jitsu client.
+- **Extended Context**: `commerce`, `involves`, `sentiment`, and `classification` objects, which contain the deep, domain-specific data you provide to give the event its true semantic power.
+- **Custom Data**: Flexible `properties`, `dimensions`, and `metrics` maps for any additional data unique to your business needs.

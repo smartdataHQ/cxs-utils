@@ -1,0 +1,53 @@
+---
+title: Overview
+prompt: |
+  Now, in the same way, write a section titled "Overview" where you outline the documentation for a complete Semantic Event to data-engineer and a developer. Make sure all sub-components are introduced. Include no code examples in this section. Just introduce each component briefly.
+  All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single `when annotating a code section. I will add the otherer on our side.
+---
+
+A single Semantic Event is a rich, self-contained JSON object designed to capture the complete context of a business occurrence. While its structure is comprehensive, it is logically organized into distinct components. This overview introduces each major component of the event schema to provide a high-level map for developers and data engineers.
+
+---
+
+### Core Event Properties
+These are the fundamental, top-level attributes that define the event itself. They answer the basic questions of *what* happened and *when*. This includes the event `type` (like `track` or `identify`), the specific `event` name, the `timestamp`, and unique identifiers like `messageId` and `event_gid`.
+
+### Identity & Session
+This group of fields establishes who performed the action. It includes all identifiers necessary for user tracking and identity resolution, such as `user_id` for known users, `anonymous_id` for unknown visitors, and `session_id` to group events from a single browsing session. It also includes `previous_id` for linking identities after an `alias` call.
+
+### Standard Context Objects
+To ensure broad compatibility and ease of use, our schema incorporates the standard context objects popularized by Segment.com. These are typically captured automatically by client-side libraries or enriched on the server. This includes detailed information about the user's environment, such as:
+- `context`: General context like IP address and locale.
+- `device`: Details about the user's device (e.g., model, manufacturer).
+- `os`: The operating system.
+- `app`: Information about the mobile application.
+- `network`: Network carrier and connectivity details.
+- `page`: For web events, the URL, path, and title of the page.
+- `screen`: For mobile events, the name of the screen being viewed.
+- `campaign`: Marketing attribution data (e.g., source, medium, term).
+
+### User & Group Traits
+The `traits` object is a container for properties about the user (in an `identify` call) or a group (in a `group` call). This is where you store attributes like a user's name, email, subscription plan, or a company's industry and employee count.
+
+### Commerce
+The `commerce` object is a powerful, deeply nested structure designed to capture every detail of an e-commerce transaction. It goes far beyond basic order information to include order and checkout IDs, revenue, tax, discounts, and payment details. Its most critical sub-component is the `products` array.
+
+- **Products**: Each entry in the `products` array is a rich object describing a single product line item. It contains dozens of fields for detailed product identification (SKU, GTIN), classification (category, brand), pricing, and supply chain information (supplier, manufacturer).
+
+### Context Suite Extended Properties
+These proprietary objects are what elevate a standard event into a truly *semantic* one, enabling advanced operational intelligence.
+- `involves`: An array that explicitly links any entity—a person, a product, a document—to the event, describing its specific `role` in the interaction.
+- `classification`: An array used to categorize the event with tags, keywords, or business-specific intents (e.g., `Intent: 'Purchase'`, `Priority: 'High'`).
+- `sentiment`: An array containing the results of sentiment analysis, linking positive, negative, or neutral sentiment to specific targets within the event.
+- `content`: A dictionary for attaching any unstructured text associated with the event, such as the body of an email or the subject of a support ticket.
+- `location`: An array for attaching one or more detailed geographical locations relevant to the event.
+
+### Custom Extensibility
+For any data that doesn't fit into the predefined schema, we provide flexible map objects for custom data.
+- `properties`: A generic key-value store for any custom properties related to a `track` event.
+- `dimensions`: For custom, low-cardinality key-value pairs intended for dashboarding and filtering.
+- `metrics`: For custom numerical key-value pairs.
+- `flags`: For custom boolean flags.
+
+### Data Governance & Processing
+This final set of objects and fields provides metadata for data lifecycle management, access control, and directing internal processing logic. This includes `access` rules, a `ttl_days` (time-to-live) setting, and `integrations` flags to control which downstream systems should receive the event.

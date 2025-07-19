@@ -1,8 +1,8 @@
-import { 
-  BookOpen, 
-  FileText, 
-  Settings, 
-  Code, 
+import {
+  BookOpen,
+  FileText,
+  Settings,
+  Code,
   Search,
   Globe,
   Zap,
@@ -22,7 +22,7 @@ import {
   Workflow,
   ShoppingCart,
   Cloud,
-  type LucideIcon
+  type LucideIcon, Boxes, FastForward, FileSearch2, Component, SquarePlay, FileDown
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -45,37 +45,45 @@ export interface NavigationSection {
  */
 export const navigationConfig: NavigationSection[] = [
   {
-    title: 'Getting Started',
+    title: 'Quick Start',
     items: [
-      { 
-        title: 'Understanding Semantic Events', 
-        href: '/docs', 
-        icon: BookOpen 
-      },
-      { 
-        title: 'Understanding Datapoints', 
-        href: '/docs/datapoints', 
-        icon: Database 
-      },
-      { 
-        title: 'Understanding Entities', 
-        href: '/docs/entities', 
-        icon: Users, 
-        children: [
-          { 
-            title: 'Entity Identification System', 
-            href: '/docs/entities/identification', 
-            icon: Target 
-          },
-          { 
-            title: 'Entity Roles', 
-            href: '/docs/entities/roles', 
-            icon: Shield 
-          },
-        ]
-      },
+      { title: 'What are Semantic Events?', href: '/docs/semantic-events/understanding-semantic-events', icon: BookOpen},
+      { title: 'You first track event', href: '/docs/semantic-events/getting-started', icon: Zap, badge: 'Quick', children: [
+        { title: 'Installation', href: '/docs/semantic-events/installation', icon: FileDown}
+      ]},
+      { title: 'Core event types', href: '/docs/semantic-events/event-types', icon: Boxes},
+      { title: 'Advanced Concepts', href: '/docs/semantic-events/advanced-concepts', icon: Boxes},
     ],
   },
+  {
+    title: "Event Bible",
+    items: [
+      { title: 'The shortcut to insights', href: '/docs/semantic-events/the-event-bible', icon: FastForward },
+      { title: 'Explorer', href: '/docs/semantic-events/bible', icon: FileSearch2, badge: 'Examples' },]
+  },
+  {
+    title: "Event Components",
+    items: [
+      { title: 'Overview', href: '/docs/semantic-events/overview', icon: SquarePlay},
+      { title: 'Components', href: '/docs/semantic-events/components', icon: Component, children: [
+        { title: 'Analysis Cost', href: '/docs/semantic-events/components/analysis-cost', icon: Code },
+        { title: 'Classification', href: '/docs/semantic-events/components/classification', icon: Code },
+        { title: 'Commerce', href: '/docs/semantic-events/components/commerce', icon: Code },
+        { title: 'Content & Properties', href: '/docs/semantic-events/components/content-and-properties', icon: Code },
+        { title: 'Context', href: '/docs/semantic-events/components/context', icon: Code },
+        { title: 'Dimensions & Metrics (BI)', href: '/docs/semantic-events/components/dimensions-and-metrics', icon: Code },
+        { title: 'Entity Sentiment', href: '/docs/semantic-events/components/sentiment', icon: Code },
+        { title: 'Governance', href: '/docs/semantic-events/components/governance', icon: Code },
+        { title: 'Involves', href: '/docs/semantic-events/components/involves', icon: Code },
+        { title: 'Location', href: '/docs/semantic-events/components/location', icon: Code },
+        { title: 'Processing Controls', href: '/docs/semantic-events/components/processing', icon: Code },
+        { title: 'Products', href: '/docs/semantic-events/components/products', icon: Code },
+        { title: 'Root Event', href: '/docs/semantic-events/components/root', icon: Code },
+        { title: 'Traits', href: '/docs/semantic-events/components/traits', icon: Code },
+      ]},
+    ]
+  }
+    /*
   {
     title: 'Semantic Events',
     items: [
@@ -95,11 +103,7 @@ export const navigationConfig: NavigationSection[] = [
         icon: Book,
         badge: 'Interactive'
       },
-      { 
-        title: 'Events vs Timestamps', 
-        href: '/docs/semantic-events/events-vs-timestamps', 
-        icon: Clock 
-      },
+      // { title: 'Events vs Timestamps', href: '/docs/semantic-events/events-vs-timestamps', icon: Clock },
       { 
         title: 'Event Validation', 
         href: '/docs/semantic-events/validation', 
@@ -156,4 +160,5 @@ export const navigationConfig: NavigationSection[] = [
       { title: 'Schema Design Considerations', href: '/docs/semantic-events/schema/comparison', icon: Search },
     ],
   },
+  */
 ];

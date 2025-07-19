@@ -1,0 +1,87 @@
+---
+title: Dimensions & Metrics
+prompt: |
+    Now, in the same way, write a detailed section titled "Dimensions & Metrics" where you explain the Dimensions & Metrics in Semantic Events. Only include dimensions and metrics in this section.
+    Explain - in detail - how these structures can be used to host any "multi dimension, muti metrics time-series" in a real time analytics store like the one available in the Context Suite (Clickhouse). And how a semantic layer (cube.dev) us used to surface these mapped properties in a super-fast and efficient way.
+    Provide an example of a jitsu.track event with meaningful dimensions and metrics. This must be a Semantic Event, not a data-point/time-series event. (those will be documented later). Select something where other components are not involved.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.---
+---
+
+While the Semantic Event schema provides a rich and standardized structure for common business interactions, there is always a need for custom, ad-hoc data tailored to your unique operational and analytical requirements. The `dimensions`, `metrics`, and `flags` properties serve this exact purpose. They are flexible key-value stores that allow you to attach any custom attribute to an event without requiring a change to the core schema.
+
+Think of them as a set of customizable labels and measurements that you can add to any event, making them immediately available for filtering, grouping, and aggregation in your analytics tools.
+
+---
+
+## The Anatomy of Dimensions, Metrics, and Flags
+
+These properties are designed to be simple, powerful, and easy to use.
+
+### **Dimensions**
+
+The `dimensions` object is a dictionary used to store low-cardinality string-based attributes. These are the "who, what, and where" qualifiers you use to slice and dice your data. They are perfect for grouping and filtering in analytical queries.
+
+| Property   | Description                                                                                                   | Provided By    |
+| ---------- | ------------------------------------------------------------------------------------------------------------- | -------------- |
+| `dimensions` | A dictionary where keys are dimension names (string) and values are the dimension's value (string).           | User-Provided  |
+
+### **Metrics**
+
+The `metrics` object is a dictionary used to store numerical data points associated with an event. These are the quantifiable measurements you want to aggregate—sum, average, max, min, etc.
+
+| Property | Description                                                                                             | Provided By   |
+| -------- | ------------------------------------------------------------------------------------------------------- | ------------- |
+| `metrics`  | A dictionary where keys are metric names (string) and values are the metric's value (float/integer).  | User-Provided |
+
+### **Flags**
+
+The `flags` object is a dictionary for boolean attributes. These are simple true/false markers that can be used to tag events for easy filtering or to denote a specific state.
+
+| Property | Description                                                                                    | Provided By   |
+| -------- | ---------------------------------------------------------------------------------------------- | ------------- |
+| `flags`    | A dictionary where keys are flag names (string) and values are the flag's state (boolean).   | User-Provided |
+
+---
+
+## Powering Real-Time Analytics
+
+This flexible structure is key to how the Context Suite handles custom analytics in near real-time. By allowing you to embed any number of custom dimensions and metrics within a semantic event, the platform can effectively ingest and store any **multi-dimension, multi-metric time-series** data.
+
+Here’s how it works behind the scenes:
+
+1.  **Ingestion & Storage**: When a semantic event arrives, it is stored in our real-time analytics data store, which is powered by **ClickHouse**. ClickHouse is a high-performance, column-oriented database designed specifically for Online Analytical Processing (OLAP). It excels at aggregating and querying large volumes of event data with incredibly low latency. The `dimensions`, `metrics`, and `flags` are stored in efficient `Map` data types, making them fully queryable.
+
+2.  **The Semantic Layer**: Sitting on top of ClickHouse is a powerful semantic layer managed by **Cube**. Cube acts as a centralized and performant API for all analytics. It pre-aggregates the data from the custom dimensions and metrics, creating "cubes" of data that are optimized for lightning-fast access. When a user queries a dashboard or an analytical tool, they are not hitting the raw ClickHouse data every time. Instead, they are accessing these pre-warmed, in-memory caches from Cube.
+
+This two-tiered architecture provides the best of both worlds: the flexibility to define any analytical model on the fly using `dimensions` and `metrics`, and the blazing speed of a pre-aggregated semantic layer. The result is that your custom data is surfaced in dashboards in a **super-fast and efficient way**, without your data engineers needing to constantly modify backend database schemas.
+
+---
+
+## Example: Tracking ETL Job Performance
+
+Here is an example of a `jitsu.track` call for a semantic event, `ETL Job Completed`. This event is not just a simple data point; it's a meaningful business operation. We use the `dimensions` and `metrics` objects to attach custom performance data to it.
+
+```javascript
+jitsu.track("ETL Job Completed", {
+  dimensions: {
+    job_name: "daily_user_aggregation",
+    source_system: "production_postgres_db",
+    destination_system: "analytics_data_warehouse",
+    status: "success",
+    region: "us-east-1"
+  },
+  metrics: {
+    duration_seconds: 1245.5,
+    rows_processed: 15782390,
+    rows_failed: 0,
+    memory_usage_mb: 2048,
+    cpu_utilization_percent: 78.5
+  },
+  flags: {
+    is_full_refresh: true,
+    triggered_downstream: true,
+    alert_on_failure: false
+  }
+});
+```

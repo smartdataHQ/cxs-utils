@@ -1,80 +1,79 @@
+---
+title: Getting Started
+prompt: |
+  Now, in the same way, write a section titled "Getting Started" where you demo how easy it is to send a track event ("Semantic Event Sent") to data-engineer and a developer. Then show how that event will look like - fully enriched and processed - on the server side without adding information that the server can/should no know about.
+---
 
 
-# Getting Started with Semantic Events and CXS
-This short guide helps you quickly set up the CXS Analytics client (a fork of Jitsu's analytics library) and send your first "Hello World" semantic event to the Context Suite.
+All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. Always use as single `when annotating a code section. I will add the otherer on our side.
+---
 
-## 1. Install the CXS Client
-First, add the cxs client to your project. Below are instructions for JavaScript and Node.js environments.
+Sending your first semantic event is straightforward. The client-side implementation is designed to be minimal, requiring only the essential information, while the server handles the heavy lifting of enrichment and contextualization.
 
-### Browser / JavaScript (npm):
-```shell
-npm install @smartdataHQ/cxs-analytics
-```
+---
 
-### Node.js / Server-side:
-```shell
-npm install @smartdataHQ/cxs-analytics-node
-```
+## 1. Sending Your First Event
 
-## 2. Initialize the CXS Client
-Next, set up the client in your project:
+To a developer, sending a custom `track` event requires a simple function call. Let's imagine we want to send an event named `Semantic Event Sent` to confirm our tracking setup is working. We'll also include a custom property, `source_language`, to add some basic context.
 
-Browser Example (app.js):
+Using a client-side library like Jitsu, the code is clean and readable:
 
 ```javascript
-import { cxsAnalytics } from '@smartdataHQ/cxs-analytics';
-
-// Initialize CXS client
-cxsAnalytics({
-host: 'https://inbox.contextsuite.com',
-writeKey: 'YOUR_WRITE_KEY', // Replace with your actual write_key
-});
-```
-Node.js Example (server.js):
-
-```javascript
-const { cxsAnalytics } = require('@smartdataHQ/cxs-analytics-node');
-
-// Initialize CXS client (Node.js)
-const cxs = cxsAnalytics({
-host: 'https://inbox.contextsuite.com',
-writeKey: 'YOUR_WRITE_KEY', // Replace with your actual write_key
+jitsu.track("Semantic Event Sent", {
+  source_language: "python"
 });
 ```
 
-## 3. Send a "Hello World" Event
-Now you're ready to send your first semantic event—this will confirm your setup is working correctly.
+That's it. The client library automatically handles user identification (`anonymous_id`), session tracking, and other basic context before sending the event to our servers.
 
-Browser Example (JavaScript):
+---
 
-```javascript
-// Send your first event
-cxs.track('Hello World Sent', {
-content: {message: 'This is my first semantic event!'},
-});
+## 2. The Enriched Event on the Server
+
+Once that simple event arrives at the Context Suite, it is transformed into a rich, fully contextualized semantic event. The server enriches the original payload with a wealth of information derived from the request and our internal systems.
+
+Notice how the original `source_language` property is preserved, while new objects like `context`, `device`, `os`, and `page` have been added automatically. A unique `event_gid` has been assigned, and structures for advanced analysis like `involves` and `classification` are present, ready to be populated by downstream processes.
+
+Here is what that same event looks like after being processed on the server-side:
+
+```json
+{
+  "type": "track",
+  "event": "Semantic Event Sent",
+  "timestamp": "2025-07-18T17:57:18.123Z",
+  "message_id": "msg_f9e8d7c6-b5a4-4321-fedc-ba9876543210",
+  "anonymous_id": "anon-1a2b3c4d-5e6f-7890-gh12-ijkl34mno5p",
+  "session_id": "sess-9a8b7c6d-5e4f-3210-ab98-7654321fedc",
+  "properties": {
+    "source_language": "python"
+  },
+  "context": {
+    "ip": "89.123.45.67",
+    "locale": "en-US",
+    "timezone": "Atlantic/Reykjavik",
+    "library": {
+      "name": "jitsu.js",
+      "version": "2.0.1"
+    }
+  },
+  "device": {
+    "manufacturer": "Apple",
+    "model": "MacBook Pro",
+    "type": "Desktop"
+  },
+  "os": {
+    "name": "macOS",
+    "version": "14.5"
+  },
+  "page": {
+    "url": "https://example.com/docs/getting-started",
+    "title": "Getting Started - Developer Docs",
+    "referrer": "https://example.com/docs"
+  },
+  "user_agent": {
+    "signature": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+  },
+  "received_at": "2025-07-18T17:57:18.250Z",
+  "sent_at": "2025-07-18T17:57:18.050Z"
+}
 ```
-Node.js Example:
-```javascript
-// Send your first event from server-side
-cxs.track('Hello World Sent', {
-conent: {message: 'This is my first semantic event from Node!'},
-}).then(() => {
-console.log('Event sent successfully!');
-}).catch((error) => {
-console.error('Error sending event:', error);
-});
-```
-
-## 4. Verify your Event
-After sending the event, verify it arrived:
-Visit your Context Suite 'Events' Dashboard.
-Check the Event Explorer.
-You should see an event named "Hello World Sent" with the custom property "message" set to "This is my first semantic event!"."
-
-## Next Steps
-
-Now that you've sent your first event, explore more advanced implementations:
-
-- **[Event Bible](/docs/semantic-events/bible)**: Browse real-world semantic events with complete code examples and schema details
-- **[Schema Reference](/docs/semantic-events/schema)**: Learn about the full semantic event schema and available properties
-- **[Best Practices](/docs/semantic-events/best-practices)**: Guidelines for implementing semantic events effectively

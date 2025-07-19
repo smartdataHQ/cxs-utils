@@ -1,0 +1,114 @@
+---
+title: Classification
+prompt: |
+    Now, in the same way, write a detailed section titled "Classification" where you explain the Classification in Semantic Events. You MUST document all the properties available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
+    Create a list of the well known classifications we use and also mention some that the data-engineer/developer might be interested in. Mention that this classification can be automatic - using LLMs - and that events can be pre-classified.
+    Provide an example of a jitsu.track event where the event is then classified based on the content provided.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `classification` object is a powerful, flexible structure that allows you to add layers of categorical and contextual understanding to any semantic event. Think of it as adding smart tags to your data. An event isn't just a single occurrence; it can represent a customer's `intent`, fall into a specific `category`, or be assigned a `priority`. A single event can have multiple classifications, allowing for a rich, multi-faceted description.
+
+This classification can be assigned when the event is created or, more powerfully, it can be added automatically by downstream systems like the Context Suite. Using Natural Language Processing (NLP) and Large Language Models (LLMs), the system can analyze the content of an event and enrich it with classifications, turning raw data into structured, actionable intelligence without any manual effort.
+
+---
+
+## Properties
+
+The following properties make up a single `classification` object. An event can contain a list of these objects.
+
+| Property     | Description                                                                                             | Provided By              |
+|--------------|---------------------------------------------------------------------------------------------------------|--------------------------|
+| `type`       | The type of classification being applied (e.g., 'Intent', 'Tag', 'Priority').                             | User-Provided            |
+| `value`      | The specific value for the classification type (e.g., 'Purchase', 'Customer Support', 'High').             | User-Provided            |
+| `reasoning`  | (Advanced) An explanation for why this classification was assigned, often provided by an AI model.        | User-Provided (Optional) |
+| `score`      | (Advanced) A numerical score associated with the classification.                                          | User-Provided (Optional) |
+| `confidence` | (Advanced) The confidence level (typically 0.0 to 1.0) from a model that assigned the classification. | User-Provided (Optional) |
+| `weight`     | (Advanced) The relevance or importance of this specific classification relative to others on the event. | User-Provided (Optional) |
+
+---
+
+## Common Classification Types
+
+While you can use any custom classification `type` that makes sense for your business, the Context Suite has a set of standardized types that enable powerful, pre-built analytics.
+
+- **For Business Analysts:** These types help in understanding customer behavior and business funnels.
+  - `Intent`: Describes the underlying goal of the user (e.g., 'Make Purchase', 'Request Refund', 'Get Information').
+  - `Intent Category`: A broader grouping for intents (e.g., 'Sales', 'Support').
+  - `Priority`: Assigns an importance level to the event (e.g., 'High', 'Medium', 'Low').
+  - `Segmentation`: Places the event or user into a specific business segment (e.g., 'High-Value Customers', 'Churn Risk').
+  - `Category` / `Subcategory`: Standard business-defined categories for products, services, or issues.
+
+- **For Data Engineers & Developers:** These types are often useful for technical routing, filtering, and process automation.
+  - `Tag`: A general-purpose tag, similar to labels in other systems.
+  - `Keyword`: Extracts specific keywords from event content.
+  - `Inbox`: Used to route an event to a specific team or processing queue (e.g., 'SupportInbox', 'SalesLeadInbox').
+
+---
+
+## Example: Automatic Classification
+
+Imagine a customer submits a generic feedback form on your website. You send a `track` event with their raw message in the `content` property.
+
+### 1. Initial Event Sent by User
+
+A simple `jitsu.track` call captures the customer's feedback.
+
+```javascript
+jitsu.track('Feedback Submitted', {
+  content: {
+    body: "Hi, my order just arrived but the screen is cracked. I'm really unhappy about this and need to get a replacement sent out immediately. My order number is #A-123."
+  },
+  properties: {
+    source: 'Website Feedback Form'
+  }
+});
+```
+
+### 2. The Enriched Event (After Automatic Classification)
+
+The Context Suite receives this event. Its AI engine analyzes the `content.body` and automatically adds a `classification` array to the event, transforming it into a structured, intelligent record.
+
+```json
+{
+  "event": "Feedback Submitted",
+  "type": "track",
+  "content": {
+    "body": "Hi, my order just arrived but the screen is cracked. I'm really unhappy about this and need to get a replacement sent out immediately. My order number is #A-123."
+  },
+  "properties": {
+    "source": "Website Feedback Form"
+  },
+  "classification": [
+    {
+      "type": "Intent",
+      "value": "Request Replacement",
+      "confidence": 0.95
+    },
+    {
+      "type": "Intent Category",
+      "value": "Support",
+      "confidence": 0.98
+    },
+    {
+      "type": "Category",
+      "value": "Damaged Goods",
+      "confidence": 0.99
+    },
+    {
+      "type": "Priority",
+      "value": "High",
+      "reasoning": "The user expressed unhappiness and requested an immediate replacement.",
+      "confidence": 0.89
+    },
+    {
+       "type": "Inbox",
+       "value": "Returns"
+    }
+  ]
+  // ...other event properties
+}
+```
+
+As you can see, the single, unstructured feedback message has been automatically categorized, prioritized, and routed, making it immediately actionable for your support and logistics teams.

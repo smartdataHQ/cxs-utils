@@ -10,7 +10,6 @@
         "Software"
       ],
       "topic": "software.access.privileges_updated",
-      "topicSlug": "softwareaccessprivileges-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:41:32.000Z",
       "deprecated": false
@@ -25,7 +24,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_unreserved",
-      "topicSlug": "commercerentalunit-unreserved",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:47:36.000Z",
       "deprecated": false
@@ -40,7 +38,6 @@
         "Commerce"
       ],
       "topic": "commerce.discounts.coupon_entered",
-      "topicSlug": "commercediscountscoupon-entered",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:10:39.000Z",
       "deprecated": false
@@ -55,7 +52,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_rented",
-      "topicSlug": "commercerentalunit-rented",
       "aliases": [
         {
           "name": "Room Booked",
@@ -76,7 +72,6 @@
         "Software"
       ],
       "topic": "software.access.access_created",
-      "topicSlug": "softwareaccessaccess-created",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:16:32.000Z",
       "deprecated": false
@@ -91,7 +86,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_cancelled",
-      "topicSlug": "commerceshippingshipment-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:00:27.000Z",
       "deprecated": false
@@ -106,7 +100,6 @@
         "CRM"
       ],
       "topic": "crm.communications.message_recieved",
-      "topicSlug": "crmcommunicationsmessage-recieved",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:37:18.000Z",
       "deprecated": false
@@ -121,7 +114,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_upgraded",
-      "topicSlug": "commercerentalunit-upgraded",
       "aliases": [
         {
           "name": "Room Upgraded",
@@ -142,7 +134,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_credited",
-      "topicSlug": "financesinvoicinginvoice-credited",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:48:29.000Z",
       "deprecated": false
@@ -157,7 +148,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_abandoned",
-      "topicSlug": "commercecheckoutcheckout-abandoned",
       "aliases": [
         {
           "name": "Booking Abandoned",
@@ -178,7 +168,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.list_viewed",
-      "topicSlug": "commerceitem-listlist-viewed",
       "aliases": [
         {
           "name": "Cart Viewed",
@@ -199,7 +188,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_instance_restarted",
-      "topicSlug": "softwaresolutionssolution-instance-restarted",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:00:17.000Z",
       "deprecated": false
@@ -214,7 +202,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_method_validated",
-      "topicSlug": "financespaymentspayment-method-validated",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:51:27.000Z",
       "deprecated": false
@@ -229,7 +216,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_asset_engadged",
-      "topicSlug": "publicitymarketingcampaign-asset-engadged",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:10:40.000Z",
       "deprecated": false
@@ -244,7 +230,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_instance_scaled",
-      "topicSlug": "softwaresolutionssolution-instance-scaled",
       "aliases": [],
       "lastUpdated": "2025-07-15T20:59:54.000Z",
       "deprecated": false
@@ -259,7 +244,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_started",
-      "topicSlug": "commerceshippingpicking-started",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:03:46.000Z",
       "deprecated": false
@@ -274,7 +258,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_deactivated",
-      "topicSlug": "softwareprovisioningentity-deactivated",
       "aliases": [
         {
           "name": "Account Deactivated",
@@ -300,7 +283,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_updated",
-      "topicSlug": "softwaresolutionssolution-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:16:27.000Z",
       "deprecated": false
@@ -315,7 +297,6 @@
         "Commerce"
       ],
       "topic": "commerce.services.service_renewed",
-      "topicSlug": "commerceservicesservice-renewed",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:33:44.000Z",
       "deprecated": false
@@ -330,7 +311,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.item_removed",
-      "topicSlug": "commerceitem-listitem-removed",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:08:09.000Z",
       "deprecated": false
@@ -345,7 +325,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_created",
-      "topicSlug": "commerceshippingshipment-created",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:58:24.000Z",
       "deprecated": false
@@ -360,7 +339,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_cancelled",
-      "topicSlug": "commercepurchasingpurchase-cancelled",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:09:54.000Z",
       "deprecated": false
@@ -375,7 +353,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_completed",
-      "topicSlug": "commercecheckoutcheckout-completed",
       "aliases": [
         {
           "name": "Booking Completed",
@@ -396,7 +373,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_aborted",
-      "topicSlug": "commercecheckoutcheckout-aborted",
       "aliases": [
         {
           "name": "Booking Aborted",
@@ -417,7 +393,6 @@
         "Commerce"
       ],
       "topic": "commerce.discovery.item_viewed",
-      "topicSlug": "commercediscoveryitem-viewed",
       "aliases": [
         {
           "name": "Hotel Viewed",
@@ -438,7 +413,6 @@
         "Event"
       ],
       "topic": "event.scheduling.event_scheduled",
-      "topicSlug": "eventschedulingevent-scheduled",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:17:06.000Z",
       "deprecated": false
@@ -453,7 +427,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_delivered",
-      "topicSlug": "commerceshippingshipment-delivered",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:59:36.000Z",
       "deprecated": false
@@ -468,7 +441,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_paused",
-      "topicSlug": "commerceshippingpicking-paused",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:35:23.000Z",
       "deprecated": false
@@ -483,7 +455,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_invitation_accepted",
-      "topicSlug": "servicesmembershipmembership-invitation-accepted",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:20:04.000Z",
       "deprecated": false
@@ -498,7 +469,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_overdue",
-      "topicSlug": "financesinvoicinginvoice-overdue",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:01:08.000Z",
       "deprecated": false
@@ -513,7 +483,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_ended",
-      "topicSlug": "servicesmembershipmembership-ended",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:22:51.000Z",
       "deprecated": false
@@ -528,7 +497,6 @@
         "Operational Intelligence"
       ],
       "topic": "operational_intelligence.actionable_intelligence.observation_alert_sent",
-      "topicSlug": "operational-intelligenceactionable-intelligenceobservation-alert-sent",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:46:46.000Z",
       "deprecated": false
@@ -543,7 +511,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_step_viewed",
-      "topicSlug": "commercecheckoutcheckout-step-viewed",
       "aliases": [
         {
           "name": "Booking Step Viewed",
@@ -564,7 +531,6 @@
         "Software"
       ],
       "topic": "software.access.access_activated",
-      "topicSlug": "softwareaccessaccess-activated",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:43:56.000Z",
       "deprecated": false
@@ -579,7 +545,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_activated",
-      "topicSlug": "softwareprovisioningentity-activated",
       "aliases": [
         {
           "name": "Account Activated",
@@ -605,7 +570,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_downgraded",
-      "topicSlug": "commercerentalunit-downgraded",
       "aliases": [
         {
           "name": "Room Downgraded",
@@ -626,7 +590,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_completed",
-      "topicSlug": "commercepurchasingpurchase-completed",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:09:15.000Z",
       "deprecated": false
@@ -641,7 +604,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.list_deleted",
-      "topicSlug": "commerceitem-listlist-deleted",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:56:29.000Z",
       "deprecated": false
@@ -656,7 +618,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_line_created",
-      "topicSlug": "financesinvoicinginvoice-line-created",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:42:44.000Z",
       "deprecated": false
@@ -671,7 +632,6 @@
         "Event"
       ],
       "topic": "event.scheduling.event_cancelled",
-      "topicSlug": "eventschedulingevent-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:19:27.000Z",
       "deprecated": false
@@ -686,7 +646,6 @@
         "Data"
       ],
       "topic": "data.data_onboarding.data_linked",
-      "topicSlug": "datadata-onboardingdata-linked",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:27:00.000Z",
       "deprecated": false
@@ -701,7 +660,6 @@
         "Commerce"
       ],
       "topic": "commerce.services.service_suspended",
-      "topicSlug": "commerceservicesservice-suspended",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:34:28.000Z",
       "deprecated": false
@@ -716,7 +674,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_invitation_expired",
-      "topicSlug": "servicesmembershipmembership-invitation-expired",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:20:13.000Z",
       "deprecated": false
@@ -731,7 +688,6 @@
         "Commerce"
       ],
       "topic": "commerce.services.service_created",
-      "topicSlug": "commerceservicesservice-created",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:33:24.000Z",
       "deprecated": false
@@ -746,7 +702,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_reserved",
-      "topicSlug": "commercerentalunit-reserved",
       "aliases": [
         {
           "name": "Room Reserved",
@@ -767,7 +722,6 @@
         "Commerce"
       ],
       "topic": "commerce.inventory.item_inventory_level_verified",
-      "topicSlug": "commerceinventoryitem-inventory-level-verified",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:06:40.000Z",
       "deprecated": false
@@ -782,7 +736,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.list_abandoned",
-      "topicSlug": "commerceitem-listlist-abandoned",
       "aliases": [
         {
           "name": "Cart Abandoned",
@@ -803,7 +756,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_created",
-      "topicSlug": "financesinvoicinginvoice-created",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:48:16.000Z",
       "deprecated": false
@@ -818,7 +770,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_line_deleted",
-      "topicSlug": "financesinvoicinginvoice-line-deleted",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:43:19.000Z",
       "deprecated": false
@@ -833,7 +784,6 @@
         "Software"
       ],
       "topic": "software.access.access_updated",
-      "topicSlug": "softwareaccessaccess-updated",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:16:54.000Z",
       "deprecated": false
@@ -848,7 +798,6 @@
         "Operational Intelligence"
       ],
       "topic": "operational_intelligence.decision_support.trend_change_detected",
-      "topicSlug": "operational-intelligencedecision-supporttrend-change-detected",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:06:42.000Z",
       "deprecated": false
@@ -863,7 +812,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_refreshed",
-      "topicSlug": "commercerentalunit-refreshed",
       "aliases": [
         {
           "name": "Room Cleaned",
@@ -884,7 +832,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_installed",
-      "topicSlug": "softwaresolutionssolution-installed",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:33:25.000Z",
       "deprecated": false
@@ -899,7 +846,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_allocated",
-      "topicSlug": "commercerentalunit-allocated",
       "aliases": [
         {
           "name": "Room Allocated",
@@ -920,7 +866,6 @@
         "Social"
       ],
       "topic": "social.engagement.item_engaged",
-      "topicSlug": "socialengagementitem-engaged",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:14:05.000Z",
       "deprecated": false
@@ -935,7 +880,6 @@
         "Software"
       ],
       "topic": "software.access.access_verified",
-      "topicSlug": "softwareaccessaccess-verified",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:48:33.000Z",
       "deprecated": false
@@ -950,7 +894,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_due",
-      "topicSlug": "financesinvoicinginvoice-due",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:00:43.000Z",
       "deprecated": false
@@ -965,7 +908,6 @@
         "Data"
       ],
       "topic": "data.data_onboarding.data_consumed",
-      "topicSlug": "datadata-onboardingdata-consumed",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:25:42.000Z",
       "deprecated": false
@@ -980,7 +922,6 @@
         "Software"
       ],
       "topic": "software.access.access_denied",
-      "topicSlug": "softwareaccessaccess-denied",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:16:54.000Z",
       "deprecated": false
@@ -995,7 +936,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.item_added",
-      "topicSlug": "commerceitem-listitem-added",
       "aliases": [
         {
           "name": "Product Added",
@@ -1016,7 +956,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_line_updated",
-      "topicSlug": "financesinvoicinginvoice-line-updated",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:43:09.000Z",
       "deprecated": false
@@ -1031,7 +970,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_updated",
-      "topicSlug": "commercepurchasingpurchase-updated",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:09:44.000Z",
       "deprecated": false
@@ -1046,7 +984,6 @@
         "Event"
       ],
       "topic": "event.scheduling.event_ended",
-      "topicSlug": "eventschedulingevent-ended",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:18:20.000Z",
       "deprecated": false
@@ -1061,7 +998,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.list_created",
-      "topicSlug": "commerceitem-listlist-created",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:30:09.000Z",
       "deprecated": false
@@ -1076,7 +1012,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_commissioned",
-      "topicSlug": "commercerentalunit-commissioned",
       "aliases": [
         {
           "name": "Room Commissioned",
@@ -1097,7 +1032,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.discount_applied",
-      "topicSlug": "financesinvoicingdiscount-applied",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:42:18.000Z",
       "deprecated": false
@@ -1112,7 +1046,6 @@
         "CRM"
       ],
       "topic": "crm.support.support_case_closed",
-      "topicSlug": "crmsupportsupport-case-closed",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:48:16.000Z",
       "deprecated": false
@@ -1127,7 +1060,6 @@
         "Software"
       ],
       "topic": "software.access.session_ended",
-      "topicSlug": "softwareaccesssession-ended",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:07:35.000Z",
       "deprecated": false
@@ -1142,7 +1074,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.payment_information_entered",
-      "topicSlug": "commercecheckoutpayment-information-entered",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:09:09.000Z",
       "deprecated": false
@@ -1157,7 +1088,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_returned",
-      "topicSlug": "commerceshippingshipment-returned",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:59:42.000Z",
       "deprecated": false
@@ -1172,7 +1102,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_cancelled",
-      "topicSlug": "commercerentalunit-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:28:55.000Z",
       "deprecated": false
@@ -1187,7 +1116,6 @@
         "Event"
       ],
       "topic": "event.scheduling.event_started",
-      "topicSlug": "eventschedulingevent-started",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:18:14.000Z",
       "deprecated": false
@@ -1202,7 +1130,6 @@
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_paused",
-      "topicSlug": "consumptionconsumptionconsumption-paused",
       "aliases": [
         {
           "name": "Playback Paused",
@@ -1223,7 +1150,6 @@
         "Software"
       ],
       "topic": "software.access.session_started",
-      "topicSlug": "softwareaccesssession-started",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:48:14.000Z",
       "deprecated": false
@@ -1238,7 +1164,6 @@
         "Social"
       ],
       "topic": "social.engagement.item_reviewed",
-      "topicSlug": "socialengagementitem-reviewed",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:11:32.000Z",
       "deprecated": false
@@ -1253,7 +1178,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_step_completed",
-      "topicSlug": "commercecheckoutcheckout-step-completed",
       "aliases": [
         {
           "name": "Booking Step Completed",
@@ -1274,7 +1198,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_written_off",
-      "topicSlug": "financesinvoicinginvoice-written-off",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:41:49.000Z",
       "deprecated": false
@@ -1289,7 +1212,6 @@
         "Operational Intelligence"
       ],
       "topic": "operational_intelligence.actionable_intelligence.opportunity_detected",
-      "topicSlug": "operational-intelligenceactionable-intelligenceopportunity-detected",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:24:48.000Z",
       "deprecated": false
@@ -1304,7 +1226,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.item_unreserved",
-      "topicSlug": "commercepurchasingitem-unreserved",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:51:22.000Z",
       "deprecated": false
@@ -1319,7 +1240,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_demoted",
-      "topicSlug": "softwareprovisioningentity-demoted",
       "aliases": [
         {
           "name": "Account Demoted",
@@ -1345,7 +1265,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_removed",
-      "topicSlug": "softwareprovisioningentity-removed",
       "aliases": [
         {
           "name": "Account Removed",
@@ -1371,7 +1290,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_method_added",
-      "topicSlug": "financespaymentspayment-method-added",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:33:09.000Z",
       "deprecated": false
@@ -1386,7 +1304,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_created",
-      "topicSlug": "softwareprovisioningentity-created",
       "aliases": [
         {
           "name": "Account Created",
@@ -1412,7 +1329,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_deallocated",
-      "topicSlug": "commercerentalunit-deallocated",
       "aliases": [
         {
           "name": "Room Deallocated",
@@ -1433,7 +1349,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_instance_stopped",
-      "topicSlug": "softwaresolutionssolution-instance-stopped",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:36:23.000Z",
       "deprecated": false
@@ -1448,7 +1363,6 @@
         "Finances"
       ],
       "topic": "finances.collection.collection_reminder_sent",
-      "topicSlug": "financescollectioncollection-reminder-sent",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:48:42.000Z",
       "deprecated": false
@@ -1463,7 +1377,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_decommissioned",
-      "topicSlug": "commercerentalunit-decommissioned",
       "aliases": [
         {
           "name": "Room Decommissioned",
@@ -1484,7 +1397,6 @@
         "CRM"
       ],
       "topic": "crm.communications.message_opened",
-      "topicSlug": "crmcommunicationsmessage-opened",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:39:52.000Z",
       "deprecated": false
@@ -1499,7 +1411,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_started",
-      "topicSlug": "servicesmembershipmembership-started",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:16:45.000Z",
       "deprecated": false
@@ -1514,7 +1425,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_promoted",
-      "topicSlug": "softwareprovisioningentity-promoted",
       "aliases": [
         {
           "name": "Account Promoted",
@@ -1540,7 +1450,6 @@
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_stoped",
-      "topicSlug": "consumptionconsumptionconsumption-stoped",
       "aliases": [
         {
           "name": "Playback Stops",
@@ -1561,7 +1470,6 @@
         "Commerce"
       ],
       "topic": "commerce.inventory.item_stocked",
-      "topicSlug": "commerceinventoryitem-stocked",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:05:17.000Z",
       "deprecated": false
@@ -1576,7 +1484,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_cancelled",
-      "topicSlug": "servicesmembershipmembership-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:51:06.000Z",
       "deprecated": false
@@ -1591,7 +1498,6 @@
         "Software"
       ],
       "topic": "software.access.access_granted",
-      "topicSlug": "softwareaccessaccess-granted",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:16:46.000Z",
       "deprecated": false
@@ -1606,7 +1512,6 @@
         "Commerce"
       ],
       "topic": "commerce.discounts.coupon_rejected",
-      "topicSlug": "commercediscountscoupon-rejected",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:53:43.000Z",
       "deprecated": false
@@ -1621,7 +1526,6 @@
         "CRM"
       ],
       "topic": "crm.communications.message_bounced",
-      "topicSlug": "crmcommunicationsmessage-bounced",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:37:28.000Z",
       "deprecated": false
@@ -1636,7 +1540,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_location_updated",
-      "topicSlug": "commerceshippingshipment-location-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:59:29.000Z",
       "deprecated": false
@@ -1651,7 +1554,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_invitation_sent",
-      "topicSlug": "servicesmembershipmembership-invitation-sent",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:19:55.000Z",
       "deprecated": false
@@ -1666,7 +1568,6 @@
         "Commerce"
       ],
       "topic": "commerce.inventory.item_stockout_detected",
-      "topicSlug": "commerceinventoryitem-stockout-detected",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:05:41.000Z",
       "deprecated": false
@@ -1681,7 +1582,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_scheduled",
-      "topicSlug": "financespaymentspayment-scheduled",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:32:11.000Z",
       "deprecated": false
@@ -1696,7 +1596,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_status_updated",
-      "topicSlug": "commerceshippingpicking-status-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:04:18.000Z",
       "deprecated": false
@@ -1711,7 +1610,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_method_invalidated",
-      "topicSlug": "financespaymentspayment-method-invalidated",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:32:38.000Z",
       "deprecated": false
@@ -1726,7 +1624,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_asset_viewed",
-      "topicSlug": "publicitymarketingcampaign-asset-viewed",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:11:56.000Z",
       "deprecated": false
@@ -1741,7 +1638,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_expired",
-      "topicSlug": "servicesmembershipmembership-expired",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:21:32.000Z",
       "deprecated": false
@@ -1756,7 +1652,6 @@
         "Commerce"
       ],
       "topic": "commerce.services.service_expired",
-      "topicSlug": "commerceservicesservice-expired",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:34:14.000Z",
       "deprecated": false
@@ -1771,7 +1666,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_serviced",
-      "topicSlug": "commercerentalunit-serviced",
       "aliases": [
         {
           "name": "Room Cleaned",
@@ -1792,7 +1686,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_downgraded",
-      "topicSlug": "softwaresolutionssolution-downgraded",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:16:36.000Z",
       "deprecated": false
@@ -1807,7 +1700,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_paused",
-      "topicSlug": "publicitymarketingcampaign-paused",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:11:49.000Z",
       "deprecated": false
@@ -1822,7 +1714,6 @@
         "Data"
       ],
       "topic": "data.data_onboarding.data_ingested",
-      "topicSlug": "datadata-onboardingdata-ingested",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:25:33.000Z",
       "deprecated": false
@@ -1837,7 +1728,6 @@
         "Social"
       ],
       "topic": "social.engagement.item_shared",
-      "topicSlug": "socialengagementitem-shared",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:11:22.000Z",
       "deprecated": false
@@ -1852,7 +1742,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.shipment_sent",
-      "topicSlug": "commerceshippingshipment-sent",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:58:59.000Z",
       "deprecated": false
@@ -1867,7 +1756,6 @@
         "Commerce"
       ],
       "topic": "commerce.services.service_cancelled",
-      "topicSlug": "commerceservicesservice-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:33:54.000Z",
       "deprecated": false
@@ -1882,7 +1770,6 @@
         "Software"
       ],
       "topic": "software.provisioning.entity_purged",
-      "topicSlug": "softwareprovisioningentity-purged",
       "aliases": [
         {
           "name": "Account Purged",
@@ -1908,7 +1795,6 @@
         "Commerce"
       ],
       "topic": "commerce.discovery.item_list_viewed",
-      "topicSlug": "commercediscoveryitem-list-viewed",
       "aliases": [
         {
           "name": "Hotel List Viewed",
@@ -1934,7 +1820,6 @@
         "Software"
       ],
       "topic": "software.access.access_reset_requested",
-      "topicSlug": "softwareaccessaccess-reset-requested",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:01:13.000Z",
       "deprecated": false
@@ -1949,7 +1834,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_resumed",
-      "topicSlug": "commerceshippingpicking-resumed",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:35:32.000Z",
       "deprecated": false
@@ -1964,7 +1848,6 @@
         "Commerce"
       ],
       "topic": "commerce.discounts.coupon_applied",
-      "topicSlug": "commercediscountscoupon-applied",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:10:41.000Z",
       "deprecated": false
@@ -1979,7 +1862,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_cancelled",
-      "topicSlug": "commerceshippingpicking-cancelled",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:34:56.000Z",
       "deprecated": false
@@ -1994,7 +1876,6 @@
         "Commerce"
       ],
       "topic": "commerce.inventory.item_stockout_ended",
-      "topicSlug": "commerceinventoryitem-stockout-ended",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:05:57.000Z",
       "deprecated": false
@@ -2009,7 +1890,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_started",
-      "topicSlug": "publicitymarketingcampaign-started",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:11:35.000Z",
       "deprecated": false
@@ -2024,7 +1904,6 @@
         "Commerce"
       ],
       "topic": "commerce.discounts.coupon_removed",
-      "topicSlug": "commercediscountscoupon-removed",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:10:50.000Z",
       "deprecated": false
@@ -2039,7 +1918,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_refunded",
-      "topicSlug": "commercepurchasingpurchase-refunded",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:10:04.000Z",
       "deprecated": false
@@ -2054,7 +1932,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_returned",
-      "topicSlug": "commercerentalunit-returned",
       "aliases": [
         {
           "name": "Room Checkout Completed",
@@ -2075,7 +1952,6 @@
         "Commerce"
       ],
       "topic": "commerce.discovery.items_compared",
-      "topicSlug": "commercediscoveryitems-compared",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:38:19.000Z",
       "deprecated": false
@@ -2090,7 +1966,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.item_reserved",
-      "topicSlug": "commercepurchasingitem-reserved",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:52:44.000Z",
       "deprecated": false
@@ -2105,7 +1980,6 @@
         "Commerce"
       ],
       "topic": "commerce.discovery.item_searched",
-      "topicSlug": "commercediscoveryitem-searched",
       "aliases": [
         {
           "name": "Accommodation Searched",
@@ -2131,7 +2005,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_asset_sent",
-      "topicSlug": "publicitymarketingcampaign-asset-sent",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:12:46.000Z",
       "deprecated": false
@@ -2146,7 +2019,6 @@
         "Finances"
       ],
       "topic": "finances.invoicing.invoice_drafted",
-      "topicSlug": "financesinvoicinginvoice-drafted",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:32:12.000Z",
       "deprecated": false
@@ -2161,7 +2033,6 @@
         "CRM"
       ],
       "topic": "crm.crm.customer_details_updated",
-      "topicSlug": "crmcrmcustomer-details-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:53:20.000Z",
       "deprecated": false
@@ -2176,7 +2047,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.list_expired",
-      "topicSlug": "commerceitem-listlist-expired",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:56:57.000Z",
       "deprecated": false
@@ -2191,7 +2061,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_failed",
-      "topicSlug": "financespaymentspayment-failed",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:49:00.000Z",
       "deprecated": false
@@ -2206,7 +2075,6 @@
         "Software"
       ],
       "topic": "software.access.access_expired",
-      "topicSlug": "softwareaccessaccess-expired",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:16:42.000Z",
       "deprecated": false
@@ -2221,7 +2089,6 @@
         "Software"
       ],
       "topic": "software.access.access_credentials_reset",
-      "topicSlug": "softwareaccessaccess-credentials-reset",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:01:35.000Z",
       "deprecated": false
@@ -2236,7 +2103,6 @@
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_resumed",
-      "topicSlug": "consumptionconsumptionconsumption-resumed",
       "aliases": [
         {
           "name": "Playback Resumed",
@@ -2257,7 +2123,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_cancellation_requested",
-      "topicSlug": "commercepurchasingpurchase-cancellation-requested",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:46:20.000Z",
       "deprecated": false
@@ -2272,7 +2137,6 @@
         "CRM"
       ],
       "topic": "crm.support.support_case_update",
-      "topicSlug": "crmsupportsupport-case-update",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:48:07.000Z",
       "deprecated": false
@@ -2287,7 +2151,6 @@
         "Commerce"
       ],
       "topic": "commerce.rental.unit_inspected",
-      "topicSlug": "commercerentalunit-inspected",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:29:45.000Z",
       "deprecated": false
@@ -2302,7 +2165,6 @@
         "Operational Intelligence"
       ],
       "topic": "operational_intelligence.actionable_intelligence.observation_made",
-      "topicSlug": "operational-intelligenceactionable-intelligenceobservation-made",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:34:07.000Z",
       "deprecated": false
@@ -2317,7 +2179,6 @@
         "CRM"
       ],
       "topic": "crm.support.support_case_created",
-      "topicSlug": "crmsupportsupport-case-created",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:47:26.000Z",
       "deprecated": false
@@ -2332,7 +2193,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_resumed",
-      "topicSlug": "publicitymarketingcampaign-resumed",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:11:56.000Z",
       "deprecated": false
@@ -2347,7 +2207,6 @@
         "Finances"
       ],
       "topic": "finances.collection.collection_status_changed",
-      "topicSlug": "financescollectioncollection-status-changed",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:57:27.000Z",
       "deprecated": false
@@ -2362,7 +2221,6 @@
         "CRM"
       ],
       "topic": "crm.support.support_case_solved",
-      "topicSlug": "crmsupportsupport-case-solved",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:48:26.000Z",
       "deprecated": false
@@ -2377,7 +2235,6 @@
         "Data"
       ],
       "topic": "data.data_onboarding.data_enriched",
-      "topicSlug": "datadata-onboardingdata-enriched",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:26:37.000Z",
       "deprecated": false
@@ -2392,7 +2249,6 @@
         "Commerce"
       ],
       "topic": "commerce.item_list.item_count_changed",
-      "topicSlug": "commerceitem-listitem-count-changed",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:51:55.000Z",
       "deprecated": false
@@ -2402,13 +2258,11 @@
       "airtableId": "recuVKY11Jd9VztCV",
       "name": "Consumption Failed",
       "description": "When playback of a media item failed",
-      "description": "When playback of a media item failed",
       "category": "Consumption",
       "domain": [
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_failed",
-      "topicSlug": "consumptionconsumptionconsumption-failed",
       "aliases": [
         {
           "name": "Playback Failed",
@@ -2429,7 +2283,6 @@
         "Software"
       ],
       "topic": "software.access.access_assistance_sent",
-      "topicSlug": "softwareaccessaccess-assistance-sent",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:38:16.000Z",
       "deprecated": false
@@ -2444,7 +2297,6 @@
         "Services"
       ],
       "topic": "services.membership.membership_terminated",
-      "topicSlug": "servicesmembershipmembership-terminated",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:24:13.000Z",
       "deprecated": false
@@ -2459,7 +2311,6 @@
         "Software"
       ],
       "topic": "software.access.session_expired",
-      "topicSlug": "softwareaccesssession-expired",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:42:46.000Z",
       "deprecated": false
@@ -2474,7 +2325,6 @@
         "Software"
       ],
       "topic": "software.access.access_removed",
-      "topicSlug": "softwareaccessaccess-removed",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:17:08.000Z",
       "deprecated": false
@@ -2489,7 +2339,6 @@
         "CRM"
       ],
       "topic": "crm.communications.message_sent",
-      "topicSlug": "crmcommunicationsmessage-sent",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:36:43.000Z",
       "deprecated": false
@@ -2504,7 +2353,6 @@
         "Social"
       ],
       "topic": "social.engagement.item_rated",
-      "topicSlug": "socialengagementitem-rated",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:56:10.000Z",
       "deprecated": false
@@ -2519,7 +2367,6 @@
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_started",
-      "topicSlug": "consumptionconsumptionconsumption-started",
       "aliases": [
         {
           "name": "Playback Started",
@@ -2540,7 +2387,6 @@
         "Finances"
       ],
       "topic": "finances.payments.payment_made",
-      "topicSlug": "financespaymentspayment-made",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:48:06.000Z",
       "deprecated": false
@@ -2555,7 +2401,6 @@
         "Operational Intelligence"
       ],
       "topic": "operational_intelligence.decision_support.projection_updated",
-      "topicSlug": "operational-intelligencedecision-supportprojection-updated",
       "aliases": [],
       "lastUpdated": "2025-07-15T21:06:02.000Z",
       "deprecated": false
@@ -2570,7 +2415,6 @@
         "Software"
       ],
       "topic": "software.access.access_suspended",
-      "topicSlug": "softwareaccessaccess-suspended",
       "aliases": [],
       "lastUpdated": "2025-07-16T14:43:38.000Z",
       "deprecated": false
@@ -2585,7 +2429,6 @@
         "CRM"
       ],
       "topic": "crm.support.support_case_reopened",
-      "topicSlug": "crmsupportsupport-case-reopened",
       "aliases": [],
       "lastUpdated": "2025-07-13T15:48:39.000Z",
       "deprecated": false
@@ -2600,7 +2443,6 @@
         "Publicity"
       ],
       "topic": "publicity.marketing.campaign_ended",
-      "topicSlug": "publicitymarketingcampaign-ended",
       "aliases": [],
       "lastUpdated": "2025-07-16T11:11:43.000Z",
       "deprecated": false
@@ -2615,7 +2457,6 @@
         "Commerce"
       ],
       "topic": "commerce.purchasing.purchase_cancellation_rejected",
-      "topicSlug": "commercepurchasingpurchase-cancellation-rejected",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:46:34.000Z",
       "deprecated": false
@@ -2630,7 +2471,6 @@
         "Commerce"
       ],
       "topic": "commerce.shipping.picking_completed",
-      "topicSlug": "commerceshippingpicking-completed",
       "aliases": [],
       "lastUpdated": "2025-07-15T18:58:52.000Z",
       "deprecated": false
@@ -2645,7 +2485,6 @@
         "Data"
       ],
       "topic": "data.data_onboarding.data_analysed",
-      "topicSlug": "datadata-onboardingdata-analysed",
       "aliases": [],
       "lastUpdated": "2025-07-15T19:26:53.000Z",
       "deprecated": false
@@ -2660,7 +2499,6 @@
         "CRM"
       ],
       "topic": "crm.crm.customer_communication_logged",
-      "topicSlug": "crmcrmcustomer-communication-logged",
       "aliases": [],
       "lastUpdated": "2025-07-15T17:53:55.000Z",
       "deprecated": false
@@ -2675,7 +2513,6 @@
         "Consumption"
       ],
       "topic": "consumption.consumption.consumption_error",
-      "topicSlug": "consumptionconsumptionconsumption-error",
       "aliases": [
         {
           "name": "Playback Errors Detected",
@@ -2696,7 +2533,6 @@
         "Software"
       ],
       "topic": "software.solutions.solution_uninstalled",
-      "topicSlug": "softwaresolutionssolution-uninstalled",
       "aliases": [],
       "lastUpdated": "2025-07-15T20:59:12.000Z",
       "deprecated": false
@@ -2711,7 +2547,6 @@
         "Commerce"
       ],
       "topic": "commerce.checkout.checkout_started",
-      "topicSlug": "commercecheckoutcheckout-started",
       "aliases": [
         {
           "name": "Booking Started",

@@ -1,0 +1,50 @@
+---
+title: Processing Controls
+prompt: |
+    Now, in the same way, write a detailed section titled "Processing Controls" where you explain the analyse and integrations properties available for Semantic Events.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+Beyond the core properties, a Semantic Event provides two powerful dictionary objects—`analyse` and `integrations`—that give you fine-grained, dynamic control over how each event is processed and routed by our servers after it's received.
+
+These properties allow you to override default account-level settings on a per-event basis, enabling sophisticated workflows, cost management, and compliance strategies.
+
+---
+
+## The `analyse` Property
+
+Our platform performs several automated analysis and enrichment tasks on incoming events, such as sentiment analysis, entity linking, and classification. The `analyse` object acts as a set of switches to control this behavior for a single event.
+
+You can use it to disable a specific analysis that would otherwise run, or to enable one that is disabled by default. The keys in the dictionary correspond to the name of the analysis process.
+
+For example, if you are sending a high volume of low-importance events, you might want to disable costly analysis to save resources:
+
+` "analyse": { "sentimentAnalysis": false, "intentDetection": false } `
+
+| Property           | Description                                                                 | Provided By              |
+| ------------------ | --------------------------------------------------------------------------- | ------------------------ |
+| `[analysis_name]`  | A boolean (`true` or `false`) flag to enable or disable a specific analysis process. | User-Provided (Optional) |
+
+---
+
+## The `integrations` Property
+
+The `integrations` object controls which downstream destinations the event should be forwarded to. This is crucial for managing data flows to various tools like data warehouses, analytics platforms, or marketing automation systems.
+
+By default, an event is sent to all configured integrations. The `integrations` object allows you to modify this behavior. The keys in the dictionary are the names of your configured integrations.
+
+**Excluding a Destination:**
+To prevent an event from being sent to a specific tool, set its key to `false`.
+
+` "integrations": { "Google Analytics": false } `
+
+**Sending to Only One Destination:**
+To send an event *only* to a specific destination and nowhere else, set the special property `all` to `false` and the desired destination to `true`.
+
+` "integrations": { "all": false, "BigQuery": true } `
+
+| Property               | Description                                                                                                    | Provided By              |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `all`                  | A special boolean property. If `false`, the event will not be sent to any integration unless explicitly enabled. | User-Provided (Optional) |
+| `[integration_name]`   | A boolean (`true` or `false`) flag to enable or disable forwarding to a specific destination.                  | User-Provided (Optional) |

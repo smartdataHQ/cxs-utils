@@ -1,0 +1,74 @@
+---
+title: Commerce
+prompt: |
+    Now, in the same way, write a detailed section titled "Commerce" where you explain the Commerce structure in Semantic Events. You must include all the properties and all enums values available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
+    We will document the product structure later on. Only reference it here. Include a good description for each group of properties and discuss how some of the "header properties" ar aggregations of the items in the products list. Also detail how we have extended this structure and how proper use of it unlocks dashboards, analysis and projection models.
+    Use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `Commerce` object is a rich and comprehensive structure designed to capture every detail of a commercial transaction. It builds upon standard e-commerce tracking specifications but extends them significantly to provide deeper insights for advanced analytics, operational intelligence, and financial modeling.
+
+Properly instrumenting commerce events is one of the most powerful things you can do with the Context Suite. When you send detailed transaction data using this structure, you don't just log a sale; you provide the raw material for a suite of automated tools. Our systems use this data to instantly populate pre-built dashboards, run cohort analyses, generate sales forecasts, and provide a real-time view of your business's financial health.
+
+---
+
+## Transaction Identifiers
+
+This group of properties is used to uniquely identify the transaction and link it to various entities within your operational ecosystem, such as checkouts, orders, employees, and physical terminals.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `checkout_id` | A unique identifier for the checkout process that led to the order. | User-Provided (Optional) |
+| `order_id` | The unique identifier for the final order. **This is a critical field.** | **User-Provided** |
+| `cart_id` | A unique identifier for the shopping cart. | User-Provided (Optional) |
+| `employee_id` | The ID for the employee or staff member who facilitated the transaction. | User-Provided (Optional) |
+| `external_order_id` | An identifier for the order from an external system (e.g., a marketplace). | User-Provided (Optional) |
+| `terminal_id` | The identifier for the physical point-of-sale terminal used. | User-Provided (Optional) |
+| `affiliation_id` | A unique identifier for an affiliate or partner. | User-Provided (Optional) |
+
+---
+
+## Transaction Details
+
+These properties describe the context of the transaction, including who was involved and how the payment was handled.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `affiliation` | The store or affiliate where the transaction occurred (e.g., "Google Store"). | User-Provided (Optional) |
+| `agent` | The name of the sales agent responsible for the sale. | User-Provided (Optional) |
+| `agent_id` | The unique ID of the sales agent. | User-Provided (Optional) |
+| `sold_location` | The name of the location where the sale occurred. | User-Provided (Optional) |
+| `sold_location_id` | The unique ID of the location where the sale occurred. | User-Provided (Optional) |
+| `business_day` | The official business day of the transaction, if different from the timestamp. | User-Provided (Optional) |
+| `payment_type` | The method of payment (e.g., "Card", "PayPal", "Cash"). | User-Provided (Optional) |
+| `payment_sub_type` | A more specific payment method (e.g., "Visa", "Mastercard"). | User-Provided (Optional) |
+| `payment_details` | Additional payment details (e.g., last 4 digits of a card). | User-Provided (Optional) |
+| `coupon` | The coupon code redeemed for the entire transaction. | User-Provided (Optional) |
+| `details` | A field for any other commerce properties with complex data types. | User-Provided (Optional) |
+
+---
+
+## Financial Summary
+
+These properties provide a top-level financial summary of the entire order. While they can be provided directly, they are often calculated by our system as an aggregation of the financial details from each line item in the `products` array. For example, the top-level `revenue` should equal the sum of the `(unit_price * units)` for every product in the list.
+
+Providing these header-level aggregations is highly recommended as it ensures data integrity and allows for faster processing.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `revenue` | Total gross revenue for the transaction, before taxes and discounts. | **User-Provided** |
+| `tax` | The total tax amount for the entire transaction. | User-Provided (Optional) |
+| `discount` | The total discount amount for the entire transaction. | User-Provided (Optional) |
+| `cogs` | The total cost of goods sold for the transaction. | User-Provided (Optional) |
+| `commission` | The total commission amount for the transaction. | User-Provided (Optional) |
+| `currency` | The ISO 4217 currency code for the transaction (e.g., "USD"). | **User-Provided** |
+| `exchange_rate`| The currency exchange rate used for the transaction. Defaults to `1.0`. | User-Provided (Optional) |
+
+---
+
+## Products
+
+The `products` property is an array that contains one or more `Product` objects. Each object in this array represents a single line item in the order. This is the most critical part of the commerce event, as it provides the granular detail behind the transaction summary.
+
+The full structure of the `Product` object is detailed in its own documentation section.

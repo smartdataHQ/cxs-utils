@@ -1,0 +1,58 @@
+---
+title: Content & Other Properties
+prompt: |
+    Now, in the same way, write a detailed section titled "Content & Other Properties" where you explain the "content" and "properties" properties available for Semantic Events. Content is used to include text content in the event and properties are the "captere all else" storage that can even be used to store json structured natively/effectively by using the Clickhouse impressive support for json content. To not put dimensions, metrics and flags in this section. Those properties have already been covered.
+    Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+While the Semantic Event schema is designed to be comprehensive and structured, real-world data is often messy and unpredictable. To accommodate this, the schema includes two powerful, flexible properties for capturing unstructured text and custom structured data: `content` and `properties`. These serve as the primary mechanisms for extending an event beyond the standard fields, ensuring no valuable information is ever lost.
+
+---
+
+## The `content` Property
+
+The `content` property is a dictionary specifically designed to hold significant blocks of text associated with an event. This is where you would place the raw, unstructured text that is often the subject of the event itself, such as the body of an email, the description of a support ticket, or the content of a user-generated comment.
+
+By structuring text this way, you make it immediately available for downstream processes like Natural Language Processing (NLP), sentiment analysis, and automated entity linking. The keys of the dictionary should be descriptive of the text they contain.
+
+For example, an event for a `Support Ticket Submitted` might have a `content` object like this:
+
+```json
+{
+  "subject": "Issue with my recent order",
+  "body": "Hello, I received order #ORD-12345 today but one of the items was damaged. Can you please assist? Thank you.",
+  "quick_response_suggestion": "Acknowledge damaged item and create replacement order."
+}
+```
+
+| Property  | Description                                                                                             | Provided By            |
+| :-------- | :------------------------------------------------------------------------------------------------------ | :--------------------- |
+| `content` | A dictionary (map) where keys are descriptive labels (e.g., `subject`) and values are the text strings. | User-Provided          |
+
+---
+
+## The `properties` Property
+
+The `properties` property is the ultimate "capture-all" container. It is a flexible dictionary intended for any custom data that does not fit into the standardized fields of the Semantic Event schema. This is the ideal place for application-specific attributes, experimental data, or any unique information you need to record with an event.
+
+Its true power lies in its ability to store richly structured, nested JSON objects. Our data store, built on ClickHouse, has highly efficient native support for JSON, meaning you can store complex data within the `properties` field and still query it effectively without significant performance degradation. This avoids the common pitfall of flattening complex objects into strings, preserving their structure and analytical value.
+
+For example, a `Game Level Completed` event might include custom properties specific to that game:
+
+```json
+{
+  "levelName": "Crystal Caverns",
+  "timeCompletedSeconds": 183,
+  "starsEarned": 3,
+  "character": {
+    "class": "Mage",
+    "healthRemaining": 85,
+    "itemsUsed": ["health_potion", "mana_crystal"]
+  }
+}
+```
+
+| Property     | Description                                                                                                                              | Provided By            |
+| :----------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- |
+| `properties` | A dictionary (map) containing any custom key-value pairs. Values can be simple types (strings, numbers) or complex, nested JSON objects. | User-Provided          |

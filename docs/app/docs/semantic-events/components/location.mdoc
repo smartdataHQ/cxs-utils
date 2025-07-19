@@ -1,0 +1,73 @@
+---
+title: Location
+prompt: |
+    Now, in the same way, write a section titled "Involves" where you explain the Involves structure in Semantic Events. Also detail the structures that contain the implicit involvement like products in the product list (This will be detailed later) and the referenced entities in the entity_linking list and the contextual_awareness list. Together, these structures are used to create the graph for each event.
+    Document the properties of entity_linking and contextual_awareness as well as alternative ways that encapsulate relevant entities. Please not that these two structures are usually enriched and linked on the server-side. Entity-linking is based and NER and contextual_awareness is based on looking up relevant facts about the involved/referenced entities online.
+    Use a simple table when that is the most intuitive way to list properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
+    Show a great example of a simple jitsu event and the enriched json version using a case where NER is uesd to identify things in "content" and contextual information about the linked entity is relevant for further analysis of the event.
+    All you output needs to be wrapped in the same markdown element. Never break out of that single markdown block. You must never add citation to any output. You must always escape everything that breaks out of the markdown mode. You must always use as single "`"when annotating special sections. I will add the other "`" on our side. You must never use ``` in your putput.
+---
+
+The `Location` object is a crucial component for enriching semantic events with geographical context. Understanding where an event occurs is fundamental to a wide range of analytics, from market segmentation and logistics to personalization and fraud detection.
+
+An event can be associated with multiple locations. For instance, a `Product Shipped` event could have one location object for the origin warehouse and another for the customer's destination address. For this reason, location data is sent as an array of `Location` objects within the main event payload.
+
+```"location": [ { ... location object 1 ... }, { ... location object 2 ... } ]```
+
+---
+
+## Location Properties
+
+The `Location` object contains a mix of properties that can be provided explicitly by the user for maximum accuracy, and properties that can be automatically populated by the Context Suite backend based on other available data (like an IP address or specific coordinates).
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `location_of` | A string describing the role of this location in the event (e.g., "Customer", "Home Address", "Origin Warehouse"). | User-Provided |
+| `label` | A human-readable label for the location (e.g., "Headquarters", "Street name 1, 1234"). | User-Provided (Optional) |
+| `street` | The street name of the location. | User-Provided (Optional) |
+| `street_nr` | The street number of the location. | User-Provided (Optional) |
+| `address` | The full, formatted address string. | User-Provided (Optional) |
+| `postal_code` | The postal code (e.g., "101"). | User-Provided (Optional) |
+| `postal_name` | The name of the postal area (e.g., "Vesturbær"). | User-Provided (Optional) |
+| `longitude` | The longitude coordinate. Providing this allows for precise mapping. | User-Provided (Optional) |
+| `latitude` | The latitude coordinate. Providing this allows for precise mapping. | User-Provided (Optional) |
+| `duration_from` | The start date/time if the location is temporary or valid for a specific period. | User-Provided (Optional) |
+| `duration_until`| The end date/time if the location is temporary or valid for a specific period. | User-Provided (Optional) |
+| `country` | The name of the country (e.g., "Iceland"). | Auto-Populated |
+| `country_code` | The two-letter country code (e.g., "IS"). | Auto-Populated |
+| `region` | The region or state (e.g., "Gullbringu og kjósarsýsla"). | Auto-Populated |
+| `division` | A smaller administrative division. | Auto-Populated |
+| `municipality` | The municipality or city (e.g., "Reykjavik"). | Auto-Populated |
+| `locality` | A more specific locality or neighborhood (e.g., "Vesturbær"). | Auto-Populated |
+| `geohash` | A geohash generated from longitude and latitude for spatial indexing. | Auto-Populated |
+| `code` | A generic code for the location. | User-Provided (Optional) |
+
+**Note on Auto-Population**: Fields marked `Auto-Populated` are typically derived by Context Suite's servers from the user's IP address or from `longitude`/`latitude` coordinates if they are provided. You can override these auto-populated values by providing them explicitly in your event payload for greater accuracy.
+
+---
+
+## Example Usage
+
+Here is an example of a `Product Delivered` event that includes two location objects: one for the warehouse it was sent from, and one for the customer's home where it was delivered.
+```javascript
+    jitsu.track('Product Delivered', {
+      "location": [
+        {
+          "location_of": "Origin Warehouse",
+          "label": "Main Distribution Center",
+          "postal_code": "220",
+          "municipality": "Hafnarfjörður",
+          "country_code": "IS"
+        },
+        {
+          "location_of": "Customer Delivery",
+          "label": "Customer Home",
+          "street": "Laugavegur",
+          "street_nr": "101",
+          "postal_code": "101",
+          "municipality": "Reykjavík",
+          "country_code": "IS"
+        }
+      ]
+    });
+```
