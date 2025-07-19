@@ -22,22 +22,9 @@ import { readMarkdocContent, getMarkdocPath } from '@/lib/markdoc-utils';
 export default function DocsHome() {
   let markdocContent = '';
   try {
-    const markdocPath = getMarkdocPath('app/docs');
+    const markdocPath = getMarkdocPath( 'app/docs/semantic-events/schema');
     markdocContent = readMarkdocContent(markdocPath);
   } catch (error) {
-    console.error('Failed to load Markdoc content:', error);
-    // Provide fallback content
-    markdocContent = `
----
-title: Components
-description: Semantic Events Platform for Modern Applications
----
-
-# ContextSuite
-## Semantic Events Platform
-
-Welcome to the ContextSuite documentation. This platform provides comprehensive semantic event tracking for modern applications.
-    `;
   }
 
   const features = [
@@ -108,6 +95,10 @@ Welcome to the ContextSuite documentation. This platform provides comprehensive 
 
   return (
     <div className="min-h-screen">
+      {/* Markdoc Content */}
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8">
+          <MarkdocRenderer content={markdocContent} />
+      </div>
       {/* Features Grid */}
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
@@ -136,9 +127,6 @@ Welcome to the ContextSuite documentation. This platform provides comprehensive 
           ))}
         </div>
       </div>
-      {/* List all the mdoc files in the directory with the description in their header section */}
-
-
     </div>
   );
 }

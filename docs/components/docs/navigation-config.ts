@@ -66,7 +66,7 @@ export const navigationConfig: NavigationSection[] = [
   {
     title: "Schema Reference",
     items: [
-      { title: 'Semantic Events', href: '/docs/semantic-events/schema/overview', icon: Component, children: [
+      { title: 'Semantic Events', href: '/docs/semantic-events/schema', icon: Component, children: [
         { title: 'Analysis Cost', href: '/docs/semantic-events/schema/analysis-cost', icon: Code },
         { title: 'Classification', href: '/docs/semantic-events/schema/classification', icon: Code },
         { title: 'Commerce', href: '/docs/semantic-events/schema/commerce', icon: Code },
