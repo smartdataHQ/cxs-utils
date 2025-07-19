@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CodeBlock } from '@/components/markdoc/code-block';
+import { MarkdocRenderer } from '@/components/markdoc/markdoc-renderer';
 import { 
   ChevronLeft, 
   Copy, 
@@ -16,7 +17,8 @@ import {
   FileText,
   Code,
   Link as LinkIcon,
-  AlertTriangle
+  AlertTriangle,
+  BookOpen
 } from 'lucide-react';
 
 interface EventDetailPageProps {
@@ -35,6 +37,10 @@ export function EventDetailPage({
   onEventClick 
 }: EventDetailPageProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  // Note: This component is now primarily used for non-main routes
+  // The main event bible route uses server-side rendering
+  const mdocContent = null;
 
   const handleCopy = async (text: string, fieldName: string) => {
     try {
@@ -249,110 +255,45 @@ jitsu.track('${event.name}', {
         </Card>
       )}
 
-      {/* Implementation Examples */}
+      {/* Event Documentation */}
+      {mdocContent && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BookOpen className="h-5 w-5" />
+              Event Documentation
+            </CardTitle>
+            <CardDescription>
+              Detailed documentation and implementation guidance for this event
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <MarkdocRenderer content={mdocContent} />
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Additional Information */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Code className="h-5 w-5" />
-            Implementation Examples
-          </CardTitle>
-          <CardDescription>
-            Use these Jitsu code examples to implement this event in your application
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Basic Example */}
-          <div>
-            <h4 className="text-sm font-semibold mb-3">Basic Implementation</h4>
-            <CodeBlock language="javascript" title="Basic Event Tracking">
-              {basicExample}
-            </CodeBlock>
-          </div>
-
-          {/* Advanced Example */}
-          <div>
-            <h4 className="text-sm font-semibold mb-3">Advanced Implementation</h4>
-            <CodeBlock language="javascript" title="Advanced Event Tracking with Context">
-              {advancedExample}
-            </CodeBlock>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Event Schema Information */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
-            Event Schema
-          </CardTitle>
-          <CardDescription>
-            Core properties and structure for this semantic event
-          </CardDescription>
+          <CardTitle>Implementation Notes</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold">Required Properties</h4>
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between">
-                  <code className="text-xs bg-muted px-1 rounded">category</code>
-                  <span className="text-muted-foreground">{event.category}</span>
-                </div>
-                <div className="flex justify-between">
-                  <code className="text-xs bg-muted px-1 rounded">domain</code>
-                  <span className="text-muted-foreground">{event.domain}</span>
-                </div>
-                <div className="flex justify-between">
-                  <code className="text-xs bg-muted px-1 rounded">topic</code>
-                  <span className="text-muted-foreground">{event.topic}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold">Event Identification</h4>
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between items-center">
-                  <code className="text-xs bg-muted px-1 rounded">event_name</code>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleCopy(event.name, 'schemaEventName')}
-                    className="h-6 px-2"
-                  >
-                    {copiedField === 'schemaEventName' ? (
-                      <Check className="h-3 w-3" />
-                    ) : (
-                      <Copy className="h-3 w-3" />
-                    )}
-                  </Button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <code className="text-xs bg-muted px-1 rounded">airtable_id</code>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleCopy(event.airtable_id, 'airtableId')}
-                    className="h-6 px-2"
-                  >
-                    {copiedField === 'airtableId' ? (
-                      <Check className="h-3 w-3" />
-                    ) : (
-                      <Copy className="h-3 w-3" />
-                    )}
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className="prose prose-sm max-w-none">
+            <h4>Best Practices</h4>
+            <ul>
+              <li>Always include the required category and domain properties</li>
+              <li>Add contextual information relevant to your use case</li>
+              <li>Use consistent property naming across similar events</li>
+              <li>Include user and session identifiers when available</li>
+            </ul>
 
-          {/* Persisted Event JSON */}
-          <div className="mt-6">
-            <h4 className="text-sm font-semibold mb-3">Event Data (Persisted JSON)</h4>
-            <CodeBlock language="json" title="Event Data from Airtable">
-              {JSON.stringify(event, null, 2)}
-            </CodeBlock>
+            <h4>Common Use Cases</h4>
+            <p>
+              This event is typically used in <strong>{event.domain}</strong> contexts
+              for <strong>{event.category}</strong> related activities. Consider the
+              specific requirements of your implementation when adding custom properties.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -419,30 +360,6 @@ jitsu.track('${event.name}', {
         </Card>
       )}
 
-      {/* Additional Information */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Implementation Notes</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="prose prose-sm max-w-none">
-            <h4>Best Practices</h4>
-            <ul>
-              <li>Always include the required category and domain properties</li>
-              <li>Add contextual information relevant to your use case</li>
-              <li>Use consistent property naming across similar events</li>
-              <li>Include user and session identifiers when available</li>
-            </ul>
-            
-            <h4>Common Use Cases</h4>
-            <p>
-              This event is typically used in <strong>{event.domain}</strong> contexts 
-              for <strong>{event.category}</strong> related activities. Consider the 
-              specific requirements of your implementation when adding custom properties.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }
