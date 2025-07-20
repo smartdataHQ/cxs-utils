@@ -1,6 +1,47 @@
-import { readFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { SemanticEvent } from '@/lib/types/event-bible';
+import { OpenAI } from 'openai';
+
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+}) : null;
+
+async function generateMdocContent(event: SemanticEvent): Promise<string> {
+  if (!openai) {
+    throw new Error("OpenAI API key not configured. Please set the OPENAI_API_KEY environment variable.");
+  }
+
+  const templatePath = join(process.cwd(), 'docs/data/event-bible/documentation/template.mdoc');
+  const template = await readFile(templatePath, 'utf8');
+  const schemaPath = join(process.cwd(), 'cxs/schema/pydantic/semantic_event.py');
+  const schema = await readFile(schemaPath, 'utf8');
+
+  const prompt = `
+Based on the following event data and schema, generate a Markdoc file content:
+
+Event Name: ${event.name}
+Description: ${event.description}
+Category: ${event.category}
+Domain: ${event.domain}
+Topic: ${event.topic}
+Aliases: ${JSON.stringify(event.aliases)}
+
+Schema:
+${schema}
+
+Use this template and fill in the placeholders:
+${template}
+`;
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-4-turbo",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+  });
+
+  return response.choices[0].message.content || '';
+}
 
 // Server-side utilities for event bible
 
@@ -87,43 +128,36 @@ export async function getEventWithAliasInfo(eventSlug: string[]): Promise<{
 }
 
 export async function getEventDocumentation(slug: string): Promise<string | null> {
-  try {
-    // First try with the provided slug
-    let docPath = join(process.cwd(), 'data/event-bible/documentation', `${slug}.mdoc`);
-    try {
-      const content = await readFile(docPath, 'utf8');
-      return content.trim() || null;
-    } catch (error) {
-      // If not found and this might be an alias topic, try to find the main event
-      const events = await getEvents();
-      const event = events.find(event => 
-        event.aliases && event.aliases.some(alias => alias.topic === slug)
-      );
+  const docPath = join(process.cwd(), 'data/event-bible/documentation', `${slug}.mdoc`);
 
-      console.log(slug)
+  try {
+    const content = await readFile(docPath, 'utf8');
+    return content.trim();
+  } catch (error: any) {
+    if (error.code === 'ENOENT') {
+      // File not found, try to generate it
+      console.log(`Documentation for ${slug} not found. Attempting to generate...`);
+      const events = await getEvents();
+      const event = events.find(e => e.topic === slug || (e.aliases && e.aliases.some(a => a.topic === slug)));
+
       if (event) {
-        // Try with the main event's topic
-        docPath = join(process.cwd(), 'data/event-bible/documentation', `${slug}.mdoc`);
-        console.log(docPath);
         try {
-          const content = await readFile(docPath, 'utf8');
-          return content.trim() || null;
-        } catch (error) {
-          const generatedSlug = generateEventSlug(event);
-          docPath = join(process.cwd(), 'data/event-bible/documentation', `${generatedSlug}.mdoc`);
-          try {
-            const content = await readFile(docPath, 'utf8');
-            return content.trim() || null;
-          } catch (error) {
-            return null;
-          }
+          const newContent = await generateMdocContent(event);
+          await writeFile(docPath, newContent, 'utf8');
+          console.log(`Successfully generated and saved documentation for ${slug}.`);
+          return newContent;
+        } catch (generationError) {
+          console.error(`Failed to generate documentation for ${slug}:`, generationError);
+          return null;
         }
+      } else {
+        console.log(`No event found for slug ${slug}, cannot generate documentation.`);
+        return null;
       }
-      
+    } else {
+      console.error(`Error reading documentation file for ${slug}:`, error);
       return null;
     }
-  } catch (error) {
-    return null;
   }
 }
 
