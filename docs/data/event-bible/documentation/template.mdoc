@@ -1,34 +1,21 @@
 ---
 title: {{ name }}
-description: {{ description }}
+description: {{ document description }}
 ---
 
 # {{ name }}
 
-{{ description }}
+A detailed description of the event, when it sent and what system should be sending it.
+This section should be written in a way that is easy to understand for both technical and non-technical audiences.
 
-## Event Details
+## When
 
-| Property | Value |
-| --- | --- |
-| **Category** | {{ category }} |
-| **Domain** | {{ domain }} |
-| **Topic** | {{ topic }} |
+## Simple Example
 
-## Aliases
+## Elaborate Example
 
-{% if aliases.length > 0 %}
-| Name | Vertical | Topic |
-| --- | --- | --- |
-{% for alias in aliases %}
-| {{ alias.name }} | {{ alias.vertical }} | {{ alias.topic }} |
-{% endfor %}
-{% else %}
-No aliases found for this event.
-{% endif %}
+## Primary Fields
 
-## Schema
+## Additional Attributes
 
-```python
-{{ schema }}
-```
+## Analysis

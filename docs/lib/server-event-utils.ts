@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile, readdir } from 'fs/promises';
 import { join } from 'path';
 import { SemanticEvent } from '@/lib/types/event-bible';
 import { OpenAI } from 'openai';
@@ -7,19 +7,53 @@ const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 }) : null;
 
+async function getAllMdocFiles(dirPath: string): Promise<string[]> {
+  const dirents = await readdir(dirPath, { withFileTypes: true });
+  const files = await Promise.all(dirents.map(async (dirent) => {
+    const res = join(dirPath, dirent.name);
+    if (dirent.isDirectory()) {
+      return getAllMdocFiles(res);
+    } else if (res.endsWith('.mdoc')) {
+      return res;
+    }
+    return [];
+  }));
+  return Array.prototype.concat(...files);
+}
+
+
 async function generateMdocContent(event: SemanticEvent): Promise<string> {
   if (!openai) {
     throw new Error("OpenAI API key not configured. Please set the OPENAI_API_KEY environment variable.");
   }
 
-  const templatePath = join(process.cwd(), 'docs/data/event-bible/documentation/template.mdoc');
+  const templatePath = join(process.cwd(), 'data/event-bible/documentation/template.mdoc');
   const template = await readFile(templatePath, 'utf8');
-  const schemaPath = join(process.cwd(), 'cxs/schema/pydantic/semantic_event.py');
+  const schemaPath = join(process.cwd(), '../cxs/schema/pydantic/semantic_event.py');
   const schema = await readFile(schemaPath, 'utf8');
+
+  const schemaDocsPath = join(process.cwd(), 'app/docs/semantic-events');
+  const mdocFiles = await getAllMdocFiles(schemaDocsPath);
+  let mdocsContent = '';
+  for (const file of mdocFiles) {
+    const content = await readFile(file, 'utf8');
+    mdocsContent += `\n\n---\n\n${content}`;
+  }
 
   const prompt = `
 Based on the following event data and schema, generate a Markdoc file content:
 
+Consider this schema:
+"""
+${schema}
+"""
+
+And this documentation:
+"""
+${mdocsContent}
+"""
+
+You need to write markdown documentation for the following Semantic Event:
 Event Name: ${event.name}
 Description: ${event.description}
 Category: ${event.category}
@@ -27,16 +61,23 @@ Domain: ${event.domain}
 Topic: ${event.topic}
 Aliases: ${JSON.stringify(event.aliases)}
 
-Schema:
-${schema}
+Documentation principles:
+Use the jitsu client v2 when creating examples. You must only include properties that the client does not add it self.
+Examine all product properites and how they can be relevant when the product structure is being used. Be true to the naming conventions of "Hospitality and Travel"
+In Products, units is always a multiplier of what you pay for. Make sure that the examples are according to the schema and the jitsu track client. 
+Before creating any properties, dimensions or metrics you must make sure that there are no standard properties meant for that same use. Using declared properties is always better than creating generic ones.
 
-Use this template and fill in the placeholders:
+You must not escaped your output as markdown content.
+Use this template while writing the mdoc/markdown documentation content:
+"""
 ${template}
+"""
+
 `;
 
   const response = await openai.chat.completions.create({
     model: "gpt-4-turbo",
-    messages: [{ role: "user", content: prompt }],
+    messages: [{ role: "system", content: prompt }],
     temperature: 0.7,
   });
 
@@ -68,17 +109,17 @@ export async function getEvents(): Promise<SemanticEvent[]> {
 export async function getEventBySlug(eventSlug: string[]): Promise<SemanticEvent | null> {
   const events = await getEvents();
   const slug = eventSlug.join('.');
-  
+
   // First try to match by topic (which is the primary slug format)
   let event = events.find(event => event.topic === slug);
-  
+
   // If not found, try to match by alias topics
   if (!event) {
-    event = events.find(event => 
+    event = events.find(event =>
       event.aliases && event.aliases.some(alias => alias.topic === slug)
     );
   }
-  
+
   // If still not found, try to match by generated slug as fallback
   if (!event) {
     event = events.find(event => {
@@ -86,7 +127,7 @@ export async function getEventBySlug(eventSlug: string[]): Promise<SemanticEvent
       return generatedSlug === slug;
     });
   }
-  
+
   return event || null;
 }
 
@@ -97,33 +138,33 @@ export async function getEventWithAliasInfo(eventSlug: string[]): Promise<{
 }> {
   const events = await getEvents();
   const slug = eventSlug.join('.');
-  
+
   // First try to match by topic (which is the primary slug format)
   let event = events.find(event => event.topic === slug);
   if (event) {
     return { event, isAlias: false };
   }
-  
+
   // Try to match by alias topics
   for (const eventItem of events) {
     if (eventItem.aliases) {
       const matchingAlias = eventItem.aliases.find(alias => alias.topic === slug);
       if (matchingAlias) {
-        return { 
-          event: eventItem, 
-          isAlias: true, 
+        return {
+          event: eventItem,
+          isAlias: true,
           aliasInfo: matchingAlias
         };
       }
     }
   }
-  
+
   // If still not found, try to match by generated slug as fallback
   event = events.find(event => {
     const generatedSlug = generateEventSlug(event);
     return generatedSlug === slug;
   });
-  
+
   return { event: event || null, isAlias: false };
 }
 
