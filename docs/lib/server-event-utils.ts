@@ -43,31 +43,36 @@ async function generateMdocContent(event: SemanticEvent): Promise<string> {
   const prompt = `
 Based on the following event data and schema, generate a Markdoc file content:
 
-Consider this schema:
+When writing documentation, you are governed by this schema:
 """
 ${schema}
 """
 
-And this documentation:
+When writing documentation, you are bound by this documentation:
 """
 ${mdocsContent}
 """
 
 You need to write markdown documentation for the following Semantic Event:
+"""
 Event Name: ${event.name}
 Description: ${event.description}
 Category: ${event.category}
 Domain: ${event.domain}
 Topic: ${event.topic}
 Aliases: ${JSON.stringify(event.aliases)}
+"""
 
 Documentation principles:
-Use the jitsu client v2 when creating examples. You must only include properties that the client does not add it self.
-Examine all product properites and how they can be relevant when the product structure is being used. Be true to the naming conventions of "Hospitality and Travel"
-In Products, units is always a multiplier of what you pay for. Make sure that the examples are according to the schema and the jitsu track client. 
-Before creating any properties, dimensions or metrics you must make sure that there are no standard properties meant for that same use. Using declared properties is always better than creating generic ones.
+- Use the jitsu client v2 when creating examples. You must only include properties that the client does not add it self.
+- Examine all product properties and how they can be relevant when the product structure is being used. Be true to the naming conventions of "Hospitality and Travel"
+- In Products, units is always a multiplier of what you pay for. Make sure that the examples are according to the schema and the jitsu track client.
+- You must always use dimensions for all low-cardinality properties you use in examples. Use 'properties' schema for other properties.
+- You must always use metrics for numerical properties you use in examples.
+- Never use personal data in examples when not using the 'traits' structure in dedicated events.
+- Before creating any properties, dimensions or metrics you must make sure that there are no standard properties meant for that same use. Using declared properties is always better than creating generic ones.
 
-You must not escaped your output as markdown content.
+You must NEVER escaped your output as markdown content.
 Use this template while writing the mdoc/markdown documentation content:
 """
 ${template}
