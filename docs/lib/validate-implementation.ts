@@ -21,7 +21,7 @@ const testEvent: SemanticEvent = {
   domain: 'Testing',
   topic: 'test',
   aliases: [
-    { name: 'test_event', vertical: 'testing', topic: 'test' }
+    { name: 'test_event', vertical: 'testing', topic: 'test', description: 'Test alias', extraVerticalAttributes: '' }
   ],
   lastUpdated: '2024-01-01T00:00:00Z',
 };

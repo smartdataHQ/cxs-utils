@@ -7,6 +7,7 @@ export interface Alias {
   vertical: string;
   topic: string;
   description: string;
+  extraVerticalAttributes: string;
 }
 
 export interface SemanticEvent {
@@ -19,10 +20,15 @@ export interface SemanticEvent {
   topic: string;
   lastUpdated: string;
   airtableId: string;
+  // Required fields (value can be empty but field should be included)
+  extraCategoryAttributes: string;
+  extraDomainAttributes: string;
+  // Optional fields
   deprecated?: boolean;
   deprecationReason?: string;
   deprecationDate?: string;
   replacementEvent?: string;
+  documentation?: string;
 }
 
 export interface AirtableRecord<T = any> {
@@ -36,9 +42,15 @@ export interface AirtableEventFields {
   'Category': string;
   'Domain': string;
   'Description': string;
-  'Documentation'?: string;
   'Topic': string;
   'Aliases'?: string[];
+  // Required fields (value can be empty but field should be included)
+  'Extra Category Attributes': string;
+  'Extra Domain Attributes': string;
+  // Optional fields that may be added later
+  'CategoryJoin'?: string[];
+  'DomainLookup'?: string[];
+  'Documentation'?: string;
   'Last Updated'?: string;
   'Deprecated'?: boolean;
   'Deprecation Reason'?: string;
@@ -50,6 +62,8 @@ export interface AirtableAliasFields {
   'Alias': string;
   'Vertical': string;
   'Topic': string;
+  'Description'?: string;
+  'Extra Vertical Attributes': string;
 }
 
 export interface AirtableResponse<T = any> {

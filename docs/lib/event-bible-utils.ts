@@ -38,6 +38,8 @@ export function transformEventRecord(
     category: sanitizeString(fields.Category),
     domain: sanitizeString(fields.Domain),
     topic: sanitizeString(fields.Topic),
+    extraCategoryAttributes: sanitizeString(fields['Extra Category Attributes']),
+    extraDomainAttributes: sanitizeString(fields['Extra Domain Attributes']),
     aliases,
     lastUpdated: fields['Last Updated'] || eventRecord.createdTime,
   };
@@ -55,6 +57,8 @@ export function transformAliasRecord(
     name: sanitizeString(fields.Alias),
     vertical: sanitizeString(fields.Vertical),
     topic: sanitizeString(fields.Topic),
+    description: sanitizeString(fields.Description || ''),
+    extraVerticalAttributes: sanitizeString(fields["Extra Vertical Attributes"])
   };
 }
 
@@ -291,6 +295,7 @@ export function validateSemanticEvent(event: any): event is SemanticEvent {
     typeof event.category === 'string' &&
     typeof event.domain === 'string' &&
     typeof event.topic === 'string' &&
+    typeof event.lastUpdated === 'string' &&
     typeof event.lastUpdated === 'string' &&
     Array.isArray(event.aliases) &&
     event.aliases.every(validateAlias)

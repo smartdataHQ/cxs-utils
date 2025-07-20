@@ -245,6 +245,8 @@ export class AirtableService {
         name: record.fields.Alias || '',
         vertical: record.fields.Vertical || '',
         topic: record.fields.Topic || '',
+        description: record.fields.Description || '',
+        extraVerticalAttributes: record.fields['Extra Vertical Attributes'] || '',
       });
     });
 
@@ -283,6 +285,9 @@ export class AirtableService {
         deprecationReason: fields['Deprecation Reason'] || undefined,
         deprecationDate: fields['Deprecation Date'] || undefined,
         replacementEvent: fields['Replacement Event'] || undefined,
+        documentation: fields.Documentation || undefined,
+        extraCategoryAttributes: fields['Extra Category Attributes'] || '',
+        extraDomainAttributes: fields['Extra Domain Attributes'] || '',
       };
     });
 
