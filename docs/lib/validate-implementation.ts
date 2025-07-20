@@ -14,7 +14,6 @@ import { SemanticEvent, EventBibleConfig } from './types/event-bible';
 // Test data validation
 const testEvent: SemanticEvent = {
   airtable_id: 'test-id',
-  airtableId: 'test-id',
   name: 'Test Event',
   description: 'A test event for validation',
   category: 'Test',

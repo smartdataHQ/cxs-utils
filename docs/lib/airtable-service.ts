@@ -273,7 +273,6 @@ export class AirtableService {
 
       return {
         airtable_id: record.id,
-        airtableId: record.id,
         name: fields['Name'] || '',
         description: fields.Description || '',
         category: fields.Category || '',
@@ -294,7 +293,7 @@ export class AirtableService {
     // Second pass: generate unique slugs
     const slugCounts = new Map<string, number>();
     return eventsWithoutSlugs.map(event => {
-      const baseSlug = this.generateSlug(event.topic || event.name);
+      const baseSlug = event.topic;
       let finalSlug = baseSlug;
       
       // Handle slug collisions by appending a number

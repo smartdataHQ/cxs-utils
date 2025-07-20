@@ -16,7 +16,6 @@ import { SemanticEvent } from '../types/event-bible';
 const mockEvents: SemanticEvent[] = [
   {
     airtable_id: '1',
-    airtableId: '1',
     name: 'User Login',
     description: 'User authentication event',
     category: 'Authentication',
@@ -27,7 +26,6 @@ const mockEvents: SemanticEvent[] = [
   },
   {
     airtable_id: '2',
-    airtableId: '2',
     name: 'Product View',
     description: 'Product page viewed',
     category: 'Commerce',

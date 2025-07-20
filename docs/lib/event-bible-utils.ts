@@ -32,7 +32,6 @@ export function transformEventRecord(
 
   return {
     airtable_id: eventRecord.id,
-    airtableId: eventRecord.id,
     name: sanitizeString(fields['Name']),
     description: sanitizeString(fields.Description),
     category: sanitizeString(fields.Category),
@@ -250,7 +249,7 @@ export function findRelatedEvents(
   maxResults: number = 5
 ): SemanticEvent[] {
   const related = allEvents
-    .filter(event => event.airtableId !== targetEvent.airtableId)
+    .filter(event => event.airtable_id !== targetEvent.airtable_id)
     .map(event => {
       let score = 0;
       

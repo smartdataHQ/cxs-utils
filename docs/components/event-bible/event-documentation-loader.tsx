@@ -124,9 +124,6 @@ export function EventDocumentationLoader({
             <BookOpen className="h-5 w-5" />
             Loading Documentation
           </CardTitle>
-          <CardDescription className="text-amber-700 dark:text-amber-300">
-            No documentation is currently available for this event
-          </CardDescription>
         </CardHeader>
       </Card>
     );

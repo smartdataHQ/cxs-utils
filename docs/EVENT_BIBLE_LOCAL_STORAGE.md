@@ -31,7 +31,6 @@ data/
   "events": [
     {
       "airtable_id": "recXXXXXXXXXXXXXX",
-      "airtableId": "recXXXXXXXXXXXXXX",
       "name": "Event Name",
       "description": "Event description",
       "category": "Category",

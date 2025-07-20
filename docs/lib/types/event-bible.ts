@@ -19,7 +19,6 @@ export interface SemanticEvent {
   aliases: Alias[];
   topic: string;
   lastUpdated: string;
-  airtableId: string;
   // Required fields (value can be empty but field should be included)
   extraCategoryAttributes: string;
   extraDomainAttributes: string;

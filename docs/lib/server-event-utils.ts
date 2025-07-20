@@ -92,6 +92,7 @@ Category: ${event.category}
 Domain: ${event.domain}
 Topic: ${event.topic}
 Aliases: ${JSON.stringify(event.aliases)}
+Preferred attributes names: ${event.extraCategoryAttributes}, ${event.extraDomainAttributes}
 """
 
 Documentation principles:
