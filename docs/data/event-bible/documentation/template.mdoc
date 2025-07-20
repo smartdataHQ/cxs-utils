@@ -1,0 +1,34 @@
+---
+title: {{ name }}
+description: {{ description }}
+---
+
+# {{ name }}
+
+{{ description }}
+
+## Event Details
+
+| Property | Value |
+| --- | --- |
+| **Category** | {{ category }} |
+| **Domain** | {{ domain }} |
+| **Topic** | {{ topic }} |
+
+## Aliases
+
+{% if aliases.length > 0 %}
+| Name | Vertical | Topic |
+| --- | --- | --- |
+{% for alias in aliases %}
+| {{ alias.name }} | {{ alias.vertical }} | {{ alias.topic }} |
+{% endfor %}
+{% else %}
+No aliases found for this event.
+{% endif %}
+
+## Schema
+
+```python
+{{ schema }}
+```
