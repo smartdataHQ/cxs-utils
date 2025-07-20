@@ -1,5 +1,6 @@
 ---
 title: Core Properties
+description: The root properties of Semantic Events, including required and auto-populated fields for event identification, user and session tracking, and rich context objects, including a simple table for clarity.
 prompt: |
     Now, in the same way, write a section titled "Core Properties" where you explain The root properties of Semantic Events. Objects and components can be briefly listed, but we will cover them in details later on. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates.
     Use a simple table when that is the most intuitive way to list properties.
@@ -36,8 +37,8 @@ These properties are crucial for linking an event to a specific user and their j
 
 Beyond the core properties, a Semantic Event contains several rich, nested objects that hold detailed contextual information. While we will cover these in later sections, they include:
 
-- **Standard Context**: Context objects including [`app`](/docs/semantic-events/components/context#the-app-object), [`device`](/docs/semantic-events/components/context#the-device-object), [`os`](/docs/semantic-events/components/context#the-os-object), [`page`](/docs/semantic-events/components/context#the-page-object), [`screen`](/docs/semantic-events/components/context#the-screen-object), and [`campaign`](/docs/semantic-events/components/context#the-campaign-object) objects, which are largely auto-populated by the Jitsu client.
-- **Extended Context**: [`commerce`](/docs/semantic-events/components/commerce#transaction-identifiers), [`involves`](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement), [`sentiment`](/docs/semantic-events/components/sentiment), and [`classification`](/docs/semantic-events/components/classification#properties) objects, which contain the deep, domain-specific data you provide to give the event its true semantic power.
-- **Custom Data**: Flexible [`properties`, `dimensions`, and `metrics`](/docs/semantic-events/components/content-and-properties) maps for any additional data unique to your business needs.
+- **Standard Context**: Context objects including [`app`](/docs/semantic-events/schema/context#the-app-object), [`device`](/docs/semantic-events/schema/context#the-device-object), [`os`](/docs/semantic-events/schema/context#the-os-object), [`page`](/docs/semantic-events/schema/context#the-page-object), [`screen`](/docs/semantic-events/schema/context#the-screen-object), and [`campaign`](/docs/semantic-events/schema/context#the-campaign-object) objects, which are largely auto-populated by the Jitsu client.
+- **Extended Context**: [`commerce`](/docs/semantic-events/schema/commerce#transaction-identifiers), [`involves`](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement), [`sentiment`](/docs/semantic-events/schema/sentiment), and [`classification`](/docs/semantic-events/schema/classification#properties) objects, which contain the deep, domain-specific data you provide to give the event its true semantic power.
+- **Custom Data**: Flexible [`properties`, `dimensions`, and `metrics`](/docs/semantic-events/schema/content-and-properties) maps for any additional data unique to your business needs.
 
-{% navigation previous="/docs/semantic-events/the-event-bible" previousTitle="The Event Bible" next="/docs/semantic-events/components/context" nextTitle="Basic Context Objects" /%}
+{% navigation previous="/docs/semantic-events/the-event-bible" previousTitle="The Event Bible" next="/docs/semantic-events/schema/context" nextTitle="Basic Context Objects" /%}

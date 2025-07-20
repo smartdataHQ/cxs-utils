@@ -1,5 +1,6 @@
 ---
 title: Getting Started
+description: How to send your first semantic event, including a simple example and the enriched event structure on the server side.
 prompt: |
 Now, in the same way, write a section titled "Getting Started" where you demo how easy it is to send a track event
 ("Semantic Event Sent") to data-engineer and a developer. Then show how that event will look like - fully enriched and
@@ -43,17 +44,17 @@ Once that simple event arrives at the Context Suite, it is transformed into a ri
 The server enriches the original payload with a wealth of information derived from the request and our internal systems.
 
 Notice how the original `source_language` property is preserved, while new context objects like
-[`device`](/docs/semantic-events/components/context#the-device-object),
-[`os`](/docs/semantic-events/components/context#the-os-object), and [`page`](/docs/semantic-events/components/context#the-page-object) have been added
+[`device`](/docs/semantic-events/schema/context#the-device-object),
+[`os`](/docs/semantic-events/schema/context#the-os-object), and [`page`](/docs/semantic-events/schema/context#the-page-object) have been added
 automatically. A unique `event_gid` has been assigned, and structures for advanced analysis like
-[`involves`](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement) and
-[`classification`](/docs/semantic-events/components/classification#properties) are present, ready to be populated by downstream
+[`involves`](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement) and
+[`classification`](/docs/semantic-events/schema/classification#properties) are present, ready to be populated by downstream
 processes.
 
 Here is what that same event looks like after being processed on the server-side:
 
-To understand what each of these properties means, see the [Core Properties](/docs/semantic-events/components/root#foundational-event-details) and
-[Basic Context Objects](/docs/semantic-events/components/context) documentation covering [device](/docs/semantic-events/components/context#the-device-object), [OS](/docs/semantic-events/components/context#the-os-object), and [page](/docs/semantic-events/components/context#the-page-object) objects.
+To understand what each of these properties means, see the [Core Properties](/docs/semantic-events/schema/root#foundational-event-details) and
+[Basic Context Objects](/docs/semantic-events/schema/context) documentation covering [device](/docs/semantic-events/schema/context#the-device-object), [OS](/docs/semantic-events/schema/context#the-os-object), and [page](/docs/semantic-events/components/context#the-page-object) objects.
 
 ```json
 {
@@ -106,7 +107,7 @@ Now that you've sent your first semantic event, explore these topics to unlock m
 
 - **[Event Types](/docs/semantic-events/event-types#track)** - Learn about `track`, `page`, `identify`, and other core event
 types
-- **[Commerce Events](/docs/semantic-events/components/commerce#transaction-identifiers)** - Add rich transaction data to your events
+- **[Commerce Events](/docs/semantic-events/schema/commerce#transaction-identifiers)** - Add rich transaction data to your events
 - **[The Event Bible](/docs/semantic-events/the-event-bible#why-use-the-event-bible)** - Use predefined events for instant analytics
 - **[Advanced Concepts](/docs/semantic-events/advanced-concepts#beyond-segmentcom-the-context-suite-difference)** - Understand the full power of the Context Suite
 schema

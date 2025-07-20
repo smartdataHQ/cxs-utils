@@ -1,5 +1,6 @@
 ---
 title: Commerce
+description: Learn how to structure commerce events in Semantic Events to capture detailed transaction data, enabling powerful analytics and insights, including dashboards, analysis, and projections.
 prompt: |
     Now, in the same way, write a detailed section titled "Commerce" where you explain the Commerce structure in Semantic Events. You must include all the properties and all enums values available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
     We will document the product structure later on. Only reference it here. Include a good description for each group of properties and discuss how some of the "header properties" ar aggregations of the items in the products list. Also detail how we have extended this structure and how proper use of it unlocks dashboards, analysis and projection models.
@@ -71,6 +72,6 @@ Providing these header-level aggregations is highly recommended as it ensures da
 
 The `products` property is an array that contains one or more `Product` objects. Each object in this array represents a single line item in the order. This is the most critical part of the commerce event, as it provides the granular detail behind the transaction summary.
 
-The full structure of the `Product` object is detailed in the [Products](/docs/semantic-events/components/products) documentation section.
+The full structure of the `Product` object is detailed in the [Products](/docs/semantic-events/schema/products) documentation section.
 
-{% navigation previous="/docs/semantic-events/components/traits" previousTitle="Traits" next="/docs/semantic-events/components/products" nextTitle="Products" /%}
+{% navigation previous="/docs/semantic-events/schema/traits" previousTitle="Traits" next="/docs/semantic-events/schema/products" nextTitle="Products" /%}

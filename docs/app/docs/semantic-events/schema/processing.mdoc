@@ -1,5 +1,6 @@
 ---
 title: Processing Controls
+description: The Processing Controls section of Semantic Events explains the analyse and integrations properties, which allow for dynamic control over event processing and routing, including analysis tasks and downstream integrations.
 prompt: |
     Now, in the same way, write a detailed section titled "Processing Controls" where you explain the analyse and integrations properties available for Semantic Events.
     Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
@@ -49,4 +50,4 @@ To send an event *only* to a specific destination and nowhere else, set the spec
 | `all`                  | A special boolean property. If `false`, the event will not be sent to any integration unless explicitly enabled. | User-Provided (Optional) |
 | `[integration_name]`   | A boolean (`true` or `false`) flag to enable or disable forwarding to a specific destination.                  | User-Provided (Optional) |
 
-{% navigation previous="/docs/semantic-events/components/governance" previousTitle="Governance" next="/docs/semantic-events/components/analysis-cost" nextTitle="Analysis Cost" /%}
+{% navigation previous="/docs/semantic-events/schema/governance" previousTitle="Governance" next="/docs/semantic-events/schema/analysis-cost" nextTitle="Analysis Cost" /%}

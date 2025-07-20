@@ -1,5 +1,6 @@
 ---
 title: Governance
+description: The Governance section of Semantic Events explains access control, data lifetime, and customer-facing visibility features, including row-level security and Time to Live (TTL) properties.
 prompt: |
     Now, in the same way, write a detailed section titled "Governance" where you explain the access, governance and lifetime properties available for Semantic Events.
     Include detailed information about the access object and explain how it can be used for row-level-access-controls. Leave out the processing properties like integrations and analyse.
@@ -9,7 +10,7 @@ prompt: |
 
 Effective data governance is crucial for maintaining security, ensuring compliance, and managing the lifecycle of your event data. The Semantic Event schema includes several built-in properties to give you granular control over who can access an event and how long it should be stored.
 
-These governance features work alongside other Context Suite capabilities like [`traits`](/docs/semantic-events/components/traits) privacy controls to provide comprehensive data protection.
+These governance features work alongside other Context Suite capabilities like [`traits`](/docs/semantic-events/schema/traits) privacy controls to provide comprehensive data protection.
 
 ---
 
@@ -48,4 +49,4 @@ In many cases, you may want to display a history of events to your end-users (e.
 | :--- | :--- | :--- |
 | `customer_facing` | An integer flag indicating if the event can be shown to customers. A value of `1` means it is customer-facing, while the default of `0` means it is not. | User-Provided (Optional) |
 
-{% navigation previous="/docs/semantic-events/components/dimensions-and-metrics" previousTitle="Dimensions & Metrics" next="/docs/semantic-events/components/processing" nextTitle="Processing Controls" /%}
+{% navigation previous="/docs/semantic-events/schema/dimensions-and-metrics" previousTitle="Dimensions & Metrics" next="/docs/semantic-events/schema/processing" nextTitle="Processing Controls" /%}

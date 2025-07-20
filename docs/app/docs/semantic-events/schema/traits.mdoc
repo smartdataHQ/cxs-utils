@@ -1,5 +1,6 @@
 ---
 title: Traits
+description: A detailed explanation of the Traits structure in Semantic Events, including properties, enums, GDPR compliance, and event types, with a focus on user and group profiles, and a clear distinction between user-provided and auto-populated fields.
 prompt: |
     Now, in the same way, write a detailed section titled "Traits" where you explain the Traits structure in Semantic Events. You must include all the properties and all enums values available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
     Also explain how traites are never stored with the event and the GDPR compliant way we are treating sensitive personal information. List the event types that accept trades according tot he segment.com spec.
@@ -74,4 +75,4 @@ These properties provide deeper, business-specific context about a user's role a
 | `total_billed` | The total amount billed to the user. | User-Provided (Optional) |
 | `logins` | The total number of times the user has logged in. | User-Provided (Optional) |
 
-{% navigation previous="/docs/semantic-events/components/context" previousTitle="Basic Context Objects" next="/docs/semantic-events/components/commerce" nextTitle="Commerce" /%}
+{% navigation previous="/docs/semantic-events/schema/context" previousTitle="Basic Context Objects" next="/docs/semantic-events/schema/commerce" nextTitle="Commerce" /%}

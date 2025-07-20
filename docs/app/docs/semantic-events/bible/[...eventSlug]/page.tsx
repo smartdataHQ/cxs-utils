@@ -1,26 +1,21 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { MarkdocRenderer } from '@/components/markdoc/markdoc-renderer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CodeBlock } from '@/components/markdoc/code-block';
 import { Button } from '@/components/ui/button';
 import { 
   ChevronLeft, 
   Calendar, 
   Tag, 
   Globe, 
-  BookOpen,
-  Code,
   AlertTriangle
 } from 'lucide-react';
 import Link from 'next/link';
 import { 
-  getEventBySlug,
   getEventWithAliasInfo,
-  getEventDocumentation,
-  generateAllStaticParams 
+  generateAllStaticParams
 } from '@/lib/server-event-utils';
+import { EventDocumentationLoader } from '@/components/event-bible/event-documentation-loader';
 
 // Generate static params for all events
 export async function generateStaticParams() {
@@ -72,7 +67,8 @@ export default async function EventDocumentationPage({ params }: PageProps) {
   }
   
   const slug = params.eventSlug.join('.');
-  const mdocContent = await getEventDocumentation(slug);
+  // Don't await the documentation content - let the client component handle loading
+  // const mdocContent = await getEventDocumentation(slug);
   
   const formatDate = (dateString: string) => {
     try {
@@ -238,22 +234,11 @@ jitsu.track('${event.name.toLowerCase().replace(/\s+/g, '_')}', {
       )}
 
       {/* Event Documentation from mdoc file */}
-      {mdocContent && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Event Documentation
-            </CardTitle>
-            <CardDescription>
-              Detailed documentation and implementation guidance for this event
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <MarkdocRenderer content={mdocContent} />
-          </CardContent>
-        </Card>
-      )}
+      <EventDocumentationLoader 
+        slug={slug}
+        eventName={isAlias && aliasInfo ? aliasInfo.name : event.name}
+        initialContent={null}
+      />
     </div>
   );
 }

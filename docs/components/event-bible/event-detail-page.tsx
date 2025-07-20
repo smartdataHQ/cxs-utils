@@ -5,8 +5,7 @@ import { SemanticEvent } from '@/lib/types/event-bible';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CodeBlock } from '@/components/markdoc/code-block';
-import { MarkdocRenderer } from '@/components/markdoc/markdoc-renderer';
+import { EventDocumentationLoader } from './event-documentation-loader';
 import { 
   ChevronLeft, 
   Copy, 
@@ -14,11 +13,8 @@ import {
   Calendar, 
   Tag, 
   Globe, 
-  FileText,
-  Code,
   Link as LinkIcon,
-  AlertTriangle,
-  BookOpen
+  AlertTriangle
 } from 'lucide-react';
 
 interface EventDetailPageProps {
@@ -27,6 +23,7 @@ interface EventDetailPageProps {
   relatedEventsLoading?: boolean;
   onBack?: () => void;
   onEventClick?: (event: SemanticEvent) => void;
+  eventSlug?: string;
 }
 
 export function EventDetailPage({ 
@@ -34,7 +31,8 @@ export function EventDetailPage({
   relatedEvents = [], 
   relatedEventsLoading = false,
   onBack,
-  onEventClick 
+  onEventClick,
+  eventSlug
 }: EventDetailPageProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
@@ -63,47 +61,6 @@ export function EventDetailPage({
       return dateString;
     }
   };
-
-  // Generate Jitsu code examples
-  const generateJitsuExamples = () => {
-    const basicExample = `// Basic event tracking
-jitsu.track('${event.name}', {
-  // Event properties
-  category: '${event.category}',
-  domain: '${event.domain}',
-  
-  // Add your custom properties here
-  // property_name: 'property_value',
-});`;
-
-    const advancedExample = `// Advanced event tracking with context
-jitsu.track('${event.name}', {
-  // Core event properties
-  category: '${event.category}',
-  domain: '${event.domain}',
-  
-  // Context information
-  user_id: 'user_123',
-  session_id: 'session_456',
-  
-  // Custom properties based on your use case
-  // Add relevant properties for your implementation
-  
-}, {
-  // Optional: Override default context
-  page: {
-    title: document.title,
-    url: window.location.href
-  },
-  user: {
-    // User context if available
-  }
-});`;
-
-    return { basicExample, advancedExample };
-  };
-
-  const { basicExample, advancedExample } = generateJitsuExamples();
 
   // Filter related events by category or domain
   const filteredRelatedEvents = relatedEvents.filter(relatedEvent => 
@@ -256,21 +213,12 @@ jitsu.track('${event.name}', {
       )}
 
       {/* Event Documentation */}
-      {mdocContent && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Event Documentation
-            </CardTitle>
-            <CardDescription>
-              Detailed documentation and implementation guidance for this event
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <MarkdocRenderer content={mdocContent} />
-          </CardContent>
-        </Card>
+      {eventSlug && (
+        <EventDocumentationLoader 
+          slug={eventSlug}
+          eventName={event.name}
+          initialContent={mdocContent}
+        />
       )}
 
       {/* Additional Information */}

@@ -1,5 +1,6 @@
 ---
 title: Advanced Concepts
+description: Understanding the Semantic Events in the Context Suite, including the differences from Segment.com and the value of a common schema.
 prompt: |
     Now, in the same way, write a detailed section titled "Advanced Concepts" where you detail the difference of the Semantic Events available in the Context Suite and the bare-bone events defined in the semantic events schema for segment. com. You also discuss the value unlocked by embracing a common schema in terms of unlocking standard bases services in the Context Suitre.
     Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates.  Tabl should have these columns: "Property", "Description" and  "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
@@ -20,8 +21,8 @@ We remain **fully compatible with the core Segment spec**, including the standar
 
 Where standard e-commerce tracking might stop at revenue and a product ID, our `Commerce` and `Product` objects provide a complete operational view.
 
-* **[`Commerce`](/docs/semantic-events/components/commerce#transaction-identifiers) Object**: Captures the full transactional context, including fields not found in standard specs, such as `cogs` (Cost of Goods Sold), `commission`, `terminal_id`, and `employee_id`.
-* **[`Product`](/docs/semantic-events/components/products) Object**: Goes far beyond a simple `sku`. It includes detailed supply chain information (`supplier`, `manufacturer`), extensive global identifiers (`gtin`, `ean`, `isbn`, GS1 classifications), and operational attributes (`condition`, `lead_time`, `origin`).
+* **[`Commerce`](/docs/semantic-events/schema/commerce#transaction-identifiers) Object**: Captures the full transactional context, including fields not found in standard specs, such as `cogs` (Cost of Goods Sold), `commission`, `terminal_id`, and `employee_id`.
+* **[`Product`](/docs/semantic-events/schema/products) Object**: Goes far beyond a simple `sku`. It includes detailed supply chain information (`supplier`, `manufacturer`), extensive global identifiers (`gtin`, `ean`, `isbn`, GS1 classifications), and operational attributes (`condition`, `lead_time`, `origin`).
 
 This level of detail allows the Context Suite to move beyond marketing analytics into true operational and financial intelligence, right out of the box.
 
@@ -29,18 +30,18 @@ This level of detail allows the Context Suite to move beyond marketing analytics
 
 The most significant extension is the introduction of specialized arrays that add layers of machine-generated or user-provided context:
 
-* **[`involves`](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement)**: Explicitly defines every entity involved in an event and its specific `role`. In a car crash event, for example, multiple `Person` entities can be involved, but their roles differ: `Driver`, `Pedestrian`, `Witness`. This provides crucial relational context.
-* **[`classification`](/docs/semantic-events/components/classification#properties)**: Allows events to be tagged with structured classifications, such as `Intent`, `Priority`, `Keyword`, or `Inbox`. This is the foundation for automated routing, prioritization, and analysis.
-* **[`sentiment`](/docs/semantic-events/components/sentiment)**: Captures the tone and emotion expressed in an event's content, linking it to specific entities. It can distinguish between `Praise` for a product and a `Complaint` about a service in the same event.
+* **[`involves`](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement)**: Explicitly defines every entity involved in an event and its specific `role`. In a car crash event, for example, multiple `Person` entities can be involved, but their roles differ: `Driver`, `Pedestrian`, `Witness`. This provides crucial relational context.
+* **[`classification`](/docs/semantic-events/schema/classification#properties)**: Allows events to be tagged with structured classifications, such as `Intent`, `Priority`, `Keyword`, or `Inbox`. This is the foundation for automated routing, prioritization, and analysis.
+* **[`sentiment`](/docs/semantic-events/schema/sentiment)**: Captures the tone and emotion expressed in an event's content, linking it to specific entities. It can distinguish between `Praise` for a product and a `Complaint` about a service in the same event.
 * **`entity_linking`**: Scans unstructured text within an event (like the body of an email) and links words or phrases to known entities in your system, providing a structured understanding of unstructured data.
-* **[`location`](/docs/semantic-events/components/location)**: Provides a rich, structured way to associate one or more geographic locations with an event, complete with geohashing and temporal data for temporary locations.
+* **[`location`](/docs/semantic-events/schema/location)**: Provides a rich, structured way to associate one or more geographic locations with an event, complete with geohashing and temporal data for temporary locations.
 
 ### **Operational & Governance Fields**
 
 The schema also includes objects and properties for internal processing, governance, and cost-tracking, such as:
 
-* **[`analysis`](/docs/semantic-events/components/analysis-cost)**: A dedicated array to track the cost and processing time associated with analyzing an event, crucial for internal metrics.
-* **[`access`](/docs/semantic-events/components/governance)**: A structure for defining data access rules on a per-event basis, allowing for fine-grained privacy and governance.
+* **[`analysis`](/docs/semantic-events/schema/analysis-cost)**: A dedicated array to track the cost and processing time associated with analyzing an event, crucial for internal metrics.
+* **[`access`](/docs/semantic-events/schema/governance)**: A structure for defining data access rules on a per-event basis, allowing for fine-grained privacy and governance.
 * **`importance`**: A simple field to rank the operational importance of an event.
 
 ---
@@ -70,12 +71,12 @@ Populating the following objects unlocks the core value of the platform.
 
 | Property         | Description                                                                                         | Provided By              |
 | ---------------- | --------------------------------------------------------------------------------------------------- | ------------------------ |
-| [`commerce`](/docs/semantic-events/components/commerce#transaction-identifiers)       | The rich object containing all transactional and operational details.                               | User-Provided (Optional) |
-| [`involves`](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement)       | An array defining all entities and their roles in the event.                                      | User-Provided (Optional) |
-| [`classification`](/docs/semantic-events/components/classification#properties) | An array for tagging the event with structured categories (e.g., `Intent`, `Tag`).                  | User-Provided (Optional) |
-| [`sentiment`](/docs/semantic-events/components/sentiment)      | An array capturing sentiment expressed within the event.                                            | User-Provided (Optional) |
-| [`content`](/docs/semantic-events/components/content-and-properties)        | A dictionary for including unstructured text, like the body or subject of an email.                 | User-Provided (Optional) |
-| [`location`](/docs/semantic-events/components/location)       | An array of one or more structured location objects associated with the event.                      | User-Provided (Optional) |
+| [`commerce`](/docs/semantic-events/schema/commerce#transaction-identifiers)       | The rich object containing all transactional and operational details.                               | User-Provided (Optional) |
+| [`involves`](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement)       | An array defining all entities and their roles in the event.                                      | User-Provided (Optional) |
+| [`classification`](/docs/semantic-events/schema/classification#properties) | An array for tagging the event with structured categories (e.g., `Intent`, `Tag`).                  | User-Provided (Optional) |
+| [`sentiment`](/docs/semantic-events/schema/sentiment)      | An array capturing sentiment expressed within the event.                                            | User-Provided (Optional) |
+| [`content`](/docs/semantic-events/schema/content-and-properties)        | A dictionary for including unstructured text, like the body or subject of an email.                 | User-Provided (Optional) |
+| [`location`](/docs/semantic-events/schema/location)       | An array of one or more structured location objects associated with the event.                      | User-Provided (Optional) |
 
 By providing data in these structured formats, you enable:
 
@@ -89,9 +90,9 @@ By providing data in these structured formats, you enable:
 
 Start building with these advanced features:
 
-- **[Commerce & Products](/docs/semantic-events/components/commerce#transaction-identifiers)** - Implement rich e-commerce tracking
-- **[Entity Relationships](/docs/semantic-events/components/involves#the-involves-structure-explicit-involvement)** - Link entities to events with explicit roles
-- **[Event Classification](/docs/semantic-events/components/classification#properties)** - Add structured tags and categories
+- **[Commerce & Products](/docs/semantic-events/schema/commerce#transaction-identifiers)** - Implement rich e-commerce tracking
+- **[Entity Relationships](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement)** - Link entities to events with explicit roles
+- **[Event Classification](/docs/semantic-events/schema/classification#properties)** - Add structured tags and categories
 - **[The Event Bible](/docs/semantic-events/the-event-bible#why-use-the-event-bible)** - Use predefined events for maximum impact
 
-{% navigation previous="/docs/semantic-events/components/processing" previousTitle="Processing Controls" /%}
+{% navigation previous="/docs/semantic-events/schema/processing" previousTitle="Processing Controls" /%}

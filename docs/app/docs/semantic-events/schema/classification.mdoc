@@ -1,5 +1,6 @@
 ---
 title: Classification
+description: The Classification object in Semantic Events allows for categorization and contextual understanding of events, enabling advanced analytics and automated processing.
 prompt: |
     Now, in the same way, write a detailed section titled "Classification" where you explain the Classification in Semantic Events. You MUST document all the properties available, but you can make a distinction between the standard properties and the advanced properties available in the context suite.
     Create a list of the well known classifications we use and also mention some that the data-engineer/developer might be interested in. Mention that this classification can be automatic - using LLMs - and that events can be pre-classified.
@@ -10,7 +11,7 @@ prompt: |
 
 The `classification` object is a powerful, flexible structure that allows you to add layers of categorical and contextual understanding to any semantic event. Think of it as adding smart tags to your data. An event isn't just a single occurrence; it can represent a customer's `intent`, fall into a specific `category`, or be assigned a `priority`. A single event can have multiple classifications, allowing for a rich, multi-faceted description.
 
-This classification can be assigned when the event is created or, more powerfully, it can be added automatically by downstream systems like the Context Suite. Using Natural Language Processing (NLP) and Large Language Models (LLMs), the system can analyze the [`content`](/docs/semantic-events/components/content-and-properties) of an event and enrich it with classifications, turning raw data into structured, actionable intelligence without any manual effort.
+This classification can be assigned when the event is created or, more powerfully, it can be added automatically by downstream systems like the Context Suite. Using Natural Language Processing (NLP) and Large Language Models (LLMs), the system can analyze the [`content`](/docs/semantic-events/schema/content-and-properties) of an event and enrich it with classifications, turning raw data into structured, actionable intelligence without any manual effort.
 
 ---
 
@@ -68,7 +69,7 @@ jitsu.track('Feedback Submitted', {
 
 ### 2. The Enriched Event (After Automatic Classification)
 
-The Context Suite receives this event. Its AI engine analyzes the [`content.body`](/docs/semantic-events/components/content-and-properties) and automatically adds a `classification` array to the event, transforming it into a structured, intelligent record.
+The Context Suite receives this event. Its AI engine analyzes the [`content.body`](/docs/semantic-events/schema/content-and-properties) and automatically adds a `classification` array to the event, transforming it into a structured, intelligent record.
 
 ```json
 {
@@ -113,4 +114,4 @@ The Context Suite receives this event. Its AI engine analyzes the [`content.body
 
 As you can see, the single, unstructured feedback message has been automatically categorized, prioritized, and routed, making it immediately actionable for your support and logistics teams.
 
-{% navigation previous="/docs/semantic-events/components/involves" previousTitle="Entity Relationships" next="/docs/semantic-events/components/sentiment" nextTitle="Sentiment Analysis" /%}
+{% navigation previous="/docs/semantic-events/schema/involves" previousTitle="Entity Relationships" next="/docs/semantic-events/schema/sentiment" nextTitle="Sentiment Analysis" /%}

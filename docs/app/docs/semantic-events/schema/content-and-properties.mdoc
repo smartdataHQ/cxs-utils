@@ -1,5 +1,6 @@
 ---
 title: Content & Other Properties
+description: The `content` and `properties` properties in Semantic Events allow for flexible storage of unstructured text and custom structured data, enabling rich event analysis and processing. including text content and custom structured data, enabling rich event analysis and processing.
 prompt: |
     Now, in the same way, write a detailed section titled "Content & Other Properties" where you explain the "content" and "properties" properties available for Semantic Events. Content is used to include text content in the event and properties are the "captere all else" storage that can even be used to store json structured natively/effectively by using the Clickhouse impressive support for json content. To not put dimensions, metrics and flags in this section. Those properties have already been covered.
     Always use a simple table when listing properties. Make a clear distinction between values that must be provided and values that the jitsu client automatically populates. Tabl should have these columns: "Property", "Description" and "Provided By" (User-Provided, User-Provided (Optional), Auto-Populated).
@@ -14,7 +15,7 @@ While the Semantic Event schema is designed to be comprehensive and structured, 
 
 The `content` property is a dictionary specifically designed to hold significant blocks of text associated with an event. This is where you would place the raw, unstructured text that is often the subject of the event itself, such as the body of an email, the description of a support ticket, or the content of a user-generated comment.
 
-By structuring text this way, you make it immediately available for downstream processes like Natural Language Processing (NLP), [`sentiment analysis`](/docs/semantic-events/components/sentiment), and automated [`entity linking`](/docs/semantic-events/components/involves). The keys of the dictionary should be descriptive of the text they contain.
+By structuring text this way, you make it immediately available for downstream processes like Natural Language Processing (NLP), [`sentiment analysis`](/docs/semantic-events/schema/sentiment), and automated [`entity linking`](/docs/semantic-events/schema/involves). The keys of the dictionary should be descriptive of the text they contain.
 
 For example, an event for a `Support Ticket Submitted` might have a `content` object like this:
 
@@ -57,4 +58,4 @@ For example, a `Game Level Completed` event might include custom properties spec
 | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- |
 | `properties` | A dictionary (map) containing any custom key-value pairs. Values can be simple types (strings, numbers) or complex, nested JSON objects. | User-Provided          |
 
-{% navigation previous="/docs/semantic-events/components/location" previousTitle="Location" next="/docs/semantic-events/components/dimensions-and-metrics" nextTitle="Dimensions & Metrics" /%}
+{% navigation previous="/docs/semantic-events/schema/location" previousTitle="Location" next="/docs/semantic-events/schema/dimensions-and-metrics" nextTitle="Dimensions & Metrics" /%}

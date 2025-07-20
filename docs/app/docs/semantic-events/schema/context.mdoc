@@ -1,5 +1,6 @@
 ---
 title: Basic Context Objects
+description: Understanding the context properties of Semantic Events, including auto-populated and user-provided values, subcomponents like App, Device, OS, Page, Screen, and Campaign objects, and how they enrich events for better analytics.
 prompt: |
 Now, in the same way, write a section titled "Basic Context Objects" where you explain The context properties of
 Semantic Events.
@@ -19,7 +20,7 @@ application details. Understanding these objects is key to unlocking the full an
 
 Much of this context is captured automatically by the Jitsu client library, reducing the amount of manual
 instrumentation required. For the core event properties that work alongside these context objects, see [Core
-Properties](/docs/semantic-events/components/root#foundational-event-details). Below is a breakdown of the most common context objects and their
+Properties](/docs/semantic-events/schema/root#foundational-event-details). Below is a breakdown of the most common context objects and their
 properties.
 
 ---
@@ -169,5 +170,5 @@ For web events, this object contains information about the page being viewed.
   }
   }
   ```
-  {% navigation previous="/docs/semantic-events/components/root" previousTitle="Core Properties"
-  next="/docs/semantic-events/components/traits" nextTitle="Traits" /%}
+  {% navigation previous="/docs/semantic-events/schema/root" previousTitle="Core Properties"
+  next="/docs/semantic-events/schema/traits" nextTitle="Traits" /%}

@@ -33,63 +33,63 @@ export default function DocsHome() {
       title: "Entity Linking",
       description: "Link to involved entities, both explicitly and implicitly.",
       color: "bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400",
-      url: "./components/involves"
+      url: "./schema/involves"
     },
     {
       icon: ShoppingCart,
       title: "eCommerce",
       description: "Cover all aspects of eCommerce.",
       color: "bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400",
-      url: "./components/commerce"
+      url: "./schema/commerce"
     },
     {
       icon: Shirt,
       title: "Products",
       description: "Extended Products.",
       color: "bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400",
-      url: "./components/products"
+      url: "./schema/products"
     },
     {
       icon: Boxes,
       title: "Traits",
       description: "Extended user and product traits.",
       color: "bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400",
-      url: "./components/traits"
+      url: "./schema/traits"
     },
     {
       icon: Radar,
       title: "Location",
       description: "Entity sentiment analysis for events.",
       color: "bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400",
-      url: "./components/location"
+      url: "./schema/location"
     },
     {
       icon: ReceiptEuro,
       title: "Context",
       description: "Standard Context properties for events.",
       color: "bg-orange-50 dark:bg-orange-950 text-orange-600 dark:text-orange-400",
-      url: "./components/context"
+      url: "./schema/context"
     },
     {
       icon: Boxes,
       title: "Classification",
       description: "Extendable classification properties.",
       color: "bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400",
-      url: "./components/classification"
+      url: "./schema/classification"
     },
     {
       icon: Theater,
       title: "Sentiment Analysis",
       description: "Entity sentiment analysis for events.",
       color: "bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400",
-      url: "./components/sentiment"
+      url: "./schema/sentiment"
     },
     {
       icon: ReceiptEuro,
       title: "Analysis Cost",
       description: "Track the cost of analysis for events.",
       color: "bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400",
-      url: "./components/cost"
+      url: "./schema/cost"
     },
   ];
 
