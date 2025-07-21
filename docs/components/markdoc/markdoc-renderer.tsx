@@ -127,7 +127,6 @@ function Navigation({ previous, previousTitle, next, nextTitle }: {
         {previous && (
           <a 
             href={previous} 
-            className="inline-flex items-center px-4 py-2 bg-muted text-muted-foreground hover:bg-muted/80 text-decoration-none rounded-md font-medium transition-colors"
           >
             ← Previous: {previousTitle || 'Previous'}
           </a>
@@ -137,7 +136,6 @@ function Navigation({ previous, previousTitle, next, nextTitle }: {
         {next && (
           <a 
             href={next} 
-            className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 text-decoration-none rounded-md font-medium transition-colors"
           >
             Next: {nextTitle || 'Next'} →
           </a>
