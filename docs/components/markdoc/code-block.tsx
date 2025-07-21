@@ -99,12 +99,10 @@ export function CodeBlock({ children, language = 'text', title, className }: Cod
           showLineNumbers={showLineNumbers}
           customStyle={{
             margin: 0,
-            borderRadius: title || language !== 'text' ? '0 0 0.5rem 0.5rem' : '0.5rem',
             fontSize: '0.875rem',
             lineHeight: '1.6',
             border: '1px solid hsl(var(--border))',
             borderTop: title || language !== 'text' ? 'none' : '1px solid hsl(var(--border))',
-            background: isDark ? '#0d1117' : '#f8f9fa',
             padding: '1.5rem',
             overflow: 'auto',
           }}
