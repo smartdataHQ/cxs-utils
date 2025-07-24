@@ -1,0 +1,80 @@
+---
+title: You First Track Event
+prompt: |
+Create a focused page about sending your first track event, separate from the general getting started guide
+---
+
+# You First Track Event
+
+This page shows you exactly how to send your first semantic event using the Context Suite. It's designed to be a quick, hands-on guide that gets you tracking in minutes.
+
+## Quick Start: Send Your First Event
+
+The simplest way to send a semantic event is with a single function call. Here's how to track your first event:
+
+```javascript
+// Using Jitsu client library
+jitsu.track("Semantic Event Sent", {
+  source_language: "javascript"
+});
+```
+
+That's it! This single line will:
+- Automatically capture user identification
+- Add session tracking
+- Include device and browser context
+- Send the event to our servers for enrichment
+
+## What Happens Next
+
+When your event reaches our servers, it gets automatically enriched with:
+
+- **Device Information**: Browser, OS, device type
+- **Session Data**: Session ID, timestamp, user agent
+- **Context**: IP address, timezone, locale
+- **Unique Identifiers**: Event ID, message ID
+
+## Example: Enriched Event
+
+Here's what your simple event becomes after server processing:
+
+```json
+{
+  "type": "track",
+  "event": "Semantic Event Sent",
+  "timestamp": "2025-01-20T10:30:00.000Z",
+  "anonymous_id": "anon-123456789",
+  "session_id": "sess-987654321",
+  "properties": {
+    "source_language": "javascript"
+  },
+  "context": {
+    "ip": "192.168.1.1",
+    "locale": "en-US",
+    "timezone": "America/New_York",
+    "library": {
+      "name": "jitsu.js",
+      "version": "2.0.1"
+    }
+  },
+  "device": {
+    "type": "Desktop",
+    "manufacturer": "Apple",
+    "model": "MacBook Pro"
+  },
+  "os": {
+    "name": "macOS",
+    "version": "14.0"
+  }
+}
+```
+
+## Next Steps
+
+Now that you've sent your first event, explore:
+
+- **[Event Types](/docs/semantic-events/event-types)** - Learn about different event types
+- **[Installation](/docs/semantic-events/installation)** - Set up tracking in your application
+- **[Event Bible](/docs/semantic-events/the-event-bible)** - Use predefined events for instant analytics
+
+{% navigation previous="/docs/semantic-events/understanding-semantic-events" previousTitle="What are Semantic Events?" next="/docs/semantic-events/installation" nextTitle="Installation" /%} 

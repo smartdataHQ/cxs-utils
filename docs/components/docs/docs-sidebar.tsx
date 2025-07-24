@@ -9,17 +9,30 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { navigationConfig, type NavigationItem } from './navigation-config';
 
-function NavigationItem({ item, level = 0 }: { item: NavigationItem; level?: number }) {
+interface NavigationItemProps {
+  item: NavigationItem;
+  level?: number;
+  onLinkClick?: () => void;
+}
+
+function NavigationItem({ item, level = 0, onLinkClick }: NavigationItemProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = item.children && item.children.length > 0;
   const isActive = pathname === item.href || (item.href !== '/docs' && pathname?.startsWith(item.href));
+
+  const handleLinkClick = () => {
+    if (onLinkClick) {
+      onLinkClick();
+    }
+  };
 
   return (
     <li>
       <div className="flex items-center">
         <Link
           href={item.href}
+          onClick={handleLinkClick}
           className={cn(
             'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground flex-1',
             level > 0 && 'ml-4',
@@ -52,7 +65,7 @@ function NavigationItem({ item, level = 0 }: { item: NavigationItem; level?: num
       {hasChildren && isOpen && (
         <ul className="mt-1 space-y-1">
           {item.children!.map((child) => (
-            <NavigationItem key={child.href} item={child} level={level + 1} />
+            <NavigationItem key={child.href} item={child} level={level + 1} onLinkClick={onLinkClick} />
           ))}
         </ul>
       )}
@@ -60,7 +73,11 @@ function NavigationItem({ item, level = 0 }: { item: NavigationItem; level?: num
   );
 }
 
-export function DocsSidebar() {
+interface DocsSidebarProps {
+  onLinkClick?: () => void;
+}
+
+export function DocsSidebar({ onLinkClick }: DocsSidebarProps) {
   return (
   <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-hidden">
     <ScrollArea className="h-full px-4 py-6">
@@ -72,7 +89,7 @@ export function DocsSidebar() {
             </h3>
             <ul className="space-y-1">
               {section.items.map((item) => (
-                <NavigationItem key={item.href} item={item} />
+                <NavigationItem key={item.href} item={item} onLinkClick={onLinkClick} />
               ))}
             </ul>
           </div>

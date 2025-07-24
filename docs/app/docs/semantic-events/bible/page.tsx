@@ -163,7 +163,7 @@ export default function EventBiblePage() {
   }, [router]);
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-7xl">
+    <div className="container mx-auto md:py-8 md:px-4 max-w-7xl">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-4">

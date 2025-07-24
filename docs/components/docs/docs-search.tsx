@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, ArrowRight, Clock } from 'lucide-react';
+import { Search, ArrowRight, Clock, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { searchResults, recentSearches, getSearchResultIcon, type SearchResult } from './search-config';
@@ -67,23 +67,31 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl p-0 gap-0">
-        <div className="flex items-center h-10 px-4 pr-10 mx-4 border-b rounded-t-md">
-          <Search className="h-4 w-4 text-muted-foreground" />
+      <DialogContent className="w-[94vw] max-w-2xl p-0 gap-0">
+        <div className="flex items-center h-12 px-4 pr-12 mx-4 border-b rounded-t-md">
+          <Search className="h-4 w-4 text-muted-foreground flex-shrink-0" />
           <Input
-            className="flex-1 h-10 border-0 shadow-none focus-visible:ring-0 text-base px-2"
+            className="flex-1 h-10 border-0 shadow-none focus-visible:ring-0 text-base px-2 focus-visible:ring-offset-0 mx-2"
             placeholder="Search semantic events documentation..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             autoFocus
           />
-          <kbd className="hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+          <kbd className="hidden sm:flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
             ESC
           </kbd>
+          {/* <Button
+            variant="ghost"
+            size="sm"
+            className="sm:hidden p-1 h-8 w-8"
+            onClick={() => onOpenChange(false)}
+          >
+            <X className="h-4 w-4" />
+          </Button> */}
         </div>
 
-        <ScrollArea className="max-h-96">
+        <ScrollArea className="flex-1 max-h-[calc(90vh-120px)]">
           {query && results.length > 0 && (
             <div className="p-2">
               <div className="mb-2 px-2 text-xs font-medium text-muted-foreground">
@@ -106,12 +114,12 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
                         <ResultIcon className="h-4 w-4 text-muted-foreground" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-medium text-sm">{result.title}</span>
                           {result.section && (
                             <>
-                              <ArrowRight className="h-3 w-3 text-muted-foreground" />
-                              <Badge variant="secondary" className="text-xs">
+                              <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                              <Badge variant="secondary" className="text-xs flex-shrink-0">
                                 {result.section}
                               </Badge>
                             </>
@@ -129,10 +137,10 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
           )}
 
           {query && results.length === 0 && (
-            <div className="p-8 text-center">
-              <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-medium mb-2">No results found</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="p-4 sm:p-8 text-center">
+              <Search className="h-8 w-8 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-base sm:text-lg font-medium mb-2">No results found</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Try searching for "core events", "schema", or "validation".
               </p>
             </div>
@@ -151,8 +159,8 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
                   onClick={() => setQuery(search)}
                 >
                   <div className="flex items-center gap-3">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm">{search}</span>
+                    <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                    <span className="text-sm truncate">{search}</span>
                   </div>
                 </Button>
               ))}
@@ -161,19 +169,21 @@ export function DocsSearch({ open, onOpenChange }: DocsSearchProps) {
         </ScrollArea>
 
         <div className="border-t px-4 py-3">
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
               <div className="flex items-center gap-1">
                 <kbd className="h-4 w-4 flex items-center justify-center rounded border bg-muted text-[10px]">↑</kbd>
                 <kbd className="h-4 w-4 flex items-center justify-center rounded border bg-muted text-[10px]">↓</kbd>
-                <span>to navigate</span>
+                <span className="hidden sm:inline">to navigate</span>
+                <span className="sm:hidden">navigate</span>
               </div>
               <div className="flex items-center gap-1">
                 <kbd className="h-4 px-1 flex items-center justify-center rounded border bg-muted text-[10px]">↵</kbd>
-                <span>to select</span>
+                <span className="hidden sm:inline">to select</span>
+                <span className="sm:hidden">select</span>
               </div>
             </div>
-            <span>Powered by Semantic Search</span>
+            <span className="text-center sm:text-right">Powered by Semantic Search</span>
           </div>
         </div>
       </DialogContent>
