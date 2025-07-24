@@ -171,7 +171,7 @@ export function SearchAndFilter({
               <ChevronDown className="h-3 w-3 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-48">
+          <DropdownMenuContent align="start" className="max-h-80 overflow-auto w-48">
             <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
@@ -206,7 +206,7 @@ export function SearchAndFilter({
               <ChevronDown className="h-3 w-3 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-48">
+          <DropdownMenuContent align="start" className="w-48 max-h-80 overflow-auto">
             <DropdownMenuLabel>Filter by Domain</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
@@ -241,7 +241,7 @@ export function SearchAndFilter({
               <ChevronDown className="h-3 w-3 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-48">
+          <DropdownMenuContent align="start" className="w-48 max-h-80 overflow-auto">
             <DropdownMenuLabel>Filter by Vertical</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem

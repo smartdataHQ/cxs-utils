@@ -40,7 +40,7 @@ export default function DocsPage({ params }: DocsPageProps) {
     const metadata = extractMetadata(markdocContent);
     
     return (
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto md:py-10">
         <div className="prose dark:prose-invert max-w-none">
           <h1 className="text-4xl font-extrabold mb-6">{metadata.title}</h1>
           <MarkdocRenderer content={markdocContent} />

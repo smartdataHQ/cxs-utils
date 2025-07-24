@@ -56,7 +56,7 @@ function IconText({ iconName, children }: { iconName: string; children: React.Re
 
 function Table({ children }: { children: React.ReactNode }) {
   return (
-    <div className="table-container overflow-x-auto my-8">
+    <div className="table-container overflow-x-auto my-8 !mx-0">
       <table className="w-full border-collapse border border-border rounded-lg overflow-hidden shadow-sm">
         {children}
       </table>
@@ -105,12 +105,12 @@ function List({ ordered, children }: { ordered?: boolean; children: React.ReactN
 function Heading({ level, children, id }: { level: number; children: React.ReactNode; id?: string }) {
   const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
   const headingClasses = {
-    1: 'text-4xl font-bold text-foreground border-b border-border pb-4 mb-8 mt-0 scroll-mt-20',
-    2: 'text-3xl font-semibold text-foreground mt-16 mb-6 scroll-mt-20',
-    3: 'text-2xl font-semibold text-foreground mt-12 mb-5 scroll-mt-20',
-    4: 'text-xl font-semibold text-foreground mt-8 mb-4 scroll-mt-20',
-    5: 'text-lg font-semibold text-foreground mt-6 mb-3 scroll-mt-20',
-    6: 'text-base font-semibold text-foreground mt-4 mb-2 scroll-mt-20',
+    1: 'lg:text-4xl sm:text-2xl text-xl font-bold text-foreground border-b border-border pb-4 mb-8 mt-0 scroll-mt-20',
+    2: 'lg:text-3xl sm:text-2xl text-lg font-semibold text-foreground mt-16 mb-6 scroll-mt-20',
+    3: 'lg:text-2xl sm:text-xl text-lg font-semibold text-foreground mt-12 mb-5 scroll-mt-20',
+    4: 'lg:text-xl sm:text-lg text-base font-semibold text-foreground mt-8 mb-4 scroll-mt-20',
+    5: 'lg:text-lg sm:text-base text-sm font-semibold text-foreground mt-6 mb-3 scroll-mt-20',
+    6: 'lg:text-base sm:text-sm text-xs font-semibold text-foreground mt-4 mb-2 scroll-mt-20',
   };
   return React.createElement(HeadingTag, { className: headingClasses[level as keyof typeof headingClasses], id }, children);
 }
