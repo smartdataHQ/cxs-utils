@@ -74,6 +74,19 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "rec2RQRO4AV84Q9Rd",
+      "name": "Tool Call Made",
+      "description": "When an agent system makes a tool call",
+      "category": "Agents",
+      "domain": "Autonomy",
+      "topic": "autonomy.agents.tool_call_made",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T14:14:33.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "rec2kn8x4SYJQY4b0",
       "name": "Shipment Cancelled",
       "description": "When a shipment is cancelled",
@@ -135,16 +148,16 @@
     },
     {
       "airtable_id": "rec43eZoQVFZvNG4w",
-      "name": "Checkout Abandoned",
+      "name": "Process Abandoned",
       "description": "When checkout is abandoned by the customer",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_abandoned",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_abandoned",
       "aliases": [
         {
           "name": "Booking Abandoned",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_abandoned",
+          "topic": "process_management.process.booking_abandoned",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -178,19 +191,6 @@
       "extraDomainAttributes": ""
     },
     {
-      "airtable_id": "rec4G865qRY9M9iLE",
-      "name": "Solution Instance Restarted",
-      "description": "When a software/solution solution is restarted",
-      "category": "Solutions",
-      "domain": "Software",
-      "topic": "software.solutions.solution_instance_restarted",
-      "aliases": [],
-      "lastUpdated": "2025-07-15T21:00:17.000Z",
-      "deprecated": false,
-      "extraCategoryAttributes": "",
-      "extraDomainAttributes": ""
-    },
-    {
       "airtable_id": "rec4iamxbJSdwOBM2",
       "name": "Payment Method Validated",
       "description": "When a creditcard is validated",
@@ -219,12 +219,25 @@
     {
       "airtable_id": "rec5BwHazHiuyakwQ",
       "name": "Solution Instance Scaled",
-      "description": "When a software/solution solution is scaled",
+      "description": "When a software/solution solution is scaled up or down",
       "category": "Solutions",
       "domain": "Software",
       "topic": "software.solutions.solution_instance_scaled",
       "aliases": [],
       "lastUpdated": "2025-07-15T20:59:54.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "rec5ToZnIQqIP0TOP",
+      "name": "Message Blocked",
+      "description": "When a message is blocked from a customer/partner",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.message_blocked",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:28:56.000Z",
       "deprecated": false,
       "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
@@ -339,16 +352,23 @@
     },
     {
       "airtable_id": "rec8AZcq8N5bfCrlw",
-      "name": "Checkout Completed",
+      "name": "Process Completed",
       "description": "When a user finishes the checkout process",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_completed",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_completed",
       "aliases": [
         {
           "name": "Booking Completed",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_completed",
+          "topic": "process_management.process.booking_completed",
+          "description": "",
+          "extraVerticalAttributes": ""
+        },
+        {
+          "name": "Workflow Completed",
+          "vertical": "Vertical Agnostic",
+          "topic": "process_management.process.workflow_completed",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -362,16 +382,23 @@
     },
     {
       "airtable_id": "rec8HiNRbkos7xNCr",
-      "name": "Checkout Aborted",
+      "name": "Process Cancelled",
       "description": "When checkout is aborted for some internal reason",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_aborted",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_cancelled",
       "aliases": [
         {
           "name": "Booking Aborted",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_aborted",
+          "topic": "process_management.process.booking_aborted",
+          "description": "",
+          "extraVerticalAttributes": ""
+        },
+        {
+          "name": "Workflow Cancelled",
+          "vertical": "Vertical Agnostic",
+          "topic": "process_management.process.workflow_cancelled",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -497,16 +524,16 @@
     },
     {
       "airtable_id": "recBkztwH1qhvsofN",
-      "name": "Checkout Step Viewed",
+      "name": "Process Step Viewed",
       "description": "When a user views any step within a multi-step checkout process",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_step_viewed",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_step_viewed",
       "aliases": [
         {
           "name": "Booking Step Viewed",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_step_viewed",
+          "topic": "process_management.process.booking_step_viewed",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -516,6 +543,19 @@
       "extraCategoryAttributes": [
         "step, ab_test, ab_experiment, lead_time"
       ],
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recCEoAHC3dFnbXnI",
+      "name": "Conversation Started",
+      "description": "When a conversation starts, regardless of channel",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.conversation_started",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:29:56.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
     },
     {
@@ -604,6 +644,19 @@
       "topic": "commerce.item_list.list_deleted",
       "aliases": [],
       "lastUpdated": "2025-07-16T10:56:29.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recDRb9C53sgsKcX5",
+      "name": "Message Sent",
+      "description": "When a message is sent to a customer, regardless of channel",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.message_sent",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:26:53.000Z",
       "deprecated": false,
       "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
@@ -794,6 +847,19 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "recHRwmyyCQovh2H1",
+      "name": "Conversation Transferred",
+      "description": "When a conversation is transferred, regardless of channel",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.conversation_transferred",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:31:03.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recHkukDyssmcTcG9",
       "name": "Unit Refreshed",
       "description": "When a rented unit is prepared for the next rental period",
@@ -914,6 +980,19 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "recLAz5UXzY9cC0Wa",
+      "name": "Solution Instance Started",
+      "description": "When a software/solution solution is started",
+      "category": "Solutions",
+      "domain": "Software",
+      "topic": "software.solutions.solution_instance_started",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T16:04:57.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recLRGXBbh7KmV2VH",
       "name": "Item Added",
       "description": "When a user adds a product to their shopping cart",
@@ -1010,6 +1089,27 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "recNtmtbJQ5oSLV8K",
+      "name": "Unit Retreival Started",
+      "description": "When a rental process is starting",
+      "category": "Rental",
+      "domain": "Commerce",
+      "topic": "commerce.rental.unit_retreival_started",
+      "aliases": [
+        {
+          "name": "Room Checkin Started",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_checkin_started",
+          "description": "",
+          "extraVerticalAttributes": ""
+        }
+      ],
+      "lastUpdated": "2025-07-20T14:07:52.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recPCl9zEH8FSR9Gw",
       "name": "Discount Applied",
       "description": "When a discount is applied to an invoice",
@@ -1052,9 +1152,9 @@
       "airtable_id": "recQppyYSjVVsilh2",
       "name": "Payment Information Entered",
       "description": "When a user successfully provides payment information during checkout",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.payment_information_entered",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.payment_information_entered",
       "aliases": [],
       "lastUpdated": "2025-05-17T09:09:09.000Z",
       "deprecated": false,
@@ -1151,16 +1251,16 @@
     },
     {
       "airtable_id": "recTQN1XetjugnJ35",
-      "name": "Checkout Step Completed",
+      "name": "Process Step Completed",
       "description": "When a user successfully completes a step within the checkout process",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_step_completed",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_step_completed",
       "aliases": [
         {
           "name": "Booking Step Completed",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_step_completed",
+          "topic": "process_management.process.booking_step_completed",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -1170,6 +1270,19 @@
       "extraCategoryAttributes": [
         "step, ab_test, ab_experiment, lead_time"
       ],
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recTdGwhcdtjiHcE3",
+      "name": "Tool Call Recieved",
+      "description": "When a tool is called by an agent",
+      "category": "Agents",
+      "domain": "Autonomy",
+      "topic": "autonomy.agents.tool_call_recieved",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T14:16:51.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
     },
     {
@@ -1278,6 +1391,19 @@
       "topic": "finances.payments.payment_method_added",
       "aliases": [],
       "lastUpdated": "2025-07-16T13:33:09.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recVqRW5DVor9ZjtH",
+      "name": "Message Recieved",
+      "description": "When a message is recieved from a customer, regardless of channel",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.message_recieved",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:25:20.000Z",
       "deprecated": false,
       "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
@@ -1467,6 +1593,27 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "recbczld50Nn8ivvM",
+      "name": "Unit Retreived",
+      "description": "When a rental unit has been handed to the customer",
+      "category": "Rental",
+      "domain": "Commerce",
+      "topic": "commerce.rental.unit_retreived",
+      "aliases": [
+        {
+          "name": "Room Checkin Completed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_checkin_completed",
+          "description": "",
+          "extraVerticalAttributes": ""
+        }
+      ],
+      "lastUpdated": "2025-07-20T14:08:05.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recbd5bZ1HLAMF4Tz",
       "name": "Membership Cancelled",
       "description": "When a user/customer cancels a membership",
@@ -1597,6 +1744,19 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "receqeqbgbYo33rXm",
+      "name": "Solution Updated",
+      "description": "When deployd software/solution is updated",
+      "category": "Solutions",
+      "domain": "Software",
+      "topic": "software.solutions.solution_updated-1",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T16:05:50.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recesOF89pIzKW3Wx",
       "name": "Campaign Asset Viewed",
       "description": "When an any marketing asset is viewed by a prospect",
@@ -1607,6 +1767,21 @@
       "lastUpdated": "2025-07-16T11:11:56.000Z",
       "deprecated": false,
       "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recfKak4TpI4ound0",
+      "name": "Process Halted",
+      "description": "When a process is paused or halted",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_halted",
+      "aliases": [],
+      "lastUpdated": "2025-07-24T08:00:15.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": [
+        "step, ab_test, ab_experiment, lead_time"
+      ],
       "extraDomainAttributes": ""
     },
     {
@@ -1882,6 +2057,21 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "reclpPUTayKbdGhk8",
+      "name": "Process Restarted",
+      "description": "When a process is started after a failiour or being paused",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_restarted",
+      "aliases": [],
+      "lastUpdated": "2025-07-24T07:59:45.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": [
+        "step, ab_test, ab_experiment, lead_time"
+      ],
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "reclt2Y8cXXLjKual",
       "name": "Purchase Refunded",
       "description": "When a refund is processed for an order",
@@ -1925,6 +2115,13 @@
       "domain": "Commerce",
       "topic": "commerce.rental.unit_returned",
       "aliases": [
+        {
+          "name": "Room Checkout Completed",
+          "vertical": "Travel & Hospitality",
+          "topic": "commerce.rental.room_checkout_completed",
+          "description": "",
+          "extraVerticalAttributes": ""
+        },
         {
           "name": "Room Checkout Completed",
           "vertical": "Travel & Hospitality",
@@ -2102,6 +2299,19 @@
         }
       ],
       "lastUpdated": "2025-07-15T19:14:26.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": "",
+      "extraDomainAttributes": ""
+    },
+    {
+      "airtable_id": "recsTuStQGWyY33bm",
+      "name": "Conversation Ended",
+      "description": "When a conversation ended, regardless of channel",
+      "category": "Messaging",
+      "domain": "CRM",
+      "topic": "crm.messaging.conversation_ended",
+      "aliases": [],
+      "lastUpdated": "2025-08-05T13:30:23.000Z",
       "deprecated": false,
       "extraCategoryAttributes": "",
       "extraDomainAttributes": ""
@@ -2312,6 +2522,29 @@
       "extraDomainAttributes": ""
     },
     {
+      "airtable_id": "recvBidxixm9lkEBt",
+      "name": "Process Failed",
+      "description": "When a process fails in some way",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_failed",
+      "aliases": [
+        {
+          "name": "Workflow Failed",
+          "vertical": "Vertical Agnostic",
+          "topic": "process_management.process.workflow_failed",
+          "description": "",
+          "extraVerticalAttributes": ""
+        }
+      ],
+      "lastUpdated": "2025-07-24T07:57:59.000Z",
+      "deprecated": false,
+      "extraCategoryAttributes": [
+        "step, ab_test, ab_experiment, lead_time"
+      ],
+      "extraDomainAttributes": ""
+    },
+    {
       "airtable_id": "recvfz73eDF5wTknJ",
       "name": "Message Sent",
       "description": "When notifications, messages, emails, sMS etc is sent to a customer",
@@ -2513,16 +2746,23 @@
     },
     {
       "airtable_id": "reczwxIzdaJUgssWL",
-      "name": "Checkout Started",
+      "name": "Process Started",
       "description": "When a user initiates the checkout process",
-      "category": "Checkout",
-      "domain": "Commerce",
-      "topic": "commerce.checkout.checkout_started",
+      "category": "Process",
+      "domain": "Process Management",
+      "topic": "process_management.process.process_started",
       "aliases": [
         {
           "name": "Booking Started",
           "vertical": "Travel & Hospitality",
-          "topic": "commerce.checkout.booking_started",
+          "topic": "process_management.process.booking_started",
+          "description": "",
+          "extraVerticalAttributes": ""
+        },
+        {
+          "name": "Wrokflow Started",
+          "vertical": "Vertical Agnostic",
+          "topic": "process_management.process.wrokflow_started",
           "description": "",
           "extraVerticalAttributes": ""
         }
@@ -2539,8 +2779,8 @@
     "categories": [
       "Access",
       "Actionable Intelligence",
+      "Agents",
       "CRM",
-      "Checkout",
       "Collection",
       "Communications",
       "Consumption",
@@ -2554,7 +2794,9 @@
       "Item List",
       "Marketing",
       "Membership",
+      "Messaging",
       "Payments",
+      "Process",
       "Provisioning",
       "Purchasing",
       "Rental",
@@ -2565,6 +2807,7 @@
       "Support"
     ],
     "domains": [
+      "Autonomy",
       "CRM",
       "Commerce",
       "Consumption",
@@ -2572,6 +2815,7 @@
       "Event",
       "Finances",
       "Operational Intelligence",
+      "Process Management",
       "Publicity",
       "Services",
       "Social",
@@ -2581,13 +2825,14 @@
       "Retail & eCommerce",
       "SaaS",
       "Streaming Media",
-      "Travel & Hospitality"
+      "Travel & Hospitality",
+      "Vertical Agnostic"
     ]
   },
   "metadata": {
-    "lastUpdated": "2025-07-20T13:51:49.319Z",
+    "lastUpdated": "2025-08-05T17:47:56.736Z",
     "source": "airtable",
-    "eventsCount": 165,
+    "eventsCount": 179,
     "version": "1.0.0"
   }
 }
