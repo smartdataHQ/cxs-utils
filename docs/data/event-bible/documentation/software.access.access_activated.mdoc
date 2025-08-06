@@ -1,0 +1,113 @@
+---
+title: Access Activated
+description: Fired when a user or account's access is activated. This event is critical for security auditing and user lifecycle management.
+---
+
+# Access Activated
+
+The `Access Activated` event should be sent whenever a user or an entire account's access to a system, feature, or resource is enabled. This event is a cornerstone of security and user lifecycle tracking, providing an immutable record of granted permissions.
+
+Typically, this event is sent from a server-side application, such as a user management backend, an identity provider (IdP), or an administration panel, immediately after the action is performed. It's triggered by events like an administrator lifting a suspension, a new user completing their verification process, or an automated system re-enabling an account after a cool-down period.
+
+## Examples
+
+### Simple Example: Manual User Unsuspension
+
+An administrator manually re-activates a suspended user's account via an admin panel. The `involves` array clearly defines the `Actor` (the admin) and the `Subject` (the user whose access was changed).
+
+```javascript
+jitsu.track('Access Activated', {
+  userId: 'user-b4d455', // The user whose access was activated
+  involves: [
+    {
+      role: 'Actor',
+      entity_type: 'User',
+      id: 'admin-007',
+      id_type: 'AdminSystem'
+    },
+    {
+      role: 'Subject',
+      entity_type: 'User',
+      id: 'user-b4d455',
+      id_type: 'UserDB'
+    }
+  ],
+  dimensions: {
+    activation_reason: 'SuspensionLifted',
+    activated_by_role: 'SupportAdmin'
+  }
+});
+```
+
+### Complex Example: Automated Feature Activation
+
+An entire organization's access to a premium analytics feature is activated automatically after a successful subscription payment. This event is sent by the billing system and links back to the original `Order Completed` event.
+
+```javascript
+jitsu.track('Access Activated', {
+  userId: 'system-billing-bot', // The automated process that performed the action
+  groupId: 'org-acme-corp-123',
+  involves: [
+    {
+      role: 'Actor',
+      entity_type: 'System',
+      id: 'system-billing-bot',
+      id_type: 'Internal'
+    },
+    {
+      role: 'Subject',
+      entity_type: 'Organization',
+      id: 'org-acme-corp-123',
+      id_type: 'CRM'
+    },
+    {
+      role: 'Object',
+      entity_type: 'Feature',
+      id: 'feature-premium-analytics',
+      label: 'Premium Analytics Suite'
+    }
+  ],
+  dimensions: {
+    activation_reason: 'SubscriptionRenewed',
+    access_level: 'Premium'
+  },
+  // Link to the commerce event that triggered this activation
+  base_events: [
+    {
+      event_gid: 'a1b2c3d4-e5f6-4a5b-8c9d-1e2f3a4b5c6d', // GID of the 'Order Completed' event
+      type: 'track',
+      event: 'Order Completed'
+    }
+  ]
+});
+```
+
+## Relevant Documentation
+
+*   [`Core Principles`](/docs/semantic-events/core-principles)
+*   [`Entity Relationships (Involves)`](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement)
+*   [`Dimensions & Metrics`](/docs/semantic-events/schema/dimensions-and-metrics)
+*   [`Governance`](/docs/semantic-events/schema/governance)
+
+## Primary Event Properties
+
+| Property | Description | Provided By |
+| --- | --- | --- |
+| `type` | The type of the event, which is always `track`. | **User-Provided** |
+| `event` | The name of the event, which is always `Access Activated`. | **User-Provided** |
+| `userId` | The identifier for the user or system performing the activation. | **User-Provided** |
+| `groupId` | The identifier for the group or organization whose access is activated. | User-Provided (Optional) |
+| `involves` | A crucial array detailing all entities in the event (who activated, who was activated, what was activated). | User-Provided (Optional) |
+| `dimensions`| Key-value pairs describing the context, such as `activation_reason`. | User-Provided (Optional) |
+| `timestamp` | The UTC timestamp of when the activation occurred. | Auto-Populated |
+| `messageId` | A unique ID for this specific event message. | Auto-Populated |
+
+
+## Enrichment and Analysis
+The `Access Activated` event is foundational for building a secure and transparent audit trail. When captured, it becomes a permanent record that answers critical governance questions: who granted access, to whom, to what, and when?
+
+On the server-side, this event enables:
+*   **Security & Compliance Reporting:** Dashboards can be automatically populated to show all access changes, filterable by administrator, user, or system. This is essential for compliance audits (e.g., SOC 2, ISO 27001).
+*   **User Lifecycle Analysis:** By combining `Access Activated` with events like `Access Suspended` and `User Registered`, you can build a complete picture of a user's journey and status within your platform.
+*   **Graph-Based Insights:** The `involves` array is used to build a rich graph of relationships. This allows for advanced queries like, "Show all access activations performed by administrators in the 'EU Support' team in the last 30 days," or "Which features are most frequently activated after a subscription upgrade?"
+*   **Automated Workflows:** This event can act as a trigger for downstream processes, such as sending a "Welcome back" email notification, provisioning resources in other systems, or updating a user's status in a CRM.

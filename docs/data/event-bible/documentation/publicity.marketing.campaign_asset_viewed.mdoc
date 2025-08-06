@@ -1,0 +1,70 @@
+---
+title: Campaign Asset Viewed
+description: A `Campaign Asset Viewed` event is triggered when a user or prospect views a specific marketing asset, such as a whitepaper, case study, or webinar landing page.
+---
+
+# Campaign Asset Viewed
+
+The `Campaign Asset Viewed` event is sent when a user or prospect views a marketing asset. This event is crucial for tracking the performance of marketing campaigns and understanding which content resonates most with your audience. It should be triggered from the client-side (e.g., a browser) when a page containing an asset loads or when an asset is directly accessed or viewed, for example in a modal window.
+
+This event is a cornerstone for marketing analytics, helping to measure engagement, attribute leads to specific content, and calculate the return on investment for marketing efforts.
+
+## Examples
+
+### Simple Example: Viewing a Blog Post
+This is a simple example of tracking a view of a blog post that is part of a marketing campaign. The Jitsu client library will automatically capture the `page` context and populate the `campaign` object from any UTM parameters present in the URL.
+
+```javascript
+jitsu.track('Campaign Asset Viewed');
+```
+
+### Complex Example: Viewing a PDF Whitepaper
+In this scenario, a user clicks to view a PDF whitepaper. The event is fired with more explicit details, including manually set campaign information and custom dimensions to describe the asset. This is useful when the asset view doesn't correspond to a full page load or when UTM parameters are not available.
+
+```javascript
+jitsu.track('Campaign Asset Viewed', {
+  campaign: {
+    name: 'Q3_Lead_Generation',
+    source: 'linkedin',
+    medium: 'cpc',
+    content: 'ad_variant_b'
+  },
+  dimensions: {
+    asset_type: 'Whitepaper',
+    asset_format: 'PDF',
+    funnel_stage: 'Consideration',
+    asset_title: 'The Future of AI in E-commerce'
+  },
+  page: {
+    url: 'https://example.com/resources/whitepapers/ai-in-ecommerce',
+    title: 'Resources | Whitepaper: The Future of AI in E-commerce'
+  }
+});
+```
+
+## Relevant Documentation
+
+- **[Core Properties](/docs/semantic-events/schema/root#foundational-event-details)**: Understand the fundamental properties of any event.
+- **[Basic Context Objects](/docs/semantic-events/schema/context)**: Learn about the `page` and `campaign` objects.
+- **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: See how to use custom dimensions for rich analysis.
+- **[The Event Bible](/docs/semantic-events/the-event-bible)**: Discover other predefined events to accelerate your analytics.
+
+## Primary Event Properties
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `event` | The name of the event, which is always `Campaign Asset Viewed`. | **User-Provided** |
+| `type` | The event type, which is always `track`. | **User-Provided** |
+| `campaign`| An object containing marketing campaign details (source, medium, etc.). | User-Provided (Optional) / Auto-Populated |
+| `page` | An object containing details about the web page where the asset was viewed. | Auto-Populated |
+| `dimensions`| Custom attributes describing the asset, such as `asset_type` or `asset_format`. | User-Provided (Optional) |
+| `userId` / `anonymousId` | Identifiers for the user viewing the asset. | User-Provided / Auto-Populated |
+
+## Enrichment and Analysis
+
+The `Campaign Asset Viewed` event is a valuable input for several downstream analysis and enrichment processes:
+
+- **Marketing Attribution**: By analyzing the `campaign` object, you can directly attribute user engagement to specific marketing channels and campaigns, helping to calculate content ROI.
+- **Content Strategy**: Tracking views across different `asset_type` and `asset_format` dimensions helps you understand what content is most effective at engaging your audience and driving them through the funnel.
+- **Lead Scoring**: A view of a high-value asset, such as a technical whitepaper or a case study, can be used to increase a prospect's lead score, signaling their interest and readiness for sales outreach.
+- **Audience Segmentation**: Users who view specific assets can be added to targeted audience segments for retargeting campaigns or personalized email nurturing sequences.

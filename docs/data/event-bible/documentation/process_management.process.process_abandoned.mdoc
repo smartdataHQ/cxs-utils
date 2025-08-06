@@ -1,0 +1,121 @@
+---
+title: Process Abandoned
+description: This event is fired when a user abandons a multi-step process, such as a checkout or booking flow. It's crucial for understanding drop-off points and optimizing user funnels.
+---
+
+# Process Abandoned
+
+The `Process Abandoned` event is triggered when a user starts a defined, multi-step workflow but leaves before reaching the final confirmation step. This is most commonly used to track abandonment of e-commerce checkouts, user registration flows, or booking processes.
+
+This event is fundamental for conversion rate optimization. It provides the critical data needed to build user funnels, identify which steps cause the most friction, and measure the impact of A/B tests. It should be sent from the client-side (browser or mobile app) or the server-side application that is managing the user's session state.
+
+For the Travel & Hospitality industry, this event has a specific alias: **`Booking Abandoned`**.
+
+## Examples
+
+### Simple E-commerce Checkout Abandonment
+
+This example shows a user abandoning a checkout process at the payment step. The `lead_time` metric captures how long the user was in the checkout flow before leaving.
+
+```javascript
+jitsu.track('Process Abandoned', {
+  dimensions: {
+    step: 'payment_information'
+  },
+  metrics: {
+    lead_time: 184.5 // Time in seconds from start of checkout
+  },
+  commerce: {
+    order_id: 'chk-e5f6-a1b2-c3d4',
+    revenue: 129.98,
+    currency: 'USD',
+    products: [
+      {
+        product_id: 'SKU-ABC-123',
+        product: 'Wireless Noise-Cancelling Headphones',
+        main_category: 'Electronics',
+        unit_price: 129.98,
+        units: 1
+      }
+    ]
+  }
+});
+```
+
+### Complex Booking Abandonment (Travel & Hospitality)
+
+Here, a user abandons a travel booking that includes a flight and a hotel. This example uses the **`Booking Abandoned`** alias. It includes A/B test information in `dimensions` and uses the `products` array to detail the items in the abandoned booking.
+
+```javascript
+jitsu.track('Booking Abandoned', {
+  dimensions: {
+    step: 'traveler_details',
+    ab_experiment: 'simplified_booking_flow',
+    ab_test: 'variant_b'
+  },
+  metrics: {
+    lead_time: 312
+  },
+  commerce: {
+    checkout_id: 'bk-9d8c-7b6a-5e4f',
+    revenue: 1854.50,
+    currency: 'EUR',
+    products: [
+      {
+        entry_type: 'Reservation',
+        product_id: 'LH-454',
+        product: 'Lufthansa Flight to Berlin',
+        main_category: 'Travel',
+        category: 'Flights',
+        units: 2, // 2 passengers
+        unit_price: 450.00,
+        origin: 'LHR',
+        destination: 'BER',
+        starts: '2025-08-10T14:30:00Z',
+        ends: '2025-08-10T17:00:00Z'
+      },
+      {
+        entry_type: 'Reservation',
+        product_id: 'HTL-BER-789',
+        product: 'Grand Hyatt Berlin',
+        main_category: 'Travel',
+        category: 'Accommodation',
+        units: 5, // 5 nights
+        unit_price: 190.90,
+        starts: '2025-08-10',
+        ends: '2025-08-15'
+      }
+    ]
+  }
+});
+```
+
+## Relevant Documentation
+
+*   **[Commerce & Products](/docs/semantic-events/schema/products)**: To understand the structure of the items being abandoned.
+*   **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: For adding custom analytical data like `step` and `lead_time`.
+*   **[Core Principles](/docs/semantic-events/core-principles)**: For general best practices on creating high-quality events.
+
+## Primary Event Properties
+
+These are the core properties of the `Process Abandoned` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | The type of event. Must be `track`. | **User-Provided** |
+| `event` | The name of the event. Must be `Process Abandoned` or `Booking Abandoned`. | **User-Provided** |
+| `dimensions.step`| The name or number of the step where the user abandoned the process. | User-Provided (Optional) |
+| `metrics.lead_time`| The time in seconds from when the process was initiated to the moment of abandonment. | User-Provided (Optional) |
+| `commerce` | A `commerce` object containing details of the items in the cart or booking when it was abandoned. | User-Provided (Optional) |
+| `timestamp` | The UTC timestamp of when the event occurred. | Auto-Populated |
+| `anonymous_id` | A unique identifier for an anonymous user. | Auto-Populated |
+| `user_id` | The unique identifier for a logged-in user. | User-Provided (Optional) |
+
+## Enrichment and Analysis
+
+Sending the `Process Abandoned` event unlocks critical business analysis capabilities:
+
+*   **Funnel Analysis**: This event is the cornerstone of conversion funnel analysis. By tracking abandonment at each `step`, you can precisely measure drop-off rates and identify the most problematic stages in your user journey.
+*   **A/B Testing**: When combined with `dimensions` for `ab_experiment` and `ab_test`, you can directly compare the performance of different versions of your checkout or booking flow to see which one reduces abandonment most effectively.
+*   **Marketing Retargeting**: This event can be used to trigger automated workflows, such as sending "abandoned cart" emails or serving retargeting ads to users who showed high intent but did not convert.
+*   **Product & Service Insight**: Analyzing the contents of the `commerce.products` array in abandoned events can reveal if certain products, flights, or hotels are abandoned more frequently, pointing to potential issues with pricing, availability, or information clarity.

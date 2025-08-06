@@ -1,0 +1,106 @@
+---
+title: Item Searched
+description: This event is fired when a user performs a search query to find products, accommodations, or other items.
+---
+
+# Item Searched
+
+The `Item Searched` event is triggered whenever a user executes a search on your website or application. It's a fundamental event in the **Discovery** phase of the user journey, capturing the user's explicit intent through their query. This event should be sent from the client-side (browser or mobile app) at the moment the search is initiated.
+
+This event has several vertical-specific aliases, such as `Accommodation Searched` or `Hotel Searched` for the Travel & Hospitality industry, allowing for more intuitive tracking while adhering to a common core structure.
+
+## Examples
+
+### Simple Product Search
+
+This is a basic example of a user searching for a product on an e-commerce site. The core information is the search query itself.
+
+```javascript
+jitsu.track('Item Searched', {
+  properties: {
+    query: 'waterproof running shoes'
+  }
+});
+```
+
+### Advanced Accommodation Search
+
+This example uses the `Accommodation Searched` alias for a travel website. It includes structured search filters in `dimensions`, numerical parameters in `metrics`, and a list of the top search results in the `products` array. This provides a rich, comprehensive view of the entire search interaction.
+
+```javascript
+jitsu.track('Accommodation Searched', {
+  dimensions: {
+    destination_city: 'Reykjavik',
+    property_type: 'Hotel',
+    amenities_filter: 'Free WiFi,Pool'
+  },
+  metrics: {
+    number_of_guests: 2,
+    number_of_rooms: 1,
+    search_results_count: 27
+  },
+  commerce: {
+    products: [
+      {
+        entry_type: 'Search Results',
+        position: 1,
+        product_id: 'HOTEL-123',
+        product: 'Grand Reykjavik Hotel',
+        main_category: 'Accommodation',
+        category: '4-Star Hotel',
+        destination: 'Reykjavik, IS',
+        starts: '2025-08-15',
+        ends: '2025-08-20',
+        units: 5, // Represents the number of nights
+        unit_price: 250.00, // Price per night shown in results
+        currency: 'USD'
+      },
+      {
+        entry_type: 'Search Results',
+        position: 2,
+        product_id: 'HOTEL-456',
+        product: 'Center City Apartments',
+        main_category: 'Accommodation',
+        category: 'Serviced Apartment',
+        destination: 'Reykjavik, IS',
+        starts: '2025-08-15',
+        ends: '2025-08-20',
+        units: 5,
+        unit_price: 180.00,
+        currency: 'USD'
+      }
+    ]
+  }
+});
+```
+
+## Relevant Documentation
+
+*   **[Commerce Events](/docs/semantic-events/schema/commerce)**: Understand the top-level structure for commerce-related events.
+*   **[Products](/docs/semantic-events/schema/products)**: See the detailed documentation for all properties available in the `Product` object.
+*   **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: Learn how to use custom dimensions and metrics for flexible analytics.
+*   **[The Event Bible](/docs/semantic-events/the-event-bible)**: Discover other predefined events to build a complete picture of the user journey.
+
+## Primary Event Properties
+
+These are the primary fields for the `Item Searched` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `event` | The name of the event, which is `Item Searched` or one of its aliases. | **User-Provided** |
+| `properties.query` | The raw text query string entered by the user. | **User-Provided** |
+| `dimensions` | Key-value pairs for low-cardinality search filters (e.g., `destination_city`, `property_type`). | Optional |
+| `metrics` | Key-value pairs for numerical search parameters (e.g., `number_of_guests`, `search_results_count`). | Optional |
+| `commerce.products`| An array of `Product` objects representing the items returned in the search results. | Optional |
+| `timestamp` | The UTC timestamp of when the event occurred. | Auto-Populated |
+| `messageId` | A unique identifier for the event message. | Auto-Populated |
+| `anonymous_id`| A unique identifier for an anonymous user. | Auto-Populated |
+
+## Enrichment and Analysis
+
+Sending `Item Searched` events enables powerful analysis of user intent and product discovery. On the backend, these events are used to:
+
+*   **Analyze Search Trends**: The `properties.query` field is aggregated to identify popular search terms, "zero-result" queries, and emerging trends in what users are looking for.
+*   **Understand Filter Usage**: By analyzing the `dimensions` object, you can see which search filters are most commonly used, helping you optimize your search interface.
+*   **Measure Search Effectiveness**: Connecting `Item Searched` events to subsequent `Product Viewed` and `Product Added` events allows you to build a search-to-conversion funnel, measuring how effectively your search results drive engagement and sales.
+*   **Power Personalization**: The data from search events can be used to personalize future experiences, such as showing relevant recommendations based on a user's past queries.

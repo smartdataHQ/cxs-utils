@@ -1,0 +1,90 @@
+---
+title: Campaign Asset Engaged
+description: This event is sent when a user or prospect interacts with a marketing asset, such as a whitepaper, ad, or webinar.
+---
+
+# Campaign Asset Engaged
+
+The `Campaign Asset Engaged` event is sent whenever a prospect or user interacts with a marketing asset. This event is crucial for tracking the effectiveness of marketing campaigns, understanding which content resonates with the audience, and feeding lead scoring models. It marks a specific touchpoint in the customer journey.
+
+This event should be triggered by the system where the engagement occurs. This could be a website (when a user clicks an ad), a marketing automation platform (when a link in an email is clicked), or a CRM (when a salesperson logs a content view).
+
+## Examples
+
+### Simple Example
+
+Here's a simple example where an anonymous user clicks on a Google CPC ad, which is part of the "Summer Sale 2025" campaign. The `campaign` object is automatically populated by the Jitsu client from the UTM parameters in the URL.
+
+```javascript
+// This event is often triggered automatically by the Jitsu client
+// when it detects UTM parameters in the page URL.
+jitsu.track('Campaign Asset Engaged', {
+  dimensions: {
+    asset_type: 'Banner Ad',
+    engagement_type: 'Click'
+  }
+});
+```
+
+### Complex Example
+
+In this more detailed example, a known user (`userId` is provided) downloads a whitepaper. We explicitly link the whitepaper as an `Involved` entity and use `metrics` to add a value to the user's lead score.
+
+```javascript
+jitsu.track('Campaign Asset Engaged', {
+  userId: 'user-a1b2-c3d4',
+  campaign: {
+    name: 'Q3 Content Marketing',
+    source: 'linkedin',
+    medium: 'social',
+    content: 'ai_in_retail_whitepaper_ad'
+  },
+  dimensions: {
+    asset_type: 'Whitepaper',
+    engagement_type: 'Download'
+  },
+  metrics: {
+    lead_score_increase: 15
+  },
+  involves: [
+    {
+      role: 'Asset',
+      entity_type: 'MarketingAsset',
+      id: 'WP-034',
+      id_type: 'InternalCMS',
+      label: 'The Future of AI in Retail Whitepaper'
+    }
+  ]
+});
+```
+
+## Relevant Documentation
+
+*   [Basic Context Objects (Campaign)](/docs/semantic-events/schema/context#the-campaign-object)
+*   [Entity Relationships (`involves`)](/docs/semantic-events/schema/involves#the-involves-structure-explicit-involvement)
+*   [Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)
+*   [Core Event Properties](/docs/semantic-events/schema/root)
+
+## Primary Event Properties
+
+These are the core properties associated with the `Campaign Asset Engaged` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | The type of event. For this event, the value is always `track`. | **User-Provided** |
+| `event` | The name of the event, which is `Campaign Asset Engaged`. | **User-Provided** |
+| `userId` | The unique identifier for a known user. | User-Provided (Optional) |
+| `anonymousId` | A unique identifier for a user before they are identified. | Auto-Populated |
+| `campaign` | An object containing marketing attribution details (source, medium, etc.), often populated automatically from UTM parameters. | Auto-Populated / User-Provided |
+| `timestamp` | The UTC timestamp of when the event occurred. | Auto-Populated |
+| `messageId` | A unique identifier for this specific event message. | Auto-Populated |
+
+
+## Enrichment and Analysis
+
+On the server side, the `Campaign Asset Engaged` event becomes a key data point for building a comprehensive view of the customer journey.
+
+*   **Attribution Modeling**: By consistently sending this event with the `campaign` object, the system can attribute conversions and revenue back to the specific marketing assets and channels that influenced the customer.
+*   **Lead Scoring**: The `metrics` field, particularly with values like `lead_score_increase`, directly feeds into lead scoring models. This helps sales teams prioritize the most engaged and promising prospects.
+*   **Content Strategy**: Analyzing which `asset_type` (e.g., 'Whitepaper', 'Webinar', 'Case Study') and which specific assets (via the `involves` array) receive the most engagement provides direct feedback for content strategy.
+*   **Engagement Graph**: Each event helps build a graph connecting users to the specific marketing content they consume, creating a rich profile of their interests and buying intent over time. This is invaluable for personalization and targeted follow-up campaigns.

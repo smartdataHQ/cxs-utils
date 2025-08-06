@@ -7,6 +7,7 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdoc'],
+  output: 'standalone',
 };
 
 module.exports = withMarkdoc()(nextConfig);

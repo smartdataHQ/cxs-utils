@@ -23,6 +23,8 @@ const testEvent: SemanticEvent = {
     { name: 'test_event', vertical: 'testing', topic: 'test', description: 'Test alias', extraVerticalAttributes: '' }
   ],
   lastUpdated: '2024-01-01T00:00:00Z',
+  extraCategoryAttributes: '',
+  extraDomainAttributes: '',
 };
 
 console.log('🔍 Validating Event Bible Implementation...\n');

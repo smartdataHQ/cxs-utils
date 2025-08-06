@@ -1,0 +1,145 @@
+---
+title: Unit Rented
+description: Sent when a rental period starts for a unit like a hotel room, car, or equipment. This event captures the core details of a rental transaction.
+---
+
+# Unit Rented
+
+The `Unit Rented` event is a foundational commerce event sent when a rental agreement is confirmed and its term begins. This event signifies the start of a transaction for a time-based service or physical asset. It is the master event for tracking revenue, occupancy, and utilization for rental-based businesses.
+
+This event should be sent from the server-side by the authoritative system, such as a Property Management System (PMS), a central booking engine, or a fleet management platform, at the moment a rental is finalized and becomes active.
+
+For the Travel & Hospitality industry, this event has a common alias: `Room Booked`.
+
+## Examples
+
+### Simple Example: Room Booked
+
+Here is a simple example of a `Room Booked` event for a two-night hotel stay, sent when the guest checks in or the non-refundable booking is confirmed.
+
+```javascript
+jitsu.track('Room Booked', {
+  userId: "usr-98765",
+  commerce: {
+    order_id: 'CONF-XYZ-123',
+    revenue: 358.00,
+    tax: 32.22,
+    currency: 'USD',
+    products: [
+      {
+        entry_type: 'Purchased Item',
+        product_id: 'ROOM-KING-STD',
+        product: 'Standard King Room',
+        main_category: 'Accommodation',
+        category: 'Standard Rooms',
+        starts: '2025-08-10T15:00:00Z',
+        ends: '2025-08-12T11:00:00Z',
+        units: 2, // Number of nights
+        unit_price: 179.00, // Price per night
+        uom: 'Night'
+      }
+    ]
+  },
+  dimensions: {
+    booking_channel: 'Direct Website',
+    rate_plan: 'Best Available Rate'
+  }
+});
+```
+
+### Complex Example: Car Rental with Add-ons
+
+This example shows a `Unit Rented` event for a multi-day car rental that includes additional services like insurance and a child seat. This illustrates how to use multiple line items and custom metrics.
+
+```javascript
+jitsu.track('Unit Rented', {
+  userId: "usr-5551212",
+  commerce: {
+    order_id: 'RENTAL-AGMT-456B',
+    affiliation: 'JFK Airport Branch',
+    revenue: 444.95, // (129.99 * 3) + (15 * 3) + 10
+    tax: 35.60,
+    currency: 'USD',
+    products: [
+      {
+        entry_type: 'Purchased Item',
+        position: 1,
+        product_id: 'CAR-COMPACT-01',
+        product: 'Compact - Toyota Corolla or similar',
+        main_category: 'Vehicle Rental',
+        category: 'Compact Cars',
+        starts: '2025-09-01T10:00:00Z',
+        ends: '2025-09-04T10:00:00Z',
+        origin: 'JFK', // Pickup location code
+        destination: 'LGA', // Drop-off location code
+        units: 3, // Number of days
+        unit_price: 129.99, // Price per day
+        uom: 'Day'
+      },
+      {
+        entry_type: 'Line Item',
+        position: 2,
+        product_id: 'SVC-INS-CDW',
+        product: 'Collision Damage Waiver',
+        main_category: 'Insurance',
+        units: 3,
+        unit_price: 15.00,
+        uom: 'Day'
+      },
+      {
+        entry_type: 'Line Item',
+        position: 3,
+        product_id: 'SVC-EQ-CHILDSEAT',
+        product: 'Child Safety Seat',
+        main_category: 'Equipment',
+        units: 1, // Flat fee for the rental period
+        unit_price: 10.00,
+        uom: 'Rental'
+      }
+    ]
+  },
+  dimensions: {
+    rental_tier: 'Gold Member',
+    booking_channel: 'Mobile App'
+  },
+  metrics: {
+    driver_age: 34,
+    loyalty_points_earned: 250
+  }
+});
+```
+
+## Relevant Documentation
+
+*   **[Commerce](/docs/semantic-events/schema/commerce)**: Learn about the main transaction object.
+*   **[Products](/docs/semantic-events/schema/products)**: Dive deeper into the rich product structure.
+*   **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: Understand how to add custom data.
+*   **[The Event Bible](/docs/semantic-events/the-event-bible)**: Discover other predefined events.
+*   **[Core Properties](/docs/semantic-events/schema/root)**: Review the foundational properties of all events.
+
+## Primary Event Properties
+
+These properties are essential for a well-formed `Unit Rented` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | The event type, which must be `track`. | **User-Provided** |
+| `event` | The name of the event, `Unit Rented` or an alias like `Room Booked`. | **User-Provided** |
+| `userId` | The identifier for the user or customer making the rental. | **User-Provided** |
+| `commerce` | The object containing all transactional details. | **User-Provided** |
+| `commerce.order_id`| The unique booking confirmation or rental agreement number. | **User-Provided** |
+| `commerce.revenue` | The total revenue for the rental agreement, including all add-ons. | **User-Provided** |
+| `commerce.currency`| The ISO 4217 currency code for the transaction. | **User-Provided** |
+| `commerce.products`| An array of `Product` objects, with at least one entry for the primary unit being rented. | **User-Provided** |
+| `timestamp` | The UTC timestamp of when the rental was confirmed. | Auto-Populated |
+| `messageId` | A unique ID for this event message. | Auto-Populated |
+
+## Enrichment and Analysis
+
+A properly instrumented `Unit Rented` event unlocks powerful, automated analysis and insights within the Context Suite.
+
+*   **Financial Dashboards**: The `revenue`, `tax`, and product-level `unit_cost` fields directly populate real-time dashboards for monitoring revenue, calculating profit margins, and analyzing Average Daily Rate (ADR) or revenue per unit.
+*   **Occupancy & Utilization**: By analyzing the `starts` and `ends` timestamps across all rental events, the platform can calculate key performance indicators like hotel occupancy rates or vehicle fleet utilization over time.
+*   **Product & Service Analysis**: Classifying products using `main_category` and `category` allows for deep analysis of which add-ons (like insurance, equipment, or room upgrades) are most popular and profitable.
+*   **Channel Performance**: Using a `dimension` like `booking_channel` enables you to segment revenue and profitability by source (e.g., Direct Website vs. Mobile App vs. Third-Party) to optimize marketing spend.
+*   **Geospatial Insights**: The `origin` and `destination` properties on a product can be used to analyze travel patterns, such as popular one-way car rental routes.
