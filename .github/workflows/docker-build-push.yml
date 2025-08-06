@@ -35,13 +35,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Build and push Docker image
+        id: docker_build
         uses: docker/build-push-action@v4
         with:
           context: ./docs
           file: ./docs/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            tags: quicklookup/cxs-utils:${{ env.IMAGE_TAG }}
+          tags: quicklookup/cxs-utils:${{ env.DOCKER_IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
