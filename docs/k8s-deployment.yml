@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cxs-utils-docs
+  labels:
+    app: cxs-utils-docs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cxs-utils-docs
+  template:
+    metadata:
+      labels:
+        app: cxs-utils-docs
+    spec:
+      containers:
+      - name: cxs-utils-docs
+        image: quicklookup/cxs-utils:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        # Health monitoring configuration
+        # Similar to Docker healthcheck in docker-compose.yml but with Kubernetes-specific parameters
+        livenessProbe:
+          httpGet:
+            port: 3000  # Application runs on port 3000
+            path: /
+          initialDelaySeconds: 10  # Wait 10s before first probe
+          periodSeconds: 10        # Check every 10s
+        readinessProbe:
+          httpGet:
+            port: 3000  # Application runs on port 3000
+            path: /
+          initialDelaySeconds: 5   # Wait 5s before first probe
+          periodSeconds: 10        # Check every 10s
+          timeoutSeconds: 2        # Timeout after 2s
+        # Mount the persistent volume to /app/data
+        volumeMounts:
+        - name: docs-data
+          mountPath: /app/data
+      volumes:
+      - name: docs-data
+        persistentVolumeClaim:
+          claimName: cxs-utils-docs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cxs-utils-docs
+spec:
+  selector:
+    app: cxs-utils-docs
+  ports:
+  # Map external port 80 to the container's port 3000
+  # This allows external access on standard HTTP port while the app runs on port 3000
+  - port: 80          # External port
+    targetPort: 3000  # Container port
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cxs-utils-docs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard

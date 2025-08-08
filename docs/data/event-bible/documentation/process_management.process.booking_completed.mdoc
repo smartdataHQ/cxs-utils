@@ -1,0 +1,121 @@
+---
+title: Process Completed
+description: This event is fired when a user successfully finishes a multi-step process, such as a checkout, a booking flow, or a registration workflow.
+---
+
+# Process Completed
+
+The `Process Completed` event is a crucial marker fired at the successful conclusion of any multi-step user journey. It signifies that a user has finalized a process, such as completing a purchase checkout, finishing a complex booking, or submitting a multi-page form. Its aliases, `Booking Completed` and `Workflow Completed`, allow for more specific, vertical-aligned tracking.
+
+This event should be sent from the system responsible for managing the state of the process, which is typically a server-side application. Sending it from the server guarantees that the event is recorded only upon true completion, avoiding false positives from client-side errors or users closing a browser tab on a "Thank You" page.
+
+## Examples
+
+### Simple Example: Workflow Completed
+
+This example shows a simple `Workflow Completed` event, which could represent a user finishing a new account registration. It uses `dimensions` to track A/B test participation and `metrics` to measure how long the process took.
+
+```javascript
+jitsu.track('Workflow Completed', {
+  dimensions: {
+    workflow_name: 'New User Onboarding',
+    final_step: 'Profile Confirmation',
+    ab_test_group: 'Variant B'
+  },
+  metrics: {
+    lead_time_seconds: 184.5
+  }
+});
+```
+
+### Complex Example: Booking Completed
+
+This example uses the `Booking Completed` alias for the Travel & Hospitality vertical. It leverages the rich `commerce` and `products` objects to capture the full details of a multi-part travel booking, including a flight, a hotel stay, and an activity.
+
+```javascript
+jitsu.track('Booking Completed', {
+  dimensions: {
+    step: 'Booking Confirmation',
+    ab_test: 'Simplified Checkout Flow',
+    ab_experiment: 'Variant A',
+    booking_channel: 'Mobile App'
+  },
+  metrics: {
+    lead_time_minutes: 8.75
+  },
+  commerce: {
+    order_id: 'BK-9A8B7C6D',
+    revenue: 2390.00, // (450*2) + (250*5) + (120*2)
+    tax: 191.20,
+    currency: 'USD',
+    products: [
+      {
+        entry_type: 'Purchased Item',
+        product_id: 'FL-JFK-KEF-456',
+        product: 'Economy Class: New York to Reykjavik',
+        main_category: 'Travel',
+        category: 'Flights',
+        units: 2, // 2 passengers
+        unit_price: 450.00,
+        starts: '2025-08-10T18:00:00Z',
+        ends: '2025-08-11T04:00:00Z',
+        origin: 'JFK',
+        destination: 'KEF',
+        seats: '24A, 24B'
+      },
+      {
+        entry_type: 'Purchased Item',
+        product_id: 'HOTEL-REYK-GRAND-01',
+        product: 'King Room at Grand Hotel Reykjavik',
+        main_category: 'Accommodation',
+        category: 'Hotels',
+        units: 5, // 5 nights
+        unit_price: 250.00,
+        starts: '2025-08-11T14:00:00Z',
+        ends: '2025-08-16T11:00:00Z',
+        destination: 'Reykjavik, Iceland'
+      },
+      {
+        entry_type: 'Purchased Item',
+        product_id: 'TOUR-GC-01',
+        product: 'Golden Circle Classic Tour',
+        main_category: 'Activities',
+        category: 'Tours',
+        units: 2, // 2 participants
+        unit_price: 120.00,
+        starts: '2025-08-12T09:00:00Z',
+        duration: 480 // 8 hours in minutes
+      }
+    ]
+  }
+});
+```
+
+## Relevant Documentation
+
+- **[Commerce Object](/docs/semantic-events/schema/commerce)**: For understanding the structure of transactional data.
+- **[Product Object](/docs/semantic-events/schema/products)**: For detailed information on capturing product data.
+- **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: For adding custom analytical data to events.
+- **[Core Event Properties](/docs/semantic-events/schema/root)**: For the foundational properties of all semantic events.
+
+## Primary Event Properties
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `type` | The type of event. For this event, the value is always `track`. | **User-Provided** |
+| `event` | The name of the event, `Process Completed`, or a relevant alias like `Booking Completed`. | **User-Provided** |
+| `commerce`| An object containing the full transactional details, including revenue and the `products` array. | Optional |
+| `dimensions` | A dictionary of low-cardinality attributes for filtering and grouping, such as A/B test variants or workflow names. | Optional |
+| `metrics` | A dictionary of numerical values associated with the process, such as `lead_time`. | Optional |
+| `timestamp` | The UTC timestamp of when the process was completed. | Auto-Populated |
+| `messageId` | A unique identifier for the event message. | Auto-Populated |
+| `context` | An object containing contextual information like IP address and user agent. | Auto-Populated |
+
+## Enrichment and Analysis
+
+The `Process Completed` event is fundamental for conversion tracking and funnel analysis. When received by the Context Suite, it enables several key analytical capabilities:
+
+- **Funnel Analysis**: This event serves as the final conversion point in a funnel, allowing you to measure drop-off rates at each preceding step.
+- **Performance Measurement**: Using the `lead_time` metric allows you to analyze and optimize the efficiency of your processes, identifying bottlenecks that cause user friction.
+- **A/B Testing**: The `dimensions` object is perfect for segmenting completion events by experiment and variant, making it easy to determine the winning version of a flow.
+- **Financial & Product Reporting**: When the `commerce` and `products` objects are included, this event directly feeds into pre-built financial dashboards, sales reports, and product performance analyses, providing a clear view of what is being successfully sold or booked.

@@ -3,7 +3,7 @@ FROM node:18-alpine AS deps
 WORKDIR /app
 
 # Copy package.json
-COPY package.json ./
+COPY docs/package.json ./
 
 # Install dependencies (using npm install instead of npm ci since package-lock.json might not exist)
 RUN npm install
@@ -14,7 +14,7 @@ WORKDIR /app
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY docs/ .
 
 # Create public directory if it doesn't exist
 RUN mkdir -p public
@@ -47,8 +47,15 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Copy cxs directory to root of the container
+COPY cxs /cxs
+
+# Create directory structure for documentation files
+RUN mkdir -p /app/data/event-bible/documentation
+
 # Set proper ownership
 RUN chown -R nextjs:nodejs /app
+RUN chown -R nextjs:nodejs /cxs
 
 # Switch to non-root user
 USER nextjs

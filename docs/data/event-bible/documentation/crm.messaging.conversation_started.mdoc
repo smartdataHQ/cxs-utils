@@ -1,0 +1,89 @@
+---
+title: Conversation Started
+description: Fired when a conversation starts, regardless of channel. This event is crucial for tracking customer support interactions, sales engagements, and messaging analytics.
+---
+
+# Conversation Started
+
+The `Conversation Started` event is triggered at the very beginning of an interaction between a user and your organization. It should be sent from the system that manages the conversation, such as a CRM (e.g., Salesforce), a customer support platform (e.g., Zendesk, Intercom), or a messaging application.
+
+This event marks the initial point of contact for a specific communication thread, whether it originates from a live chat on your website, an inbound email, a social media direct message, or an SMS. Capturing this event is fundamental for measuring key metrics like first response time, conversation volume by channel, and the effectiveness of different engagement entry points.
+
+## Examples
+
+### Simple Example: User Starts a Web Chat
+
+This is the most common use case, where a user initiates a conversation through a chat widget on your website. The `page` context is automatically captured by the Jitsu client.
+
+```javascript
+jitsu.track('Conversation Started', {
+  dimensions: {
+    channel: 'Web Chat',
+    entry_point: 'Pricing Page'
+  }
+});
+```
+
+### Complex Example: Inbound Email Regarding a Booking
+
+In this example, a conversation starts when the system processes an inbound email from a customer regarding a specific hotel booking. The event includes the email `content` and uses the `involves` array to explicitly link the conversation to the booking entity.
+
+```javascript
+jitsu.track('Conversation Started', {
+    content: {
+        subject: 'Question about my booking #BK-12345',
+        body: 'Hi, I have a booking for next week and wanted to know if I can request a late check-out. Thanks!'
+    },
+    involves: [
+        {
+            role: 'Subject',
+            entity_type: 'Booking',
+            id: 'BK-12345',
+            id_type: 'HotelSystem',
+            label: 'Booking #BK-12345'
+        }
+    ],
+    dimensions: {
+        channel: 'Email',
+        direction: 'Inbound',
+        source_email_address: 'customer@example.com' // Low-cardinality for analysis
+    },
+    metrics: {
+        initial_wait_time_seconds: 120 // Time from email receipt to processing
+    }
+});
+```
+
+## Relevant Documentation
+
+*   [Core Principles](/docs/semantic-events/core-principles): Emphasizes sending events from the authoritative system (e.g., the CRM).
+*   [Entity Relationships (`involves`)](/docs/semantic-events/schema/involves): Explains how to link events to business objects like bookings or orders.
+*   [Content & Properties](/docs/semantic-events/schema/content-and-properties): Details on using the `content` object for unstructured text.
+*   [Classification](/docs/semantic-events/schema/classification): Shows how events can be categorized for routing and analysis.
+*   [Sentiment Analysis](/docs/semantic-events/schema/sentiment): Describes how to capture the tone and emotion of the conversation.
+*   [Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics): For custom attributes and measurements.
+
+## Primary Event Properties
+
+These are the essential fields for a `Conversation Started` event.
+
+| Property              | Description                                                                     | Provided By              |
+| --------------------- | ------------------------------------------------------------------------------- | ------------------------ |
+| `type`                | The type of event. For this event, the value is always `track`.                 | **User-Provided**        |
+| `event`               | The name of the event, which is always `Conversation Started`.                  | **User-Provided**        |
+| `userId`              | The unique identifier for the user who started the conversation, if known.      | User-Provided (Optional) |
+| `anonymousId`         | The identifier for an anonymous user.                                           | Auto-Populated           |
+| `timestamp`           | The UTC timestamp of when the conversation began.                               | Auto-Populated           |
+| `dimensions.channel`  | The channel where the conversation started (e.g., 'Web Chat', 'Email', 'SMS').  | **User-Provided**        |
+
+## Enrichment and Analysis
+
+The `Conversation Started` event serves as a rich foundation for automated analysis and enrichment by the Context Suite platform.
+
+*   **Classification**: The platform can analyze the `content` of the initial message to automatically classify the user's `intent` (e.g., "Request Information," "Amend Booking," "Make Complaint") and assign a `priority`.
+*   **Sentiment Analysis**: The user's tone (e.g., "Neutral," "Urgent," "Frustrated") can be detected from the initial message, allowing for immediate and appropriate routing.
+*   **Entity Linking**: Even if not explicitly provided in the `involves` array, our system can use Named Entity Recognition (NER) on the `content` to find and link entities like booking numbers, order IDs, or product names.
+*   **Analytics**: By aggregating these events, you can build powerful dashboards to monitor:
+    *   Conversation volume and trends across different channels.
+    *   Peak times for customer inquiries.
+    *   The most common topics or intents that initiate conversations.

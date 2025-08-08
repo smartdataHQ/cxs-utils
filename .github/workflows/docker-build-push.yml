@@ -15,7 +15,6 @@ on:
 
 env:
   DOCKER_IMAGE_NAME: cxs-utils-docs
-  DOCKER_IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build-and-push:
@@ -24,6 +23,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Set short SHA
+        id: short_sha
+        run: echo "SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-4)" >> $GITHUB_ENV
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -38,10 +41,12 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v4
         with:
-          context: ./docs
+          context: .
           file: ./docs/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: quicklookup/cxs-utils:${{ env.DOCKER_IMAGE_TAG }}
+          tags: |
+            quicklookup/cxs-utils:${{ env.SHORT_SHA }}
+            quicklookup/cxs-utils:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

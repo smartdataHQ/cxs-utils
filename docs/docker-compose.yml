@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  docs:
+    build:
+      context: ..
+      dockerfile: docs/Dockerfile
+    image: cxs-utils-docs:local
+    container_name: cxs-utils-docs
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.docker
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - docs-data:/app/data
+
+volumes:
+  docs-data:
+    name: cxs-utils-docs-data

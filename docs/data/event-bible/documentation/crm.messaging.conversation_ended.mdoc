@@ -1,0 +1,97 @@
+---
+title: Conversation Ended
+description: This event is sent when a conversation between an agent and a customer has concluded. It is crucial for measuring support resolution times, agent performance, and overall interaction efficiency.
+---
+
+# Conversation Ended
+
+The `Conversation Ended` event is triggered when an interaction between a user (e.g., a customer) and a representative of the business (e.g., a support agent, chatbot) is formally concluded. This event is a critical component of Customer Relationship Management (CRM) and support analytics, as it marks the end of a service cycle.
+
+This event should be sent from the system that manages the conversation, such as a helpdesk platform (Zendesk, Intercom), a live chat tool, or a unified communications system. It provides the final data points needed to calculate key performance indicators like "Time to Resolution," "Agent Handle Time," and "Customer Satisfaction" if a survey follows.
+
+## Examples
+
+### Simple Example
+This example shows a basic `Conversation Ended` event for a chat interaction that was resolved successfully. We use `dimensions` to capture the channel and reason for the conversation ending, and `metrics` for the duration and message count.
+
+```javascript
+jitsu.track("Conversation Ended", {
+  dimensions: {
+    channel: "Live Chat",
+    end_reason: "Resolved",
+    inbound_outbound: "inbound"
+  },
+  metrics: {
+    duration_minutes: 12.5,
+    agent_messages_count: 7,
+    customer_messages_count: 6
+  }
+});
+```
+
+### Complex Example
+This example represents a more complex support ticket that was concluded. It uses the `involves` array to explicitly identify the customer and the agent who handled the case. It also includes richer `dimensions` and `metrics`, such as the ticket priority and first response time. A summary of the conversation is included in the `content` property for potential future analysis.
+
+```javascript
+jitsu.track("Conversation Ended", {
+  involves: [
+    {
+      role: "Customer",
+      entity_type: "Person",
+      id: "cust_11223344",
+      id_type: "InternalDB",
+      label: "John Doe"
+    },
+    {
+      role: "Agent",
+      entity_type: "Person",
+      id: "agent_887766",
+      id_type: "Zendesk",
+      label: "Jane Smith"
+    }
+  ],
+  content: {
+    conversation_summary: "Customer reported a cracked screen on their new phone. Agent verified the order and initiated a replacement process. Ticket closed upon confirmation of the new shipment."
+  },
+  dimensions: {
+    channel: "Email",
+    end_reason: "Resolved",
+    ticket_priority: "High",
+    satisfaction_survey_sent: "true"
+  },
+  metrics: {
+    duration_minutes: 2880, // 2 days
+    first_response_time_minutes: 45,
+    agent_touches: 3
+  }
+});
+```
+
+## Relevant Documentation
+- **[Entity Relationships (Involves)](/docs/semantic-events/schema/involves)**: For identifying the customer, agent, and any other participants.
+- **[Classification](/docs/semantic-events/schema/classification)**: To understand how conversations can be automatically categorized.
+- **[Content & Other Properties](/docs/semantic-events/schema/content-and-properties)**: For including conversation summaries or transcripts.
+- **[Dimensions & Metrics](/docs/semantic-events/schema/dimensions-and-metrics)**: For tracking key performance indicators.
+- **[Core Principles](/docs/semantic-events/core-principles)**: To understand the best practices for sending high-quality events.
+
+## Primary Event Properties
+The following are the essential and commonly used properties for the `Conversation Ended` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `event` | The name of the event, which is always "Conversation Ended". | **User-Provided** |
+| `userId` | The unique identifier of the customer or user involved in the conversation. | **User-Provided** |
+| `timestamp` | The UTC timestamp of when the conversation ended. | Auto-Populated |
+| `dimensions` | Key-value pairs describing the context of the conversation (e.g., `channel`, `end_reason`). | User-Provided (Optional) |
+| `metrics` | Numerical data about the conversation (e.g., `duration_minutes`, `agent_messages_count`). | User-Provided (Optional) |
+| `involves` | An array identifying the participants and their roles (e.g., "Customer", "Agent"). | User-Provided (Optional) |
+| `content` | A dictionary containing textual data, like a summary or full transcript of the conversation. | User-Provided (Optional) |
+
+
+## Enrichment and Analysis
+The Context Suite leverages the `Conversation Ended` event to generate powerful insights and automate processes.
+
+- **Performance Dashboards**: This event is the primary source for populating dashboards that track agent and team performance, resolution times, and channel efficiency.
+- **Automated Classification**: By analyzing the `content` property, our platform can automatically add [`classification`](/docs/semantic-events/schema/classification) and [`sentiment`](/docs/semantic-events/schema/sentiment) objects to the event. This can identify the customer's intent (e.g., "Billing Inquiry," "Technical Issue") and their overall satisfaction, even without a formal survey.
+- **Quality Assurance**: Events can be flagged for manual review based on metrics like long duration, high message count, or negative sentiment, streamlining the quality assurance process.
+- **Predictive Insights**: By correlating conversation metrics and sentiment with subsequent user behavior, the platform can help identify customers at risk of churn or predict future support needs.
