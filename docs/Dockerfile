@@ -50,8 +50,21 @@ COPY --from=builder /app/.next/static ./.next/static
 # Copy cxs directory to root of the container
 COPY cxs /cxs
 
+# Copy data directory to a source location for initialization
+COPY docs/data /app/init-data
+
+# Copy initialization script
+COPY docs/init-data.sh /app/init-data.sh
+RUN chmod +x /app/init-data.sh
+
 # Create directory structure for documentation files
 RUN mkdir -p /app/data/event-bible/documentation
+
+# Create an entrypoint script to run initialization and then start the app
+RUN echo '#!/bin/sh\n\
+/app/init-data.sh\n\
+exec node server.js --hostname 0.0.0.0\n\
+' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
 
 # Set proper ownership
 RUN chown -R nextjs:nodejs /app
@@ -63,5 +76,5 @@ USER nextjs
 # Expose the port the app will run on
 EXPOSE 3000
 
-# Set the command to start the app and bind to all interfaces
-CMD ["node", "server.js", "--hostname", "0.0.0.0"]
+# Set the command to run the entrypoint script
+CMD ["/app/entrypoint.sh"]
