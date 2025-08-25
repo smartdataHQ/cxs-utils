@@ -23,6 +23,21 @@ export default function EventBiblePage() {
   
   // Use the priming hook for cache management
   const { isLoading, isReady, error: primingError, refresh, eventsCount } = useEventBiblePriming();
+
+  // Add timeout for stuck loading states
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
+
+  useEffect(() => {
+    if (isLoading) {
+      const timeout = setTimeout(() => {
+        setLoadingTimeout(true);
+      }, 30000); // 30 second timeout
+
+      return () => clearTimeout(timeout);
+    } else {
+      setLoadingTimeout(false);
+    }
+  }, [isLoading]);
   
   // Use debounced search for better performance
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,12 +65,20 @@ export default function EventBiblePage() {
       try {
         const airtableService = createClientAirtableService();
         const eventsData = await airtableService.fetchAllEvents();
-        
-        setEvents(eventsData);
-        setUsingFallback(false);
+
+        if (eventsData && eventsData.length > 0) {
+          setEvents(eventsData);
+          setUsingFallback(false);
+        } else {
+          // If no events returned, use fallback
+          console.warn('No events returned from API, using fallback');
+          const fallbackEvents = getFallbackEvents();
+          setEvents(fallbackEvents);
+          setUsingFallback(true);
+        }
       } catch (err: any) {
         console.error('Failed to load events:', err);
-        
+
         // Use fallback events when Airtable is unavailable
         const fallbackEvents = getFallbackEvents();
         setEvents(fallbackEvents);
@@ -189,14 +212,30 @@ export default function EventBiblePage() {
 
       {/* Priming Status */}
       {isLoading && (
-        <Alert className="mb-6" variant="default">
+        <Alert className="mb-6" variant={loadingTimeout ? "destructive" : "default"}>
           <RefreshCw className="h-4 w-4 animate-spin" />
           <AlertDescription>
             <div className="space-y-2">
-              <p className="font-medium">Loading Event Bible</p>
-              <p className="text-sm">
-                Priming cache with events from Airtable...
+              <p className="font-medium">
+                {loadingTimeout ? 'Loading Taking Longer Than Expected' : 'Loading Event Bible'}
               </p>
+              <p className="text-sm">
+                {loadingTimeout
+                  ? 'The system may be generating new content or experiencing high load. You can try refreshing or wait a bit longer.'
+                  : 'Priming cache with events from Airtable...'
+                }
+              </p>
+              {loadingTimeout && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={refresh}
+                  className="mt-2"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Force Refresh
+                </Button>
+              )}
             </div>
           </AlertDescription>
         </Alert>

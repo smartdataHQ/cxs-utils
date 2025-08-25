@@ -12,23 +12,34 @@ interface EventDocumentationLoaderProps {
   initialContent?: string | null;
 }
 
-export function EventDocumentationLoader({ 
-  slug, 
-  eventName, 
-  initialContent 
+export function EventDocumentationLoader({
+  slug,
+  eventName,
+  initialContent
 }: EventDocumentationLoaderProps) {
   const [content, setContent] = useState<string | null>(initialContent || null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const fetchDocumentation = async () => {
-    if (content) return; // Don't fetch if we already have content
-    
+  const fetchDocumentation = async (isRetry = false) => {
+    if (content && !isRetry) return; // Don't fetch if we already have content unless retrying
+
     setIsLoading(true);
     setError(null);
+    setIsGenerating(false);
+
+    // Add timeout to prevent infinite loading
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 90000); // 90 second timeout
 
     try {
-      const response = await fetch(`/api/event-documentation/${slug}`);
+      const response = await fetch(`/api/event-documentation/${slug}`, {
+        signal: controller.signal,
+      });
       const data = await response.json();
 
       if (!response.ok) {
@@ -36,16 +47,29 @@ export function EventDocumentationLoader({
       }
 
       setContent(data.content);
+      setIsGenerating(data.isGenerating || false);
+      setRetryCount(0); // Reset retry count on success
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('Documentation loading timed out. This may happen when generating new documentation.');
+      } else {
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };
 
   const retryFetch = () => {
+    if (retryCount >= 3) {
+      setError('Maximum retry attempts reached. Please try again later.');
+      return;
+    }
+
     setContent(null);
-    fetchDocumentation();
+    setRetryCount(prev => prev + 1);
+    fetchDocumentation(true);
   };
 
   useEffect(() => {
@@ -53,6 +77,18 @@ export function EventDocumentationLoader({
       fetchDocumentation();
     }
   }, [slug, initialContent]);
+
+  // Auto-retry for generation states
+  useEffect(() => {
+    if (isGenerating && !isLoading) {
+      const retryTimer = setTimeout(() => {
+        console.log('Documentation still generating, checking again...');
+        fetchDocumentation(true);
+      }, 5000); // Check every 5 seconds if still generating
+
+      return () => clearTimeout(retryTimer);
+    }
+  }, [isGenerating, isLoading]);
 
   if (isLoading) {
     return (
@@ -71,13 +107,26 @@ export function EventDocumentationLoader({
             <div className="text-center space-y-4">
               <Loader2 className="h-8 w-8 animate-spin mx-auto text-muted-foreground" />
               <div className="space-y-2">
-                <p className="text-lg font-medium">Fetching Latest Documentation</p>
+                <p className="text-lg font-medium">
+                  {isGenerating ? 'Generating Documentation' : 'Fetching Latest Documentation'}
+                </p>
                 <p className="text-sm text-muted-foreground">
-                  Loading comprehensive documentation for <strong>{eventName}</strong>...
+                  {isGenerating
+                    ? `AI is generating comprehensive documentation for ${eventName}...`
+                    : `Loading comprehensive documentation for ${eventName}...`
+                  }
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  This may take a few moments as we retrieve the latest implementation guidance.
+                  {isGenerating
+                    ? 'This may take up to 60 seconds for AI generation...'
+                    : 'This may take a few moments as we retrieve the latest implementation guidance.'
+                  }
                 </p>
+                {retryCount > 0 && (
+                  <p className="text-xs text-amber-600">
+                    Retry attempt {retryCount}/3
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -102,15 +151,31 @@ export function EventDocumentationLoader({
           <p className="text-sm text-red-700 dark:text-red-300">
             {error}
           </p>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={retryFetch}
-            className="border-red-300 text-red-700 hover:bg-red-100 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20"
-          >
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Retry Loading Documentation
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={retryFetch}
+              disabled={retryCount >= 3}
+              className="border-red-300 text-red-700 hover:bg-red-100 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-900/20"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Retry {retryCount > 0 ? `(${retryCount}/3)` : ''}
+            </Button>
+            {retryCount >= 3 && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setRetryCount(0);
+                  setError(null);
+                }}
+                className="border-amber-300 text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:text-amber-300 dark:hover:bg-amber-900/20"
+              >
+                Reset
+              </Button>
+            )}
+          </div>
         </CardContent>
       </Card>
     );

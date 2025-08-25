@@ -185,7 +185,7 @@ export class CacheService {
     ttl?: number
   ): Promise<T> {
     const cached = this.get<T>(key);
-    
+
     if (cached !== null) {
       return cached;
     }
@@ -193,6 +193,23 @@ export class CacheService {
     const data = await fetcher();
     this.set(key, data, ttl);
     return data;
+  }
+
+  /**
+   * Force clear all event-related cache entries
+   */
+  clearEventCache(): void {
+    const eventKeys = Array.from(this.cache.keys()).filter(key =>
+      key.startsWith('airtable:')
+    );
+
+    eventKeys.forEach(key => this.cache.delete(key));
+
+    if (this.persistent) {
+      this.saveToStorage();
+    }
+
+    console.log(`Cleared ${eventKeys.length} event cache entries`);
   }
 }
 

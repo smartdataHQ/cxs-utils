@@ -25,6 +25,45 @@ async function getAllMdocFiles(dirPath: string): Promise<string[]> {
 }
 
 
+// Timeout wrapper for async operations
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number, errorMessage: string): Promise<T> {
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    setTimeout(() => reject(new Error(errorMessage)), timeoutMs);
+  });
+
+  return Promise.race([promise, timeoutPromise]);
+}
+
+// Validate if documentation content is meaningful and not empty
+function isValidDocumentationContent(content: string): boolean {
+  if (!content || typeof content !== 'string') {
+    return false;
+  }
+
+  // Remove whitespace and common markdown elements
+  const cleanContent = content
+    .trim()
+    .replace(/^---[\s\S]*?---/, '') // Remove frontmatter
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/[#*`\-_]/g, '') // Remove markdown formatting
+    .trim();
+
+  // Check if there's meaningful content (at least 50 characters of actual text)
+  if (cleanContent.length < 50) {
+    return false;
+  }
+
+  // Check for common placeholder or error patterns
+  const invalidPatterns = [
+    /^(error|failed|undefined|null|loading)/i,
+    /^(lorem ipsum|placeholder|todo|tbd)/i,
+    /^(coming soon|under construction)/i,
+    /^(\s*$)/, // Only whitespace
+  ];
+
+  return !invalidPatterns.some(pattern => pattern.test(cleanContent));
+}
+
 async function generateMdocContent(event: SemanticEvent, useGemini: boolean = false): Promise<string> {
   if (useGemini && !gemini) {
     throw new Error("Gemini API key not configured. Please set the GEMINI_API_KEY environment variable.");
@@ -114,19 +153,36 @@ ${template}
 
 `;
 
+  const GENERATION_TIMEOUT = 60000; // 60 seconds timeout
+
   if (useGemini) {
     const model = gemini!.getGenerativeModel({ model: "gemini-2.5-pro" });
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text() || '';
-  } else {
-    const response = await openai!.chat.completions.create({
-      model: "gpt-4-turbo",
-      messages: [{ role: "system", content: prompt }],
-      temperature: 0.7,
-    });
+    const generationPromise = async () => {
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text() || '';
+    };
 
-    return response.choices[0].message.content || '';
+    return await withTimeout(
+      generationPromise(),
+      GENERATION_TIMEOUT,
+      'Documentation generation timed out after 60 seconds using Gemini'
+    );
+  } else {
+    const generationPromise = async () => {
+      const response = await openai!.chat.completions.create({
+        model: "gpt-4-turbo",
+        messages: [{ role: "system", content: prompt }],
+        temperature: 0.7,
+      });
+      return response.choices[0].message.content || '';
+    };
+
+    return await withTimeout(
+      generationPromise(),
+      GENERATION_TIMEOUT,
+      'Documentation generation timed out after 60 seconds using OpenAI'
+    );
   }
 }
 
@@ -260,9 +316,25 @@ export async function getEventDocumentationWithStatus(slug: string, useGemini?: 
 
   try {
     const content = await readFile(docPath, 'utf8');
-    return { content: content.trim(), isGenerating: false };
+    const trimmedContent = content.trim();
+
+    // Validate that the content is meaningful
+    if (!isValidDocumentationContent(trimmedContent)) {
+      console.log(`Documentation for ${slug} exists but is empty or invalid. Regenerating...`);
+      // Delete the invalid file and regenerate
+      try {
+        await require('fs').promises.unlink(docPath);
+      } catch (unlinkError) {
+        console.warn(`Failed to delete invalid documentation file for ${slug}:`, unlinkError);
+      }
+
+      // Fall through to generation logic
+      throw new Error('INVALID_CONTENT');
+    }
+
+    return { content: trimmedContent, isGenerating: false };
   } catch (error: any) {
-    if (error.code === 'ENOENT') {
+    if (error.code === 'ENOENT' || error.message === 'INVALID_CONTENT') {
       // File not found, try to generate it
       console.log(`Documentation for ${slug} not found. Attempting to generate...`);
       const events = await getEvents();
@@ -274,6 +346,12 @@ export async function getEventDocumentationWithStatus(slug: string, useGemini?: 
           // Use specified model or try Gemini first if available, fallback to OpenAI
           const shouldUseGemini = useGemini !== undefined ? useGemini : !!gemini;
           const newContent = await generateMdocContent(event, shouldUseGemini);
+
+          // Validate generated content before saving
+          if (!isValidDocumentationContent(newContent)) {
+            throw new Error('Generated documentation content is empty or invalid');
+          }
+
           await writeFile(docPath, newContent, 'utf8');
           console.log(`Successfully generated and saved documentation for ${slug} using ${shouldUseGemini ? 'Gemini' : 'OpenAI'}.`);
           return { content: newContent, isGenerating: false };

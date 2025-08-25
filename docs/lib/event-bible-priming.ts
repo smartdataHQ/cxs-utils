@@ -22,6 +22,7 @@ export class EventBiblePrimingService {
   private static instance: EventBiblePrimingService;
   private isPriming = false;
   private lastPrimingResult: PrimingResult | null = null;
+  private primingPromise: Promise<PrimingResult> | null = null;
 
   private constructor() {}
 
@@ -36,18 +37,32 @@ export class EventBiblePrimingService {
    * Prime the cache with Bible Events, preferring local JSON file over Airtable
    */
   async primeCache(forceAirtable = false): Promise<PrimingResult> {
-    if (this.isPriming) {
-      console.log('Priming already in progress, skipping...');
-      return this.lastPrimingResult || {
-        success: false,
-        eventsCount: 0,
-        error: 'Priming already in progress',
-        timestamp: new Date(),
-        duration: 0,
-        source: 'local',
-      };
+    // If priming is already in progress, return the existing promise
+    if (this.isPriming && this.primingPromise) {
+      console.log('Priming already in progress, waiting for completion...');
+      return this.primingPromise;
     }
 
+    // If we have recent successful priming results and not forcing, return them
+    if (!forceAirtable && this.lastPrimingResult && this.lastPrimingResult.success) {
+      const timeSinceLastPriming = Date.now() - this.lastPrimingResult.timestamp.getTime();
+      const PRIMING_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+      if (timeSinceLastPriming < PRIMING_CACHE_TTL) {
+        console.log('Using recent priming results from cache');
+        return this.lastPrimingResult;
+      }
+    }
+
+    // Create and store the priming promise to handle concurrent requests
+    this.primingPromise = this._performPriming(forceAirtable);
+    return this.primingPromise;
+  }
+
+  /**
+   * Internal method to perform the actual priming work
+   */
+  private async _performPriming(forceAirtable: boolean): Promise<PrimingResult> {
     const startTime = Date.now();
     this.isPriming = true;
 
@@ -156,6 +171,7 @@ export class EventBiblePrimingService {
 
     } finally {
       this.isPriming = false;
+      this.primingPromise = null;
     }
   }
 
@@ -208,12 +224,34 @@ export class EventBiblePrimingService {
   }
 
   /**
+   * Get current cache status
+   */
+  getCacheStatus(): {
+    hasAllEvents: boolean;
+    hasFilterOptions: boolean;
+    isPriming: boolean;
+    lastPrimingTimestamp: Date | null;
+    cacheStats: { size: number; maxSize: number };
+  } {
+    return {
+      hasAllEvents: cacheService.has(CACHE_KEYS.ALL_EVENTS),
+      hasFilterOptions: cacheService.has(CACHE_KEYS.FILTER_OPTIONS),
+      isPriming: this.isPriming,
+      lastPrimingTimestamp: this.lastPrimingResult?.timestamp || null,
+      cacheStats: cacheService.getStats(),
+    };
+  }
+
+  /**
    * Force cache refresh by clearing and re-priming
    */
   async refreshCache(): Promise<PrimingResult> {
     console.log('Forcing cache refresh...');
-    cacheService.clear();
-    return this.primeCache();
+    cacheService.clearEventCache();
+    // Reset priming state to force a fresh prime
+    this.lastPrimingResult = null;
+    this.primingPromise = null;
+    return this.primeCache(false);
   }
 
   /**

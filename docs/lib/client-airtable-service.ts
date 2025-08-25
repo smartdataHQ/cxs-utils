@@ -4,6 +4,7 @@
  */
 
 import { SemanticEvent } from './types/event-bible';
+import { cacheService, CACHE_KEYS } from './cache-service';
 
 export interface ClientAirtableConfig {
   baseId: string;
@@ -19,16 +20,32 @@ export class ClientAirtableService {
   }
 
   /**
-   * Fetch all events via server-side API
+   * Fetch all events via server-side API with caching
    */
   async fetchAllEvents(): Promise<SemanticEvent[]> {
+    // Check cache first
+    const cachedEvents = cacheService.get<SemanticEvent[]>(CACHE_KEYS.ALL_EVENTS);
+    if (cachedEvents) {
+      console.log(`Using cached events: ${cachedEvents.length} events`);
+      return cachedEvents;
+    }
+
     try {
+      console.log('Cache miss, fetching events from API...');
       const response = await fetch('/api/event-bible/events');
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      return data.events || [];
+      const events = data.events || [];
+
+      // Cache the results for future use
+      if (events.length > 0) {
+        cacheService.set(CACHE_KEYS.ALL_EVENTS, events, 5 * 60 * 1000); // 5 minutes TTL
+        console.log(`Cached ${events.length} events for future use`);
+      }
+
+      return events;
     } catch (error: any) {
       console.error('Failed to fetch events via API:', error);
       throw new Error(`Failed to fetch events: ${error.message}`);
@@ -36,10 +53,18 @@ export class ClientAirtableService {
   }
 
   /**
-   * Fetch event by ID via server-side API
+   * Fetch event by ID via server-side API with caching
    */
   async fetchEventById(id: string): Promise<SemanticEvent | null> {
+    // Check cache first
+    const cachedEvent = cacheService.get<SemanticEvent>(CACHE_KEYS.EVENT_BY_ID(id));
+    if (cachedEvent) {
+      console.log(`Using cached event: ${id}`);
+      return cachedEvent;
+    }
+
     try {
+      console.log(`Cache miss, fetching event ${id} from API...`);
       const response = await fetch(`/api/event-bible/events/${id}`);
       if (!response.ok) {
         if (response.status === 404) {
@@ -48,7 +73,15 @@ export class ClientAirtableService {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      return data.event || null;
+      const event = data.event || null;
+
+      // Cache the result for future use
+      if (event) {
+        cacheService.set(CACHE_KEYS.EVENT_BY_ID(id), event, 10 * 60 * 1000); // 10 minutes TTL
+        console.log(`Cached event ${id} for future use`);
+      }
+
+      return event;
     } catch (error: any) {
       console.error('Failed to fetch event by ID via API:', error);
       throw new Error(`Failed to fetch event: ${error.message}`);
@@ -56,10 +89,18 @@ export class ClientAirtableService {
   }
 
   /**
-   * Fetch event by topic slug via server-side API
+   * Fetch event by topic slug via server-side API with caching
    */
   async fetchEventBySlug(slug: string): Promise<SemanticEvent | null> {
+    // Check cache first
+    const cachedEvent = cacheService.get<SemanticEvent>(CACHE_KEYS.EVENT_BY_SLUG(slug));
+    if (cachedEvent) {
+      console.log(`Using cached event by slug: ${slug}`);
+      return cachedEvent;
+    }
+
     try {
+      console.log(`Cache miss, fetching event by slug ${slug} from API...`);
       const response = await fetch(`/api/event-bible/events/slug/${slug}`);
       if (!response.ok) {
         if (response.status === 404) {
@@ -68,7 +109,15 @@ export class ClientAirtableService {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       const data = await response.json();
-      return data.event || null;
+      const event = data.event || null;
+
+      // Cache the result for future use
+      if (event) {
+        cacheService.set(CACHE_KEYS.EVENT_BY_SLUG(slug), event, 10 * 60 * 1000); // 10 minutes TTL
+        console.log(`Cached event by slug ${slug} for future use`);
+      }
+
+      return event;
     } catch (error: any) {
       console.error('Failed to fetch event by slug via API:', error);
       throw new Error(`Failed to fetch event: ${error.message}`);
