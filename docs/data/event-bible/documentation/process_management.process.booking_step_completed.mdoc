@@ -1,0 +1,99 @@
+---
+title: Process Step Completed
+description: This event should be sent when a user successfully completes a step in a multi-step process, such as a checkout or booking flow.
+---
+
+# Process Step Completed
+
+The `Process Step Completed` event is designed to track a user's progress through a defined, multi-step funnel. It should be sent every time a user successfully completes a distinct stage in a process, such as a checkout flow, a sign-up form, or a multi-page booking journey.
+
+This event is fundamental for conducting funnel analysis, identifying user drop-off points, and measuring the time it takes for users to move from one step to the next. In the Travel & Hospitality industry, this event is commonly aliased as **`Booking Step Completed`**.
+
+While it can be sent from the client-side for user-facing flows, sending it from the server-side is recommended for critical steps to ensure data accuracy and completeness.
+
+## Examples
+
+### Simple Example: Booking Step Completed
+
+Here is a simple example of the `Booking Step Completed` event, sent when a user finishes the first step of a hotel booking process. We use `dimensions` to capture the step name and `metrics` for the step number.
+
+```javascript
+jitsu.track('Booking Step Completed', {
+  commerce: {
+    checkout_id: 'chk_e8d1b2c3-f4a5-b6c7-d8e9-f0a1b2c3d4e5'
+  },
+  dimensions: {
+    step_name: 'Room Selection'
+  },
+  metrics: {
+    step_number: 1
+  }
+});
+```
+
+### Advanced Example: Guest Information Submitted with A/B Test
+
+This example shows a more complex `Booking Step Completed` event for the "Guest Information" step. The user is part of an A/B test to see if asking for a loyalty number upfront affects conversion. The event includes a `commerce` object with a `product` representing the reserved room, and the `lead_time` metric indicates how far in advance the booking is being made.
+
+```javascript
+jitsu.track('Booking Step Completed', {
+  commerce: {
+    checkout_id: 'chk_e8d1b2c3-f4a5-b6c7-d8e9-f0a1b2c3d4e5',
+    products: [
+      {
+        entry_type: 'Reservation',
+        product_id: 'ROOM-DBL-KING-JAC',
+        product: 'Deluxe King Room with Jacuzzi',
+        main_category: 'Accommodation',
+        units: 3, // Represents 3 nights
+        unit_price: 250.00,
+        currency: 'USD',
+        starts: '2025-08-15T15:00:00Z',
+        ends: '2025-08-18T11:00:00Z',
+        lead_time: 45 // Booking is 45 days in advance
+      }
+    ]
+  },
+  dimensions: {
+    step_name: 'Guest Information',
+    ab_experiment: 'Loyalty_Number_Upfront_Test',
+    ab_test_variant: 'B-No-Loyalty-Field'
+  },
+  metrics: {
+    step_number: 2
+  }
+});
+```
+
+## Relevant Documentation
+
+*   [**Commerce Object**](/docs/semantic-events/schema/commerce): For understanding how to structure transactional data.
+*   [**Product Structure**](/docs/semantic-events/schema/products): For detailing items within a commerce event.
+*   [**Dimensions & Metrics**](/docs/semantic-events/schema/dimensions-and-metrics): To learn about adding custom analytical data.
+*   [**The Event Bible**](/docs/semantic-events/the-event-bible): Discover other predefined events to accelerate your analytics.
+
+## Primary Event Properties
+
+These are the primary fields to include when sending a `Process Step Completed` event.
+
+| Property | Description | Provided By |
+| :--- | :--- | :--- |
+| `event` | The name of the event, e.g., `Process Step Completed` or `Booking Step Completed`. | **User-Provided** |
+| `commerce.checkout_id` | A unique ID to link all steps within the same checkout or booking session. | **User-Provided** |
+| `dimensions.step_name` | The name of the step that was completed (e.g., 'Payment Information'). | **User-Provided** |
+| `metrics.step_number` | The numerical sequence of the step (e.g., 2 for the second step). | **User-Provided** |
+| `timestamp` | The UTC timestamp indicating when the step was completed. | Auto-Populated |
+| `userId` / `anonymousId`| The identifier for the user performing the action. | Auto-Populated |
+
+
+## Enrichment and Analysis
+
+Sending the `Process Step Completed` event unlocks powerful analytical capabilities without requiring additional setup:
+
+*   **Funnel Analysis**: This event is the cornerstone of funnel analysis. Our systems automatically stitch together the steps for each `checkout_id` to build conversion funnels, allowing you to visualize how many users successfully move from one stage to the next.
+
+*   **Drop-off Identification**: By analyzing where users stop sending `Process Step Completed` events, you can precisely identify which parts of your process are causing friction or abandonment.
+
+*   **A/B Testing Performance**: Including A/B test information in `dimensions` allows you to directly compare the conversion rates of different process variations within our analytics dashboards.
+
+*   **Performance Metrics**: Using `metrics` to track `lead_time` or the duration between steps enables you to analyze user behavior, such as how far in advance users book or how long they spend on each step of the process.

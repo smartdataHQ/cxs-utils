@@ -226,13 +226,7 @@ export class EventBiblePrimingService {
   /**
    * Get current cache status
    */
-  getCacheStatus(): {
-    hasAllEvents: boolean;
-    hasFilterOptions: boolean;
-    isPriming: boolean;
-    lastPrimingTimestamp: Date | null;
-    cacheStats: { size: number; maxSize: number };
-  } {
+  getCacheStatus() {
     return {
       hasAllEvents: cacheService.has(CACHE_KEYS.ALL_EVENTS),
       hasFilterOptions: cacheService.has(CACHE_KEYS.FILTER_OPTIONS),
@@ -263,22 +257,7 @@ export class EventBiblePrimingService {
     return this.primeCache(true);
   }
 
-  /**
-   * Get cache status information
-   */
-  getCacheStatus(): {
-    hasAllEvents: boolean;
-    hasFilterOptions: boolean;
-    cacheStats: { size: number; maxSize: number; hitRate?: number };
-    lastPriming: PrimingResult | null;
-  } {
-    return {
-      hasAllEvents: cacheService.has(CACHE_KEYS.ALL_EVENTS),
-      hasFilterOptions: cacheService.has(CACHE_KEYS.FILTER_OPTIONS),
-      cacheStats: cacheService.getStats(),
-      lastPriming: this.lastPrimingResult,
-    };
-  }
+
 }
 
 // Export singleton instance
